@@ -1,4 +1,4 @@
-/*  login   */
+/*  login & register  */
 body {
     padding-top: 4.2rem;
     padding-bottom: 4.2rem;
@@ -80,6 +80,7 @@ form .error {
     color: #ff0000;
 }
 
-#second {
-    display: none;
+textarea
+{
+    overflow-y:scroll;
 }
