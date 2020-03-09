@@ -6,6 +6,16 @@
 <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap-4.4.1/css/bootstrap.min.css}" />
 <link rel="stylesheet" type="js" th:href="@{/css/bootstrap-4.4.1/js/bootstrap.min.js}" />
 <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/font-awesome-4.7.0/css/font-awesome.min.css}" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#multi-select').multiselect();
+	});
+</script>
 </head>
 <body>
   <div class="container">
@@ -20,7 +30,7 @@
             Câu hỏi<span class="text-danger ml-2">*</span>
           </div>
           <div class="question-content form-group">
-            <input class="form-control" type="text" th:field="*{question}" required="required" placeholder="Điền nội dung câu hỏi...">
+            <input class="form-control" type="text" required="required" placeholder="Điền nội dung câu hỏi...">
           </div>
         </div>
         <div class="form-group">
@@ -30,19 +40,43 @@
 
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text" id="basic-addon1">Đáp án số </span>
+              <span class="input-group-text" id="basic-addon1">Đáp án A</span>
             </div>
-            <input type="text" class="form-control" placeholder="Câu trả lời...">
+            <input type="text" class="form-control" required="required" placeholder="Câu trả lời...">
           </div>
-
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">Đáp án B</span>
+            </div>
+            <input type="text" class="form-control" required="required" placeholder="Câu trả lời...">
+          </div>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">Đáp án C</span>
+            </div>
+            <input type="text" class="form-control" required="required" placeholder="Câu trả lời...">
+          </div>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">Đáp án D</span>
+            </div>
+            <input type="text" class="form-control" required="required" placeholder="Câu trả lời...">
+          </div>
         </div>
-        <div class="form-group" th:object>
-          <label for="exampleFormControlSelect2">Chọn đáp án<span class="text-danger ml-2">*</span></label> <select multiple class="form-control">
-            <option th:each="checkbox : question.checkboxLst" th:value="${{checkbox}}" th:text="${checkbox}"></option>
-            <option th:each="city : ${cities}" th:value="${city.id}" 
-       th:text="${city.name}" >
-      </option>
-          </select>
+        <!-- http://forum.thymeleaf.org/th-selected-not-working-on-multiple-select-td4025883.html#a4025884  -->
+        <div class="form-group">
+          <label class="font-weight-bold"> Chọn đáp án<span class="text-danger ml-2">*</span>
+          </label>
+          <div>
+            <select id="multi-select" class="form-control col-3 selectpicker" multiple title="---- Lựa chọn đáp án ----">
+              <option th:each="trueanswer : ${allTrueAnswers}" th:selected="false" th:value="${trueanswer}" th:text="${trueanswer}"></option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <button>
+            <i class="fa fa-plus" aria-hidden="true"></i>
+          </button>
         </div>
         <div class="form-group">
           <input type="submit" class="btn btn-primary" value="Tạo mới">

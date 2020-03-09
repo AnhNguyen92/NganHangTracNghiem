@@ -10,7 +10,7 @@ public class MultipleChoiceQuestion {
     // list answer of question
     private List<String> answer;
     // list checkbox to know which one answer is corect.
-    private List<String> checkboxLst;
+    private List<String> trueAnswers;
     
 	public String getQuestion() {
 		return question;
@@ -28,18 +28,18 @@ public class MultipleChoiceQuestion {
 		this.answer = answer;
 	}
 
-    public List<String> getCheckbox() {
-        return checkboxLst;
+    public List<String> getTrueAnswers() {
+        return trueAnswers;
     }
 
-    public void setCheckbox(List<String> checkboxLst) {
-        this.checkboxLst = checkboxLst;
+    public void setTrueAnswers(List<String> trueAnswers) {
+        this.trueAnswers = trueAnswers;
     }
 
     public MultipleChoiceQuestion() {
         this.question = "";
         this.answer  = new ArrayList<String>();
-        this.checkboxLst = Arrays.asList("A", "B", "C", "D");
+        this.trueAnswers = Arrays.asList("A", "B", "C", "D");
     }
     
 }

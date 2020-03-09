@@ -15,8 +15,9 @@ public class MultipleChoiceQuestionController {
 
     @GetMapping("/")
     public String createQuestion(Model model) {
-    	model.addAttribute("question", new MultipleChoiceQuestion());
-    	
+        MultipleChoiceQuestion question =  new MultipleChoiceQuestion();
+    	model.addAttribute("question", question);
+    	model.addAttribute("allTrueAnswers", question.getTrueAnswers());
         return "create-question";
     }
 
