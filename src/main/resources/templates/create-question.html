@@ -2,81 +2,53 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8" />
-<title>CHÍNH SÁCH VÀ ĐIỀU KHOẢN</title>
+<title>TẠO CÂU HỎI MỚI</title>
 <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap-4.4.1/css/bootstrap.min.css}" />
 <link rel="stylesheet" type="js" th:href="@{/css/bootstrap-4.4.1/js/bootstrap.min.js}" />
 <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
 </head>
 <body>
-    <div class="container">
-        <div class="page-title text-capitalize">Tạo Câu Hỏi Trắc Nghiệm</div>
-        <div class="content">
-            <div class="error-message text-danger"  th:if="${error}">
-                <h2 th:text="${error}"></h2>
-            </div>
-            <form action="#" th:action="@{/question}" th:object="${command}" method="post">
-                <div class="form-group">
-                    <div class="form-group font-weight-bold">
-                        Câu hỏi<span class="text-danger ml-2">*</span>
-                    </div>
-                    <div class="question-content form-group">
-                        <input class="form-control" type="text" th:field="*{question}" required="required" placeholder="Điền nội dung câu hỏi...">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="form-group font-weight-bold">
-                        Đáp án<span class="text-danger ml-2">*</span>
-                    </div>
-                    <div class="d-flex flex-row">
-                        <div class="p-2">Đáp án đúng</div>
-                        <div class="p-2">Câu trả lời</div>
-                    </div>
-                    <div class="d-flex flex-row">
-                        <div class="input-group mb-3">
-                            <div style="width: 116px;">
-                                <div class="input-group-text" style="margin: 0 2rem; display: inline-block;">
-                                    <input type="checkbox" aria-label="Checkbox for following text input">
-                                </div>
-                            </div>
-                            <textarea class="form-control" th:field="*{answer1}" aria-label="Text input with checkbox"></textarea>
-                        </div>
-                    </div>
-                    <div class="form-group d-flex flex-row">
-                        <div class="input-group mb-3">
-                            <div style="width: 116px;">
-                                <div class="input-group-text" style="margin: 0 2rem; display: inline-block;">
-                                    <input type="checkbox" aria-label="Checkbox for following text input">
-                                </div>
-                            </div>
-                            <textarea class="form-control" th:field="*{answer2}" aria-label="Text input with checkbox"></textarea>
-                        </div>
-                    </div>
-                    <div class="form-group d-flex flex-row">
-                        <div class="input-group mb-3">
-                            <div style="width: 116px;">
-                                <div class="input-group-text" style="margin: 0 2rem; display: inline-block;">
-                                    <input type="checkbox" aria-label="Checkbox for following text input">
-                                </div>
-                            </div>
-                            <textarea class="form-control" th:field="*{answer3}" aria-label="Text input with checkbox"></textarea>
-                        </div>
-                    </div>
-                    <div class="form-group d-flex flex-row">
-                        <div class="input-group mb-3">
-                            <div style="width: 116px;">
-                                <div class="input-group-text" style="margin: 0 2rem; display: inline-block;">
-                                    <input type="checkbox" aria-label="Checkbox for following text input">
-                                </div>
-                            </div>
-                            <textarea class="form-control" th:field="*{answer4}" aria-label="Text input with checkbox"></textarea>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                <input type="submit" class="btn btn-primary" value="Tạo mới">
-                </div>
-            </form>
+  <div class="container">
+    <div class="page-title text-capitalize">Tạo Câu Hỏi Trắc Nghiệm</div>
+    <div class="content">
+      <div class="text-danger" th:if="${error}">
+        <h2 th:text="${error}"></h2>
+      </div>
+      <form action="#" th:action="@{/}" th:object="${question}" method="post">
+        <div class="form-group">
+          <div class="form-group font-weight-bold">
+            Câu hỏi<span class="text-danger ml-2">*</span>
+          </div>
+          <div class="question-content form-group">
+            <input class="form-control" type="text" th:field="*{question}" required="required" placeholder="Điền nội dung câu hỏi...">
+          </div>
         </div>
+        <div class="form-group">
+          <div class="form-group font-weight-bold">
+            Đáp án<span class="text-danger ml-2">*</span>
+          </div>
+
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">Đáp án số </span>
+            </div>
+            <input type="text" class="form-control" placeholder="Câu trả lời...">
+          </div>
+
+        </div>
+        <div class="form-group" th:object>
+          <label for="exampleFormControlSelect2">Chọn đáp án<span class="text-danger ml-2">*</span></label> <select multiple class="form-control">
+            <option th:each="checkbox : question.checkboxLst" th:value="${{checkbox}}" th:text="${checkbox}"></option>
+            <option th:each="city : ${cities}" th:value="${city.id}" 
+       th:text="${city.name}" >
+      </option>
+          </select>
+        </div>
+        <div class="form-group">
+          <input type="submit" class="btn btn-primary" value="Tạo mới">
+        </div>
+      </form>
     </div>
+  </div>
 </body>
 </html>
