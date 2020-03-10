@@ -13,7 +13,7 @@ import vn.com.ids.multiplechoice.web.model.MultipleChoiceQuestion;
 @RequestMapping(value = "/question")
 public class MultipleChoiceQuestionController {
 
-    @GetMapping("/")
+    @GetMapping
     public String createQuestion(Model model) {
         MultipleChoiceQuestion question =  new MultipleChoiceQuestion();
     	model.addAttribute("question", question);
