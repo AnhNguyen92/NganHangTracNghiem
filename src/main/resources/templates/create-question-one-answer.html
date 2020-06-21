@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Tao cau hoi nhieu lua chon</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="main.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<style>
+legend.scheduler-border {
+  width: inherit; /* Or auto */
+  padding: 0 10px; /* To give a bit of padding on the left and right */
+  border-bottom: none;
+}
+</style>
+</head>
+
+<body style="background-color: #f3f3f3;">
+  <!-- header -->
+  <div class="header">
+    <div class="d-flex" style="position: relative;">
+      <div class="logo"></div>
+      <div class="page-header font-weight-bold text-capitalize">
+        Ngan hang cau hoi trac nghiem online<a href="/user/all"></a>
+      </div>
+      <div class="ml-auto">
+        <ul class="nav nav-pills">
+          <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+            aria-expanded="false">Welcome Tuan Anh</a>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="/logout">Đăng xuất</a>
+            </div></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Trang chủ</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item"><a class="nav-link" href="#">Tạo câu hỏi</a></li>
+        <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false"> Đề thi </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="#">Đề thi của tôi</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">Tạo mới</a>
+          </div></li>
+        <li class="nav-item"><a class="nav-link" href="#">Liên hệ</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Hướng dẫn sử dụng</a></li>
+        </ul>
+    </div>
+  </nav>
+  <div class="container" style="background-color: #ffffff;">
+    <div class="create-options">
+      <div>
+        <label>Loại câu hỏi</label> <select id="mcq-type">
+          <option value="1-answer">Một đáp án</option>
+          <option value="mul-answer" selected>Nhiều đáp án</option>
+          <option value="vw">Đúng sai</option>
+          <option value="audi">Điền khuyêt</option>
+          <option value="audi">Ghép cặp</option>
+        </select>
+      </div>
+      <div>
+        <label>Loại kiến thức</label> <select id="mcq-type">
+          <option value="1-answer">Tổng hợp</option>
+          <option value="mul-answer">Toán</option>
+          <option value="vw">Văn</option>
+          <option value="audi">Sinh học</option>
+          <option value="audi">Hoá học</option>
+        </select>
+      </div>
+      <div>
+        <fieldset class="border p-2">
+          <legend class="w-auto">Dạng câu hỏi</legend>
+          <input type="radio" name="format" id="txt" value="txt" checked> <label for="txt">Dạng đơn</label> <input type="radio" name="format" id="csv"
+            value="csv"> <label for="csv">Dạng chùm</label>
+
+        </fieldset>
+      </div>
+    </div>
+    <div class="mcq">
+      <div class="extention d-flex flex-row">
+        <div>Noi dung cau hoi</div>
+        <div>
+          <div>
+            <input type="file" accept="image/*" name="image" id="file" onchange="loadFile(event)" style="display: none;">
+          </div>
+          <p class="pl-2 pf-info-select-img">
+            <label for="file" style="cursor: pointer; margin: 0 auto;"><i class="fa fa-paperclip" aria-hidden="true"></i></label>
+          </p>
+        </div>
+        <div class="ml-auto p-2">
+          <i class="fa fa-align-right" aria-hidden="true"></i> <i class="fa fa-align-center" aria-hidden="true"></i> <i class="fa fa-align-left"
+            aria-hidden="true"></i> <i class="fa fa-align-justify" aria-hidden="true"></i> <i class="fa fa-bold" aria-hidden="true"></i> <i class="fa fa-italic"
+            aria-hidden="true"></i> <i class="fa fa-underline" aria-hidden="true"></i>
+        </div>
+      </div>
+      <div class="mcp-content">
+        <textarea style="width: 1100px; min-height: 120px;"></textarea>
+      </div>
+      <div class="answer">
+        <div class="answer-title d-flex">
+          <div class="text-danger p-1">So dap an</div>
+          <div class="text-center p-1">
+            <label style="width: 3em; border: 1px solid black;">4</label>
+          </div>
+          <div class="ml-auto p-2">
+            <i class="fa fa-plus" aria-hidden="true" style="font-size: 30px; color: greenyellow"></i>
+          </div>
+        </div>
+        <div class="answer-content">
+          <div class="anwer-item d-flex flex-row mb-2">
+            <div class="ml-2">
+              <input type="checkbox">
+            </div>
+            <div class="ml-4">
+              <label>Dap an A</label>
+            </div>
+            <div class="ml-4">
+              <input type="text" style="width: 700px;">
+            </div>
+            <div class="ml-4">
+              <i class="fa fa-exchange" aria-hidden="true" style="font-size: 30px; color: #00bfff;"></i>
+            </div>
+            <div class="ml-4">
+              <i class="fa fa-window-close" aria-hidden="true" style="font-size: 30px; color: #ff0000"></i>
+            </div>
+          </div>
+        </div>
+        <div class="answer-content">
+          <div class="anwer-item d-flex flex-row mb-2">
+            <div class="ml-2">
+              <input type="checkbox">
+            </div>
+            <div class="ml-4">
+              <label>Dap an B</label>
+            </div>
+            <div class="ml-4">
+              <input type="text" style="width: 700px;">
+            </div>
+            <div class="ml-4">
+              <i class="fa fa-exchange" aria-hidden="true" style="font-size: 30px; color: #00bfff;"></i>
+            </div>
+            <div class="ml-4">
+              <i class="fa fa-window-close" aria-hidden="true" style="font-size: 30px; color: #ff0000"></i>
+            </div>
+          </div>
+        </div>
+        <div class="answer-content">
+          <div class="anwer-item d-flex flex-row mb-2">
+            <div class="ml-2">
+              <input type="checkbox">
+            </div>
+            <div class="ml-4">
+              <label>Dap an C</label>
+            </div>
+            <div class="ml-4">
+              <input type="text" style="width: 700px;">
+            </div>
+            <div class="ml-4">
+              <i class="fa fa-exchange" aria-hidden="true" style="font-size: 30px; color: #00bfff;"></i>
+            </div>
+            <div class="ml-4">
+              <i class="fa fa-window-close" aria-hidden="true" style="font-size: 30px; color: #ff0000"></i>
+            </div>
+          </div>
+        </div>
+        <div class="answer-content">
+          <div class="anwer-item d-flex flex-row mb-2">
+            <div class="ml-2">
+              <input type="checkbox">
+            </div>
+            <div class="ml-4">
+              <label>Dap an D</label>
+            </div>
+            <div class="ml-4">
+              <input type="text" style="width: 700px;">
+            </div>
+            <div class="ml-4">
+              <i class="fa fa-exchange" aria-hidden="true" style="font-size: 30px; color: #00bfff;"></i>
+            </div>
+            <div class="ml-4">
+              <i class="fa fa-window-close" aria-hidden="true" style="font-size: 30px; color: #ff0000"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mt-3 d-flex justify-content-center pb-3">
+        <div class="mx-2">
+          <input type="button" class="btn btn-success" value="Hoàn thành">
+        </div>
+        <div class="mx-2">
+          <input type="button" class="btn btn-primary" value="Làm lại">
+        </div>
+        <div class="mx-2">
+          <input type="button" class="btn btn-danger" value="Huỷ bỏ">
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
