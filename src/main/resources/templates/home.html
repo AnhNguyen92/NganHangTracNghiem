@@ -31,11 +31,11 @@
         Ngân hàng câu hỏi trắc nghiệm online<a href="home.html"></a>
       </div>
       <div class="ml-auto m-3">
-        <input type="button" class="btn btn-primary" id="btnLogin" value="Đăng Nhập" >
-        <input type="button" class="btn btn-primary" id="btnSignUp" value="Đăng Ký" >
-        </div>
+        <input type="button" class="btn btn-primary" id="btnLogin" value="Đăng Nhập">
+        <input type="button" class="btn btn-primary" id="btnSignUp" value="Đăng Ký">
       </div>
     </div>
+  </div>
   </div>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="#">Trang chủ</a>
@@ -63,47 +63,53 @@
   </nav>
   <div class="container mt-3">
     <div class="search extention d-flex flex-row">
-        <div class="col align-self-center">Tìm kiếm bài kiểm tra theo:</div>
-        <div class="col">
-            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" style="width: 140px;">
-                <option selected>Tất cả</option>
-                <option value="1">Tổng hợp</option>
-                <option value="2">Toán</option>
-                <option value="3">Văn</option>
-                <option value="4">Sinh học</option>
-                <option value="5">Hoá học</option>
-              </select>
-        </div>
-        <div class="col">
-            <input type="text" placeholder="Theo tên tác giả">
-        </div>
-        <div class="col">
-            <input type="button" value="Search">
-        </div>
+      <div class="col align-self-center">Tìm kiếm bài kiểm tra theo:</div>
+      <div class="col">
+        <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" style="width: 140px;">
+          <option selected>Tất cả</option>
+          <option value="1">Tổng hợp</option>
+          <option value="2">Toán</option>
+          <option value="3">Văn</option>
+          <option value="4">Sinh học</option>
+          <option value="5">Hoá học</option>
+        </select>
+      </div>
+      <div class="col">
+        <input type="text" placeholder="Theo tên tác giả">
+      </div>
+      <div class="col">
+        <input type="button" value="Search">
+      </div>
     </div>
     <hr>
     <div class="test-list">
-        <div class="row">
+      <div class="row">
         <div class="author-icon">
-            <i class="fa fa-user-secret" aria-hidden="true"></i>
+          <i class="fa fa-user-secret" aria-hidden="true"></i>
         </div>
         <div class="test-info"></div>
         <div class="test-time">30 phút</div>
         <div class="test-qtt-question">10 Câu hỏi</div>
         <div>
-            <button type="button" class="text-capitalize">Bắt đầu</button>
+          <button type="button" class="text-capitalize">Bắt đầu</button>
         </div>
-    </div>
-    <hr>
+      </div>
+      <hr>
     </div>
   </div>
+  <footer class="page-footer font-small blue" style="background-color: black;color: aliceblue;">
+    <div class="footer-copyright text-center py-3">© 2020 Copyright:
+      <a href="home.html"> Nganhangtracnghiemonline.com</a>&nbsp;-&nbsp;Nguyen Tuan Anh, MSSV: 1733403
+    </div>
+  </footer>
 </body>
 <script type="text/javascript">
-    document.getElementById("btnLogin").onclick = function () {
-        location.href = "login.html";
-    };
-    document.getElementById("btnSignUp").onclick = function () {
-        location.href = "sign-up.html";
-    };
+  document.getElementById("btnLogin").onclick = function () {
+    location.href = "login.html";
+  };
+  document.getElementById("btnSignUp").onclick = function () {
+    location.href = "sign-up.html";
+  };
 </script>
+
 </html>
