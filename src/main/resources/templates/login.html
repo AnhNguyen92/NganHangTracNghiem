@@ -3,20 +3,27 @@
 <head>
 <meta charset="UTF-8" />
 <title>ĐĂNG NHẬP</title>
+<!-- 
 <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap-4.4.1/css/bootstrap.min.css}" />
 <link rel="stylesheet" type="js" th:href="@{/css/bootstrap-4.4.1/js/bootstrap.min.js}" />
 <link rel="stylesheet" type="text/css" th:href="@{/font-awesome-4.7.0/css/font-awesome.min.css}">
 <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+ -->
+ <link rel="stylesheet" type="text/css" href="../static/css/bootstrap-4.4.1/css/bootstrap.min.css" />
+ <link rel="stylesheet" type="js" href="../static/css/bootstrap-4.4.1/js/bootstrap.min.js" />
+ <link rel="stylesheet" type="text/css" href="../static/font-awesome-4.7.0/css/font-awesome.min.css">
+ <link rel="stylesheet" type="text/css" href="../static/css/style.css" />
 </head>
-<body>
+<body style="padding-top: 4.2rem;padding-bottom: 4.2rem;">
     <div class="container">
         <div class="row">
             <div class="col-md-5 mx-auto">
                 <div class="myform form ">
-                    <div class="logo mb-3">
+                    <div class="logo">
                         <div class="col-md-12 text-center text-uppercase">
                             <h1>ĐĂNG NHẬP</h1>
                         </div>
+                        <hr>
                     </div>
                     <form action="" method="post" name="login">
                         <div class="form-group">
@@ -30,7 +37,7 @@
                         <div class="col-md-12 text-center ">
                             <button type="submit" class=" btn btn-block mybtn btn-primary tx-tfm">Đăng nhập</button>
                         </div>
-                        <!-- <div class="col-md-12 ">
+                        <div class="col-md-12 ">
                             <div class="login-or">
                                 <hr class="hr-or">
                                 <span class="span-or">hoặc</span>
@@ -41,10 +48,11 @@
                                 <a href="javascript:void();" class="facebook btn mybtn"><i class="fa fa-facebook-square fa-1x" aria-hidden="true"></i> Đăng
                                     nhập với Facebook</a>
                             </p>
-                        </div> -->
+                        </div>
                         <div class="form-group">
                             <p class="text-center">
-                                Chưa có tài khoản? <a th:href="@{/signup}" id="signup">Đăng ký</a>
+                                <!-- Chưa có tài khoản? <a th:href="@{/signup}" id="signup">Đăng ký</a> -->
+                                Chưa có tài khoản? <a href="sign-up.html" id="signup">Đăng ký</a>
                             </p>
                         </div>
                     </form>

@@ -1,8 +1,4 @@
 /*  login & register  */
-body {
-  padding-top: 4.2rem;
-  padding-bottom: 4.2rem;
-}
 
 a {
   text-decoration: none !important;
@@ -106,8 +102,8 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 
-.logo {
-  background: url('imgs/logo-6.png');
+.hd-logo {
+  background: url('../../static/imgs/header-logo.png');
   width: 308px;
   height: 144px;
   background-size: cover;
@@ -119,4 +115,26 @@ input[type=number] {
   position: absolute;
   font-size: xx-large;
 }
+.bottom-text {
+  bottom: 0;
+  position: absolute;
+  right: 0;
+}
 
+legend.scheduler-border {
+  width: inherit;
+  /* Or auto */
+  padding: 0 10px;
+  /* To give a bit of padding on the left and right */
+  border-bottom: none;
+}
+
+.page-title {
+  font-weight: 600;
+  padding: 20px;
+  border-bottom: 1px solid gainsboro;
+  margin-bottom: 30px;
+  text-align: center;
+  text-transform:uppercase;
+  font-size: 1.5rem;
+}
