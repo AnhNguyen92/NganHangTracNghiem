@@ -1,4 +1,24 @@
-/*  login & register  */
+/************************* COMMON *************************/
+/* HEADER */
+.hd-logo {
+  background: url('../../static/imgs/header-logo.png');
+  width: 308px;
+  height: 144px;
+  background-size: cover;
+}
+
+.page-header {
+  bottom: 0;
+  left: 325px;
+  position: absolute;
+  font-size: xx-large;
+}
+
+.bottom-text {
+  bottom: 0;
+  position: absolute;
+  right: 0;
+}
 
 a {
   text-decoration: none !important;
@@ -8,6 +28,7 @@ h1, h2, h3 {
   font-family: 'Kaushan Script', cursive;
 }
 
+/************************* LOGIN & SIGNUP PAGE *************************/
 .myform {
   position: relative;
   display: -ms-flexbox;
@@ -81,16 +102,11 @@ textarea
     overflow-y:scroll;
 }
 
-/* bo/user */
-/* .logo {
-    background-image: url('../imgs/logo-1.jpg');
-} */
-
 textarea {
   overflow-y: scroll;
 }
 
-/* *************** create multiple choice question ***************  */
+/************************* CREATE MULTIPLE CHOICE QUESTION *************************/
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
   -webkit-appearance: none;
@@ -100,25 +116,6 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 /* Firefox */
 input[type=number] {
   -moz-appearance: textfield;
-}
-
-.hd-logo {
-  background: url('../../static/imgs/header-logo.png');
-  width: 308px;
-  height: 144px;
-  background-size: cover;
-}
-
-.page-header {
-  bottom: 0;
-  left: 325px;
-  position: absolute;
-  font-size: xx-large;
-}
-.bottom-text {
-  bottom: 0;
-  position: absolute;
-  right: 0;
 }
 
 legend.scheduler-border {
@@ -137,4 +134,31 @@ legend.scheduler-border {
   text-align: center;
   text-transform:uppercase;
   font-size: 1.5rem;
+}
+
+/************************* HOME PAGE *************************/
+.test-icon {
+  height: 30px;
+  width: 30px;
+  border-radius: 50px;
+  background: #86f0bd;
+  -webkit-border-radius: 50px;
+  -moz-border-radius: 50px;
+  font-family: calibri,calibriregular;
+  font-size: 18px;
+  font-weight: bold;
+  color: #444;
+  text-align: center;
+  line-height: 28px;
+  margin: 6px 5px 0 0;
+  float: left;
+}
+
+.vertical-line {
+  border-left: 1px solid #56a056;
+  /* height: 5px; */
+}
+
+.test-item {
+  border-bottom: 1px;
 }
