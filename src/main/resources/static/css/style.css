@@ -28,6 +28,11 @@ h1, h2, h3 {
   font-family: 'Kaushan Script', cursive;
 }
 
+/* FOOTER */
+.footer-copyright {
+  border-top: 1px solid #cecece;
+}
+
 /************************* LOGIN & SIGNUP PAGE *************************/
 .myform {
   position: relative;
@@ -161,4 +166,222 @@ legend.scheduler-border {
 
 .test-item {
   border-bottom: 1px;
+}
+
+/************************* PROFILE PAGE *************************/
+.pf {
+  padding-bottom: 10px;
+  background: #f1f1f1;
+}
+
+.pf-main {
+  /* width: 100%; */
+  display: flex;
+  /* margin: 0px auto; */
+}
+
+.pf-navi {
+  width: 20%;
+  background: #f1f1f1;
+  padding: 25px 10px;
+}
+
+.pf-navi-img {
+  height: 60px;
+  border-bottom: 1px solid #d0cccc;
+}
+
+.pf-navi-avatar-thumb {
+  display: flex;
+  border-bottom: 1px solid gainsboro;
+  height: 60px;
+}
+
+  .pf-navi-avatar-thumb img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  }
+
+.pf-navi-user {
+  text-overflow: ellipsis;
+  margin: 0 auto;
+  align-items: center;
+  display: flex;
+}
+
+.pf-navi-username {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  display: inline-block;
+  width: 134px;
+  overflow: hidden;
+  font-weight: 600;
+}
+
+.pf-link {
+  margin-top: 25px;
+}
+
+.pf-link-detail {
+  margin: 15px 0px;
+}
+
+.pf-link-title {
+  padding: 7px;
+}
+
+.pf-link-detail a {
+  padding-left: 30px;
+}
+
+#my-profile {
+  padding: 7px;
+}
+
+.pf-link-detail a:active {
+  color: #f39f21;
+}
+
+.pf-info {
+  width: 80%;
+  padding: 25px;
+  background: white;
+  margin: 20px 0;
+}
+
+.pf-info-navi-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 1.5rem;
+  color: #333;
+  text-transform: capitalize;
+}
+
+.pf-info-navi-note {
+  font-size: .875rem;
+  line-height: 1.0625rem;
+  color: #555;
+  margin-top: 3px;
+}
+
+.pf-info-content {
+  padding-top: 30px;
+}
+
+.pf-info-detail {
+  margin-bottom: 10px;
+}
+
+.pf-info-detail label {
+  display: inline-block;
+  width: 120px;
+  text-align: right;
+  text-transform: capitalize;
+  color: rgba(85,85,85,.8);
+  margin: 10px;
+  height: 30px;
+}
+
+.pf-info-detail input {
+  display: inline-block;
+  width: 400px;
+  text-align: left;
+  padding: 10px;
+  height: 40px;
+  font-size: .875rem;
+}
+
+.pf-info-content {
+  width: 70%;
+  border-right: 1px solid gainsboro;
+}
+
+.pf-info-image {
+  width: 30%;
+  padding: 0 27px;
+}
+
+.pf-info-check input {
+  width: auto;
+  height: auto;
+  margin: 0 8px;
+}
+
+#output {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+}
+
+.pf-info-select-img {
+  text-align: center;
+  width: 100px;
+  margin: 0 auto;
+  height: 50px;
+  border: 1px solid gainsboro;
+  display: flex;
+  align-items: center;
+}
+
+.pf-info-date-of-birth select {
+  width: 105px;
+  display: inline-block;
+  text-align: center;
+  padding: 10px;
+  height: 42px;
+  font-size: .875rem;
+  margin-right: 5px;
+}
+
+.btn-pf-save {
+  /* color: white; */
+  width: 100px;
+  height: 40px;
+  margin: 9px 0px 0px 143px;
+  font-size: medium;
+}
+
+.product-choose-img {
+  cursor: pointer;
+  margin: 0 auto;
+  border: 1px solid rgba(85,85,85,.8);
+  width: 100px;
+  height: 30px;
+  text-align: center;
+  line-height: 30px;
+  border-radius: 5px;
+}
+
+.pf-info-main {
+  display: flex;
+  padding-top: 30px;
+}
+
+/************************* PROFILE CHANGE PASSWORD PAGE *************************/
+.pf-info-detail-pass label {
+  display: inline-block;
+  width: 150px;
+  text-align: right;
+  text-transform: capitalize;
+  color: rgba(85,85,85,.8);
+  margin: 10px;
+  height: 30px;
+}
+
+.pf-info-detail-pass input {
+  display: inline-block;
+  width: 334px;
+  text-align: left;
+  padding: 10px;
+  height: 40px;
+  font-size: .875rem;
+}
+
+.btn-pf-save-pass {
+  color: white;
+  background-color: orange;
+  width: 100px;
+  height: 40px;
+  margin: 9px 0px 0px 170px;
 }
