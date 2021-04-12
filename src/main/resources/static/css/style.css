@@ -4,9 +4,9 @@ html, body {
   margin: 0;
 }
 
-.content {
+/* .content {
   min-height: calc(100vh - 282px);
-}
+} */
 
 .footer {
   height: 282px;
