@@ -1,4 +1,17 @@
 /************************* COMMON *************************/
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+.content {
+  min-height: calc(100vh - 282px);
+}
+
+.footer {
+  height: 282px;
+}
+
 /* HEADER */
 .hd-logo {
   background: url('../../static/imgs/header-logo.png');
@@ -31,6 +44,13 @@ h1, h2, h3 {
 /* FOOTER */
 .page-footer, .footer-copyright {
   border-top: 1px solid #cecece;
+}
+
+.footer_contents {
+  height:282px;
+  width: 100%;
+  position: fixed;
+  bottom: 0pt;
 }
 
 /************************* LOGIN & SIGNUP PAGE *************************/

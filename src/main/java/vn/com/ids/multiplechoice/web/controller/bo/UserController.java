@@ -47,9 +47,9 @@ public class UserController {
             User user = new User();
             user.setId(i + 1l);
             user.setEmail("user" + (i + 1) + "@gmail.com");
-            user.setPhone("0123456789");
+            user.setPhoneNumber("0123456789");
             user.setRole(randomUserRole());
-            user.setUsername("user" + (i + 1));
+            user.setFirstname("user" + (i + 1));
             user.setPassword("123456");
             user.setActive(true);
 
@@ -65,9 +65,9 @@ public class UserController {
             User user = new User();
             user.setId(i + 21l);
             user.setEmail("user" + (i + 21) + "@gmail.com");
-            user.setPhone("0123456789");
+            user.setPhoneNumber("0123456789");
             user.setRole(randomUserRole());
-            user.setUsername("user" + (i + 21));
+            user.setFirstname("user" + (i + 21));
             user.setPassword("123456");
             user.setActive(false);
 
