@@ -401,3 +401,14 @@ legend.scheduler-border {
   height: 40px;
   margin: 9px 0px 0px 170px;
 }
+
+/* custom name browse file */
+.custom-file-input ~ .custom-file-label::after {
+  content: "Tải file";
+}
+
+.end-exam-footer {
+  text-align: left; /* For Edge */
+  -moz-text-align-last: center; /* For Firefox prior 58.0 */
+  text-align-last: center;
+}

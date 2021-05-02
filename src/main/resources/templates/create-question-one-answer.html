@@ -24,212 +24,226 @@
 
 <body>
   <div class="content">
-  <!-- header -->
-  <div class="header">
-    <div class="d-flex" style="position: relative;background-color: #EEF7F2;">
-      <div class="hd-logo"></div>
-      <div class="page-header font-weight-bold text-capitalize">
-        Ngân hàng câu hỏi trắc nghiệm online<a href="home.html"></a>
+    <!-- header -->
+    <div class="header">
+      <div class="d-flex" style="position: relative;background-color: #EEF7F2;">
+        <div class="hd-logo"></div>
+        <div class="page-header font-weight-bold text-capitalize">
+          Ngân hàng câu hỏi trắc nghiệm online<a href="home.html"></a>
+        </div>
+        <div class="ml-auto bottom-text">
+          <ul class="nav nav-pills">
+            <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
+                role="button" aria-haspopup="true" aria-expanded="false">Chào Tuan Anh</a>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="/profile">Profile</a>
+                <a class="dropdown-item" href="/test">Đề thi</a>
+                <a class="dropdown-item" href="/logout">Đăng xuất</a>
+              </div>
+            </li>
+          </ul>
+        </div>
       </div>
-      <div class="ml-auto bottom-text">
-        <ul class="nav nav-pills">
-          <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
-              role="button" aria-haspopup="true" aria-expanded="false">Chào Tuan Anh</a>
-            <div class="dropdown-menu">
-              <a class="dropdown-item" href="/profile">Profile</a>
-              <a class="dropdown-item" href="/test">Đề thi</a>
-              <a class="dropdown-item" href="/logout">Đăng xuất</a>
+    </div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">Trang chủ</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item"><a class="nav-link" href="#">Tạo câu hỏi</a></li>
+          <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Đề thi </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="#">Đề thi của tôi</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">Tạo mới</a>
             </div>
           </li>
+          <li class="nav-item"><a class="nav-link" href="#">Chính sách</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Liên hệ</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Hướng dẫn sử dụng</a></li>
         </ul>
       </div>
-    </div>
-  </div>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Trang chủ</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item"><a class="nav-link" href="#">Tạo câu hỏi</a></li>
-        <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Đề thi </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#">Đề thi của tôi</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Tạo mới</a>
-          </div>
-        </li>
-        <li class="nav-item"><a class="nav-link" href="#">Chính sách</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Liên hệ</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Hướng dẫn sử dụng</a></li>
-      </ul>
-    </div>
-  </nav>
-  <div class="container mt-3">
-    <div class="page-title">TẠO CÂU HỎI MỚI</div>
-    <div class="create-options">
-      <div class="mb-2">
-        <label style="width: 105px;">Loại câu hỏi</label>
-        <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" style="width: 140px;">
-          <option selected>Chọn...</option>
-          <option value="1">Một đáp án</option>
-          <option value="2">Nhiều đáp án</option>
-          <option value="3">Đúng sai</option>
-          <option value="4">Điền khuyết</option>
-          <option value="5">Ghép cặp</option>
-        </select>
-      </div>
-      <div class="mb-2">
-        <label style="width: 105px;">Loại kiến thức</label>
-        <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" style="width: 140px;">
-          <option selected>Chọn...</option>
-          <option value="1">Tổng hợp</option>
-          <option value="2">Toán</option>
-          <option value="3">Văn</option>
-          <option value="4">Sinh học</option>
-          <option value="5">Hoá học</option>
-        </select>
-      </div>
-      <div>
-        <fieldset class="border p-2">
-          <legend class="w-auto">Dạng câu hỏi</legend>
-          <input type="radio" name="format" id="txt" value="txt" checked> <label for="txt">Dạng đơn</label> <input
-            type="radio" name="format" id="csv" value="csv"> <label for="csv">Dạng chùm</label>
-
-        </fieldset>
-      </div>
-    </div>
-    <div class="mcq">
-      <div class="extention d-flex flex-row mt-3" style="height: 30px;">
-        <div>Nội dung câu hỏi</div>
+    </nav>
+    <div class="container mt-3">
+      <div class="page-title">TẠO CÂU HỎI MỚI</div>
+      <div class="create-options">
+        <div class="mb-2">
+          <label style="width: 105px;">Loại câu hỏi</label>
+          <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" style="width: 140px;">
+            <option selected>Chọn...</option>
+            <option value="1">Một đáp án</option>
+            <option value="2">Nhiều đáp án</option>
+            <option value="3">Đúng sai</option>
+            <option value="4">Điền khuyết</option>
+            <option value="5">Ghép cặp</option>
+          </select>
+        </div>
+        <div class="mb-2">
+          <label style="width: 105px;">Loại kiến thức</label>
+          <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" style="width: 140px;">
+            <option selected>Chọn...</option>
+            <option value="1">Tổng hợp</option>
+            <option value="2">Toán</option>
+            <option value="3">Văn</option>
+            <option value="4">Sinh học</option>
+            <option value="5">Hoá học</option>
+          </select>
+        </div>
         <div>
-          <input type="button" id="add-note" onchange="addQuestionNote(event)" style="display: none;">
-          <label style="cursor: pointer; margin: 0 auto;"><i class="fa fa-sticky-note px-2"
-              aria-hidden="true"></i></label>
-          <input type="file" accept="image/*" name="image" id="file" onchange="loadFile(event)" style="display: none;">
-          <label for="file" style="cursor: pointer; margin: 0 auto;"><i class="fa fa-paperclip"
-              aria-hidden="true"></i></label>
+          <fieldset class="border p-2" id="question-level">
+            <legend class="w-auto">Mức độ câu hỏi</legend>
+            <input type="radio" name="level" id="knowledge" value="knowledge" checked> <label for="knowledge">Nhận
+              biết</label>
+            <input type="radio" name="level" id="understandingsv" value="understanding"> <label
+              for="understandingsv">Thông hiểu</label>
+            <input type="radio" name="level" id="manipulate" value="manipulate"> <label for="manipulate">Vận
+              dụng</label>
+            <input type="radio" name="level" id="high-application" value="high application"> <label
+              for="high-application">Vận dụng cao</label>
+          </fieldset>
         </div>
-        <div class="ml-auto p-2">
-          <i class="fa fa-align-right" aria-hidden="true"></i>
-          <i class="fa fa-align-center" aria-hidden="true"></i>
-          <i class="fa fa-align-left" aria-hidden="true"></i>
-          <i class="fa fa-align-justify" aria-hidden="true"></i>
-          <i class="fa fa-bold" aria-hidden="true"></i>
-          <i class="fa fa-italic" aria-hidden="true"></i>
-          <i class="fa fa-underline" aria-hidden="true"></i>
+        <div>
+          <fieldset class="border p-2" id="question-type">
+            <legend class="w-auto">Dạng câu hỏi</legend>
+            <input type="radio" name="type" id="txt" value="txt" checked> <label for="txt">Dạng đơn</label>
+            <input type="radio" name="type" id="csv" value="csv"> <label for="csv">Dạng chùm</label>
+          </fieldset>
         </div>
       </div>
-      <div class="mcp-content">
-        <textarea style="width: -webkit-fill-available; min-height: 120px;"></textarea>
-      </div>
-      <div class="answer">
-        <div class="answer-title d-flex">
-          <div class="text-danger p-1">Số đáp án</div>
-          <div class="text-center p-1">
-            <label style="width: 3em; border: 1px solid black;">4</label>
+      <div class="mcq">
+        <div class="extention d-flex flex-row mt-3" style="height: 30px;">
+          <div>Nội dung câu hỏi</div>
+          <div>
+            <input type="button" id="add-note" onchange="addQuestionNote(event)" style="display: none;">
+            <label style="cursor: pointer; margin: 0 auto;"><i class="fa fa-sticky-note px-2"
+                aria-hidden="true"></i></label>
+            <input type="file" accept="image/*" name="image" id="file" onchange="loadFile(event)"
+              style="display: none;">
+            <label for="file" style="cursor: pointer; margin: 0 auto;"><i class="fa fa-paperclip"
+                aria-hidden="true"></i></label>
           </div>
           <div class="ml-auto p-2">
-            <button type="button" style="border: 0;outline: 0;">
-              <i class="fa fa-plus" aria-hidden="true" style="font-size: 30px; color: #28a745"></i>
-            </button>
+            <i class="fa fa-align-right" aria-hidden="true"></i>
+            <i class="fa fa-align-center" aria-hidden="true"></i>
+            <i class="fa fa-align-left" aria-hidden="true"></i>
+            <i class="fa fa-align-justify" aria-hidden="true"></i>
+            <i class="fa fa-bold" aria-hidden="true"></i>
+            <i class="fa fa-italic" aria-hidden="true"></i>
+            <i class="fa fa-underline" aria-hidden="true"></i>
           </div>
         </div>
-        <div class="answer-content">
-          <div class="anwer-item d-flex flex-row mb-2">
-            <div class="ml-2">
-              <input type="checkbox">
+        <div class="mcp-content">
+          <textarea style="width: -webkit-fill-available; min-height: 120px;"></textarea>
+        </div>
+        <div class="answer">
+          <div class="answer-title d-flex">
+            <div class="text-danger p-1">Số đáp án</div>
+            <div class="text-center p-1">
+              <label style="width: 3em; border: 1px solid black;">4</label>
             </div>
-            <div class="ml-4">
-              <label>Đáp án A</label>
+            <div class="ml-auto p-2">
+              <button type="button" style="border: 0;outline: 0;">
+                <i class="fa fa-plus" aria-hidden="true" title="Thêm câu hỏi"
+                  style="font-size: 30px; color: #28a745"></i>
+              </button>
             </div>
-            <div class="ml-4">
-              <input type="text" style="width: 700px;">
+          </div>
+          <div class="answer-content">
+            <div class="anwer-item d-flex flex-row mb-2">
+              <div class="ml-2">
+                <input type="checkbox">
+              </div>
+              <div class="ml-4">
+                <label>Đáp án A</label>
+              </div>
+              <div class="ml-4">
+                <input type="text" style="width: 700px;">
+              </div>
+              <div class="ml-4">
+                <i class="fa fa-exchange" aria-hidden="true" style="font-size: 30px; color: #00bfff;"></i>
+              </div>
+              <div class="ml-4">
+                <i class="fa fa-window-close" aria-hidden="true" style="font-size: 30px; color: #ff0000"></i>
+              </div>
             </div>
-            <div class="ml-4">
-              <i class="fa fa-exchange" aria-hidden="true" style="font-size: 30px; color: #00bfff;"></i>
+          </div>
+          <div class="answer-content">
+            <div class="anwer-item d-flex flex-row mb-2">
+              <div class="ml-2">
+                <input type="checkbox">
+              </div>
+              <div class="ml-4">
+                <label>Đáp án B</label>
+              </div>
+              <div class="ml-4">
+                <input type="text" style="width: 700px;">
+              </div>
+              <div class="ml-4">
+                <i class="fa fa-exchange" aria-hidden="true" style="font-size: 30px; color: #00bfff;"></i>
+              </div>
+              <div class="ml-4">
+                <i class="fa fa-window-close" aria-hidden="true" style="font-size: 30px; color: #ff0000"></i>
+              </div>
             </div>
-            <div class="ml-4">
-              <i class="fa fa-window-close" aria-hidden="true" style="font-size: 30px; color: #ff0000"></i>
+          </div>
+          <div class="answer-content">
+            <div class="anwer-item d-flex flex-row mb-2">
+              <div class="ml-2">
+                <input type="checkbox">
+              </div>
+              <div class="ml-4">
+                <label>Đáp án C</label>
+              </div>
+              <div class="ml-4">
+                <input type="text" style="width: 700px;">
+              </div>
+              <div class="ml-4">
+                <i class="fa fa-exchange" aria-hidden="true" style="font-size: 30px; color: #00bfff;"></i>
+              </div>
+              <div class="ml-4">
+                <i class="fa fa-window-close" aria-hidden="true" style="font-size: 30px; color: #ff0000"></i>
+              </div>
+            </div>
+          </div>
+          <div class="answer-content">
+            <div class="anwer-item d-flex flex-row mb-2">
+              <div class="ml-2">
+                <input type="checkbox">
+              </div>
+              <div class="ml-4">
+                <label>Đáp án D</label>
+              </div>
+              <div class="ml-4">
+                <input type="text" style="width: 700px;">
+              </div>
+              <div class="ml-4">
+                <i class="fa fa-exchange" aria-hidden="true" style="font-size: 30px; color: #00bfff;"></i>
+              </div>
+              <div class="ml-4">
+                <i class="fa fa-window-close" aria-hidden="true" style="font-size: 30px; color: #ff0000"></i>
+              </div>
             </div>
           </div>
         </div>
-        <div class="answer-content">
-          <div class="anwer-item d-flex flex-row mb-2">
-            <div class="ml-2">
-              <input type="checkbox">
-            </div>
-            <div class="ml-4">
-              <label>Đáp án B</label>
-            </div>
-            <div class="ml-4">
-              <input type="text" style="width: 700px;">
-            </div>
-            <div class="ml-4">
-              <i class="fa fa-exchange" aria-hidden="true" style="font-size: 30px; color: #00bfff;"></i>
-            </div>
-            <div class="ml-4">
-              <i class="fa fa-window-close" aria-hidden="true" style="font-size: 30px; color: #ff0000"></i>
-            </div>
+        <div class="mt-3 d-flex justify-content-center pb-3">
+          <div class="mx-2">
+            <input type="button" class="btn btn-success" value="Hoàn thành">
           </div>
-        </div>
-        <div class="answer-content">
-          <div class="anwer-item d-flex flex-row mb-2">
-            <div class="ml-2">
-              <input type="checkbox">
-            </div>
-            <div class="ml-4">
-              <label>Đáp án C</label>
-            </div>
-            <div class="ml-4">
-              <input type="text" style="width: 700px;">
-            </div>
-            <div class="ml-4">
-              <i class="fa fa-exchange" aria-hidden="true" style="font-size: 30px; color: #00bfff;"></i>
-            </div>
-            <div class="ml-4">
-              <i class="fa fa-window-close" aria-hidden="true" style="font-size: 30px; color: #ff0000"></i>
-            </div>
+          <div class="mx-2">
+            <input type="button" class="btn btn-primary" value="Làm lại">
           </div>
-        </div>
-        <div class="answer-content">
-          <div class="anwer-item d-flex flex-row mb-2">
-            <div class="ml-2">
-              <input type="checkbox">
-            </div>
-            <div class="ml-4">
-              <label>Đáp án D</label>
-            </div>
-            <div class="ml-4">
-              <input type="text" style="width: 700px;">
-            </div>
-            <div class="ml-4">
-              <i class="fa fa-exchange" aria-hidden="true" style="font-size: 30px; color: #00bfff;"></i>
-            </div>
-            <div class="ml-4">
-              <i class="fa fa-window-close" aria-hidden="true" style="font-size: 30px; color: #ff0000"></i>
-            </div>
+          <div class="mx-2">
+            <input type="button" class="btn btn-danger" value="Huỷ bỏ">
           </div>
-        </div>
-      </div>
-      <div class="mt-3 d-flex justify-content-center pb-3">
-        <div class="mx-2">
-          <input type="button" class="btn btn-success" value="Hoàn thành">
-        </div>
-        <div class="mx-2">
-          <input type="button" class="btn btn-primary" value="Làm lại">
-        </div>
-        <div class="mx-2">
-          <input type="button" class="btn btn-danger" value="Huỷ bỏ">
         </div>
       </div>
     </div>
   </div>
-</div>
   <footer class="footer page-footer font-small mdb-color lighten-3 pt-4">
     <div class="container text-center text-md-left">
       <div class="row">
