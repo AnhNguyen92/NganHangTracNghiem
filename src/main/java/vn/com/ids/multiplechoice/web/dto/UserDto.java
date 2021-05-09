@@ -1,19 +1,10 @@
-package vn.com.ids.multiplechoice.dao.model;
+package vn.com.ids.multiplechoice.web.dto;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
 import vn.com.ids.multiplechoice.dao.model.enums.Gender;
-import vn.com.ids.multiplechoice.dao.model.enums.UserStatus;
 
-@Entity
-@Table(name = "user")
-public class User implements Serializable {
-    private static final long serialVersionUID = 1059771629296419600L;
-
+public class UserDto {
     private Long id;
     private String firstname;
     private String lastname;
@@ -21,7 +12,7 @@ public class User implements Serializable {
     private String password;
     private String phoneNumber;
     private String role;
-    private UserStatus status;
+    private boolean active;
     private String address;
     private String avatarPath;
     private LocalDate dateOfBirth;
@@ -83,12 +74,12 @@ public class User implements Serializable {
         this.role = role;
     }
 
-    public UserStatus getStatus() {
-        return status;
+    public boolean isActive() {
+        return active;
     }
 
-    public void setStatus(UserStatus status) {
-        this.status = status;
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     public String getAddress() {

@@ -5,11 +5,14 @@ import java.util.List;
 import java.util.Random;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import vn.com.ids.multiplechoice.dao.model.User;
+import vn.com.ids.multiplechoice.dao.model.enums.UserStatus;
+import vn.com.ids.multiplechoice.web.dto.UserDto;
 
 @RestController
 @RequestMapping("/bo/user")
@@ -17,7 +20,7 @@ public class UserController {
 
     @GetMapping(value = { "", "/list" })
     public ModelAndView getAllUsers() {
-        ModelAndView mav = new ModelAndView("bo/userList");
+        ModelAndView mav = new ModelAndView("bo/user-list");
         mav.addObject("users", getAllUser());
 
         return mav;
@@ -25,7 +28,7 @@ public class UserController {
 
     @GetMapping("/waitingList")
     public ModelAndView waitingUsers() {
-        ModelAndView mav = new ModelAndView("bo/userWaitingList");
+        ModelAndView mav = new ModelAndView("bo/user-waiting-list");
         List<User> waitingUsers = getWaitingUsers();
 
         mav.addObject("users", waitingUsers);
@@ -33,11 +36,24 @@ public class UserController {
         return mav;
     }
 
-    @postMapping("/addNew")
+    @GetMapping("")
     public ModelAndView addNew() {
-        
+        ModelAndView mav = new ModelAndView("bo/add-user");
+
+        mav.addObject("users", new UserDto());
+
+        return mav;
     }
 
+    @PostMapping("")
+    public ModelAndView save(UserDto dto) {
+        ModelAndView mav = new ModelAndView("bo/user-list");
+
+        mav.addObject("users", new UserDto());
+
+        return mav;
+    }
+    
     private List<User> getAllUser() {
         List<User> users = new ArrayList<>();
         users.addAll(getActiveUser());
@@ -56,7 +72,7 @@ public class UserController {
             user.setRole(randomUserRole());
             user.setFirstname("user" + (i + 1));
             user.setPassword("123456");
-            user.setActive(true);
+            user.setStatus(UserStatus.ACTIVE);
 
             users.add(user);
         }
@@ -74,7 +90,7 @@ public class UserController {
             user.setRole(randomUserRole());
             user.setFirstname("user" + (i + 21));
             user.setPassword("123456");
-            user.setActive(false);
+            user.setStatus(UserStatus.IN_ACTIVE);
 
             users.add(user);
         }
