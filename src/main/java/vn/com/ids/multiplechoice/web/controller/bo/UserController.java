@@ -33,6 +33,11 @@ public class UserController {
         return mav;
     }
 
+    @postMapping("/addNew")
+    public ModelAndView addNew() {
+        
+    }
+
     private List<User> getAllUser() {
         List<User> users = new ArrayList<>();
         users.addAll(getActiveUser());

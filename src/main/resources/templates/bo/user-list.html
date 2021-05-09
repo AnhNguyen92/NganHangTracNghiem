@@ -1,0 +1,119 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>DANH SÁCH NGƯỜI DÙNG</title>
+<!-- <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap-4.4.1/css/bootstrap.min.css}" />
+<link rel="stylesheet" type="js" th:href="@{/css/bootstrap-4.4.1/js/bootstrap.min.js}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/font-awesome-4.7.0/css/font-awesome.min.css}" /> -->
+<link rel="stylesheet" type="text/css" href="../../static/css/bootstrap-4.4.1/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="js" href="../../static/css/bootstrap-4.4.1/js/bootstrap.min.js" />
+  <link rel="stylesheet" type="text/css" href="../../static/font-awesome-4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="../../static/css/style.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"
+    integrity="sha384-NaWTHo/8YCBYJ59830LTz/P4aQZK1sS0SneOgAvhsIl3zBu8r9RevNg5lHCHAuQ/" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- header -->
+        <div class="header">
+            <div class="d-flex">
+                <div class="logo">
+                    <img src="../../static/imgs/logo-1.jpg" alt="Logo" title="Logo"/>
+                    <!-- <img th:src="@{/imgs/logo-1.jpg}" th:alt-title="#{title.application}"/> -->
+                    <a href="/bo/user/list"></a>
+                </div>
+                <div class="ml-auto">
+                    <ul class="nav nav-pills">
+                        <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
+                            aria-haspopup="true" aria-expanded="false">Welcome Tuan Anh</a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="/logout">Đăng xuất</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- navi bar -->
+        <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <a class="nav-item nav-link active" href="user-list.html" aria-selected="true">Danh sách người dùng</a>
+                <a class="nav-item nav-link" href="user-waiting-list.html">Danh sách đợi</a>
+                <a class="nav-item nav-link" href="add-user.html">Thêm mới</a>
+            </div>
+        </nav>
+        <div class="">
+            <div class="row">
+                <div class="col-sm-10 col-sm-offset-1">
+                    <div class="panel panel-default">
+                        <div th:if="!${#lists.isEmpty(users)}">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Email</th>
+                                        <th>Username</th>
+                                        <th>Phone</th>
+                                        <th>Role</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="users : ${users}">
+                                        <td th:text="${users.id}"></td>
+                                        <td th:text="${users.email}"></td>
+                                        <td th:text="${users.username}"></td>
+                                        <td th:text="${users.phone}"></td>
+                                        <td th:text="${users.role}"></td>
+                                        <td>
+                                            <div class="btn-group" role="group" aria-label="...">
+                                                <a href="#" class="btn"><i class="fa fa-check" aria-hidden="true"></i></a>
+                                                <a href="#" class="btn"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                                <a href="#" class="btn"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div th:if="${#lists.isEmpty(users)}">No users exists!</div>
+                    </div>
+                </div>
+            </div>
+            <!-- action -->
+            <div>
+                <a href="add-user.html">Thêm mới</a>
+                <button>Xóa</button>
+            </div>
+            <!-- pagination -->
+            <div>
+                <nav aria-label="...">
+                    <ul class="pagination">
+                      <li class="page-item disabled">
+                        <span class="page-link">Previous</span>
+                      </li>
+                      <li class="page-item"><a class="page-link" href="#">1</a></li>
+                      <li class="page-item active">
+                        <span class="page-link">
+                          2
+                          <span class="sr-only">(current)</span>
+                        </span>
+                      </li>
+                      <li class="page-item"><a class="page-link" href="#">3</a></li>
+                      <li class="page-item">
+                        <a class="page-link" href="#">Next</a>
+                      </li>
+                    </ul>
+                  </nav>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
