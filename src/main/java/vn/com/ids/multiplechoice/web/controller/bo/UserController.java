@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import vn.com.ids.multiplechoice.dao.enums.UserRole;
 import vn.com.ids.multiplechoice.dao.model.User;
 import vn.com.ids.multiplechoice.dao.model.enums.UserStatus;
 import vn.com.ids.multiplechoice.web.dto.UserDto;
@@ -53,7 +54,7 @@ public class UserController {
 
         return mav;
     }
-    
+
     private List<User> getAllUser() {
         List<User> users = new ArrayList<>();
         users.addAll(getActiveUser());
@@ -98,14 +99,14 @@ public class UserController {
         return users;
     }
 
-    private String randomUserRole() {
+    private UserRole randomUserRole() {
         int number = getRandomNumberInRange(0, 2);
-        String role = "User";
+        UserRole role = UserRole.USER;
 
         if (number == 0) {
-            role = "Admin";
+            role = UserRole.ADMIN;
         } else if (number == 1) {
-            role = "Super-User";
+            role = UserRole.SUPERVISOR;
         }
 
         return role;

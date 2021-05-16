@@ -2,6 +2,7 @@ package vn.com.ids.multiplechoice.web.dto;
 
 import java.time.LocalDate;
 
+import vn.com.ids.multiplechoice.dao.enums.UserRole;
 import vn.com.ids.multiplechoice.dao.model.enums.Gender;
 
 public class UserDto {
@@ -11,7 +12,7 @@ public class UserDto {
     private String email;
     private String password;
     private String phoneNumber;
-    private String role;
+    private UserRole role;
     private boolean active;
     private String address;
     private String avatarPath;
@@ -66,11 +67,11 @@ public class UserDto {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getRole() {
+    public UserRole getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(UserRole role) {
         this.role = role;
     }
 

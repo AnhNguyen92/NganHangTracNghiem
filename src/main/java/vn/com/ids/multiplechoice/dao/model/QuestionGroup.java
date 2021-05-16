@@ -1,13 +1,23 @@
 package vn.com.ids.multiplechoice.dao.model;
 
+import java.io.Serializable;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "question_group")
-public class QuestionGroup {
+public class QuestionGroup implements Serializable {
+    private static final long serialVersionUID = 8131754660579738809L;
+
+    @Column(name = "group_id")
     private Long groupId;
+
+    @Column(name = "question_id")
     private Long questionId;
+
+    @Column(name = "question_position")
     private String questionPosition;
 
     public QuestionGroup() {
