@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 import vn.com.ids.multiplechoice.dao.model.TestQuestion;
 
-public interface TestQuestionRepository extends JpaRepository<TestQuestion, Long>, JpaSpecificationExecutor<TestQuestion>{
+public interface TestQuestionRepository extends JpaRepository<TestQuestion, Long>, JpaSpecificationExecutor<TestQuestion> {
 
 }

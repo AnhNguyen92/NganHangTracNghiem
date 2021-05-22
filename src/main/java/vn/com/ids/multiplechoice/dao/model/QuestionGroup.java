@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
@@ -11,9 +12,11 @@ import javax.persistence.Table;
 public class QuestionGroup implements Serializable {
     private static final long serialVersionUID = 8131754660579738809L;
 
+    @Id
     @Column(name = "group_id")
     private Long groupId;
 
+    @Id
     @Column(name = "question_id")
     private Long questionId;
 

@@ -1,4 +1,4 @@
-package vn.com.ids.multiplechoice.bussiness;
+package vn.com.ids.multiplechoice.service;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -15,7 +15,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public abstract class AbstractService<D extends Serializable, K extends Object> implements IGenericService<D, K> {
     private final JpaRepository<D, K> jpaRepository;
 
-    public AbstractService(JpaRepository<D, K> jpaRepository) {
+    protected AbstractService(JpaRepository<D, K> jpaRepository) {
         this.jpaRepository = jpaRepository;
     }
 
