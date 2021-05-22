@@ -2,8 +2,8 @@ package vn.com.ids.multiplechoice.web.dto;
 
 import java.time.LocalDate;
 
-import vn.com.ids.multiplechoice.dao.enums.UserRole;
 import vn.com.ids.multiplechoice.dao.model.enums.Gender;
+import vn.com.ids.multiplechoice.dao.model.enums.UserRole;
 
 public class UserDto {
     private Long id;

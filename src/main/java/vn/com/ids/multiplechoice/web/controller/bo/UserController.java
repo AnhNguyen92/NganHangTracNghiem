@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import vn.com.ids.multiplechoice.dao.enums.UserRole;
 import vn.com.ids.multiplechoice.dao.model.User;
+import vn.com.ids.multiplechoice.dao.model.enums.UserRole;
 import vn.com.ids.multiplechoice.dao.model.enums.UserStatus;
 import vn.com.ids.multiplechoice.web.dto.UserDto;
 
