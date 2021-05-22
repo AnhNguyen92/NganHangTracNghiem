@@ -14,8 +14,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import vn.com.ids.multiplechoice.dao.enums.UserRole;
 import vn.com.ids.multiplechoice.dao.model.enums.Gender;
+import vn.com.ids.multiplechoice.dao.model.enums.UserRole;
 import vn.com.ids.multiplechoice.dao.model.enums.UserStatus;
 
 @Entity
@@ -63,7 +63,7 @@ public class User implements Serializable {
     private Gender gender;
 
     @OneToMany(mappedBy = "user")
-    private List<UserTemplate> templates;
+    private List<HeaderTemplate> templates;
 
     public Long getId() {
         return id;

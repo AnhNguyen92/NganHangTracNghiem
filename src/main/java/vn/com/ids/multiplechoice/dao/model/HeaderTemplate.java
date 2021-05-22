@@ -12,8 +12,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "user_templates")
-public class UserTemplate implements Serializable {
+@Table(name = "header_templates")
+public class HeaderTemplate implements Serializable {
     private static final long serialVersionUID = -7840237809611717075L;
 
     @Id
