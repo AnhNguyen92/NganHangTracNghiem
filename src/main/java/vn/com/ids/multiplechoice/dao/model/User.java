@@ -33,11 +33,17 @@ public class User implements Serializable {
     @Column(name = "last_name")
     private String lastname;
 
+    @Column(name = "username")
+    private String username;
+
     @Column(name = "email")
     private String email;
 
     @Column(name = "password")
     private String password;
+    
+    @Column(name = "create_date")
+    private LocalDate createDate;
 
     @Column(name = "phone_number")
     private String phoneNumber;
@@ -48,9 +54,6 @@ public class User implements Serializable {
 
     @Column(name = "status")
     private UserStatus status;
-
-    @Column(name = "address")
-    private String address;
 
     @Column(name = "avatar_file")
     private String avatarFile;
@@ -87,6 +90,14 @@ public class User implements Serializable {
 
     public void setLastname(String lastname) {
         this.lastname = lastname;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getEmail() {
@@ -129,14 +140,6 @@ public class User implements Serializable {
         this.status = status;
     }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
     public String getAvatarFile() {
         return avatarFile;
     }
@@ -159,6 +162,14 @@ public class User implements Serializable {
 
     public void setGender(Gender gender) {
         this.gender = gender;
+    }
+
+    public List<HeaderTemplate> getTemplates() {
+        return templates;
+    }
+
+    public void setTemplates(List<HeaderTemplate> templates) {
+        this.templates = templates;
     }
 
 }

@@ -106,7 +106,7 @@ public class UserController {
         if (number == 0) {
             role = UserRole.ADMIN;
         } else if (number == 1) {
-            role = UserRole.SUPERVISOR;
+            role = UserRole.INSPECTOR;
         }
 
         return role;
