@@ -4,55 +4,61 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
 import vn.com.ids.multiplechoice.dao.model.User;
 import vn.com.ids.multiplechoice.dao.model.enums.UserRole;
 import vn.com.ids.multiplechoice.dao.model.enums.UserStatus;
+import vn.com.ids.multiplechoice.service.UserService;
 import vn.com.ids.multiplechoice.web.dto.UserDto;
 
-@RestController
+@Controller
 @RequestMapping("/bo/user")
 public class UserController {
 
-    @GetMapping(value = { "", "/list" })
-    public ModelAndView getAllUsers() {
-        ModelAndView mav = new ModelAndView("bo/user-list");
-        mav.addObject("users", getAllUser());
+    private static final Logger log = LoggerFactory.getLogger(UserController.class);
 
-        return mav;
+    @Autowired
+    private UserService userService;
+
+    @GetMapping(value = { "", "/list" })
+    public String getAllUsers(Model model) {
+        model.addAttribute("users", getAllUser());
+
+        return "bo/user-list";
     }
 
     @GetMapping("/waitingList")
-    public ModelAndView waitingUsers() {
-        ModelAndView mav = new ModelAndView("bo/user-waiting-list");
+    public String waitingUsers(Model model) {
         List<User> waitingUsers = getWaitingUsers();
 
-        mav.addObject("users", waitingUsers);
+        model.addAttribute("users", waitingUsers);
 
-        return mav;
+        return "bo/user-waiting-list";
     }
 
-    @GetMapping("")
-    public ModelAndView addNew() {
-        ModelAndView mav = new ModelAndView("bo/add-user");
+    @GetMapping("/new")
+    public String addNew(Model model) {
+        model.addAttribute("user", new UserDto());
 
-        mav.addObject("users", new UserDto());
-
-        return mav;
+        return "bo/user";
     }
 
-    @PostMapping("")
-    public ModelAndView save(UserDto dto) {
-        ModelAndView mav = new ModelAndView("bo/user-list");
+    @PostMapping("/save")
+    public String save(Model model, UserDto dto) {
+        model.addAttribute("user", new UserDto());
+        User user = new User();
+        
+        userService.save(user);
 
-        mav.addObject("users", new UserDto());
-
-        return mav;
+        return "bo/user-list";
     }
 
     private List<User> getAllUser() {
