@@ -1,5 +1,6 @@
 package vn.com.ids.multiplechoice.web.controller.bo;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -13,10 +14,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import vn.com.ids.multiplechoice.business.Converter.UserConverter;
+import vn.com.ids.multiplechoice.business.service.UserService;
 import vn.com.ids.multiplechoice.dao.model.User;
 import vn.com.ids.multiplechoice.dao.model.enums.UserRole;
 import vn.com.ids.multiplechoice.dao.model.enums.UserStatus;
-import vn.com.ids.multiplechoice.service.UserService;
 import vn.com.ids.multiplechoice.web.dto.UserDto;
 
 @Controller
@@ -25,6 +27,9 @@ public class UserController {
 
     private static final Logger log = LoggerFactory.getLogger(UserController.class);
 
+    @Autowired
+    private UserConverter userConverter;
+    
     @Autowired
     private UserService userService;
 
@@ -53,9 +58,10 @@ public class UserController {
 
     @PostMapping("/save")
     public String save(Model model, UserDto dto) {
+        log.info("Admin create user by username : {}", dto.getUsername());
         model.addAttribute("user", new UserDto());
-        User user = new User();
-        
+        User user = userConverter.toEntity(dto);
+        user.setCreateTime(LocalDateTime.now());
         userService.save(user);
 
         return "bo/user-list";

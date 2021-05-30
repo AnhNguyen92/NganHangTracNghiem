@@ -5,10 +5,10 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import vn.com.ids.multiplechoice.business.service.AbstractService;
+import vn.com.ids.multiplechoice.business.service.UserService;
 import vn.com.ids.multiplechoice.dao.model.User;
 import vn.com.ids.multiplechoice.dao.repository.UserRepository;
-import vn.com.ids.multiplechoice.service.AbstractService;
-import vn.com.ids.multiplechoice.service.UserService;
 
 @Service
 @Transactional

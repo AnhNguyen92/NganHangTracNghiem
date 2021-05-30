@@ -1,26 +1,40 @@
 package vn.com.ids.multiplechoice.web.dto;
 
+import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.Length;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import vn.com.ids.multiplechoice.dao.model.enums.Gender;
 import vn.com.ids.multiplechoice.dao.model.enums.UserRole;
 import vn.com.ids.multiplechoice.dao.model.enums.UserStatus;
 
-public class UserDto {
+public class UserDto implements Serializable {
+    private static final long serialVersionUID = 6968730512452533251L;
+
     private Long id;
+    @Size(min = 6, max = 100)
     private String username;
     private String firstname;
     private String lastname;
+    @Email
     private String email;
+    @Size(min = 6, max = 100)
     private String password;
+    private LocalDateTime createTime;
     private String phoneNumber;
+    private UserStatus status;
     private UserRole role;
-    private boolean active;
     private String address;
     private String avatarPath;
-    private LocalDate dateOfBirth;
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    private LocalDate birthday;
     private Gender gender;
-    private UserStatus status;
 
     public Long getId() {
         return id;
@@ -78,20 +92,28 @@ public class UserDto {
         this.phoneNumber = phoneNumber;
     }
 
+    public LocalDateTime getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(LocalDateTime createTime) {
+        this.createTime = createTime;
+    }
+
+    public UserStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(UserStatus status) {
+        this.status = status;
+    }
+
     public UserRole getRole() {
         return role;
     }
 
     public void setRole(UserRole role) {
         this.role = role;
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
     }
 
     public String getAddress() {
@@ -110,12 +132,12 @@ public class UserDto {
         this.avatarPath = avatarPath;
     }
 
-    public LocalDate getDateOfBirth() {
-        return dateOfBirth;
+    public LocalDate getBirthday() {
+        return birthday;
     }
 
-    public void setDateOfBirth(LocalDate dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
+    public void setBirthday(LocalDate birthday) {
+        this.birthday = birthday;
     }
 
     public Gender getGender() {
@@ -124,14 +146,6 @@ public class UserDto {
 
     public void setGender(Gender gender) {
         this.gender = gender;
-    }
-
-    public UserStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(UserStatus status) {
-        this.status = status;
     }
 
 }

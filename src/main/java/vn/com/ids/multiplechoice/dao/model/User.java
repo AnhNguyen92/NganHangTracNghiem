@@ -2,6 +2,7 @@ package vn.com.ids.multiplechoice.dao.model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -13,6 +14,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Size;
 
 import vn.com.ids.multiplechoice.dao.model.enums.Gender;
 import vn.com.ids.multiplechoice.dao.model.enums.UserRole;
@@ -34,16 +37,19 @@ public class User implements Serializable {
     private String lastname;
 
     @Column(name = "username")
+    @Size(min = 6, max = 100)
     private String username;
 
     @Column(name = "email")
+    @Email
     private String email;
 
     @Column(name = "password")
+    @Size(min = 6, max = 100)
     private String password;
-    
-    @Column(name = "create_date")
-    private LocalDate createDate;
+
+    @Column(name = "create_time")
+    private LocalDateTime createTime;
 
     @Column(name = "phone_number")
     private String phoneNumber;
@@ -58,8 +64,8 @@ public class User implements Serializable {
     @Column(name = "avatar_file")
     private String avatarFile;
 
-    @Column(name = "date_of_birth")
-    private LocalDate dateOfBirth;
+    @Column(name = "birthday")
+    private LocalDate birthday;
 
     @Column(name = "gender")
     @Enumerated(EnumType.STRING)
@@ -116,6 +122,14 @@ public class User implements Serializable {
         this.password = password;
     }
 
+    public LocalDateTime getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(LocalDateTime createTime) {
+        this.createTime = createTime;
+    }
+
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -148,12 +162,12 @@ public class User implements Serializable {
         this.avatarFile = avatarFile;
     }
 
-    public LocalDate getDateOfBirth() {
-        return dateOfBirth;
+    public LocalDate getBirthday() {
+        return birthday;
     }
 
-    public void setDateOfBirth(LocalDate dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
+    public void setBirthday(LocalDate birthday) {
+        this.birthday = birthday;
     }
 
     public Gender getGender() {
