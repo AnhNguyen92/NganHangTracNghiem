@@ -1,4 +1,4 @@
-package vn.com.ids.multiplechoice.service;
+package vn.com.ids.multiplechoice.business.service;
 
 import java.io.IOException;
 import java.io.Serializable;
