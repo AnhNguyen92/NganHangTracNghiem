@@ -12,7 +12,6 @@ CREATE TABLE `users` (
   `phone_number` varchar(20) DEFAULT NULL,
   `role` enum('Quản trị viên','Người kiểm duyệt','Người tạo đề thi','Người dùng') NOT NULL,
   `status` enum('Kích hoạt','Chưa kích hoạt') NOT NULL,
-  `avatar_file` varchar(100) DEFAULT NULL,
   `date_of_birth` date DEFAULT NULL,
   `gender` enum('Nam','Nữ') NOT NULL,
   `birthday` date DEFAULT NULL
