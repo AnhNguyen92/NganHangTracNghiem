@@ -1,4 +1,3 @@
-
 <!DOCTYPE HTML>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -12,8 +11,6 @@
 <link th:href="@{/vendor/fontawesome/css/all.min.css}" rel="stylesheet" type="text/css">
 <link th:rel="stylesheet" th:href="@{/vendor/bootstrap-datepicker/css/bootstrap-datepicker.css}" />
 <link th:rel="stylesheet" th:href="@{/vendor/bootstrap-datepicker/css/bootstrap-datepicker.standalone.css}" />
-<link th:rel="stylesheet" th:href="@{/vedor/bootstrap/css/bootstrap.min.css} " />
-<link th:rel="stylesheet" th:href="@{/vedor/font-awesome/css/all.css} " />
 
 <!-- Custom styles for this template-->
 <link th:href="@{/css/sb-admin-2.min.css}" rel="stylesheet">
@@ -22,70 +19,157 @@
     <!-- Page Wrapper -->
     <div id="wrapper">
         <!-- Sidebar -->
-        <div>
-            <ul th:fragment="sidebar" xmlns:th="http://www.w3.org/1999/xhtml" class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
-                id="accordionSidebar">
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-                <!-- Sidebar - Brand -->
-                <a class="sidebar-brand d-flex align-items-center justify-content-center" th:href="@{/admin/users}">
-                    <div class="sidebar-brand-icon rotate-n-15">
-                        <i class="fas fa-laugh-wink"></i>
-                    </div>
-                    <div class="sidebar-brand-text mx-3">MYI Admin</div>
-                </a>
-
-                <!-- Divider -->
-                <hr class="sidebar-divider my-0">
-
-                <!-- Nav Item - Dashboard -->
-                <li class="nav-item active"><a class="nav-link" th:href="@{/admin/users}"> <i class="fas fa-fw fa-table"></i> <span>Yêu cầu</span></a></li>
-
-                <!-- Divider -->
-                <hr class="sidebar-divider">
-
-                <!-- Sidebar Toggler (Sidebar) -->
-                <div class="text-center d-none d-md-inline">
-                    <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                <div class="sidebar-brand-icon rotate-n-15">
+                    <i class="fas fa-laugh-wink"></i>
                 </div>
+                <div class="sidebar-brand-text mx-3">MCQ Admin</div>
+            </a>
 
-            </ul>
-            <!-- End of Sidebar -->
-        </div>
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item active">
+                <a class="nav-link" href="index.html">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">Interface</div>
+
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Components</span>
+                </a>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Custom Components:</h6>
+                        <a class="collapse-item" href="buttons.html">Buttons</a>
+                        <a class="collapse-item" href="cards.html">Cards</a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Nav Item - Utilities Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true"
+                    aria-controls="collapseUtilities">
+                    <i class="fas fa-fw fa-wrench"></i>
+                    <span>Utilities</span>
+                </a>
+                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Custom Utilities:</h6>
+                        <a class="collapse-item" href="utilities-color.html">Colors</a>
+                        <a class="collapse-item" href="utilities-border.html">Borders</a>
+                        <a class="collapse-item" href="utilities-animation.html">Animations</a>
+                        <a class="collapse-item" href="utilities-other.html">Other</a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">Addons</div>
+
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>Pages</span>
+                </a>
+                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Login Screens:</h6>
+                        <a class="collapse-item" href="login.html">Login</a>
+                        <a class="collapse-item" href="register.html">Register</a>
+                        <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
+                        <div class="collapse-divider"></div>
+                        <h6 class="collapse-header">Other Pages:</h6>
+                        <a class="collapse-item" href="404.html">404 Page</a>
+                        <a class="collapse-item" href="blank.html">Blank Page</a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Nav Item - Charts -->
+            <li class="nav-item">
+                <a class="nav-link" href="charts.html">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Charts</span>
+                </a>
+            </li>
+
+            <!-- Nav Item - Tables -->
+            <li class="nav-item">
+                <a class="nav-link" href="tables.html">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Tables</span>
+                </a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block">
+
+            <!-- Sidebar Toggler (Sidebar) -->
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
+
+        </ul>
+        <!-- End of Sidebar -->
+
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
 
             <!-- Main Content -->
             <div id="content">
-                <div>
-                    <!-- Topbar -->
-                    <nav th:fragment="topbar" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org"
-                        class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
-                        <!-- Sidebar Toggle (Topbar) -->
-                        <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                            <i class="fa fa-bars"></i>
-                        </button>
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
 
-                        <!-- Topbar Navbar -->
-                        <ul class="navbar-nav ml-auto">
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
 
-                            <div class="topbar-divider d-none d-sm-block"></div>
+                        <div class="topbar-divider d-none d-sm-block"></div>
 
-                            <!-- Nav Item - User Information -->
-                            <li class="nav-item dropdown no-arrow"><a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span class="mr-2 d-none d-lg-inline text-gray-600 small">Chào
-                                        Admin</span> <img class="img-profile rounded-circle" th:src="@{/img/undraw_profile.svg}" alt="profile">
-                            </a> <!-- Dropdown - User Information -->
-                                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                                    <a class="dropdown-item" href="#"> <span class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></span> Đăng Xuất
-                                    </a>
-                                </div></li>
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Chào Admin</span>
+                                <img class="img-profile rounded-circle" th:src="@{/imgs/undraw_profile.svg}" alt="profile">
+                            </a>
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="#">
+                                    <span class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></span>
+                                    Đăng Xuất
+                                </a>
+                            </div>
+                        </li>
 
-                        </ul>
+                    </ul>
 
-                    </nav>
-                    <!-- End of Topbar -->
-                </div>
+                </nav>
+                <!-- End of Topbar -->
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
                     <!-- Page Heading -->
@@ -95,91 +179,138 @@
                     <div>
                         <div class="card shadow mb-4">
                             <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary text-center text-capitalize">Theem nguoi dung moi</h6>
+                                <h6 class="m-0 font-weight-bold text-primary text-center text-capitalize">Thêm người dùng mới</h6>
                             </div>
                             <div class="d-flex py-3 justify-content-center">
                                 <div class="col-lg-6">
                                     <form th:action="@{/bo/user/save}" th:object="${user}" method="POST">
-                                        <div class="form-group has-success">
-                                            <label class="control-label" for="inputSuccess">Id</label> <input type="hidden" class="form-control"
-                                                th:field="*{id}">
-                                        </div>
-
                                         <div class="form-group row">
                                             <div class="col-sm-6">
-                                                <label class="control-label" for="inputWarning">Username</label> <input type="text" class="form-control"
-                                                    th:field="*{username}">
+                                                <label class="control-label" for="inputWarning">Tên đăng nhập</label>
+                                                <input type="text" class="form-control" th:field="*{username}">
                                             </div>
                                             <div class="col-sm-6">
-                                                <label class="control-label" for="inputWarning">Password</label> <input type="text" class="form-control"
-                                                    th:field="*{password}">
+                                                <label class="control-label" for="inputWarning">Mật khẩu</label>
+                                                <input type="password" class="form-control" th:field="*{password}">
                                             </div>
                                         </div>
-
                                         <div class="form-group row">
                                             <div class="col-sm-6">
-                                                <label class="control-label" for="inputWarning">Ten</label> <input type="text" class="form-control"
-                                                    th:field="*{firstname}">
+                                                <label class="control-label" for="inputWarning">Họ</label>
+                                                <input type="text" class="form-control" th:field="*{lastname}">
                                             </div>
                                             <div class="col-sm-6">
-                                                <label class="control-label" for="inputWarning">Ho</label> <input type="text" class="form-control"
-                                                    th:field="*{lastname}">
+                                                <label class="control-label" for="inputWarning">Tên</label>
+                                                <input type="text" class="form-control" th:field="*{firstname}">
                                             </div>
                                         </div>
-
-                                        <div class="form-group">
-                                            <label class="control-label" for="inputWarning">email</label> <input type="email" class="form-control"
-                                                th:field="*{email}">
+                                        <div class="form-group row">
+                                            <div class="col-sm-6">
+                                                <label class="control-label" for="inputWarning">Email</label>
+                                                <input type="email" class="form-control" th:field="*{email}">
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label class="control-label" for="inputWarning">Số điện thoại</label>
+                                                <input type="tel" class="form-control" th:field="*{phoneNumber}">
+                                            </div>
                                         </div>
+                                        <div class="form-group row">
+                                            <div class="col-sm-6">
+                                                <label class="control-label" for="inputWarning">Trạng thái</label>
+                                                <select class="form-control" th:field="*{status}">
+                                                    <option th:each="status : ${T(vn.com.ids.multiplechoice.dao.model.enums.UserStatus).values()}"
+                                                        th:value="${status}" th:text="${status.value}">Trạng thái</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label class="control-label" for="inputWarning">Giới tính</label>
+                                                <select class="form-control" th:field="*{gender}">
+                                                    <option th:each="genderOtp : ${T(vn.com.ids.multiplechoice.dao.model.enums.Gender).values()}"
+                                                        th:value="${genderOtp}" th:text="${genderOtp.displayValue}">Giới tính</option>
+                                                </select>
+                                            </div>
 
-                                        <div class="form-group">
-                                            <label class="control-label" for="inputWarning">Trạng thái</label> <select class="form-control col-4"
-                                                th:field="*{status}">
-                                                <option th:each="status : ${T(vn.com.ids.multiplechoice.dao.model.enums.UserStatus).values()}"
-                                                    th:value="${status}" th:text="${status}">Trạng thái</option>
-                                            </select>
                                         </div>
-
-                                        <div class="form-group">
-                                            <label class="control-label" for="inputWarning">Phone Number</label> <input type="tel" th:field="*{phoneNumber}"
-                                                class="form-control mb-4">
+                                        <div class="form-group row">
+                                            <div class="col-sm-6">
+                                                <label class="control-label" for="inputWarning">Quyền</label>
+                                                <select class="form-control" th:field="*{status}">
+                                                    <option th:each="role : ${T(vn.com.ids.multiplechoice.dao.model.enums.UserRole).values()}"
+                                                        th:value="${role}" th:text="${role.value}">Quyền</option>
+                                                </select>
+                                            </div>
                                         </div>
-
                                         <div class="form-group">
-                                            <button type="submit" class="btn btn-primary">Luu</button>
+                                            <!-- <div class="input-group date"> -->
+                                            <label class="control-label" for="inputWarning">Ngày sinh</label>
+                                            <input type="text" th:field="*{birthday}" id="birthday" th:text="${#dates.format(user.birthday, 'dd-MM-yyyy')}"
+                                                class="form-control mb-4 col-4">
+                                            <!-- </div> -->
                                         </div>
-
+                                        <div class="form-group">
+                                            <p>
+                                                <input type="file" accept="image/*" name="image" id="file" onchange="loadFile(event)" style="display: none;">
+                                            </p>
+                                            <p style="width: 80px;height: 80px;border: 1px solid;">
+                                                <img id="output" th:src="@{/imgs/undraw_profile.svg}" alt="Avatar"/>
+                                            </p>
+                                            <p class="pf-info-select-img">
+                                                <label for="file" style="cursor: pointer; margin: 0 auto;">Chọn hình</label>
+                                            </p>
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-primary">Lưu</button>
+                                        </div>
                                     </form>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
                 <!-- /.container-fluid -->
             </div>
             <!-- End of Main Content -->
+
             <!-- Footer -->
-            <div>
-                <!-- Footer -->
-                <footer th:fragment="footer" xmlns:th="http://www.w3.org/1999/xhtml" class="sticky-footer bg-white">
-                    <div class="container my-auto">
-                        <div class="copyright text-center my-auto">
-                            <span>Copyright &copy; Meet Your Idol 2021</span>
-                        </div>
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; Meet Your Idol 2021</span>
                     </div>
-                </footer>
-                <!-- End of Footer -->
-            </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+
         </div>
         <!-- End of Content Wrapper -->
+
     </div>
     <!-- End of Page Wrapper -->
 
     <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top"> <i class="fas fa-angle-up"></i>
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
     </a>
 
 </body>
+
+<script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script th:src="@{/vendor/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js}"></script>
+
+<!-- Custom scripts for all pages-->
+<script th:src="@{/js/sb-admin-2.min.js}"></script>
+<script>
+        $('#birthday').datepicker({
+            autoclose: true,
+            todayHighlight: true,
+            format: "dd-mm-yyyy"
+        });
+        var loadFile = function (event) {
+            var image = document.getElementById('output');
+            image.src = URL.createObjectURL(event.target.files[0]);
+        };
+    </script>
 
 </html>
