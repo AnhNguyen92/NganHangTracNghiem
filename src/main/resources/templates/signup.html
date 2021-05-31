@@ -27,6 +27,7 @@
                         </div>
                         <hr>
                     </div>
+                    <h2><span class="text-success" th:utext="${successMessage}">Đăng ký thành công!</span></h2>
                     <form th:action="@{/signup}" method="post" th:object="${newUser}">
                         <div class="form-group row">
                             <div class="col-sm-6">
@@ -35,28 +36,34 @@
                             </div>
                             <div class="col-sm-6">
                                 <label for="firstname">Tên</label>
-                                <input type="text" th:field="*{firstname}" class="form-control" id="firstname" aria-describedby="firstname" placeholder="Nhập tên">
+                                <input type="text" th:field="*{firstname}" class="form-control" id="firstname" aria-describedby="firstname"
+                                    placeholder="Nhập tên">
                             </div>
-                            
+
                         </div>
                         <div class="form-group">
                             <label for="username">
                                 Tên đăng nhập
                                 <span class="text-danger ml-1">*</span>
                             </label>
-                            <input type="text" th:field="*{username}" class="form-control" id="username" aria-describedby="username" placeholder="Nhập tên đăng nhập">
+                            <input type="text" th:field="*{username}" class="form-control is-invalid" id="username" aria-describedby="username"
+                                placeholder="Nhập tên đăng nhập">
+                            <small class="invalid-feedback">Tên đăng nhập phải từ 6 - 100 ký tự</small>
                         </div>
                         <div class="form-group">
                             <label for="email">
                                 Địa chỉ Email
                                 <span class="text-danger ml-1">*</span>
                             </label>
-                            <input type="email" th:field="*{email}" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Nhập email">
+                            <input type="email" th:field="*{email}" class="form-control is-invalid" id="email" aria-describedby="emailHelp" placeholder="Nhập email">
+                            <small class="invalid-feedback">Địa chỉ mail không hợp lệ</small>
                         </div>
                         <div class="form-group row">
                             <div class="col-sm-6">
                                 <label class="control-label" for="inputWarning">Ngày sinh</label>
-                                <input type="text" th:field="*{birthday}" id="birthday" th:text="${#dates.format(newUser.birthday, 'dd-MM-yyyy')}" class="form-control mb-4">
+                                <input type="text" th:field="*{birthday}" id="birthday" th:text="${#dates.format(newUser.birthday, 'dd-MM-yyyy')}"
+                                    class="form-control is-invalid">
+                                <small class="invalid-feedback">Ngày sinh không hợp lệ</small>
                             </div>
                             <div class="col-sm-6">
                                 <label class="control-label" for="inputWarning">Giới tính</label>
@@ -71,16 +78,18 @@
                                 Mật khẩu
                                 <span class="text-danger ml-1">*</span>
                             </label>
-                            <input type="password" th:field="*{password}" id="password" class="form-control" aria-describedby="passwordHelp"
+                            <input type="password" th:field="*{password}" id="password" class="form-control is-invalid" aria-describedby="passwordHelp"
                                 placeholder="Nhập mật khẩu">
+                            <small class="invalid-feedback">Mật khẩu phải từ 6 - 100 ký tự</small>
                         </div>
                         <div class="form-group">
                             <label for="re-password">
                                 Nhập lại mật khẩu
                                 <span class="text-danger ml-1">*</span>
                             </label>
-                            <input type="password" th:field="*{rePassword}" id="re-password" class="form-control" aria-describedby="emailHelp"
+                            <input type="password" th:field="*{rePassword}" id="re-password" class="form-control is-invalid" aria-describedby="emailHelp"
                                 placeholder="Nhập lại mật khẩu">
+                            <small class="invalid-feedback">Mật khẩu không khớp</small>
                         </div>
                         <div class="form-group">
                             <p class="text-center">

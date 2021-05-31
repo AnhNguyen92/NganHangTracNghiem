@@ -34,12 +34,11 @@ public class UserConverterService {
     }
 
     public User toEntity(SignUpRequest signUpRequest) {
-
         User user = modelMapper.map(signUpRequest, User.class);
         user.setCreateTime(LocalDateTime.now());
-        user.setStatus(UserStatus.IN_ACTIVE);
+        user.setStatus(UserStatus.ACTIVE);
         user.setCreateTime(LocalDateTime.now());
-        user.setRole(UserRole.USER);
+        user.setRole(UserRole.ADMIN);
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 
         return user;

@@ -43,7 +43,7 @@ public class SignupController {
             model.addAttribute("successMessage", "User has been registered successfully");
             model.addAttribute("user", new User());
         }
-        return "signup";
+        return "login";
     }
 
 }

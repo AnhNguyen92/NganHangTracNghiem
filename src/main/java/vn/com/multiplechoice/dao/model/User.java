@@ -7,15 +7,12 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Length;
 
@@ -56,18 +53,13 @@ public class User implements Serializable {
     @Column(name = "phone_number")
     private String phoneNumber;
 
-    @Column(name = "role")
-    @Enumerated(EnumType.STRING)
     private UserRole role;
 
-    @Column(name = "status")
     private UserStatus status;
 
     @Column(name = "birthday")
     private LocalDate birthday;
 
-//    @Column(name = "gender")
-//    @Enumerated(EnumType.STRING)
     private Gender gender;
 
     @OneToMany(mappedBy = "user")
