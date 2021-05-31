@@ -55,4 +55,9 @@ nb-configuration.xml
 
 # OS
 .DS_Store
+<<<<<<< Updated upstream
 .tern-project
+=======
+.metadata
+*.version
+>>>>>>> Stashed changes
