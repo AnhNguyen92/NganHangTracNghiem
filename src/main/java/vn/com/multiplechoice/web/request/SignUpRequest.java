@@ -1,8 +1,7 @@
-package vn.com.multiplechoice.web.dto;
+package vn.com.multiplechoice.web.request;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
@@ -13,8 +12,8 @@ import vn.com.multiplechoice.dao.model.enums.Gender;
 import vn.com.multiplechoice.dao.model.enums.UserRole;
 import vn.com.multiplechoice.dao.model.enums.UserStatus;
 
-public class UserDto implements Serializable {
-    private static final long serialVersionUID = 6968730512452533251L;
+public class SignUpRequest implements Serializable {
+    private static final long serialVersionUID = -5852430861347682459L;
 
     private Long id;
     @Size(min = 6, max = 100)
@@ -25,7 +24,7 @@ public class UserDto implements Serializable {
     private String email;
     @Size(min = 6, max = 100)
     private String password;
-    private LocalDateTime createTime;
+    private String rePassword;
     private String phoneNumber;
     private UserStatus status;
     private UserRole role;
@@ -81,20 +80,20 @@ public class UserDto implements Serializable {
         this.password = password;
     }
 
+    public String getRePassword() {
+        return rePassword;
+    }
+
+    public void setRePassword(String rePassword) {
+        this.rePassword = rePassword;
+    }
+
     public String getPhoneNumber() {
         return phoneNumber;
     }
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
-    }
-
-    public LocalDateTime getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(LocalDateTime createTime) {
-        this.createTime = createTime;
     }
 
     public UserStatus getStatus() {

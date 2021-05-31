@@ -3,18 +3,12 @@
 <head>
 <meta charset="UTF-8" />
 <title>ĐĂNG NHẬP</title>
-<!-- 
 <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap-4.4.1/css/bootstrap.min.css}" />
 <link rel="stylesheet" type="js" th:href="@{/css/bootstrap-4.4.1/js/bootstrap.min.js}" />
 <link rel="stylesheet" type="text/css" th:href="@{/font-awesome-4.7.0/css/font-awesome.min.css}">
 <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
-    -->
-    <link rel="stylesheet" type="text/css" href="../static/css/bootstrap-4.4.1/css/bootstrap.min.css" />
-    <link rel="stylesheet" type="js" href="../static/css/bootstrap-4.4.1/js/bootstrap.min.js" />
-    <link rel="stylesheet" type="text/css" href="../static/font-awesome-4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="../static/css/style.css" />
 </head>
-<body style="padding-top: 4.2rem;padding-bottom: 4.2rem;">
+<body style="padding-top: 4.2rem; padding-bottom: 4.2rem;">
     <div class="container">
         <div class="row">
             <div class="col-md-5 mx-auto">
@@ -27,12 +21,18 @@
                     </div>
                     <form th:action="@{/login}" method="post" name="login">
                         <div class="form-group">
-                            <label for="email">Username<span class="text-danger ml-1">*</span></label> <input type="text" name="username" class="form-control" id="email"
-                                aria-describedby="emailHelp" placeholder="Nhập email">
+                            <label for="email">
+                                Username
+                                <span class="text-danger ml-1">*</span>
+                            </label>
+                            <input type="text" name="username" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Nhập email">
                         </div>
                         <div class="form-group">
-                            <label for="password">Mật khẩu<span class="text-danger ml-1">*</span></label> <input type="password" name="password" id="password" class="form-control"
-                                aria-describedby="emailHelp" placeholder="Nhập mật khẩu">
+                            <label for="password">
+                                Mật khẩu
+                                <span class="text-danger ml-1">*</span>
+                            </label>
+                            <input type="password" name="password" id="password" class="form-control" aria-describedby="emailHelp" placeholder="Nhập mật khẩu">
                         </div>
                         <div class="col-md-12 text-center ">
                             <button type="submit" class=" btn btn-block mybtn btn-primary tx-tfm">Đăng nhập</button>
@@ -45,17 +45,18 @@
                         </div>
                         <div class="col-md-12 mb-3">
                             <p class="text-center">
-                                <a href="javascript:void();" class="facebook btn mybtn"><i class="fa fa-facebook-square fa-1x" aria-hidden="true"></i> Đăng
-                                    nhập với Facebook</a>
+                                <a href="javascript:void();" class="facebook btn mybtn">
+                                    <i class="fa fa-facebook-square fa-1x" aria-hidden="true"></i>
+                                    Đăng nhập với Facebook
+                                </a>
                             </p>
                         </div>
                         <div class="form-group">
                             <p class="text-center">
-                                <!-- Chưa có tài khoản? <a th:href="@{/signup}" id="signup">Đăng ký</a> -->
-                                Chưa có tài khoản? <a href="sign-up.html" id="signup">Đăng ký</a>
+                                Chưa có tài khoản? <a th:href="@{/signup}" id="signup">Đăng ký</a>
                             </p>
                             <p class="text-center">
-                                <a href="forgot-password.html" id="forgot-password">Quên mật khẩu</a>
+                                <a th:href="@{/forgot-password}" id="forgot-password">Quên mật khẩu</a>
                             </p>
                         </div>
                     </form>

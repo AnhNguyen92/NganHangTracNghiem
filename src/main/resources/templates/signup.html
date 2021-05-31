@@ -1,0 +1,123 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8" />
+<title>Đăng Ký</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap-4.4.1/css/bootstrap.min.css}" />
+<link rel="stylesheet" type="js" th:href="@{/css/bootstrap-4.4.1/js/bootstrap.min.js}" />
+<link rel="stylesheet" type="text/css" th:href="@{/vendor/fontawesome/css/all.min.css}">
+<link rel="stylesheet" th:href="@{/vendor/bootstrap-datepicker/css/bootstrap-datepicker.css}" />
+<link rel="stylesheet" th:href="@{/vendor/bootstrap-datepicker/css/bootstrap-datepicker.standalone.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+
+</head>
+
+<body style="padding-top: 2rem;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5 mx-auto">
+                <div class="myform form ">
+                    <div class="logo">
+                        <div class="col-md-12 text-center text-uppercase">
+                            <h1 class="">ĐĂNG KÝ</h1>
+                        </div>
+                        <hr>
+                    </div>
+                    <form th:action="@{/signup}" method="post" th:object="${newUser}">
+                        <div class="form-group row">
+                            <div class="col-sm-6">
+                                <label for="lastname">Họ</label>
+                                <input type="text" th:field="*{lastname}" class="form-control" id="lastname" aria-describedby="lastname" placeholder="Nhập họ">
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="firstname">Tên</label>
+                                <input type="text" th:field="*{firstname}" class="form-control" id="firstname" aria-describedby="firstname" placeholder="Nhập tên">
+                            </div>
+                            
+                        </div>
+                        <div class="form-group">
+                            <label for="username">
+                                Tên đăng nhập
+                                <span class="text-danger ml-1">*</span>
+                            </label>
+                            <input type="text" th:field="*{username}" class="form-control" id="username" aria-describedby="username" placeholder="Nhập tên đăng nhập">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">
+                                Địa chỉ Email
+                                <span class="text-danger ml-1">*</span>
+                            </label>
+                            <input type="email" th:field="*{email}" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Nhập email">
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-6">
+                                <label class="control-label" for="inputWarning">Ngày sinh</label>
+                                <input type="text" th:field="*{birthday}" id="birthday" th:text="${#dates.format(newUser.birthday, 'dd-MM-yyyy')}" class="form-control mb-4">
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="control-label" for="inputWarning">Giới tính</label>
+                                <select class="form-control" th:field="*{gender}">
+                                    <option th:each="genderOtp : ${T(vn.com.multiplechoice.dao.model.enums.Gender).values()}" th:value="${genderOtp}"
+                                        th:text="${genderOtp.value}">Giới tính</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">
+                                Mật khẩu
+                                <span class="text-danger ml-1">*</span>
+                            </label>
+                            <input type="password" th:field="*{password}" id="password" class="form-control" aria-describedby="passwordHelp"
+                                placeholder="Nhập mật khẩu">
+                        </div>
+                        <div class="form-group">
+                            <label for="re-password">
+                                Nhập lại mật khẩu
+                                <span class="text-danger ml-1">*</span>
+                            </label>
+                            <input type="password" th:field="*{rePassword}" id="re-password" class="form-control" aria-describedby="emailHelp"
+                                placeholder="Nhập lại mật khẩu">
+                        </div>
+                        <div class="form-group">
+                            <p class="text-center">
+                                Bằng việc đăng ký, bạn đã đồng ý với
+                                <a th:href="@{/policy}">Điều Khoản</a>
+                                của chúng tôi.
+                            </p>
+                        </div>
+                        <div class="col-md-12 text-center mb-3">
+                            <button type="submit" class=" btn btn-block mybtn btn-primary tx-tfm">ĐĂNG KÝ NGAY</button>
+                        </div>
+                        <div class="col-md-12 ">
+                            <div class="form-group">
+                                <p class="text-center">
+                                    <a th:href="@{/login}" id="signin">Bạn đã có tài khoản?</a>
+                                </p>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script th:src="@{/vendor/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js}"></script>
+<script th:src="@{/js/sb-admin-2.min.js}"></script>
+
+<script>
+    $('#birthday').datepicker({
+        autoclose: true,
+        todayHighlight: true,
+        format: "dd-mm-yyyy"
+    });
+</script>
+
+</html>

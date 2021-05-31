@@ -4,26 +4,44 @@ import java.time.LocalDateTime;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import vn.com.multiplechoice.dao.model.User;
+import vn.com.multiplechoice.dao.model.enums.UserRole;
+import vn.com.multiplechoice.dao.model.enums.UserStatus;
 import vn.com.multiplechoice.web.dto.UserDto;
+import vn.com.multiplechoice.web.request.SignUpRequest;
 
-@Component
+@Service
 public class UserConverterService {
-    @Autowired
     private ModelMapper modelMapper;
+     private BCryptPasswordEncoder bCryptPasswordEncoder;
+     
+     @Autowired
+    public UserConverterService(ModelMapper modelMapper, BCryptPasswordEncoder bCryptPasswordEncoder) {
+        this.modelMapper = modelMapper;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+    }
 
     public User toEntity(UserDto dto) {
 
         User user = modelMapper.map(dto, User.class);
         user.setCreateTime(LocalDateTime.now());
-        user.setPassword(passwordEncoder().encode(user.getPassword()));
-        
-        
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+
+        return user;
+    }
+
+    public User toEntity(SignUpRequest signUpRequest) {
+
+        User user = modelMapper.map(signUpRequest, User.class);
+        user.setCreateTime(LocalDateTime.now());
+        user.setStatus(UserStatus.IN_ACTIVE);
+        user.setCreateTime(LocalDateTime.now());
+        user.setRole(UserRole.USER);
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+
         return user;
     }
 
@@ -31,9 +49,4 @@ public class UserConverterService {
         return modelMapper.map(entity, UserDto.class);
     }
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-    
 }
