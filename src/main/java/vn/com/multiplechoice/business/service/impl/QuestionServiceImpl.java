@@ -1,4 +1,4 @@
-package vn.com.multiplechoice.service.impl;
+package vn.com.multiplechoice.business.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
