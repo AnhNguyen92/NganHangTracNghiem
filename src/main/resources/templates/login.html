@@ -19,6 +19,9 @@
                         </div>
                         <hr>
                     </div>
+                    <div class="text-justify" th:if="${param.error}">
+                        <p style="font-size: 20; color: #FF1C19;">Tên đăng nhập hoặc mật khẩu không đúng</p>
+                    </div>
                     <form th:action="@{/login}" method="post" name="login">
                         <div class="form-group">
                             <label for="email">
