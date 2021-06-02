@@ -1,5 +1,8 @@
 package vn.com.multiplechoice.web.controller;
 
+import java.time.LocalDate;
+import java.time.Period;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,17 +36,35 @@ public class SignupController {
 
     @PostMapping
     public String createNewUser(Model model, @Valid SignUpRequest signUpRequest, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("newUser", signUpRequest);
+            return "signup";
+        }
         User userExists = userService.findByUsername(signUpRequest.getUsername());
         if (userExists != null) {
-            bindingResult.rejectValue("userName", "error.user", "There is already a user registered with the user name provided");
+            bindingResult.rejectValue("userName", "error.user", "Tài khoản đã được đăng ký");
+        }
+        // kiểm tra ngày sinh xem thành viên đã đủ 18 tuổi
+        if (signUpRequest.getBirthday() != null) {
+            LocalDate birthDay = signUpRequest.getBirthday();
+            Period period = Period.between(LocalDate.now(), birthDay);
+            int years = Math.abs(period.getYears());
+            if (years < 18) {
+                bindingResult.rejectValue("birthday", "error.birthday", "Bạn chưa đủ 18 tuổi.");
+            }
+        }
+        // kiểm tra mật khẩu nhập có giống nhau không
+        if (!signUpRequest.getPassword().equals(signUpRequest.getRePassword())) {
+            bindingResult.rejectValue("rePassword", "error.rePassword", "Mật khẩu nhập lại không khớp!");
         }
         if (!bindingResult.hasErrors()) {
             User user = userConverterService.toEntity(signUpRequest);
             userService.save(user);
-            model.addAttribute("successMessage", "User has been registered successfully");
-            model.addAttribute("user", new User());
+            // send verify email here
+            model.addAttribute("successMessage", "Đăng ký thành công!");
+            model.addAttribute("newUser", new SignUpRequest());
         }
-        return "login";
+        return "signup";
     }
 
 }

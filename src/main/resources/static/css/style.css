@@ -127,6 +127,13 @@ textarea {
   overflow-y: scroll;
 }
 
+/* sign up error validation message */
+.validation-message {
+    font-style: normal;
+    font-size: 12px;
+    color: #FF1C19;
+}
+
 /************************* CREATE MULTIPLE CHOICE QUESTION *************************/
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {

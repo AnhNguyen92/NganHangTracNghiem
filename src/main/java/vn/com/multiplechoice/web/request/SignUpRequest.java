@@ -16,13 +16,13 @@ public class SignUpRequest implements Serializable {
     private static final long serialVersionUID = -5852430861347682459L;
 
     private Long id;
-    @Size(min = 6, max = 100)
+    @Size(min = 6, max = 100, message = "Tên đăng nhập phải từ 6 - 100 ký tự")
     private String username;
     private String firstname;
     private String lastname;
-    @Email
+    @Email(message = "Địa chỉ mail không hợp lệ!")
     private String email;
-    @Size(min = 6, max = 100)
+    @Size(min = 6, max = 100, message = "Mật khẩu phải từ 6 - 100 ký tự")
     private String password;
     private String rePassword;
     private String phoneNumber;

@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.validator.constraints.Length;
 
@@ -29,22 +30,23 @@ public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "first_name")
+    @Column(name = "first_name", length = 50)
     private String firstname;
 
-    @Column(name = "last_name")
+    @Column(name = "last_name", length = 50)
     private String lastname;
 
     @Column(name = "username")
-    @Length(min = 6, max = 100)
+    @Length(min = 6, max = 100, message = "Tên đăng nhập phải từ 6 - 100 ký tự")
     private String username;
 
     @Column(name = "email")
-    @Email
+    @Email(message = "Địa chỉ mail không hợp lệ!")
+    @NotEmpty
     private String email;
 
     @Column(name = "password")
-    @Length(min = 6, max = 100)
+    @Length(min = 6, max = 100, message = "Mật khẩu phải từ 6 - 100 ký tự")
     private String password;
 
     @Column(name = "create_time")
