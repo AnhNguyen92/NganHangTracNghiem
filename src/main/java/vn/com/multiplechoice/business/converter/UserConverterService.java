@@ -11,7 +11,7 @@ import vn.com.multiplechoice.dao.model.User;
 import vn.com.multiplechoice.dao.model.enums.UserRole;
 import vn.com.multiplechoice.dao.model.enums.UserStatus;
 import vn.com.multiplechoice.web.dto.UserDto;
-import vn.com.multiplechoice.web.request.SignUpRequest;
+import vn.com.multiplechoice.web.form.SignUpForm;
 
 @Service
 public class UserConverterService {
@@ -33,7 +33,7 @@ public class UserConverterService {
         return user;
     }
 
-    public User toEntity(SignUpRequest signUpRequest) {
+    public User toEntity(SignUpForm signUpRequest) {
         User user = modelMapper.map(signUpRequest, User.class);
         user.setCreateTime(LocalDateTime.now());
         user.setStatus(UserStatus.ACTIVE);

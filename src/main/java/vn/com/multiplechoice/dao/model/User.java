@@ -30,10 +30,12 @@ public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "first_name", length = 50)
+    @Column(name = "first_name")
+    @Length(max = 50, message = "Tên không được dài quá 50 ký tự")
     private String firstname;
 
-    @Column(name = "last_name", length = 50)
+    @Column(name = "last_name")
+    @Length(max = 50, message = "Họ không được dài quá 50 ký tự")
     private String lastname;
 
     @Column(name = "username")
@@ -42,7 +44,7 @@ public class User implements Serializable {
 
     @Column(name = "email")
     @Email(message = "Địa chỉ mail không hợp lệ!")
-    @NotEmpty
+    @NotEmpty(message = "Địa chỉ mail không được để trống!")
     private String email;
 
     @Column(name = "password")
