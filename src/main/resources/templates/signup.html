@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="vn" xmlns:th="http://www.thymeleaf.org">
 
 <head>
 <meta charset="UTF-8" />
@@ -30,7 +30,7 @@
                     <h2>
                         <span class="text-success" th:utext="${successMessage}"></span>
                     </h2>
-                    <form th:action="@{/signup}" method="post" th:object="${newUser}">
+                    <form th:action="@{/signup}" method="post" th:object="${signUpForm}">
                         <div class="form-group row">
                             <div class="col-sm-6">
                                 <label for="lastname">Họ</label>
@@ -61,8 +61,10 @@
                         <div class="form-group row">
                             <div class="col-sm-6">
                                 <label class="control-label" for="inputWarning">Ngày sinh</label>
-                                <input type="text" th:field="*{birthday}" id="birthday" th:text="${#dates.format(newUser.birthday, 'dd-MM-yyyy')}"
-                                    class="form-control">
+                                <!-- <input type="text" id="birthday" th:text="${signUpForm.birthday != null} ? ${#temporals.format(signUpForm.birthday, 'dd-MM-yyyy') : ''}"
+                                    class="form-control" onchange="updateBirthday()">
+                                <input type="hidden" id="birthday" th:field="*{birthday}"> -->
+                                <input type="text" th:field="*{birthday}" id="birthday" th:text="${#temporals.format(signUpForm?.birthday, 'dd-MM-yyyy')}" class="form-control">
                                 <small th:if="${#fields.hasErrors('birthday')}" th:errors="*{birthday}" class="validation-message"></small>
                             </div>
                             <div class="col-sm-6">
@@ -79,7 +81,7 @@
                                 <span class="text-danger ml-1">*</span>
                             </label>
                             <input type="password" th:field="*{password}" id="password" class="form-control" placeholder="Nhập mật khẩu">
-                            <small th:if="${#fields.hasErrors('password')}" th:errors="password" class="validation-message"></small>
+                            <small th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="validation-message"></small>
                         </div>
                         <div class="form-group">
                             <label for="re-password">
@@ -87,7 +89,7 @@
                                 <span class="text-danger ml-1">*</span>
                             </label>
                             <input type="password" th:field="*{rePassword}" id="re-password" class="form-control" placeholder="Nhập lại mật khẩu">
-                            <small th:if="${#fields.hasErrors('rePassword')}" th:errors="rePassword" class="validation-message"></small>
+                            <small th:if="${#fields.hasErrors('rePassword')}" th:errors="*{rePassword}" class="validation-message"></small>
                         </div>
                         <div class="form-group">
                             <p class="text-center">
@@ -123,8 +125,15 @@
     $('#birthday').datepicker({
         autoclose: true,
         todayHighlight: true,
-        format: "dd-mm-yyyy"
+        format: "dd-mm-yyyy",
     });
+    /* function updateBirthday() {
+    	let date = $('#birthdayDisplay').datepicker('getDate');
+    	$('#birthday').val(date.getDay() + "-" + date.getMonth() + "-" + date.getFullYear());
+        console.log($('#birthday').value);
+        // let parts = birthdayStr.split("-");
+        //$('#birthday').value = new Date(parseInt(parts[2], 10), parseInt(parts[1], 10) - 1, parseInt(parts[0], 10));
+    } */
 </script>
 
 </html>

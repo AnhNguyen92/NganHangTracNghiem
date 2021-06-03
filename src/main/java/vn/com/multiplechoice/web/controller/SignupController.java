@@ -16,11 +16,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import vn.com.multiplechoice.business.converter.UserConverterService;
 import vn.com.multiplechoice.business.service.UserService;
 import vn.com.multiplechoice.dao.model.User;
-import vn.com.multiplechoice.web.request.SignUpRequest;
+import vn.com.multiplechoice.web.form.SignUpForm;
 
 @Controller
 @RequestMapping(value = "/signup")
 public class SignupController {
+
+    private static final String SIGNUP_FORM = "signUpForm";
+
+    private static final String SIGNUP = "signup";
 
     @Autowired
     private UserConverterService userConverterService;
@@ -30,19 +34,16 @@ public class SignupController {
 
     @GetMapping
     public String signup(Model model) {
-        model.addAttribute("newUser", new SignUpRequest());
-        return "signup";
+        model.addAttribute(SIGNUP_FORM, new SignUpForm());
+        
+        return SIGNUP;
     }
 
     @PostMapping
-    public String createNewUser(Model model, @Valid SignUpRequest signUpRequest, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            model.addAttribute("newUser", signUpRequest);
-            return "signup";
-        }
+    public String createNewUser(Model model, @Valid SignUpForm signUpRequest, BindingResult bindingResult) {
         User userExists = userService.findByUsername(signUpRequest.getUsername());
         if (userExists != null) {
-            bindingResult.rejectValue("userName", "error.user", "Tài khoản đã được đăng ký");
+            bindingResult.rejectValue("username", "error.signUpRequest", "Tài khoản đã được đăng ký");
         }
         // kiểm tra ngày sinh xem thành viên đã đủ 18 tuổi
         if (signUpRequest.getBirthday() != null) {
@@ -50,21 +51,24 @@ public class SignupController {
             Period period = Period.between(LocalDate.now(), birthDay);
             int years = Math.abs(period.getYears());
             if (years < 18) {
-                bindingResult.rejectValue("birthday", "error.birthday", "Bạn chưa đủ 18 tuổi.");
+                bindingResult.rejectValue("birthday", "error.signUpRequest", "Bạn chưa đủ 18 tuổi.");
             }
         }
         // kiểm tra mật khẩu nhập có giống nhau không
         if (!signUpRequest.getPassword().equals(signUpRequest.getRePassword())) {
-            bindingResult.rejectValue("rePassword", "error.rePassword", "Mật khẩu nhập lại không khớp!");
+            bindingResult.rejectValue("rePassword", "error.signUpRequest", "Mật khẩu nhập lại không khớp!");
         }
-        if (!bindingResult.hasErrors()) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute(SIGNUP_FORM, signUpRequest);
+        } else {
             User user = userConverterService.toEntity(signUpRequest);
             userService.save(user);
             // send verify email here
+            model.addAttribute(SIGNUP_FORM, new SignUpForm());
             model.addAttribute("successMessage", "Đăng ký thành công!");
-            model.addAttribute("newUser", new SignUpRequest());
         }
-        return "signup";
+
+        return SIGNUP;
     }
 
 }

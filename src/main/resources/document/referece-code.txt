@@ -1,0 +1,5 @@
+- Spring Boot + Spring MVC + Spring Security + MySQL
+	https://medium.com/@gustavo.ponce.ch/spring-boot-spring-mvc-spring-security-mysql-a5d8545d837d
+
+- Tạo ứng dụng web đa ngôn ngữ với Spring Boot
+	https://openplanning.net/11691/tao-ung-dung-web-da-ngon-ngu-voi-spring-boot#a4778557

@@ -1,35 +1,53 @@
-package vn.com.multiplechoice.web.request;
+package vn.com.multiplechoice.web.form;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 
 import javax.validation.constraints.Email;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.NotEmpty;
 
+import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import vn.com.multiplechoice.dao.model.enums.Gender;
 import vn.com.multiplechoice.dao.model.enums.UserRole;
 import vn.com.multiplechoice.dao.model.enums.UserStatus;
 
-public class SignUpRequest implements Serializable {
+public class SignUpForm implements Serializable {
     private static final long serialVersionUID = -5852430861347682459L;
 
     private Long id;
-    @Size(min = 6, max = 100, message = "Tên đăng nhập phải từ 6 - 100 ký tự")
+    
+    @Length(min = 6, max = 100, message = "Tên đăng nhập phải từ 6 - 100 ký tự")
     private String username;
+    
+    @Length(max = 50, message = "Tên không được dài quá 50 ký tự")
     private String firstname;
+    
+    @Length(max = 50, message = "Họ không được dài quá 50 ký tự")
     private String lastname;
+    
     @Email(message = "Địa chỉ mail không hợp lệ!")
+    @NotEmpty(message = "Địa chỉ mail không được để trống!")
     private String email;
-    @Size(min = 6, max = 100, message = "Mật khẩu phải từ 6 - 100 ký tự")
+    
+    @Length(min = 6, max = 100, message = "Mật khẩu phải từ 6 - 100 ký tự")
+    @NotEmpty(message = "Mật khẩu không được để trống")
     private String password;
+    
+    @Length(min = 6, max = 100, message = "Mật khẩu phải từ 6 - 100 ký tự")
+    @NotEmpty(message = "Mật khẩu không được để trống")
     private String rePassword;
+    
     private String phoneNumber;
+    
     private UserStatus status;
+    
     private UserRole role;
+    
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     private LocalDate birthday;
+    
     private Gender gender;
 
     public Long getId() {
