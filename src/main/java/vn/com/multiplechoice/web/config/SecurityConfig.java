@@ -3,7 +3,6 @@ package vn.com.multiplechoice.web.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -16,7 +15,6 @@ import vn.com.multiplechoice.business.service.MyUserDetailsService;
 
 @Configuration
 @EnableWebSecurity
-@Order(1)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -30,14 +28,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
+        String loginPage = "/login";
         http.authorizeRequests() //
-                .antMatchers("/", "/login", "/signup").permitAll() //
+                .antMatchers("/", loginPage, "/signup").permitAll() //
                 .antMatchers("/admin/**").hasAuthority("ADMIN") //
                 .anyRequest().authenticated() //
                 .and().csrf().disable() //
-                .formLogin().loginPage("/login") //
+                .formLogin().loginPage(loginPage) //
                 .failureUrl("/login?error=true").defaultSuccessUrl("/bo/user").usernameParameter("username").passwordParameter("password").and().logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login").and().exceptionHandling()
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl(loginPage).and().exceptionHandling()
                 .accessDeniedPage("/access-denied");
     }
 
