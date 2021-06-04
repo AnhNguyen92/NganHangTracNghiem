@@ -1,14 +1,13 @@
 <!DOCTYPE html>
-<html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
 
 <head>
 <title>Thêm header</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap-4.4.1/css/bootstrap.min.css}" />
-<link rel="stylesheet" type="js" th:href="@{/css/bootstrap-4.4.1/js/bootstrap.min.js}" />
-<link rel="stylesheet" type="text/css" th:href="@{/fontawesome/css/fontawesome.min.css}">
 <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+<link th:rel="stylesheet" th:href="@{/summernote/summernote-bs4.css}" />
+<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} " />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -78,7 +77,7 @@
             <div class="page-title">THÊM ĐẦU TRANG ĐỀ THI</div>
             <div class="create-options">
                 <div>
-                    <form method="POST" action="/print-exam-final">
+                    <form method="POST" action="/print-file-final" th:object="${test}">
                         <fieldset class="border p-2" id="question-level">
                             <legend class="w-auto">Thiết lập đầu trang</legend>
                             <div class="form-group">
@@ -96,7 +95,7 @@
                         </fieldset>
                         <fieldset class="border p-2" id="question-level">
                             <legend class="w-auto">Thiết lập cuối trang</legend>
-                            <div class="extention d-flex flex-row" style="height: 30px;">
+                            <!-- <div class="extention d-flex flex-row" style="height: 30px;">
                                 <div class="ml-auto p-2">
                                     <i class="fa fa-align-right" aria-hidden="true"></i>
                                     <i class="fa fa-align-center" aria-hidden="true"></i>
@@ -106,9 +105,10 @@
                                     <i class="fa fa-italic" aria-hidden="true"></i>
                                     <i class="fa fa-underline" aria-hidden="true"></i>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="mcp-content">
-                                <textarea class="end-exam-footer" style="width: -webkit-fill-available; min-height: 120px;">--- Hết ---</textarea>
+                                <!-- <textarea class="end-exam-footer" style="width: -webkit-fill-available; min-height: 120px;">--- Hết ---</textarea> -->
+                                <textarea type="text" rows="4" id="content" placeholder="Content" class="form-control" th:field="*{content}" autocomplete="off"></textarea>
                             </div>
                         </fieldset>
                         <div class="action">
@@ -149,7 +149,7 @@
                         </li>
                         <li>
                             <p>
-                                <a href="#!">Chính sách & Điều khoản</a>
+                                <a href="#">Chính sách & Điều khoản</a>
                             </p>
                         </li>
                     </ul>
@@ -207,11 +207,18 @@
         </div>
     </footer>
 </body>
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{/summernote/summernote-bs4.js}"></script>
 <script>
   // Add the name of the file appear on select
   $(".custom-file-input").on("change", function() {
     var fileName = $(this).val().split("\\").pop();
     $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
   });
+  $('#content').summernote({
+      height: 200
+});
   </script>
 </html>
