@@ -61,7 +61,7 @@
                         <div class="form-group row">
                             <div class="col-sm-6">
                                 <label class="control-label" for="inputWarning">Ngày sinh</label>
-                                <input type="text" th:field="*{birthday}" id="birthday" th:text="${#temporals.format(signUpForm?.birthday, 'dd-MM-yyyy')}" class="form-control">
+                                <input type="text" name="birthday" id="birthday" th:value="${#temporals.format(signUpForm?.birthday, 'dd-MM-yyyy')}" class="form-control">
                                 <small th:if="${#fields.hasErrors('birthday')}" th:errors="*{birthday}" class="validation-message"></small>
                             </div>
                             <div class="col-sm-6">
