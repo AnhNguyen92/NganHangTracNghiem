@@ -12,9 +12,9 @@ import vn.com.multiplechoice.dao.repository.UserRepository;
 
 @Service
 @Transactional
-public class UserServiceImpl  extends AbstractService<User, Long> implements UserService {
+public class UserServiceImpl extends AbstractService<User, Long> implements UserService {
     private UserRepository userRepository;
-    
+
     @Autowired
     public UserServiceImpl(UserRepository userRepository) {
         super(userRepository);
@@ -25,5 +25,5 @@ public class UserServiceImpl  extends AbstractService<User, Long> implements Use
     public User findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
-    
+
 }
