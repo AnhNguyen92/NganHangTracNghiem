@@ -22,7 +22,7 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/imgs/**").addResourceLocations("classpath:/static/imgs/");
         registry.addResourceHandler("/css/**").addResourceLocations("classpath:/static/css/");
         registry.addResourceHandler("/js/**").addResourceLocations("classpath:/static/js/");
-        registry.addResourceHandler("/fontawesome/**").addResourceLocations("classpath:/static/font-awesome-4.7.0/");
+        registry.addResourceHandler("/fontawesome/**").addResourceLocations("classpath:/static/fontawesome/");
         registry.addResourceHandler("/**").addResourceLocations("classpath:/static/");
     }
 
