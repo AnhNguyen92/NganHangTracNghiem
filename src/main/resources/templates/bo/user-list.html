@@ -6,7 +6,7 @@
 <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap-4.4.1/css/bootstrap.min.css}" />
 <link rel="stylesheet" type="js" th:href="@{/css/bootstrap-4.4.1/js/bootstrap.min.js}" />
 <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
-<link rel="stylesheet" type="text/css" th:href="@{/font-awesome-4.7.0/css/font-awesome.min.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/vendor/fontawesome/css/fontawesome.min.css}" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
@@ -21,8 +21,8 @@
         <div class="header">
             <div class="d-flex">
                 <div class="logo">
-                    <img src="../../static/imgs/logo-1.jpg" alt="Logo" title="Logo"/>
-                    <!-- <img th:src="@{/imgs/logo-1.jpg}" th:alt-title="#{title.application}"/> -->
+                    <!-- <img src="../../static/imgs/logo-1.jpg" alt="Logo" title="Logo"/> -->
+                    <img th:src="@{/imgs/logo-1.jpg}" th:alt-title="#{title.application}"/>
                     <a href="/bo/user/list"></a>
                 </div>
                 <div class="ml-auto">
@@ -30,7 +30,7 @@
                         <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
                             aria-haspopup="true" aria-expanded="false">Welcome Tuan Anh</a>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="/logout">Đăng xuất</a>
+                                <a class="dropdown-item" th:href="@{/logout}">Đăng xuất</a>
                             </div>
                         </li>
                     </ul>

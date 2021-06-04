@@ -3,14 +3,10 @@
 <head>
 <meta charset="UTF-8" />
 <title>DUYỆT NGƯỜI DÙNG MỚI</title>
-<!-- <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap-4.4.1/css/bootstrap.min.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap-4.4.1/css/bootstrap.min.css}" />
 <link rel="stylesheet" type="js" th:href="@{/css/bootstrap-4.4.1/js/bootstrap.min.js}" />
 <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
-<link rel="stylesheet" type="text/css" th:href="@{/font-awesome-4.7.0/css/font-awesome.min.css}" /> -->
-<link rel="stylesheet" type="text/css" href="../../static/css/bootstrap-4.4.1/css/bootstrap.min.css" />
-  <link rel="stylesheet" type="js" href="../../static/css/bootstrap-4.4.1/js/bootstrap.min.js" />
-  <link rel="stylesheet" type="text/css" href="../../static/font-awesome-4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" type="text/css" href="../../static/css/style.css" />
+<link rel="stylesheet" type="text/css" th:href="@{/vendor/fontawesome/css/fontawesome.min.css}" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
@@ -25,14 +21,15 @@
         <div class="header">
             <div class="d-flex">
                 <div class="logo">
-                    <img src="../../static/imgs/logo-1.jpg" alt="Logo" title="Logo"/>
+                    <img src="../../static/imgs/logo-1.jpg" alt="Logo" title="Logo" />
                     <!-- <img th:src="@{/imgs/logo-1.jpg}" th:alt-title="#{title.application}"/> -->
                     <a href="/bo/user/list"></a>
                 </div>
                 <div class="ml-auto">
                     <ul class="nav nav-pills">
-                        <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
-                            aria-haspopup="true" aria-expanded="false">Welcome Tuan Anh</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Welcome
+                                Tuan Anh</a>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="/logout">Đăng xuất</a>
                             </div>
@@ -74,9 +71,15 @@
                                         <td th:text="${users.role}"></td>
                                         <td>
                                             <div class="btn-group" role="group" aria-label="...">
-                                                <a href="#" class="btn"><i class="fa fa-check" aria-hidden="true"></i></a>
-                                                <a href="#" class="btn"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                                                <a href="#" class="btn"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                                <a href="#" class="btn">
+                                                    <i class="fa fa-check" aria-hidden="true"></i>
+                                                </a>
+                                                <a href="#" class="btn">
+                                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                                </a>
+                                                <a href="#" class="btn">
+                                                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                                </a>
                                             </div>
                                         </td>
                                     </tr>
@@ -91,22 +94,26 @@
             <div>
                 <nav aria-label="...">
                     <ul class="pagination">
-                      <li class="page-item disabled">
-                        <span class="page-link">Previous</span>
-                      </li>
-                      <li class="page-item"><a class="page-link" href="#">1</a></li>
-                      <li class="page-item active">
-                        <span class="page-link">
-                          2
-                          <span class="sr-only">(current)</span>
-                        </span>
-                      </li>
-                      <li class="page-item"><a class="page-link" href="#">3</a></li>
-                      <li class="page-item">
-                        <a class="page-link" href="#">Next</a>
-                      </li>
+                        <li class="page-item disabled">
+                            <span class="page-link">Previous</span>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="#">1</a>
+                        </li>
+                        <li class="page-item active">
+                            <span class="page-link">
+                                2
+                                <span class="sr-only">(current)</span>
+                            </span>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="#">3</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="#">Next</a>
+                        </li>
                     </ul>
-                  </nav>
+                </nav>
             </div>
         </div>
     </div>

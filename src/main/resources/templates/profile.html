@@ -2,190 +2,196 @@
 <html>
 
 <head>
-    <title>Thông tin cá nhân</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- 
+<title>Thông tin cá nhân</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap-4.4.1/css/bootstrap.min.css}" />
 <link rel="stylesheet" type="js" th:href="@{/css/bootstrap-4.4.1/js/bootstrap.min.js}" />
-<link rel="stylesheet" type="text/css" th:href="@{/font-awesome-4.7.0/css/font-awesome.min.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/vendor/fontawesome/css/fontawesome.min.css}">
 <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
--->
-    <link rel="stylesheet" type="text/css" href="../static/css/bootstrap-4.4.1/css/bootstrap.min.css" />
-    <link rel="stylesheet" type="js" href="../static/css/bootstrap-4.4.1/js/bootstrap.min.js" />
-    <link rel="stylesheet" type="text/css" href="../static/font-awesome-4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="../static/css/style.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 </head>
 
 <body>
     <div class="content">
-    <!-- Header Logo -->
-    <div class="header">
-        <div class="d-flex" style="position: relative;background-color: #EEF7F2;">
-            <div class="hd-logo"></div>
-            <div class="page-header font-weight-bold text-capitalize">
-                Ngân hàng câu hỏi trắc nghiệm online<a href="home.html"></a>
+        <!-- Header Logo -->
+        <div class="header">
+            <div class="d-flex" style="position: relative; background-color: #EEF7F2;">
+                <div class="hd-logo"></div>
+                <div class="page-header font-weight-bold text-capitalize">
+                    Ngân hàng câu hỏi trắc nghiệm online
+                    <a href="home.html"></a>
+                </div>
+                <div class="ml-auto bottom-text">
+                    <ul class="nav nav-pills">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Chào
+                                Tuan Anh</a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="/profile">Profile</a>
+                                <a class="dropdown-item" href="/test">Đề thi</a>
+                                <a class="dropdown-item" href="/logout">Đăng xuất</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <div class="ml-auto bottom-text">
-                <ul class="nav nav-pills">
-                    <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
-                            role="button" aria-haspopup="true" aria-expanded="false">Chào Tuan Anh</a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="/profile">Profile</a>
-                            <a class="dropdown-item" href="/test">Đề thi</a>
-                            <a class="dropdown-item" href="/logout">Đăng xuất</a>
+        </div>
+        <!-- Horizontal Menu-->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#">Trang chủ</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Tạo câu hỏi</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false"> Đề thi </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">Đề thi của tôi</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Tạo mới</a>
                         </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Chính sách</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Liên hệ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Hướng dẫn sử dụng</a>
                     </li>
                 </ul>
             </div>
-        </div>
-    </div>
-    <!-- Horizontal Menu-->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Trang chủ</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item"><a class="nav-link" href="#">Tạo câu hỏi</a></li>
-                <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
-                        role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Đề thi </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Đề thi của tôi</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Tạo mới</a>
-                    </div>
-                </li>
-                <li class="nav-item"><a class="nav-link" href="#">Chính sách</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Liên hệ</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Hướng dẫn sử dụng</a></li>
-            </ul>
-        </div>
-    </nav>
-    <!-- Container -->
-    <div class="pf">
-        <div class="container">
-            <form>
-                <div class="pf-main">
-                    <div class="pf-navi">
-                        <div class="pf-navi-avatar">
-                            <div class="pf-navi-avatar-thumb">
-                                <div>
-                                    <img src="../static/imgs/avatar.jpg" alt="image">
-                                </div>
-                                <div class="pf-navi-user">
-                                    <label class="pf-navi-username">Nguyễn Tuấn Anh</label>
+        </nav>
+        <!-- Container -->
+        <div class="pf">
+            <div class="container">
+                <form>
+                    <div class="pf-main">
+                        <div class="pf-navi">
+                            <div class="pf-navi-avatar">
+                                <div class="pf-navi-avatar-thumb">
+                                    <div>
+                                        <img src="../static/imgs/avatar.jpg" alt="image">
+                                    </div>
+                                    <div class="pf-navi-user">
+                                        <label class="pf-navi-username">Nguyễn Tuấn Anh</label>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="pf-link">
-                            <div class="pf-link-detail">
-                                <i class="fa fa-user-circle" style="color:#f39f21;"></i>
-                                <a id="my-profile" href="profile.html" style="color: #f39f21;">Tài khoản của tôi</a>
-                            </div>
-                            <!-- <div class="pf-link-detail">
+                            <div class="pf-link">
+                                <div class="pf-link-detail">
+                                    <i class="fa fa-user-circle" style="color: #f39f21;"></i>
+                                    <a id="my-profile" href="profile.html" style="color: #f39f21;">Tài khoản của tôi</a>
+                                </div>
+                                <!-- <div class="pf-link-detail">
                                 <a href="profile-email.html">Hồ sơ</a>
                             </div>
                             <div class="pf-link-detail">
                                 <a class="pf-link-detail" href="profile-address.html">Địa chỉ</a>
                             </div> -->
-                            <div class="pf-link-detail">
-                                <a href="profile-password.html">Đổi mật khẩu</a>
+                                <div class="pf-link-detail">
+                                    <a href="profile-password.html">Đổi mật khẩu</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pf-info">
+                            <div class="pf-info-navi">
+                                <div class="pf-info-navi-title">Hồ sơ của tôi</div>
+                                <div class="pf-info-navi-note">Quản lý thông tin hồ sơ để bảo mật tài khoản</div>
+                            </div>
+                            <div class="pf-info-main">
+                                <div class="pf-info-content">
+                                    <div>
+                                        <div class="pf-info-detail">
+                                            <label>Họ và tên</label>
+                                            <input type="text" name="hovaten" value="Nguyễn Tuấn Anh">
+                                        </div>
+                                        <div class="pf-info-detail">
+                                            <label>Email</label>
+                                            <input type="email" id="user-email" name="email" style="border: none;" readonly value="anh.nguyenids@hcmut.edu.vn">
+                                        </div>
+                                        <div class="pf-info-detail">
+                                            <label>Số điện thoại</label>
+                                            <input type="tel" name="phone" id="user-phone" value="0912345678">
+                                        </div>
+                                        <div class="pf-info-detail pf-info-gender d-flex">
+                                            <label>Giới tính</label>
+                                            <label class="radio-inline" style="width: 60px;">
+                                                <input class="mr-2" type="radio" name="optradio" id="male" style="width: 16px; height: auto;" value="male"
+                                                    checked>
+                                                Nam
+                                            </label>
+                                            <label class="radio-inline" style="width: 60px;">
+                                                <input class="mr-2" type="radio" name="optradio" id="female" style="width: 16px; height: auto;" value="female">
+                                                Nữ
+                                            </label>
+                                        </div>
+                                        <div class="pf-info-detail pf-info-date-of-birth">
+                                            <label>Ngày sinh</label>
+                                            <select name='day' id='day'>
+                                            </select>
+                                            <select name='month' id='month'>
+                                            </select>
+                                            <select name='year' id='year'>
+                                            </select>
+                                        </div>
+                                        <div class="pf-info-detail">
+                                            <label>Địa chỉ</label>
+                                            <input type="text" name="address" value="142 Tô Hiến Thành, P.14, Q.10, Tp Hồ Chí Minh">
+                                        </div>
+                                        <div class="pf-info-detail">
+                                            <label>Mật khẩu</label>
+                                            <input type="password" name="password" value="123456">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="pf-info-image">
+                                    <div>
+                                        <p>
+                                            <input type="file" accept="image/*" name="image" id="file" onchange="loadFile(event)" style="display: none;">
+                                        </p>
+                                        <p style="text-align: center;">
+                                            <img id="output" src="../static/imgs/avatar.jpg" alt="" />
+                                        </p>
+                                        <p class="pf-info-select-img">
+                                            <label for="file" style="cursor: pointer; margin: 0 auto;">Chọn hình</label>
+                                        </p>
+                                    </div>
+                                    <div class="pt-2">
+                                        <span>Dung lượng file tối đa 1 MB</span>
+                                        <span>Định dạng:.JPEG, .PNG</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <button class="btn-pf-save btn btn-primary">Lưu</button>
                             </div>
                         </div>
                     </div>
-                    <div class="pf-info">
-                        <div class="pf-info-navi">
-                            <div class="pf-info-navi-title">Hồ sơ của tôi</div>
-                            <div class="pf-info-navi-note">Quản lý thông tin hồ sơ để bảo mật tài khoản</div>
-                        </div>
-                        <div class="pf-info-main">
-                            <div class="pf-info-content">
-                                <div>
-                                    <div class="pf-info-detail">
-                                        <label>Họ và tên</label>
-                                        <input type="text" name="hovaten" value="Nguyễn Tuấn Anh">
-                                    </div>
-                                    <div class="pf-info-detail">
-                                        <label>Email</label>
-                                        <input type="email" id="user-email" name="email" style="border: none;" readonly
-                                            value="anh.nguyenids@hcmut.edu.vn">
-                                    </div>
-                                    <div class="pf-info-detail">
-                                        <label>Số điện thoại</label>
-                                        <input type="tel" name="phone" id="user-phone" value="0912345678">
-                                    </div>
-                                    <div class="pf-info-detail pf-info-gender d-flex">
-                                        <label>Giới tính</label>
-                                        <label class="radio-inline" style="width: 60px;"><input class="mr-2"
-                                                type="radio" name="optradio" id="male" style="width: 16px;height: auto;"
-                                                value="male" checked>Nam</label>
-                                        <label class="radio-inline" style="width: 60px;"><input class="mr-2"
-                                                type="radio" name="optradio" id="female"
-                                                style="width: 16px;height: auto;" value="female">Nữ</label>
-                                    </div>
-                                    <div class="pf-info-detail pf-info-date-of-birth">
-                                        <label>Ngày sinh</label>
-                                        <select name='day' id='day'>
-                                        </select>
-                                        <select name='month' id='month'>
-                                        </select>
-                                        <select name='year' id='year'>
-                                        </select>
-                                    </div>
-                                    <div class="pf-info-detail">
-                                        <label>Địa chỉ</label>
-                                        <input type="text" name="address"
-                                            value="142 Tô Hiến Thành, P.14, Q.10, Tp Hồ Chí Minh">
-                                    </div>
-                                    <div class="pf-info-detail">
-                                        <label>Mật khẩu</label>
-                                        <input type="password" name="password" value="123456">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="pf-info-image">
-                                <div>
-                                    <p><input type="file" accept="image/*" name="image" id="file"
-                                            onchange="loadFile(event)" style="display: none;"></p>
-                                    <p style="text-align: center;"><img id="output" src="../static/imgs/avatar.jpg"
-                                            alt="" />
-                                    </p>
-                                    <p class="pf-info-select-img"><label for="file"
-                                            style="cursor: pointer;margin: 0 auto;">Chọn hình</label></p>
-                                </div>
-                                <div class="pt-2">
-                                    <span>Dung lượng file tối đa 1 MB</span>
-                                    <span>Định dạng:.JPEG, .PNG</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div>
-                            <button class="btn-pf-save btn btn-primary">Lưu</button>
-                        </div>
-                    </div>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
+        <!-- Footer -->
     </div>
-    <!-- Footer -->
-</div>
     <footer class="footer page-footer font-small mdb-color lighten-3 pt-2">
         <div class="container text-center text-md-left">
             <div class="row">
                 <div class="col-md-3 col-lg-3 my-md-3 my-0 mt-4 mb-1">
                     <h5 class="font-weight-bold text-uppercase mb-4">Ngân hàng câu hỏi trắc nghiệm</h5>
-                    <p>Đây là một hệ thống trực tuyến giúp bạn tạo đề thi dễ dàng trực quan. Hỗ trợ việc làm bài kiểm
-                        tra trực
-                        tuyến, in ấn đề thi.</p>
+                    <p>Đây là một hệ thống trực tuyến giúp bạn tạo đề thi dễ dàng trực quan. Hỗ trợ việc làm bài kiểm tra trực tuyến, in ấn đề thi.</p>
                 </div>
                 <hr class="clearfix w-100 d-md-none">
                 <div class="col-md-3 col-lg-3 my-md-4 my-0 mt-4 mb-1">
@@ -255,8 +261,9 @@
             </div>
         </div>
         <div class="footer-copyright text-center py-3">
-            © 2020 Copyright: <a href="nganhangtracnghiem.com">nganhangtracnghiem.com</a> - Nguyễn Tuấn
-            Anh - 1733403
+            © 2020 Copyright:
+            <a href="nganhangtracnghiem.com">nganhangtracnghiem.com</a>
+            - Nguyễn Tuấn Anh - 1733403
         </div>
     </footer>
 </body>
