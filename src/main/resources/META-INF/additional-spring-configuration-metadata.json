@@ -1,5 +1,14 @@
-{"properties": [{
-  "name": "welcome.message",
-  "type": "java.lang.String",
-  "description": "A description for 'welcome.message'"
-}]}
+{"properties": 
+	[
+		{
+	  		"name": "welcome.message",
+	  		"type": "java.lang.String",
+	  		"description": "Default welcome message for thymeleaf"
+		},
+		{
+	  		"name": "template.upload.path",
+	  		"type": "java.lang.String",
+	  		"description": "The upload path for header template"
+		}
+	]
+}
