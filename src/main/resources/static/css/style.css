@@ -10,7 +10,7 @@ html, body {
 
 /* HEADER */
 .hd-logo {
-  background: url('../../static/imgs/header-logo.png');
+  background: url('/multiple-choice-quiz/imgs/header-logo.png');
   width: 308px;
   height: 144px;
   background-size: cover;
