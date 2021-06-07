@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Lưu người dùng mới</title>
+<title>THÊM NGƯỜI DÙNG MỚI</title>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -46,16 +46,17 @@
             <div class="sidebar-heading">Interface</div>
 
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-cog"></i>
-                    <span>Components</span>
+                    <span>Người Dùng</span>
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Components:</h6>
-                        <a class="collapse-item" href="buttons.html">Buttons</a>
-                        <a class="collapse-item" href="cards.html">Cards</a>
+                        <h6 class="collapse-header">Các Trang:</h6>
+                        <a class="collapse-item" th:href="@{/bo/user/list}">Danh Sách</a>
+                        <a class="collapse-item" th:href="@{/bo/user/waiting-list}">Danh Sách Chờ</a>
+                        <a class="collapse-item" th:href="@{''}">Thêm Mới</a>
                     </div>
                 </div>
             </li>
@@ -153,7 +154,7 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
                                 aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Chào Admin</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small" th:text="${#authentication.getPrincipal().getUsername()}">Chào Admin</span>
                                 <img class="img-profile rounded-circle" th:src="@{/imgs/undraw_profile.svg}" alt="profile">
                             </a>
                             <!-- Dropdown - User Information -->
@@ -242,11 +243,6 @@
                                                 <input type="text" th:field="*{birthday}" id="birthday" th:text="${#dates.format(user.birthday, 'dd-MM-yyyy')}" class="form-control mb-4">
                                             </div>
                                         </div>
-                                        <!-- <div class="form-group">
-                                            <label class="control-label" for="inputWarning">Ngày sinh</label>
-                                            <input type="text" th:field="*{birthday}" id="birthday" th:text="${#dates.format(user.birthday, 'dd-MM-yyyy')}"
-                                                class="form-control mb-4 col-4">
-                                        </div> -->
                                         <div class="form-group">
                                             <button type="submit" class="btn btn-primary">Lưu</button>
                                         </div>
