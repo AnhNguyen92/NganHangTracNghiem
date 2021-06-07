@@ -10,7 +10,10 @@
 <link th:href="@{/vendor/fontawesome/css/all.min.css}" rel="stylesheet" type="text/css">
 <link th:rel="stylesheet" th:href="@{/vendor/bootstrap-datepicker/css/bootstrap-datepicker.css}" />
 <link th:rel="stylesheet" th:href="@{/vendor/bootstrap-datepicker/css/bootstrap-datepicker.standalone.css}" />
+<link th:rel="stylesheet" th:href="@{/assets/datatable/datatables.css}" />
+<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} " />
 <link th:href="@{/css/sb-admin-2.min.css}" rel="stylesheet">
+
 </head>
 <body id="page-top">
     <!-- Page Wrapper -->
@@ -129,17 +132,63 @@
 
         </ul>
         <!-- End of Sidebar -->
-        
+
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
-            <div class="row">
-                <div class="col-sm-10 col-sm-offset-1">
-                    <div class="panel panel-default">
-                        <div th:if="!${#lists.isEmpty(users)}">
-                            <table class="table">
+            <div id="content">
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+
+                        <div class="topbar-divider d-none d-sm-block"></div>
+
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small" th:text="${#authentication.getPrincipal().getUsername()}">Chào Admin</span>
+                                <img class="img-profile rounded-circle" th:src="@{/imgs/undraw_profile.svg}" alt="profile">
+                            </a>
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="#">
+                                    <span class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></span>
+                                    Đăng Xuất
+                                </a>
+                            </div>
+                        </li>
+
+                    </ul>
+
+                </nav>
+                <!-- End of Topbar -->
+                
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-2 text-gray-800">Người dùng</h1>
+
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Danh sách</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                            <table id="example" class="table table-bordered table-responsive" style="width: 100%">
                                 <thead>
                                     <tr>
                                         <th>ID</th>
+                                        <th>Firstname</th>
+                                        <th>Lastname</th>
                                         <th>Email</th>
                                         <th>Username</th>
                                         <th>Phone</th>
@@ -147,55 +196,96 @@
                                         <th>Action</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr th:each="users : ${users}">
-                                        <td th:text="${users.id}"></td>
-                                        <td th:text="${users.email}"></td>
-                                        <td th:text="${users.username}"></td>
-                                        <td th:text="${users.phoneNumber}"></td>
-                                        <td th:text="${users.role}"></td>
-                                        <td>
-                                            <div class="btn-group" role="group" aria-label="...">
-                                                <a href="#" class="btn"><i class="fa fa-check" aria-hidden="true"></i></a>
-                                                <a href="#" class="btn"><i class="fa fa-pencil-alt" aria-hidden="true"></i></a>
-                                                <a href="#" class="btn"><i class="fa fa-trash-alt" aria-hidden="true"></i></a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
                             </table>
                         </div>
-                        <div th:if="${#lists.isEmpty(users)}">No users exists!</div>
                     </div>
                 </div>
+                <!-- /.container-fluid -->
+                
             </div>
-            <!-- action -->
-            <div>
-                <a href="add-user.html">Thêm mới</a>
-                <button>Xóa</button>
-            </div>
-            <!-- pagination -->
-            <div>
-                <nav aria-label="...">
-                    <ul class="pagination">
-                      <li class="page-item disabled">
-                        <span class="page-link">Previous</span>
-                      </li>
-                      <li class="page-item"><a class="page-link" href="#">1</a></li>
-                      <li class="page-item active">
-                        <span class="page-link">
-                          2
-                          <span class="sr-only">(current)</span>
-                        </span>
-                      </li>
-                      <li class="page-item"><a class="page-link" href="#">3</a></li>
-                      <li class="page-item">
-                        <a class="page-link" href="#">Next</a>
-                      </li>
-                    </ul>
-                  </nav>
-            </div>
+            <!-- End of Main Content -->
+            
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; Meet Your Idol 2021</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+            
         </div>
+        <!-- End of Content Wrapper -->
+        
     </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
 </body>
+
+    <script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}"></script>
+    <script th:src="@{/webjars/popper.js/1.12.9-1/umd/popper.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/4.0.0-2/js/bootstrap.min.js}"></script>
+    <script th:src="@{/assets/datatable/datatables.js}"></script>
+    <script>
+        $('#example').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "ajax": {
+                "url": "/multiple-choice-quiz/bo/user/ajax/list",
+                "type": "POST",
+                "dataType": "json",
+                "contentType": "application/json",
+                "data": function (d) {
+                    return JSON.stringify(d);
+                }
+            },
+            "columns": [
+                {"data": "id"},
+                {"data": "firstname"},
+                {"data": "lastname"},
+                {"data": "email"},
+                {"data": "username"},
+                {"data": "phoneNumber"},
+                {"data": "role"}
+                ,{data: null,
+                    render: function ( data, type, row ) {
+                        return '<div class="d-flex justify-content-around"><a href="/multiple-choice-quiz/bo/user/' + data.id + '" class="btn btn-primary mr-2" title="Chi tiết"><i class="fa fa-pencil-alt" aria-hidden="true"></i></a><a href="javascript:deleteUser(' + data.id + ')" class="btn btn-danger" title="Xóa"><i class="fa fa-trash-alt" aria-hidden="true"></i></a></div>';
+                 
+                 
+                      }}
+            ],
+            "language": {
+            	"info": "Hiển thị _START_ tới _END_ của _TOTAL_",
+            	"emptyTable": "Không có dữ liệu",
+            	"lengthMenu": "Hiển thị _MENU_ kết quả",
+                "loadingRecords": "Xin đợi - Đang tải ...",
+                "search": "Tìm kiếm:",
+                "paginate": {
+                    "first":      "Đầu",
+                    "last":       "Cuối",
+                    "next":       "Kế",
+                    "previous":   "Trước"
+                }
+            }
+        });
+
+        function deleteUser(id) {
+        	$.ajax({
+        		  type: "DELETE",
+        		  url: "/multiple-choice-quiz/bo/user/" + id,
+        		  contentType: "application/json",
+        		  dataType: "json",
+                  error: function (e) {
+                  	console.log(e);
+                  }
+        		});
+        }
+    </script>
+
 </html>

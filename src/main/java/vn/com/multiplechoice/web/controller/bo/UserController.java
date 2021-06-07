@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -29,14 +30,19 @@ public class UserController {
 
     @Autowired
     private UserConverterService userConverter;
-    
+
     @Autowired
     private UserService userService;
 
-    @GetMapping(value = { "", "/list" })
+    @GetMapping(value = "")
     public String getAllUsers(Model model) {
         model.addAttribute("users", getAllUser());
 
+        return "bo/user-list";
+    }
+
+    @GetMapping(value = "/list")
+    public String getUsers(Model model) {
         return "bo/user-list";
     }
 
@@ -47,6 +53,15 @@ public class UserController {
         model.addAttribute("users", waitingUsers);
 
         return "bo/user-waiting-list";
+    }
+
+    @GetMapping("/{id}")
+    public String findById(Model model, @PathVariable Long id) {
+        // for test only
+        User user = userService.findOne(4l);
+//        User user = userService.findOne(id);
+        model.addAttribute("user", userConverter.toDto(user));
+        return "bo/user";
     }
 
     @GetMapping("/new")
@@ -61,7 +76,7 @@ public class UserController {
         log.info("Admin create user by username : {}", dto.getUsername());
         model.addAttribute("user", new UserDto());
         User user = userConverter.toEntity(dto);
-        
+
         userService.save(user);
 
         return "bo/user-list";
@@ -139,4 +154,5 @@ public class UserController {
         Random r = new Random();
         return r.nextInt((max - min) + 1) + min;
     }
+
 }
