@@ -3,6 +3,7 @@ package vn.com.multiplechoice.web.controller.bo;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,7 +40,7 @@ public class UserController {
         return "bo/user-list";
     }
 
-    @GetMapping("/waitingList")
+    @GetMapping("/waiting-list")
     public String waitingUsers(Model model) {
         List<User> waitingUsers = getWaitingUsers();
 
@@ -79,7 +80,10 @@ public class UserController {
         for (int i = 0; i < 20; i++) {
             User user = new User();
             user.setId(i + 1l);
-            user.setEmail("user" + (i + 1) + "@gmail.com");
+            UUID uuid = UUID.randomUUID();
+            String uuidAsString = uuid.toString();
+            user.setUsername(uuidAsString);
+            user.setEmail(uuidAsString + (i + 1) + "@gmail.com");
             user.setPhoneNumber("0123456789");
             user.setRole(randomUserRole());
             user.setFirstname("user" + (i + 1));
@@ -97,7 +101,10 @@ public class UserController {
         for (int i = 0; i < 20; i++) {
             User user = new User();
             user.setId(i + 21l);
-            user.setEmail("user" + (i + 21) + "@gmail.com");
+            UUID uuid = UUID.randomUUID();
+            String uuidAsString = uuid.toString();
+            user.setUsername(uuidAsString);
+            user.setEmail(uuidAsString + (i + 21) + "@gmail.com");
             user.setPhoneNumber("0123456789");
             user.setRole(randomUserRole());
             user.setFirstname("user" + (i + 21));
