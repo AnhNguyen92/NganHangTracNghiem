@@ -42,8 +42,9 @@ public class SignupController {
     @PostMapping
     public String createNewUser(Model model, @Valid SignUpForm signUpRequest, BindingResult bindingResult) {
         User userExists = userService.findByUsername(signUpRequest.getUsername());
+        String errorCode = "error.signUpRequest";
         if (userExists != null) {
-            bindingResult.rejectValue("username", "error.signUpRequest", "Tài khoản đã được đăng ký");
+            bindingResult.rejectValue("username", errorCode, "Tài khoản đã được đăng ký");
         }
         // kiểm tra ngày sinh xem thành viên đã đủ 18 tuổi
         if (signUpRequest.getBirthday() != null) {
@@ -51,12 +52,12 @@ public class SignupController {
             Period period = Period.between(LocalDate.now(), birthDay);
             int years = Math.abs(period.getYears());
             if (years < 18) {
-                bindingResult.rejectValue("birthday", "error.signUpRequest", "Bạn chưa đủ 18 tuổi.");
+                bindingResult.rejectValue("birthday", errorCode, "Bạn chưa đủ 18 tuổi.");
             }
         }
         // kiểm tra mật khẩu nhập có giống nhau không
         if (!signUpRequest.getPassword().equals(signUpRequest.getRePassword())) {
-            bindingResult.rejectValue("rePassword", "error.signUpRequest", "Mật khẩu nhập lại không khớp!");
+            bindingResult.rejectValue("rePassword", errorCode, "Mật khẩu nhập lại không khớp!");
         }
         if (bindingResult.hasErrors()) {
             model.addAttribute(SIGNUP_FORM, signUpRequest);
