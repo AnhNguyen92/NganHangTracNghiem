@@ -1,4 +1,4 @@
-package vn.com.multiplechoice.web.controller;
+package vn.com.multiplechoice.web.controller.fo;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

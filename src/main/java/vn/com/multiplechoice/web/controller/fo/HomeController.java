@@ -1,4 +1,4 @@
-package vn.com.multiplechoice.web.controller;
+package vn.com.multiplechoice.web.controller.fo;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;

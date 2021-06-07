@@ -1,4 +1,4 @@
-package vn.com.multiplechoice.web.controller;
+package vn.com.multiplechoice.web.controller.fo;
 
 import java.util.UUID;
 
