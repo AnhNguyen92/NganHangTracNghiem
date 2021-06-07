@@ -27,10 +27,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
         String loginPage = "/login";
+        
         http.authorizeRequests() //
                 .antMatchers("/", loginPage, "/signup").permitAll() //
+                .antMatchers("/bo/admin/employees").permitAll() //
                 .antMatchers("/admin/**").hasAuthority("ADMIN") //
                 .anyRequest().authenticated() //
                 .and().csrf().disable() //
