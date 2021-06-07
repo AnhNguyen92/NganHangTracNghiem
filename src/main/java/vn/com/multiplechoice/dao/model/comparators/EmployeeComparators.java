@@ -1,9 +1,10 @@
-package vn.com.multiplechoice.dao.model;
+package vn.com.multiplechoice.dao.model.comparators;
 
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
+import vn.com.multiplechoice.dao.model.Employee;
 import vn.com.multiplechoice.dao.model.paging.enums.Direction;
 
 public final class EmployeeComparators {

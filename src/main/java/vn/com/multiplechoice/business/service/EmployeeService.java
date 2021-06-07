@@ -14,7 +14,7 @@ import org.springframework.util.StringUtils;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import vn.com.multiplechoice.dao.model.Employee;
-import vn.com.multiplechoice.dao.model.EmployeeComparators;
+import vn.com.multiplechoice.dao.model.comparators.EmployeeComparators;
 import vn.com.multiplechoice.dao.model.paging.Column;
 import vn.com.multiplechoice.dao.model.paging.Order;
 import vn.com.multiplechoice.dao.model.paging.Page;
