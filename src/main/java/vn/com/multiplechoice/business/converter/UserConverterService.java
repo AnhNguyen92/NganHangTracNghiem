@@ -16,16 +16,15 @@ import vn.com.multiplechoice.web.form.SignUpForm;
 @Service
 public class UserConverterService {
     private ModelMapper modelMapper;
-     private BCryptPasswordEncoder bCryptPasswordEncoder;
-     
-     @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @Autowired
     public UserConverterService(ModelMapper modelMapper, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.modelMapper = modelMapper;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     public User toEntity(UserDto dto) {
-
         User user = modelMapper.map(dto, User.class);
         user.setCreateTime(LocalDateTime.now());
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
