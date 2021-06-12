@@ -40,7 +40,7 @@ public class SignupController {
     }
 
     @PostMapping
-    public String createNewUser(Model model, @Valid SignUpForm signUpRequest, BindingResult bindingResult) {
+    public String createUser(Model model, @Valid SignUpForm signUpRequest, BindingResult bindingResult) {
         User userExists = userService.findByUsername(signUpRequest.getUsername());
         String errorCode = "error.signUpRequest";
         if (userExists != null) {
@@ -67,6 +67,9 @@ public class SignupController {
             // send verify email here
             model.addAttribute(SIGNUP_FORM, new SignUpForm());
             model.addAttribute("successMessage", "Đăng ký thành công!");
+            
+            // send verify email
+            
         }
 
         return SIGNUP;
