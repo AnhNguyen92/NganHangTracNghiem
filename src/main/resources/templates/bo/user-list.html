@@ -153,7 +153,8 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
                                 aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small" th:text="${#authentication.getPrincipal().getUsername()}">Chào Admin</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small" th:text="${#authentication.getPrincipal().getUsername()}">Chào
+                                    Admin</span>
                                 <img class="img-profile rounded-circle" th:src="@{/imgs/undraw_profile.svg}" alt="profile">
                             </a>
                             <!-- Dropdown - User Information -->
@@ -169,7 +170,7 @@
 
                 </nav>
                 <!-- End of Topbar -->
-                
+
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
@@ -183,56 +184,55 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                            <table id="example" class="table table-bordered table-responsive" style="width: 100%">
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Firstname</th>
-                                        <th>Lastname</th>
-                                        <th>Email</th>
-                                        <th>Username</th>
-                                        <th>Phone</th>
-                                        <th>Role</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                            </table>
+                                <table id="example" class="table table-bordered table-responsive" style="width: 100%">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Firstname</th>
+                                            <th>Lastname</th>
+                                            <th>Email</th>
+                                            <th>Username</th>
+                                            <th>Phone</th>
+                                            <th>Role</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
                         </div>
                     </div>
+                    <!-- /.container-fluid -->
+
                 </div>
-                <!-- /.container-fluid -->
-                
-            </div>
-            <!-- End of Main Content -->
-            
-            <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Meet Your Idol 2021</span>
+                <!-- End of Main Content -->
+
+                <!-- Footer -->
+                <footer class="sticky-footer bg-white">
+                    <div class="container my-auto">
+                        <div class="copyright text-center my-auto">
+                            <span>Copyright &copy; Meet Your Idol 2021</span>
+                        </div>
                     </div>
-                </div>
-            </footer>
-            <!-- End of Footer -->
-            
+                </footer>
+                <!-- End of Footer -->
+
+            </div>
+            <!-- End of Content Wrapper -->
+
         </div>
-        <!-- End of Content Wrapper -->
-        
-    </div>
-    <!-- End of Page Wrapper -->
+        <!-- End of Page Wrapper -->
 
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
-
+        <!-- Scroll to Top Button-->
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fas fa-angle-up"></i>
+        </a>
 </body>
 
-    <script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}"></script>
-    <script th:src="@{/webjars/popper.js/1.12.9-1/umd/popper.min.js}"></script>
-    <script th:src="@{/webjars/bootstrap/4.0.0-2/js/bootstrap.min.js}"></script>
-    <script th:src="@{/assets/datatable/datatables.js}"></script>
-    <script>
+<script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/1.12.9-1/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/4.0.0-2/js/bootstrap.min.js}"></script>
+<script th:src="@{/assets/datatable/datatables.js}"></script>
+<script>
         $('#example').DataTable({
             "processing": true,
             "serverSide": true,
@@ -252,7 +252,19 @@
                 {"data": "email"},
                 {"data": "username"},
                 {"data": "phoneNumber"},
-                {"data": "role"}
+                {"data": "role",
+                 render: function (data, type, row) {
+                     if (data == 'USER') {
+                         return 'Người dùng';
+                 }
+                     if (data == 'ADMIN') {
+                         return 'Quản trị viên';
+                 }
+                     if (data == 'INSPECTOR') {
+                         return 'Kiểm duyệt viên';
+                 }
+                     }   
+                }
                 ,{data: null,
                     render: function ( data, type, row ) {
                         return '<div class="d-flex justify-content-around"><a href="/multiple-choice-quiz/bo/user/' + data.id + '" class="btn btn-primary mr-2" title="Chi tiết"><i class="fa fa-pencil-alt" aria-hidden="true"></i></a><a href="javascript:deleteUser(' + data.id + ')" class="btn btn-danger" title="Xóa"><i class="fa fa-trash-alt" aria-hidden="true"></i></a></div>';
