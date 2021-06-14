@@ -12,14 +12,15 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import vn.com.multiplechoice.business.service.MyUserDetailsService;
+import vn.com.multiplechoice.business.service.impl.UserDetailsServiceImpl;
+
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private MyUserDetailsService userDetailsService;
+    private UserDetailsServiceImpl userDetailsService;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {

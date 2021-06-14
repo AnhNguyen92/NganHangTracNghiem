@@ -1,4 +1,4 @@
-package vn.com.multiplechoice.business.service;
+package vn.com.multiplechoice.business.service.impl;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -15,12 +15,13 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import vn.com.multiplechoice.business.service.UserService;
 import vn.com.multiplechoice.dao.model.User;
 import vn.com.multiplechoice.dao.model.enums.UserRole;
 import vn.com.multiplechoice.dao.model.enums.UserStatus;
 
 @Service
-public class MyUserDetailsService implements UserDetailsService {
+public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     private UserService userService;
 
