@@ -18,13 +18,13 @@ public class PrintFileFinalController {
         Test test = new Test();
         test.setContent("--- Hết ---");
         model.addAttribute("test", test);
-        return "print-file-final";
+        return "fo/print-file-final";
     }
 
     @PostMapping
     public String save(Test test, Model model) {
         model.addAttribute("test", test);
-        return "saved";
+        return "fo/saved";
     }
     
 }

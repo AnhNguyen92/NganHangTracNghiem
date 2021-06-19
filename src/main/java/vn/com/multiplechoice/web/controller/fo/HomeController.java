@@ -14,7 +14,7 @@ public class HomeController {
 	public String index(Model model) {
 		model.addAttribute("message", message);
 
-		return "index";
+		return "fo/index";
 	}
 
 }

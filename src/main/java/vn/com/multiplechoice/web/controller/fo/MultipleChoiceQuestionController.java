@@ -18,7 +18,7 @@ public class MultipleChoiceQuestionController {
         MultipleChoiceQuestion question =  new MultipleChoiceQuestion();
     	model.addAttribute("question", question);
     	model.addAttribute("allTrueAnswers", question.getTrueAnswers());
-        return "create-question";
+        return "fo/create-question";
     }
 
     @PostMapping
@@ -27,7 +27,7 @@ public class MultipleChoiceQuestionController {
         String target = "index";
         boolean isvalidInfo = validFormData();
         if (!isvalidInfo) {
-            target = "create-question";
+            target = "fo/create-question";
         }
         return target;
     }

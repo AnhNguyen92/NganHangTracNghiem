@@ -24,7 +24,7 @@ public class SignupController {
 
     private static final String SIGNUP_FORM = "signUpForm";
 
-    private static final String SIGNUP = "signup";
+    private static final String SIGNUP = "fo/signup";
 
     @Autowired
     private UserConverterService userConverterService;

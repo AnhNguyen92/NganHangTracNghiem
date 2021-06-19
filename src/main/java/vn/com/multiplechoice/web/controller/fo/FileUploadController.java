@@ -66,6 +66,6 @@ public class FileUploadController {
             redirectAttributes.addFlashAttribute("message", "Bạn đã tải tệp tin " + file.getOriginalFilename() + " thành công!");
         }
         
-        return "redirect:/file-upload";
+        return "redirect:fo/file-upload";
     }
 }
