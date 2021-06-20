@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<html lang="vi" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org">
 
 <head>
 <title>Trang Chủ</title>
@@ -30,26 +30,27 @@
                 </div>
                 <div class="ml-auto m-3 d-flex align-items-end">
                     <!-- not authentication -->
-                    <div>
+                    <div sec:authorize="isAnonymous()">
                         <input type="button" class="btn btn-primary" id="btnLogin" value="Đăng Nhập">
                         <input type="button" class="btn btn-primary" id="btnSignUp" value="Đăng Ký">
                     </div>
                     <!-- authentication -->
-                    <!-- <div>
-          <ul class="navbar-nav ml-auto">
-              <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown"
-                  aria-haspopup="true" aria-expanded="false">
-                  <i class="fa fa-user fa-fw pr-2"></i><span>username</span>
-                  </a>
-                  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                      <a class="dropdown-item" href="user-info.html">Thông tin cá nhân</a>
-                      <div class="dropdown-divider"></div>
-                      <a class="dropdown-item" href="logout.html">Đăng xuất</a>
-                  </div>
-              </li>
-          </ul>
-        </div> -->
+                    <div sec:authorize="isAuthenticated()">
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false">
+                                    <i class="fa fa-user fa-fw pr-2"></i>
+                                    <span th:text="'Chào ' + ${#authentication.getPrincipal().getUsername()}">Chào bạn</span>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                                    <a class="dropdown-item" href="user-info.html">Thông tin cá nhân</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="logout.html">Đăng xuất</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
