@@ -5,7 +5,8 @@
 
 <meta charset="utf-8">
 <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge">
- --><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+ -->
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
 
@@ -34,14 +35,17 @@
                             <div class="col-lg-6">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+                                        <h1 class="h4 text-gray-900 mb-4">ĐĂNG NHẬP QUẢN TRỊ</h1>
                                     </div>
-                                    <form class="user" th:action="@{/bo/login}" name="login" method="post" th:object="${loginForm}">
+                                    <div class="text-justify" th:if="${param.error}">
+                                        <p style="font-size: 20; color: #FF1C19;">Tên đăng nhập hoặc mật khẩu không đúng</p>
+                                    </div>
+                                    <form class="user" th:action="@{/bo/login}" name="login" method="post">
                                         <div class="form-group">
-                                            <input type="text" class="form-control form-control-user" th:field="*{username}" id="username" placeholder="Tên đăng nhập">
+                                            <input type="text" class="form-control" name="username" id="username" placeholder="Tên đăng nhập">
                                         </div>
                                         <div class="form-group">
-                                            <input type="password" class="form-control form-control-user" th:field="*{password}" id="password" placeholder="Mật khẩu">
+                                            <input type="password" class="form-control" name="password" id="password" placeholder="Mật khẩu">
                                         </div>
                                         <div class="form-group">
                                             <div class="custom-control custom-checkbox small">
