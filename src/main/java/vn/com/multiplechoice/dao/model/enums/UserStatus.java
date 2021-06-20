@@ -13,4 +13,5 @@ public enum UserStatus {
     public String getValue() {
         return value;
     }
+    
 }
