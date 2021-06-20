@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import vn.com.multiplechoice.dao.model.Test;
 
 @Controller
-@RequestMapping("/print-file-final")
+@RequestMapping("/fo/print-file-final")
 public class PrintFileFinalController {
 
     @GetMapping

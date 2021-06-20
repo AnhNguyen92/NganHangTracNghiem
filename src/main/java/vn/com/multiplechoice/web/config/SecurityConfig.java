@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -18,7 +17,7 @@ import vn.com.multiplechoice.business.service.impl.UserDetailsServiceImpl;
 
 @Configuration
 @EnableWebSecurity
-@Order(1)
+@Order(2)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -31,18 +30,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        String loginPage = "/login";
+        String loginPage = "/fo/login";
         
+        http.csrf().disable();
         http.authorizeRequests() //
-                .antMatchers("/", loginPage, "/signup").permitAll() //
+                .antMatchers(loginPage, "/signup").permitAll() //
                 .antMatchers("/bo/user/ajax/list").permitAll() //
-                .antMatchers(HttpMethod.POST, "/bo/user").permitAll() 
-                .antMatchers("/admin/**").hasAuthority("ADMIN") //
+                .antMatchers("/bo/user").permitAll() // 
                 .anyRequest().authenticated() //
-                .and().csrf().disable() //
-                .formLogin().loginPage(loginPage) //
-                .failureUrl("/login?error=true").defaultSuccessUrl("/bo/user").usernameParameter("username").passwordParameter("password").and().logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl(loginPage).and().exceptionHandling()
+                .and().formLogin().loginPage(loginPage) //
+                .loginProcessingUrl("/fo/j_spring_security_login") //
+                .failureUrl("/fo/login?error=true") //
+                .defaultSuccessUrl("/bo/user", true) //
+                .usernameParameter("username").passwordParameter("password") //
+                .and() //
+                .logout().logoutRequestMatcher(new AntPathRequestMatcher("/fo/logout")) //
+                .logoutSuccessUrl(loginPage) //
+                .and().exceptionHandling() //
                 .accessDeniedPage("/access-denied");
     }
 

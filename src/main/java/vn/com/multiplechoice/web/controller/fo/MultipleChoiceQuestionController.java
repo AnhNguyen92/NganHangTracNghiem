@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import vn.com.multiplechoice.web.model.MultipleChoiceQuestion;
 
 @Controller
-@RequestMapping(value = "/question")
+@RequestMapping(value = "/fo/question")
 public class MultipleChoiceQuestionController {
 
     @GetMapping

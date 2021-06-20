@@ -23,7 +23,7 @@ import vn.com.multiplechoice.dao.model.HeaderTemplate;
 import vn.com.multiplechoice.dao.model.User;
 
 @Controller
-@RequestMapping("/file-upload")
+@RequestMapping("/fo/file-upload")
 public class FileUploadController {
     
     private static final Logger log = LoggerFactory.getLogger(FileUploadController.class);
@@ -68,4 +68,5 @@ public class FileUploadController {
         
         return "redirect:fo/file-upload";
     }
+    
 }

@@ -19,7 +19,7 @@ import vn.com.multiplechoice.dao.model.User;
 import vn.com.multiplechoice.web.form.SignUpForm;
 
 @Controller
-@RequestMapping(value = "/signup")
+@RequestMapping("/fo/signup")
 public class SignupController {
 
     private static final String SIGNUP_FORM = "signUpForm";

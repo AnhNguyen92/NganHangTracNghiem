@@ -4,8 +4,8 @@
 <head>
 
 <meta charset="utf-8">
-<!-- <meta http-equiv="X-UA-Compatible" content="IE=edge">
- -->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
@@ -40,7 +40,7 @@
                                     <div class="text-justify" th:if="${param.error}">
                                         <p style="font-size: 20; color: #FF1C19;">Tên đăng nhập hoặc mật khẩu không đúng</p>
                                     </div>
-                                    <form class="user" th:action="@{/bo/login}" name="login" method="post">
+                                    <form class="user" th:action="@{/bo/j_spring_security_login}" name="login" method="post">
                                         <div class="form-group">
                                             <input type="text" class="form-control" name="username" id="username" placeholder="Tên đăng nhập">
                                         </div>
