@@ -1,44 +1,41 @@
 <!DOCTYPE html>
-<html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-  <title>Trang Chủ</title>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- 
+<title>Trang Chủ</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap-4.4.1/css/bootstrap.min.css}" />
 <link rel="stylesheet" type="js" th:href="@{/css/bootstrap-4.4.1/js/bootstrap.min.js}" />
-<link rel="stylesheet" type="text/css" th:href="@{/font-awesome-4.7.0/css/font-awesome.min.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/vendor/fontawesome/css/fontawesome.min.css}">
 <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
-  -->
-  <link rel="stylesheet" type="text/css" href="../static/css/bootstrap-4.4.1/css/bootstrap.min.css" />
-  <link rel="stylesheet" type="js" href="../static/css/bootstrap-4.4.1/js/bootstrap.min.js" />
-  <link rel="stylesheet" type="text/css" href="../static/font-awesome-4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" type="text/css" href="../static/css/style.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 </head>
 
 <body>
-  <div class="content">
-  <!-- header -->
-  <div class="header">
-    <div class="d-flex" style="position: relative;background-color: #EEF7F2;">
-      <div class="hd-logo"></div>
-      <div class="page-header font-weight-bold text-capitalize">
-        Ngân hàng câu hỏi trắc nghiệm online<a href="home.html"></a>
-      </div>
-      <div class="ml-auto m-3 d-flex align-items-end">
-        <!-- not authentication -->
-        <div>
-          <input type="button" class="btn btn-primary" id="btnLogin" value="Đăng Nhập">
-          <input type="button" class="btn btn-primary" id="btnSignUp" value="Đăng Ký">
-        </div>
-        <!-- authentication -->
-        <!-- <div>
+    <div class="content">
+        <!-- header -->
+        <div class="header">
+            <div class="d-flex" style="position: relative; background-color: #EEF7F2;">
+                <div class="hd-logo"></div>
+                <div class="page-header font-weight-bold text-capitalize">
+                    Ngân hàng câu hỏi trắc nghiệm online
+                    <a href="home.html"></a>
+                </div>
+                <div class="ml-auto m-3 d-flex align-items-end">
+                    <!-- not authentication -->
+                    <div>
+                        <input type="button" class="btn btn-primary" id="btnLogin" value="Đăng Nhập">
+                        <input type="button" class="btn btn-primary" id="btnSignUp" value="Đăng Ký">
+                    </div>
+                    <!-- authentication -->
+                    <!-- <div>
           <ul class="navbar-nav ml-auto">
               <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown"
@@ -53,288 +50,322 @@
               </li>
           </ul>
         </div> -->
-      </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-  </div>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Trang chủ</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Trang chủ</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item"><a class="nav-link" href="#">Tạo câu hỏi</a></li>
-        <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Đề thi</a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#">Đề thi của tôi</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Tạo mới</a>
-          </div>
-        </li>
-        <li class="nav-item"><a class="nav-link" href="#">Chính sách</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Liên hệ</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Hướng dẫn sử dụng</a></li>
-      </ul>
-    </div>
-  </nav>
-  <div class="container mt-3">
-    <div class="search extention d-flex flex-row">
-      <div class="col-3 align-self-center">Tìm kiếm bài kiểm tra theo:</div>
-      <div class="col-3">
-        <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" style="width: 180px;">
-          <option selected>Tất cả</option>
-          <option value="1">Tổng hợp</option>
-          <option value="2">Toán</option>
-          <option value="3">Văn</option>
-          <option value="4">Sinh học</option>
-          <option value="5">Hoá học</option>
-        </select>
-      </div>
-      <div class="col-3">
-        <input type="text" placeholder="Theo tên tác giả" class="form-control">
-      </div>
-      <div class="col-3 text-right pr-0">
-        <input type="button" value="Tìm kiếm" class="btn btn-primary text-center align-self-center">
-      </div>
-    </div>
-    <hr>
-    <div class="test-list">
-      <div class="row test-item">
-        <div class="col-sm-1 align-self-center">
-          <div class="test-icon">T</div>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Tạo câu hỏi</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">Đề thi</a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Đề thi của tôi</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Tạo mới</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Chính sách</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Liên hệ</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Hướng dẫn sử dụng</a>
+                </li>
+            </ul>
         </div>
-        <div class="test-info col">
-          <div class="font-weight-bold text-capitalize">Bài kiểm tra số 1</div>
-          <div class="d-flex flex-row">
-            <div>
-              <i class="fa fa-star" aria-hidden="true"></i>
-              <i class="fa fa-star" aria-hidden="true"></i>
-              <i class="fa fa-star-half-o" aria-hidden="true"></i>
-              <i class="fa fa-star-o" aria-hidden="true"></i>
-              <i class="fa fa-star-o" aria-hidden="true"></i>
+    </nav>
+    <div class="container mt-3">
+        <div class="search extention d-flex flex-row">
+            <div class="col-3 align-self-center">Tìm kiếm bài kiểm tra theo:</div>
+            <div class="col-3">
+                <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" style="width: 180px;">
+                    <option selected>Tất cả</option>
+                    <option value="1">Tổng hợp</option>
+                    <option value="2">Toán</option>
+                    <option value="3">Văn</option>
+                    <option value="4">Sinh học</option>
+                    <option value="5">Hoá học</option>
+                </select>
             </div>
-            <div class="vertical-line mx-2"></div>
-            <div>Tác giả:<span class="ml-2"><a href="#">Anh Khôi</a></span></div>
-          </div>
-        </div>
-        <div class="test-time col-2 text-center align-self-center">30 phút</div>
-        <div class="test-qtt-question col-2 text-center align-self-center">10 Câu hỏi</div>
-        <div class="align-self-center col-2 text-right">
-          <button type="button" class="btn btn-primary text-capitalize col text-center align-self-center"
-            style="width: auto;">Bắt đầu</button>
-        </div>
-      </div>
-      <hr>
-      <div class="row test-item">
-        <div class="col-sm-1 align-self-center">
-          <div class="test-icon">T</div>
-        </div>
-        <div class="test-info col">
-          <div class="font-weight-bold text-capitalize">Bài kiểm tra số 2</div>
-          <div class="d-flex flex-row">
-            <div>
-              <i class="fa fa-star" aria-hidden="true"></i>
-              <i class="fa fa-star" aria-hidden="true"></i>
-              <i class="fa fa-star-half-o" aria-hidden="true"></i>
-              <i class="fa fa-star-o" aria-hidden="true"></i>
-              <i class="fa fa-star-o" aria-hidden="true"></i>
+            <div class="col-3">
+                <input type="text" placeholder="Theo tên tác giả" class="form-control">
             </div>
-            <div class="vertical-line mx-2"></div>
-            <div>Tác giả:<span class="ml-2"><a href="#">Diệp Tài</a></span></div>
-          </div>
-        </div>
-        <div class="test-time col-2 text-center align-self-center">30 phút</div>
-        <div class="test-qtt-question col-2 text-center align-self-center">10 Câu hỏi</div>
-        <div class="align-self-center col-2 text-right">
-          <button type="button" class="btn btn-primary text-capitalize col text-center align-self-center"
-            style="width: auto;">Bắt đầu</button>
-        </div>
-      </div>
-      <hr>
-      <div class="row test-item">
-        <div class="col-sm-1 align-self-center">
-          <div class="test-icon">T</div>
-        </div>
-        <div class="test-info col">
-          <div class="font-weight-bold text-capitalize">Bài kiểm tra số 3</div>
-          <div class="d-flex flex-row">
-            <div>
-              <i class="fa fa-star" aria-hidden="true"></i>
-              <i class="fa fa-star" aria-hidden="true"></i>
-              <i class="fa fa-star-half-o" aria-hidden="true"></i>
-              <i class="fa fa-star-o" aria-hidden="true"></i>
-              <i class="fa fa-star-o" aria-hidden="true"></i>
+            <div class="col-3 text-right pr-0">
+                <input type="button" value="Tìm kiếm" class="btn btn-primary text-center align-self-center">
             </div>
-            <div class="vertical-line mx-2"></div>
-            <div>Tác giả:<span class="ml-2"><a href="#">Lợi</a></span></div>
-          </div>
         </div>
-        <div class="test-time col-2 text-center align-self-center">30 phút</div>
-        <div class="test-qtt-question col-2 text-center align-self-center">10 Câu hỏi</div>
-        <div class="align-self-center col-2 text-right">
-          <button type="button" class="btn btn-primary text-capitalize col text-center align-self-center"
-            style="width: auto;">Bắt đầu</button>
-        </div>
-      </div>
-      <hr>
-      <div class="row test-item">
-        <div class="col-sm-1 align-self-center">
-          <div class="test-icon">T</div>
-        </div>
-        <div class="test-info col">
-          <div class="font-weight-bold text-capitalize">Bài kiểm tra số 4</div>
-          <div class="d-flex flex-row">
-            <div>
-              <i class="fa fa-star" aria-hidden="true"></i>
-              <i class="fa fa-star" aria-hidden="true"></i>
-              <i class="fa fa-star-half-o" aria-hidden="true"></i>
-              <i class="fa fa-star-o" aria-hidden="true"></i>
-              <i class="fa fa-star-o" aria-hidden="true"></i>
+        <hr>
+        <div class="test-list">
+            <div class="row test-item">
+                <div class="col-sm-1 align-self-center">
+                    <div class="test-icon">T</div>
+                </div>
+                <div class="test-info col">
+                    <div class="font-weight-bold text-capitalize">Bài kiểm tra số 1</div>
+                    <div class="d-flex flex-row">
+                        <div>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star-half-o" aria-hidden="true"></i>
+                            <i class="fa fa-star-o" aria-hidden="true"></i>
+                            <i class="fa fa-star-o" aria-hidden="true"></i>
+                        </div>
+                        <div class="vertical-line mx-2"></div>
+                        <div>
+                            Tác giả:
+                            <span class="ml-2">
+                                <a href="#">Anh Khôi</a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="test-time col-2 text-center align-self-center">30 phút</div>
+                <div class="test-qtt-question col-2 text-center align-self-center">10 Câu hỏi</div>
+                <div class="align-self-center col-2 text-right">
+                    <button type="button" class="btn btn-primary text-capitalize col text-center align-self-center" style="width: auto;">Bắt đầu</button>
+                </div>
             </div>
-            <div class="vertical-line mx-2"></div>
-            <div>Tác giả:<span class="ml-2"><a href="#">Trí Lộc</a></span></div>
-          </div>
-        </div>
-        <div class="test-time col-2 text-center align-self-center">30 phút</div>
-        <div class="test-qtt-question col-2 text-center align-self-center">10 Câu hỏi</div>
-        <div class="align-self-center col-2 text-right">
-          <button type="button" class="btn btn-primary text-capitalize col text-center align-self-center"
-            style="width: auto;">Bắt đầu</button>
-        </div>
-      </div>
-      <hr>
-      <div class="row test-item">
-        <div class="col-sm-1 align-self-center">
-          <div class="test-icon">T</div>
-        </div>
-        <div class="test-info col">
-          <div class="font-weight-bold text-capitalize">Bài kiểm tra số 5</div>
-          <div class="d-flex flex-row">
-            <div>
-              <i class="fa fa-star" aria-hidden="true"></i>
-              <i class="fa fa-star" aria-hidden="true"></i>
-              <i class="fa fa-star-half-o" aria-hidden="true"></i>
-              <i class="fa fa-star-o" aria-hidden="true"></i>
-              <i class="fa fa-star-o" aria-hidden="true"></i>
+            <hr>
+            <div class="row test-item">
+                <div class="col-sm-1 align-self-center">
+                    <div class="test-icon">T</div>
+                </div>
+                <div class="test-info col">
+                    <div class="font-weight-bold text-capitalize">Bài kiểm tra số 2</div>
+                    <div class="d-flex flex-row">
+                        <div>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star-half-o" aria-hidden="true"></i>
+                            <i class="fa fa-star-o" aria-hidden="true"></i>
+                            <i class="fa fa-star-o" aria-hidden="true"></i>
+                        </div>
+                        <div class="vertical-line mx-2"></div>
+                        <div>
+                            Tác giả:
+                            <span class="ml-2">
+                                <a href="#">Diệp Tài</a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="test-time col-2 text-center align-self-center">30 phút</div>
+                <div class="test-qtt-question col-2 text-center align-self-center">10 Câu hỏi</div>
+                <div class="align-self-center col-2 text-right">
+                    <button type="button" class="btn btn-primary text-capitalize col text-center align-self-center" style="width: auto;">Bắt đầu</button>
+                </div>
             </div>
-            <div class="vertical-line mx-2"></div>
-            <div>Tác giả:<span class="ml-2"><a href="#">Anh Khoa</a></span></div>
-          </div>
+            <hr>
+            <div class="row test-item">
+                <div class="col-sm-1 align-self-center">
+                    <div class="test-icon">T</div>
+                </div>
+                <div class="test-info col">
+                    <div class="font-weight-bold text-capitalize">Bài kiểm tra số 3</div>
+                    <div class="d-flex flex-row">
+                        <div>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star-half-o" aria-hidden="true"></i>
+                            <i class="fa fa-star-o" aria-hidden="true"></i>
+                            <i class="fa fa-star-o" aria-hidden="true"></i>
+                        </div>
+                        <div class="vertical-line mx-2"></div>
+                        <div>
+                            Tác giả:
+                            <span class="ml-2">
+                                <a href="#">Lợi</a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="test-time col-2 text-center align-self-center">30 phút</div>
+                <div class="test-qtt-question col-2 text-center align-self-center">10 Câu hỏi</div>
+                <div class="align-self-center col-2 text-right">
+                    <button type="button" class="btn btn-primary text-capitalize col text-center align-self-center" style="width: auto;">Bắt đầu</button>
+                </div>
+            </div>
+            <hr>
+            <div class="row test-item">
+                <div class="col-sm-1 align-self-center">
+                    <div class="test-icon">T</div>
+                </div>
+                <div class="test-info col">
+                    <div class="font-weight-bold text-capitalize">Bài kiểm tra số 4</div>
+                    <div class="d-flex flex-row">
+                        <div>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star-half-o" aria-hidden="true"></i>
+                            <i class="fa fa-star-o" aria-hidden="true"></i>
+                            <i class="fa fa-star-o" aria-hidden="true"></i>
+                        </div>
+                        <div class="vertical-line mx-2"></div>
+                        <div>
+                            Tác giả:
+                            <span class="ml-2">
+                                <a href="#">Trí Lộc</a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="test-time col-2 text-center align-self-center">30 phút</div>
+                <div class="test-qtt-question col-2 text-center align-self-center">10 Câu hỏi</div>
+                <div class="align-self-center col-2 text-right">
+                    <button type="button" class="btn btn-primary text-capitalize col text-center align-self-center" style="width: auto;">Bắt đầu</button>
+                </div>
+            </div>
+            <hr>
+            <div class="row test-item">
+                <div class="col-sm-1 align-self-center">
+                    <div class="test-icon">T</div>
+                </div>
+                <div class="test-info col">
+                    <div class="font-weight-bold text-capitalize">Bài kiểm tra số 5</div>
+                    <div class="d-flex flex-row">
+                        <div>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star-half-o" aria-hidden="true"></i>
+                            <i class="fa fa-star-o" aria-hidden="true"></i>
+                            <i class="fa fa-star-o" aria-hidden="true"></i>
+                        </div>
+                        <div class="vertical-line mx-2"></div>
+                        <div>
+                            Tác giả:
+                            <span class="ml-2">
+                                <a href="#">Anh Khoa</a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="test-time col-2 text-center align-self-center">30 phút</div>
+                <div class="test-qtt-question col-2 text-center align-self-center">10 Câu hỏi</div>
+                <div class="align-self-center col-2 text-right">
+                    <button type="button" class="btn btn-primary text-capitalize col text-center align-self-center" style="width: auto;">Bắt đầu</button>
+                </div>
+            </div>
+            <hr>
         </div>
-        <div class="test-time col-2 text-center align-self-center">30 phút</div>
-        <div class="test-qtt-question col-2 text-center align-self-center">10 Câu hỏi</div>
-        <div class="align-self-center col-2 text-right">
-          <button type="button" class="btn btn-primary text-capitalize col text-center align-self-center"
-            style="width: auto;">Bắt đầu</button>
-        </div>
-      </div>
-      <hr>
     </div>
-  </div>
-  <nav aria-label="Page navigation example" class="my-3">
-    <ul class="pagination justify-content-center">
-      <li class="page-item">
-        <a class="page-link" href="#" aria-label="Previous">
-          <span aria-hidden="true">&laquo;</span>
-          <span class="sr-only">Trang Trước</span>
-        </a>
-      </li>
-      <li class="page-item"><a class="page-link" href="#">1</a></li>
-      <li class="page-item"><a class="page-link" href="#">2</a></li>
-      <li class="page-item"><a class="page-link" href="#">3</a></li>
-      <li class="page-item">
-        <a class="page-link" href="#" aria-label="Next">
-          <span aria-hidden="true">&raquo;</span>
-          <span class="sr-only">Trang Tiếp</span>
-        </a>
-      </li>
-    </ul>
-  </nav>
-</div>
-  <footer class="footer page-footer font-small mdb-color lighten-3 pt-4">
-    <div class="container text-center text-md-left">
-      <div class="row">
-        <div class="col-md-3 col-lg-3 my-md-3 my-0 mt-4 mb-1">
-          <h5 class="font-weight-bold text-uppercase mb-4">Ngân hàng câu hỏi trắc nghiệm</h5>
-          <p>Đây là một hệ thống trực tuyến giúp bạn tạo đề thi dễ dàng trực quan. Hỗ trợ việc làm bài kiểm tra trực
-            tuyến, in ấn đề thi.</p>
+    <nav aria-label="Page navigation example" class="my-3">
+        <ul class="pagination justify-content-center">
+            <li class="page-item">
+                <a class="page-link" href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                    <span class="sr-only">Trang Trước</span>
+                </a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="#">1</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="#">2</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="#">3</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                    <span class="sr-only">Trang Tiếp</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <footer class="footer page-footer font-small mdb-color lighten-3 pt-4">
+        <div class="container text-center text-md-left">
+            <div class="row">
+                <div class="col-md-3 col-lg-3 my-md-3 my-0 mt-4 mb-1">
+                    <h5 class="font-weight-bold text-uppercase mb-4">Ngân hàng câu hỏi trắc nghiệm</h5>
+                    <p>Đây là một hệ thống trực tuyến giúp bạn tạo đề thi dễ dàng trực quan. Hỗ trợ việc làm bài kiểm tra trực tuyến, in ấn đề thi.</p>
+                </div>
+                <hr class="clearfix w-100 d-md-none">
+                <div class="col-md-3 col-lg-3 my-md-4 my-0 mt-4 mb-1">
+                    <h5 class="font-weight-bold text-uppercase mb-4">Về Chúng tôi</h5>
+                    <ul class="list-unstyled">
+                        <li>
+                            <p>
+                                <a href="#!">Hướng dẫn sử dụng</a>
+                            </p>
+                        </li>
+                        <li>
+                            <p>
+                                <a href="#!">Liên hệ</a>
+                            </p>
+                        </li>
+                        <li>
+                            <p>
+                                <a href="#!">Chính sách &amp; Điều khoản</a>
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+                <hr class="clearfix w-100 d-md-none">
+                <div class="col-md-4 col-lg-4 my-md-4 my-0 mt-4 mb-1">
+                    <h5 class="font-weight-bold text-uppercase mb-4">Liên hệ</h5>
+                    <ul class="list-unstyled">
+                        <li>
+                            <p>
+                                <i class="fa fa-map-marker mr-3" aria-hidden="true"></i>
+                                <a
+                                    href="https://www.google.com/maps/place/%C4%90%E1%BA%A1i+H%E1%BB%8Dc+B%C3%A1ch+Khoa/@10.7726083,106.6555093,17z/data=!3m1!4b1!4m5!3m4!1s0x31752ec17709146b:0x54a1658a0639d341!8m2!3d10.772603!4d106.657698?hl=vi">268
+                                    Lý Thường Kiệt, P.14, Q.10</a>
+                            </p>
+                        </li>
+                        <li>
+                            <p>
+                                <i class="fa fa-envelope-o mr-2" aria-hidden="true"></i>
+                                <a href="mailto:contact@nghangtracnghiem.com">contact@nganhangtracnghiem.com</a>
+                            </p>
+                        </li>
+                        <li>
+                            <p>
+                                <i class="fa fa-phone mr-3" aria-hidden="true"></i>
+                                <a href="tel:09123456789">09 123 456 78</a>
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+                <hr class="clearfix w-100 d-md-none">
+                <div class="col-md-2 col-lg-2 my-md-4 my-0 mt-4 mb-1">
+                    <h5 class="font-weight-bold text-uppercase mb-4">Liên hệ</h5>
+                    <ul class="list-unstyled">
+                        <li>
+                            <p>
+                                <i class="fa fa-facebook-official mr-2" aria-hidden="true"></i>
+                                <a href="facebook.com" target="_blank">Facebook</a>
+                            </p>
+                        </li>
+                        <li>
+                            <p>
+                                <i class="fa fa-twitter mr-2" aria-hidden="true"></i>
+                                <a href="twitter.com/explore" target="_blank">Twister</a>
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
-        <hr class="clearfix w-100 d-md-none">
-        <div class="col-md-3 col-lg-3 my-md-4 my-0 mt-4 mb-1">
-          <h5 class="font-weight-bold text-uppercase mb-4">Về Chúng tôi</h5>
-          <ul class="list-unstyled">
-            <li>
-              <p>
-                <a href="#!">Hướng dẫn sử dụng</a>
-              </p>
-            </li>
-            <li>
-              <p>
-                <a href="#!">Liên hệ</a>
-              </p>
-            </li>
-            <li>
-              <p>
-                <a href="#!">Chính sách & Điều khoản</a>
-              </p>
-            </li>
-          </ul>
+        <div class="footer-copyright text-center py-3">
+            © 2020 Copyright:
+            <a href="nganhangtracnghiem.com">nganhangtracnghiem.com</a>
+            - Nguyễn Tuấn Anh - 1733403
         </div>
-        <hr class="clearfix w-100 d-md-none">
-        <div class="col-md-4 col-lg-4 my-md-4 my-0 mt-4 mb-1">
-          <h5 class="font-weight-bold text-uppercase mb-4">Liên hệ</h5>
-          <ul class="list-unstyled">
-            <li>
-              <p>
-                <i class="fa fa-map-marker mr-3" aria-hidden="true"></i>
-                <a
-                  href="https://www.google.com/maps/place/%C4%90%E1%BA%A1i+H%E1%BB%8Dc+B%C3%A1ch+Khoa/@10.7726083,106.6555093,17z/data=!3m1!4b1!4m5!3m4!1s0x31752ec17709146b:0x54a1658a0639d341!8m2!3d10.772603!4d106.657698?hl=vi">268
-                  Lý Thường Kiệt, P.14, Q.10</a>
-              </p>
-            </li>
-            <li>
-              <p>
-                <i class="fa fa-envelope-o mr-2" aria-hidden="true"></i>
-                <a href="mailto:contact@nghangtracnghiem.com">contact@nganhangtracnghiem.com</a>
-              </p>
-            </li>
-            <li>
-              <p>
-                <i class="fa fa-phone mr-3" aria-hidden="true"></i>
-                <a href="tel:09123456789">09 123 456 78</a>
-              </p>
-            </li>
-          </ul>
-        </div>
-        <hr class="clearfix w-100 d-md-none">
-        <div class="col-md-2 col-lg-2 my-md-4 my-0 mt-4 mb-1">
-          <h5 class="font-weight-bold text-uppercase mb-4">Liên hệ</h5>
-          <ul class="list-unstyled">
-            <li>
-              <p>
-                <i class="fa fa-facebook-official mr-2" aria-hidden="true"></i>
-                <a href="facebook.com" target="_blank">Facebook</a>
-              </p>
-            </li>
-            <li>
-              <p>
-                <i class="fa fa-twitter mr-2" aria-hidden="true"></i>
-                <a href="twitter.com/explore" target="_blank">Twister</a>
-              </p>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div class="footer-copyright text-center py-3">
-      © 2020 Copyright: <a href="nganhangtracnghiem.com">nganhangtracnghiem.com</a> - Nguyễn Tuấn
-      Anh - 1733403
-    </div>
-  </footer>
+    </footer>
 </body>
 <script type="text/javascript">
   document.getElementById("btnLogin").onclick = function () {
