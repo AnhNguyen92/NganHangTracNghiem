@@ -78,7 +78,7 @@
             <div class="page-title">THÊM MẪU ĐẦU TRANG ĐỀ THI</div>
             <div class="create-options">
                 <div th:if="${message}">
-                    <h2 th:text="${message}" />
+                    <h2 th:text="${message}" /></h2>
                 </div>
                 <div>
                     <form method="POST" enctype="multipart/form-data" th:action="@{/file-upload}">

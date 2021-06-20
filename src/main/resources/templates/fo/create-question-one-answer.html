@@ -1,329 +1,336 @@
 <!DOCTYPE html>
-<html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-  <title>Tạo câu hỏi một lựa chọn</title>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- 
+<title>Tạo câu hỏi một lựa chọn</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap-4.4.1/css/bootstrap.min.css}" />
 <link rel="stylesheet" type="js" th:href="@{/css/bootstrap-4.4.1/js/bootstrap.min.js}" />
 <link rel="stylesheet" type="text/css" th:href="@{/font-awesome-4.7.0/css/font-awesome.min.css}">
 <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
-  -->
-  <link rel="stylesheet" type="text/css" href="../static/css/bootstrap-4.4.1/css/bootstrap.min.css" />
-  <link rel="stylesheet" type="js" href="../static/css/bootstrap-4.4.1/js/bootstrap.min.js" />
-  <link rel="stylesheet" type="text/css" href="../static/font-awesome-4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" type="text/css" href="../static/css/style.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 </head>
 
 <body>
-  <div class="content">
-    <!-- header -->
-    <div class="header">
-      <div class="d-flex" style="position: relative;background-color: #EEF7F2;">
-        <div class="hd-logo"></div>
-        <div class="page-header font-weight-bold text-capitalize">
-          Ngân hàng câu hỏi trắc nghiệm online<a href="home.html"></a>
+    <div class="content">
+        <!-- header -->
+        <div class="header">
+            <div class="d-flex" style="position: relative; background-color: #EEF7F2;">
+                <div class="hd-logo"></div>
+                <div class="page-header font-weight-bold text-capitalize">
+                    Ngân hàng câu hỏi trắc nghiệm online
+                    <a href="home.html"></a>
+                </div>
+                <div class="ml-auto bottom-text">
+                    <ul class="nav nav-pills">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Chào
+                                Tuan Anh</a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="/profile">Profile</a>
+                                <a class="dropdown-item" href="/test">Đề thi</a>
+                                <a class="dropdown-item" href="/logout">Đăng xuất</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
-        <div class="ml-auto bottom-text">
-          <ul class="nav nav-pills">
-            <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
-                role="button" aria-haspopup="true" aria-expanded="false">Chào Tuan Anh</a>
-              <div class="dropdown-menu">
-                <a class="dropdown-item" href="/profile">Profile</a>
-                <a class="dropdown-item" href="/test">Đề thi</a>
-                <a class="dropdown-item" href="/logout">Đăng xuất</a>
-              </div>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#">Trang chủ</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#">Trang chủ</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item"><a class="nav-link" href="#">Tạo câu hỏi</a></li>
-          <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Đề thi </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="#">Đề thi của tôi</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Tạo mới</a>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Tạo câu hỏi</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false"> Đề thi </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">Đề thi của tôi</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Tạo mới</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Chính sách</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Liên hệ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Hướng dẫn sử dụng</a>
+                    </li>
+                </ul>
             </div>
-          </li>
-          <li class="nav-item"><a class="nav-link" href="#">Chính sách</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Liên hệ</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Hướng dẫn sử dụng</a></li>
-        </ul>
-      </div>
-    </nav>
-    <div class="container mt-3">
-      <div class="page-title">TẠO CÂU HỎI MỚI</div>
-      <div class="create-options">
-        <div class="mb-2">
-          <label style="width: 105px;">Loại câu hỏi</label>
-          <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" style="width: 140px;">
-            <option selected>Chọn...</option>
-            <option value="1">Một đáp án</option>
-            <option value="2">Nhiều đáp án</option>
-            <option value="3">Đúng sai</option>
-            <option value="4">Điền khuyết</option>
-            <option value="5">Ghép cặp</option>
-          </select>
-        </div>
-        <div class="mb-2">
-          <label style="width: 105px;">Loại kiến thức</label>
-          <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" style="width: 140px;">
-            <option selected>Chọn...</option>
-            <option value="1">Tổng hợp</option>
-            <option value="2">Toán</option>
-            <option value="3">Văn</option>
-            <option value="4">Sinh học</option>
-            <option value="5">Hoá học</option>
-          </select>
-        </div>
-        <div>
-          <fieldset class="border p-2" id="question-level">
-            <legend class="w-auto">Mức độ câu hỏi</legend>
-            <input type="radio" name="level" id="knowledge" value="knowledge" checked> <label for="knowledge">Nhận
-              biết</label>
-            <input type="radio" name="level" id="understandingsv" value="understanding"> <label
-              for="understandingsv">Thông hiểu</label>
-            <input type="radio" name="level" id="manipulate" value="manipulate"> <label for="manipulate">Vận
-              dụng</label>
-            <input type="radio" name="level" id="high-application" value="high application"> <label
-              for="high-application">Vận dụng cao</label>
-          </fieldset>
-        </div>
-        <div>
-          <fieldset class="border p-2" id="question-type">
-            <legend class="w-auto">Dạng câu hỏi</legend>
-            <input type="radio" name="type" id="txt" value="txt" checked> <label for="txt">Dạng đơn</label>
-            <input type="radio" name="type" id="csv" value="csv"> <label for="csv">Dạng chùm</label>
-          </fieldset>
-        </div>
-      </div>
-      <div class="mcq">
-        <div class="extention d-flex flex-row mt-3" style="height: 30px;">
-          <div>Nội dung câu hỏi</div>
-          <div>
-            <input type="button" id="add-note" onchange="addQuestionNote(event)" style="display: none;">
-            <label style="cursor: pointer; margin: 0 auto;"><i class="fa fa-sticky-note px-2"
-                aria-hidden="true"></i></label>
-            <input type="file" accept="image/*" name="image" id="file" onchange="loadFile(event)"
-              style="display: none;">
-            <label for="file" style="cursor: pointer; margin: 0 auto;"><i class="fa fa-paperclip"
-                aria-hidden="true"></i></label>
-          </div>
-          <div class="ml-auto p-2">
-            <i class="fa fa-align-right" aria-hidden="true"></i>
-            <i class="fa fa-align-center" aria-hidden="true"></i>
-            <i class="fa fa-align-left" aria-hidden="true"></i>
-            <i class="fa fa-align-justify" aria-hidden="true"></i>
-            <i class="fa fa-bold" aria-hidden="true"></i>
-            <i class="fa fa-italic" aria-hidden="true"></i>
-            <i class="fa fa-underline" aria-hidden="true"></i>
-          </div>
-        </div>
-        <div class="mcp-content">
-          <textarea style="width: -webkit-fill-available; min-height: 120px;"></textarea>
-        </div>
-        <div class="answer">
-          <div class="answer-title d-flex">
-            <div class="text-danger p-1">Số đáp án</div>
-            <div class="text-center p-1">
-              <label style="width: 3em; border: 1px solid black;">4</label>
+        </nav>
+        <div class="container mt-3">
+            <div class="page-title">TẠO CÂU HỎI MỚI</div>
+            <div class="create-options">
+                <div class="mb-2">
+                    <label style="width: 105px;">Loại câu hỏi</label>
+                    <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" style="width: 140px;">
+                        <option selected>Chọn...</option>
+                        <option value="1">Một đáp án</option>
+                        <option value="2">Nhiều đáp án</option>
+                        <option value="3">Đúng sai</option>
+                        <option value="4">Điền khuyết</option>
+                        <option value="5">Ghép cặp</option>
+                    </select>
+                </div>
+                <div class="mb-2">
+                    <label style="width: 105px;">Loại kiến thức</label>
+                    <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" style="width: 140px;">
+                        <option selected>Chọn...</option>
+                        <option value="1">Tổng hợp</option>
+                        <option value="2">Toán</option>
+                        <option value="3">Văn</option>
+                        <option value="4">Sinh học</option>
+                        <option value="5">Hoá học</option>
+                    </select>
+                </div>
+                <div>
+                    <fieldset class="border p-2" id="question-level">
+                        <legend class="w-auto">Mức độ câu hỏi</legend>
+                        <input type="radio" name="level" id="knowledge" value="knowledge" checked>
+                        <label for="knowledge">Nhận biết</label>
+                        <input type="radio" name="level" id="understandingsv" value="understanding">
+                        <label for="understandingsv">Thông hiểu</label>
+                        <input type="radio" name="level" id="manipulate" value="manipulate">
+                        <label for="manipulate">Vận dụng</label>
+                        <input type="radio" name="level" id="high-application" value="high application">
+                        <label for="high-application">Vận dụng cao</label>
+                    </fieldset>
+                </div>
+                <div>
+                    <fieldset class="border p-2" id="question-type">
+                        <legend class="w-auto">Dạng câu hỏi</legend>
+                        <input type="radio" name="type" id="txt" value="txt" checked>
+                        <label for="txt">Dạng đơn</label>
+                        <input type="radio" name="type" id="csv" value="csv">
+                        <label for="csv">Dạng chùm</label>
+                    </fieldset>
+                </div>
             </div>
-            <div class="ml-auto p-2">
-              <button type="button" style="border: 0;outline: 0;">
-                <i class="fa fa-plus" aria-hidden="true" title="Thêm câu hỏi"
-                  style="font-size: 30px; color: #28a745"></i>
-              </button>
+            <div class="mcq">
+                <div class="extention d-flex flex-row mt-3" style="height: 30px;">
+                    <div>Nội dung câu hỏi</div>
+                    <div>
+                        <input type="button" id="add-note" onchange="addQuestionNote(event)" style="display: none;">
+                        <label style="cursor: pointer; margin: 0 auto;">
+                            <i class="fa fa-sticky-note px-2" aria-hidden="true"></i>
+                        </label>
+                        <input type="file" accept="image/*" name="image" id="file" onchange="loadFile(event)" style="display: none;">
+                        <label for="file" style="cursor: pointer; margin: 0 auto;">
+                            <i class="fa fa-paperclip" aria-hidden="true"></i>
+                        </label>
+                    </div>
+                    <div class="ml-auto p-2">
+                        <i class="fa fa-align-right" aria-hidden="true"></i>
+                        <i class="fa fa-align-center" aria-hidden="true"></i>
+                        <i class="fa fa-align-left" aria-hidden="true"></i>
+                        <i class="fa fa-align-justify" aria-hidden="true"></i>
+                        <i class="fa fa-bold" aria-hidden="true"></i>
+                        <i class="fa fa-italic" aria-hidden="true"></i>
+                        <i class="fa fa-underline" aria-hidden="true"></i>
+                    </div>
+                </div>
+                <div class="mcp-content">
+                    <textarea style="width: -webkit-fill-available; min-height: 120px;"></textarea>
+                </div>
+                <div class="answer">
+                    <div class="answer-title d-flex">
+                        <div class="text-danger p-1">Số đáp án</div>
+                        <div class="text-center p-1">
+                            <label style="width: 3em; border: 1px solid black;">4</label>
+                        </div>
+                        <div class="ml-auto p-2">
+                            <button type="button" style="border: 0; outline: 0;">
+                                <i class="fa fa-plus" aria-hidden="true" title="Thêm câu hỏi" style="font-size: 30px; color: #28a745"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="answer-content">
+                        <div class="anwer-item d-flex flex-row mb-2">
+                            <div class="ml-2">
+                                <input type="checkbox">
+                            </div>
+                            <div class="ml-4">
+                                <label>Đáp án A</label>
+                            </div>
+                            <div class="ml-4">
+                                <input type="text" style="width: 700px;">
+                            </div>
+                            <div class="ml-4">
+                                <i class="fa fa-exchange" aria-hidden="true" style="font-size: 30px; color: #00bfff;"></i>
+                            </div>
+                            <div class="ml-4">
+                                <i class="fa fa-window-close" aria-hidden="true" style="font-size: 30px; color: #ff0000"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="answer-content">
+                        <div class="anwer-item d-flex flex-row mb-2">
+                            <div class="ml-2">
+                                <input type="checkbox">
+                            </div>
+                            <div class="ml-4">
+                                <label>Đáp án B</label>
+                            </div>
+                            <div class="ml-4">
+                                <input type="text" style="width: 700px;">
+                            </div>
+                            <div class="ml-4">
+                                <i class="fa fa-exchange" aria-hidden="true" style="font-size: 30px; color: #00bfff;"></i>
+                            </div>
+                            <div class="ml-4">
+                                <i class="fa fa-window-close" aria-hidden="true" style="font-size: 30px; color: #ff0000"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="answer-content">
+                        <div class="anwer-item d-flex flex-row mb-2">
+                            <div class="ml-2">
+                                <input type="checkbox">
+                            </div>
+                            <div class="ml-4">
+                                <label>Đáp án C</label>
+                            </div>
+                            <div class="ml-4">
+                                <input type="text" style="width: 700px;">
+                            </div>
+                            <div class="ml-4">
+                                <i class="fa fa-exchange" aria-hidden="true" style="font-size: 30px; color: #00bfff;"></i>
+                            </div>
+                            <div class="ml-4">
+                                <i class="fa fa-window-close" aria-hidden="true" style="font-size: 30px; color: #ff0000"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="answer-content">
+                        <div class="anwer-item d-flex flex-row mb-2">
+                            <div class="ml-2">
+                                <input type="checkbox">
+                            </div>
+                            <div class="ml-4">
+                                <label>Đáp án D</label>
+                            </div>
+                            <div class="ml-4">
+                                <input type="text" style="width: 700px;">
+                            </div>
+                            <div class="ml-4">
+                                <i class="fa fa-exchange" aria-hidden="true" style="font-size: 30px; color: #00bfff;"></i>
+                            </div>
+                            <div class="ml-4">
+                                <i class="fa fa-window-close" aria-hidden="true" style="font-size: 30px; color: #ff0000"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-3 d-flex justify-content-center pb-3">
+                    <div class="mx-2">
+                        <input type="button" class="btn btn-success" value="Hoàn thành">
+                    </div>
+                    <div class="mx-2">
+                        <input type="button" class="btn btn-primary" value="Làm lại">
+                    </div>
+                    <div class="mx-2">
+                        <input type="button" class="btn btn-danger" value="Huỷ bỏ">
+                    </div>
+                </div>
             </div>
-          </div>
-          <div class="answer-content">
-            <div class="anwer-item d-flex flex-row mb-2">
-              <div class="ml-2">
-                <input type="checkbox">
-              </div>
-              <div class="ml-4">
-                <label>Đáp án A</label>
-              </div>
-              <div class="ml-4">
-                <input type="text" style="width: 700px;">
-              </div>
-              <div class="ml-4">
-                <i class="fa fa-exchange" aria-hidden="true" style="font-size: 30px; color: #00bfff;"></i>
-              </div>
-              <div class="ml-4">
-                <i class="fa fa-window-close" aria-hidden="true" style="font-size: 30px; color: #ff0000"></i>
-              </div>
-            </div>
-          </div>
-          <div class="answer-content">
-            <div class="anwer-item d-flex flex-row mb-2">
-              <div class="ml-2">
-                <input type="checkbox">
-              </div>
-              <div class="ml-4">
-                <label>Đáp án B</label>
-              </div>
-              <div class="ml-4">
-                <input type="text" style="width: 700px;">
-              </div>
-              <div class="ml-4">
-                <i class="fa fa-exchange" aria-hidden="true" style="font-size: 30px; color: #00bfff;"></i>
-              </div>
-              <div class="ml-4">
-                <i class="fa fa-window-close" aria-hidden="true" style="font-size: 30px; color: #ff0000"></i>
-              </div>
-            </div>
-          </div>
-          <div class="answer-content">
-            <div class="anwer-item d-flex flex-row mb-2">
-              <div class="ml-2">
-                <input type="checkbox">
-              </div>
-              <div class="ml-4">
-                <label>Đáp án C</label>
-              </div>
-              <div class="ml-4">
-                <input type="text" style="width: 700px;">
-              </div>
-              <div class="ml-4">
-                <i class="fa fa-exchange" aria-hidden="true" style="font-size: 30px; color: #00bfff;"></i>
-              </div>
-              <div class="ml-4">
-                <i class="fa fa-window-close" aria-hidden="true" style="font-size: 30px; color: #ff0000"></i>
-              </div>
-            </div>
-          </div>
-          <div class="answer-content">
-            <div class="anwer-item d-flex flex-row mb-2">
-              <div class="ml-2">
-                <input type="checkbox">
-              </div>
-              <div class="ml-4">
-                <label>Đáp án D</label>
-              </div>
-              <div class="ml-4">
-                <input type="text" style="width: 700px;">
-              </div>
-              <div class="ml-4">
-                <i class="fa fa-exchange" aria-hidden="true" style="font-size: 30px; color: #00bfff;"></i>
-              </div>
-              <div class="ml-4">
-                <i class="fa fa-window-close" aria-hidden="true" style="font-size: 30px; color: #ff0000"></i>
-              </div>
-            </div>
-          </div>
         </div>
-        <div class="mt-3 d-flex justify-content-center pb-3">
-          <div class="mx-2">
-            <input type="button" class="btn btn-success" value="Hoàn thành">
-          </div>
-          <div class="mx-2">
-            <input type="button" class="btn btn-primary" value="Làm lại">
-          </div>
-          <div class="mx-2">
-            <input type="button" class="btn btn-danger" value="Huỷ bỏ">
-          </div>
-        </div>
-      </div>
     </div>
-  </div>
-  <footer class="footer page-footer font-small mdb-color lighten-3 pt-4">
-    <div class="container text-center text-md-left">
-      <div class="row">
-        <div class="col-md-3 col-lg-3 my-md-3 my-0 mt-4 mb-1">
-          <h5 class="font-weight-bold text-uppercase mb-4">Ngân hàng câu hỏi trắc nghiệm</h5>
-          <p>Đây là một hệ thống trực tuyến giúp bạn tạo đề thi dễ dàng trực quan. Hỗ trợ việc làm bài kiểm tra trực
-            tuyến, in ấn đề thi.</p>
+    <footer class="footer page-footer font-small mdb-color lighten-3 pt-4">
+        <div class="container text-center text-md-left">
+            <div class="row">
+                <div class="col-md-3 col-lg-3 my-md-3 my-0 mt-4 mb-1">
+                    <h5 class="font-weight-bold text-uppercase mb-4">Ngân hàng câu hỏi trắc nghiệm</h5>
+                    <p>Đây là một hệ thống trực tuyến giúp bạn tạo đề thi dễ dàng trực quan. Hỗ trợ việc làm bài kiểm tra trực tuyến, in ấn đề thi.</p>
+                </div>
+                <hr class="clearfix w-100 d-md-none">
+                <div class="col-md-3 col-lg-3 my-md-4 my-0 mt-4 mb-1">
+                    <h5 class="font-weight-bold text-uppercase mb-4">Về Chúng tôi</h5>
+                    <ul class="list-unstyled">
+                        <li>
+                            <p>
+                                <a href="#!">Hướng dẫn sử dụng</a>
+                            </p>
+                        </li>
+                        <li>
+                            <p>
+                                <a href="#!">Liên hệ</a>
+                            </p>
+                        </li>
+                        <li>
+                            <p>
+                                <a href="#!">Chính sách &amp; Điều khoản</a>
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+                <hr class="clearfix w-100 d-md-none">
+                <div class="col-md-4 col-lg-4 my-md-4 my-0 mt-4 mb-1">
+                    <h5 class="font-weight-bold text-uppercase mb-4">Liên hệ</h5>
+                    <ul class="list-unstyled">
+                        <li>
+                            <p>
+                                <i class="fa fa-map-marker mr-3" aria-hidden="true"></i>
+                                <a
+                                    href="https://www.google.com/maps/place/%C4%90%E1%BA%A1i+H%E1%BB%8Dc+B%C3%A1ch+Khoa/@10.7726083,106.6555093,17z/data=!3m1!4b1!4m5!3m4!1s0x31752ec17709146b:0x54a1658a0639d341!8m2!3d10.772603!4d106.657698?hl=vi">268
+                                    Lý Thường Kiệt, P.14, Q.10</a>
+                            </p>
+                        </li>
+                        <li>
+                            <p>
+                                <i class="fa fa-envelope-o mr-2" aria-hidden="true"></i>
+                                <a href="mailto:contact@nghangtracnghiem.com">contact@nganhangtracnghiem.com</a>
+                            </p>
+                        </li>
+                        <li>
+                            <p>
+                                <i class="fa fa-phone mr-3" aria-hidden="true"></i>
+                                <a href="tel:09123456789">09 123 456 78</a>
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+                <hr class="clearfix w-100 d-md-none">
+                <div class="col-md-2 col-lg-2 my-md-4 my-0 mt-4 mb-1">
+                    <h5 class="font-weight-bold text-uppercase mb-4">Liên hệ</h5>
+                    <ul class="list-unstyled">
+                        <li>
+                            <p>
+                                <i class="fa fa-facebook-official mr-2" aria-hidden="true"></i>
+                                <a href="facebook.com" target="_blank">Facebook</a>
+                            </p>
+                        </li>
+                        <li>
+                            <p>
+                                <i class="fa fa-twitter mr-2" aria-hidden="true"></i>
+                                <a href="twitter.com/explore" target="_blank">Twister</a>
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
-        <hr class="clearfix w-100 d-md-none">
-        <div class="col-md-3 col-lg-3 my-md-4 my-0 mt-4 mb-1">
-          <h5 class="font-weight-bold text-uppercase mb-4">Về Chúng tôi</h5>
-          <ul class="list-unstyled">
-            <li>
-              <p>
-                <a href="#!">Hướng dẫn sử dụng</a>
-              </p>
-            </li>
-            <li>
-              <p>
-                <a href="#!">Liên hệ</a>
-              </p>
-            </li>
-            <li>
-              <p>
-                <a href="#!">Chính sách &amp; Điều khoản</a>
-              </p>
-            </li>
-          </ul>
+        <div class="footer-copyright text-center py-3">
+            © 2020 Copyright:
+            <a href="nganhangtracnghiem.com">nganhangtracnghiem.com</a>
+            - Nguyễn Tuấn Anh - 1733403
         </div>
-        <hr class="clearfix w-100 d-md-none">
-        <div class="col-md-4 col-lg-4 my-md-4 my-0 mt-4 mb-1">
-          <h5 class="font-weight-bold text-uppercase mb-4">Liên hệ</h5>
-          <ul class="list-unstyled">
-            <li>
-              <p>
-                <i class="fa fa-map-marker mr-3" aria-hidden="true"></i>
-                <a
-                  href="https://www.google.com/maps/place/%C4%90%E1%BA%A1i+H%E1%BB%8Dc+B%C3%A1ch+Khoa/@10.7726083,106.6555093,17z/data=!3m1!4b1!4m5!3m4!1s0x31752ec17709146b:0x54a1658a0639d341!8m2!3d10.772603!4d106.657698?hl=vi">268
-                  Lý Thường Kiệt, P.14, Q.10</a>
-              </p>
-            </li>
-            <li>
-              <p>
-                <i class="fa fa-envelope-o mr-2" aria-hidden="true"></i>
-                <a href="mailto:contact@nghangtracnghiem.com">contact@nganhangtracnghiem.com</a>
-              </p>
-            </li>
-            <li>
-              <p>
-                <i class="fa fa-phone mr-3" aria-hidden="true"></i>
-                <a href="tel:09123456789">09 123 456 78</a>
-              </p>
-            </li>
-          </ul>
-        </div>
-        <hr class="clearfix w-100 d-md-none">
-        <div class="col-md-2 col-lg-2 my-md-4 my-0 mt-4 mb-1">
-          <h5 class="font-weight-bold text-uppercase mb-4">Liên hệ</h5>
-          <ul class="list-unstyled">
-            <li>
-              <p>
-                <i class="fa fa-facebook-official mr-2" aria-hidden="true"></i>
-                <a href="facebook.com" target="_blank">Facebook</a>
-              </p>
-            </li>
-            <li>
-              <p>
-                <i class="fa fa-twitter mr-2" aria-hidden="true"></i>
-                <a href="twitter.com/explore" target="_blank">Twister</a>
-              </p>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div class="footer-copyright text-center py-3">
-      © 2020 Copyright: <a href="nganhangtracnghiem.com">nganhangtracnghiem.com</a> - Nguyễn Tuấn
-      Anh - 1733403
-    </div>
-  </footer>
+    </footer>
 </body>
 
 </html>
