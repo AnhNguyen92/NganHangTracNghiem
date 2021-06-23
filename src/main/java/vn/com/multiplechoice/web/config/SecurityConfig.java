@@ -35,13 +35,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http.authorizeRequests() //
                 .antMatchers(loginPage, "/signup").permitAll() //
-                .antMatchers("/bo/user/ajax/list").permitAll() //
-                .antMatchers("/bo/user").permitAll() // 
+//                .antMatchers("/bo/user/ajax/list").permitAll() //
+//                .antMatchers("/bo/user").permitAll() // 
                 .anyRequest().authenticated() //
                 .and().formLogin().loginPage(loginPage) //
                 .loginProcessingUrl("/fo/j_spring_security_login") //
                 .failureUrl("/fo/login?error=true") //
-                .defaultSuccessUrl("/bo/user", true) //
+                .defaultSuccessUrl("/fo/index", true) //
                 .usernameParameter("username").passwordParameter("password") //
                 .and() //
                 .logout().logoutRequestMatcher(new AntPathRequestMatcher("/fo/logout")) //
