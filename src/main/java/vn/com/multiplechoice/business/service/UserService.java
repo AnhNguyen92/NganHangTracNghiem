@@ -5,6 +5,9 @@ import vn.com.multiplechoice.dao.model.paging.Page;
 import vn.com.multiplechoice.dao.model.paging.PagingRequest;
 
 public interface UserService extends IGenericService<User, Long> {
-    User findByUsername(String username);
+    public User findByUsername(String username);
+
+    public User findByEmail(String email);
+
     public Page<User> searchDataTable(PagingRequest pagingRequest);
 }

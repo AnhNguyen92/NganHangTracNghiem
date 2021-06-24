@@ -49,6 +49,12 @@ public class UserServiceImpl extends AbstractService<User, Long> implements User
     }
 
     @Override
+    public User findByEmail(String email) {
+        
+        return userRepository.findByEmail(email);
+    }
+
+    @Override
     public Page<User> searchDataTable(PagingRequest pagingRequest) {
 //            List<User> users = userRepository.findAll();
         List<User> users = getAllUser();
