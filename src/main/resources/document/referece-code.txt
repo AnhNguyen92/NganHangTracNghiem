@@ -3,3 +3,6 @@
 
 - Tạo ứng dụng web đa ngôn ngữ với Spring Boot
 	https://openplanning.net/11691/tao-ung-dung-web-da-ngon-ngu-voi-spring-boot#a4778557
+
+- Xử lý các class bean cùng tên khác package
+	https://github.com/spring-projects/spring-framework/issues/24114
