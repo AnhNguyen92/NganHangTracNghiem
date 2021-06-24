@@ -62,11 +62,17 @@ CREATE TABLE `test_feedbacks` (
   `user_id` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-
-
 CREATE TABLE `test_question` (
   `question_id` bigint(20) NOT NULL,
   `test_id` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE `verification_codes` (
+  `id` bigint(20) NOT NULL,
+  `user_id` bigint(20) NOT NULL,
+  `token` varchar(36) NOT NULL,
+  `type` varchar(30) NOT NULL,
+  `expire_time` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 ALTER TABLE `header_templates`
@@ -117,7 +123,15 @@ ALTER TABLE `test_feedbacks`
   ADD CONSTRAINT `FK4g4mc84qwrwrhycx6rn0px8y` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
   ADD CONSTRAINT `FKd12iily7getg25bm0eg15vjj9` FOREIGN KEY (`test_question_question_id`) REFERENCES `test_question` (`question_id`);
 
-  
+ALTER TABLE `verification_codes`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FR-USER_ID` (`user_id`);
+
+ALTER TABLE `verification_codes`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE `verification_codes`
+  ADD CONSTRAINT `verification_codes_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);  
   
 INSERT INTO `users` (`id`, `username`, `password`, `first_name`, `last_name`, `create_time`, `email`, `phone_number`, `role`, `status`, `gender`, `birthday`) VALUES
 (4, 'administration', '$2a$10$Lg5spqzVZuXvmV/44UXLb.SsktOcQqPmiBIzQBGUCdHA6tgNvWPNa', 'admin', 'admin', '2021-05-31 17:25:27', 'admin@gmail.com', NULL, 'Quản trị viên', 'Kích hoạt', 'Nam', '2000-01-31');
