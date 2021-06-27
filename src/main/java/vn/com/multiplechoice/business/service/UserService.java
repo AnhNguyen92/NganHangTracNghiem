@@ -10,4 +10,7 @@ public interface UserService extends IGenericService<User, Long> {
     public User findByEmail(String email);
 
     public Page<User> searchDataTable(PagingRequest pagingRequest);
+    
+    public void resetNewPassword(User user, String password);
+    
 }

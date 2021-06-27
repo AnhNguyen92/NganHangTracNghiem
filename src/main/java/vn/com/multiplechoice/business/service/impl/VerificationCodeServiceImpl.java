@@ -20,4 +20,9 @@ public class VerificationCodeServiceImpl extends AbstractService<VerificationCod
         super(repository);
         this.repository = repository;
     }
+
+    @Override
+    public VerificationCode findByToken(String token) {
+        return repository.findByToken(token);
+    }
 }

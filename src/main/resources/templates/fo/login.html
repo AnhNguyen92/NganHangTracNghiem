@@ -28,14 +28,14 @@
                                 Tên Đăng Nhập
                                 <span class="text-danger ml-1">*</span>
                             </label>
-                            <input type="text" name="username" class="form-control" id="username" placeholder="Nhập tên đăng nhập">
+                            <input type="text" name="username" class="form-control" id="username" placeholder="Nhập tên đăng nhập" required autofocus>
                         </div>
                         <div class="form-group">
                             <label for="password">
                                 Mật khẩu
                                 <span class="text-danger ml-1">*</span>
                             </label>
-                            <input type="password" name="password" id="password" class="form-control" placeholder="Nhập mật khẩu">
+                            <input type="password" name="password" id="password" class="form-control" placeholder="Nhập mật khẩu" required>
                         </div>
                         <div class="col-md-12 text-center ">
                             <button type="submit" class=" btn btn-block mybtn btn-primary tx-tfm">Đăng nhập</button>
@@ -56,7 +56,8 @@
                         </div>
                         <div class="form-group">
                             <p class="text-center">
-                                Chưa có tài khoản? <a th:href="@{/fo/signup}" id="signup">Đăng ký</a>
+                                Chưa có tài khoản?
+                                <a th:href="@{/fo/signup}" id="signup">Đăng ký</a>
                             </p>
                             <p class="text-center">
                                 <a th:href="@{/fo/forgot-password}" id="forgot-password">Quên mật khẩu</a>

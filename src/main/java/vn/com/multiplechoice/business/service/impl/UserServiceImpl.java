@@ -1,5 +1,7 @@
 package vn.com.multiplechoice.business.service.impl;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -13,6 +15,7 @@ import javax.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -36,7 +39,7 @@ public class UserServiceImpl extends AbstractService<User, Long> implements User
     private static final Comparator<User> EMPTY_COMPARATOR = (e1, e2) -> 0;
 
     private UserRepository userRepository;
-
+    
     @Autowired
     public UserServiceImpl(UserRepository userRepository) {
         super(userRepository);
@@ -50,8 +53,14 @@ public class UserServiceImpl extends AbstractService<User, Long> implements User
 
     @Override
     public User findByEmail(String email) {
-        
         return userRepository.findByEmail(email);
+    }
+
+    @Override
+    public void resetNewPassword(User user, String password) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        user.setPassword(passwordEncoder.encode(password));
+        userRepository.save(user);        
     }
 
     @Override
@@ -71,7 +80,7 @@ public class UserServiceImpl extends AbstractService<User, Long> implements User
         Page<User> page = new Page<>(filtered);
         page.setRecordsFiltered((int) count);
         page.setRecordsTotal((int) count);
-        page.setDraw(pagingRequest.getDraw());
+        page.setDraw(pagingRequest.getDraw()); 
 
         return page;
     }
@@ -83,7 +92,6 @@ public class UserServiceImpl extends AbstractService<User, Long> implements User
         String value = pagingRequest.getSearch().getValue();
 
         return user -> user.getUsername().toLowerCase().contains(value) || user.getEmail().toLowerCase().contains(value);
-//                || user.getFirstname().toLowerCase().contains(value) || user.getLastname().toLowerCase().contains(value);
     }
 
     private Comparator<User> sortUsers(PagingRequest pagingRequest) {
@@ -107,7 +115,7 @@ public class UserServiceImpl extends AbstractService<User, Long> implements User
 
         return EMPTY_COMPARATOR;
     }
-    
+
     private List<User> getAllUser() {
         List<User> users = new ArrayList<>();
         users.addAll(getActiveUser());
@@ -178,8 +186,13 @@ public class UserServiceImpl extends AbstractService<User, Long> implements User
             throw new IllegalArgumentException("max must be greater than min");
         }
 
-        Random r = new Random();
+        Random r = null;
+        try {
+            r = SecureRandom.getInstanceStrong();
+        } catch (NoSuchAlgorithmException e) {
+            log.error(e.getMessage());;
+        }
         return r.nextInt((max - min) + 1) + min;
     }
-    
+
 }

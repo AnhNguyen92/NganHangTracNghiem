@@ -23,10 +23,10 @@ public class MailConfig {
         mailSender.setPassword(applicationConfig.getMailPassword());
 
         Properties props = mailSender.getJavaMailProperties();
-        props.put("mail.transport.protocol", applicationConfig.getMailTransportProtocol());
+        props.put("mail.transport.protocol", applicationConfig.getMailProtocol());
         props.put("mail.smtp.auth", applicationConfig.isMailSMTPAuth());
         props.put("mail.smtp.starttls.enable", applicationConfig.isMailSMTPStarttlsEnable());
-        props.put("mail.debug", applicationConfig.isMailDebugMode());
+        props.put("mail.debug", true);
 
         return mailSender;
     }

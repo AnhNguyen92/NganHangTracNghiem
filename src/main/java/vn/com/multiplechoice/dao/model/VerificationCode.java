@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 
 import vn.com.multiplechoice.dao.model.enums.VerificationType;
 
@@ -26,6 +27,7 @@ public class VerificationCode implements Serializable {
     private Long id;
 
     @Column(name = "token")
+    @Size(max = 45)
     private String token;
 
     @Enumerated(EnumType.STRING)

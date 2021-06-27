@@ -20,17 +20,14 @@ public class ApplicationConfig {
     @Value("${spring.mail.password}")
     private String mailPassword;
 
-    @Value("${spring.mail.transport.protocol}")
-    private String mailTransportProtocol;
+    @Value("${spring.mail.properties.mail.transport.protocol}")
+    private String mailProtocol;
 
     @Value("${spring.mail.properties.mail.smtp.auth}")
     private boolean mailSMTPAuth;
 
     @Value("${spring.mail.properties.mail.smtp.starttls.enable}")
     private boolean mailSMTPStarttlsEnable;
-
-    @Value("${spring.mail.debug}")
-    private boolean mailDebugMode;
 
     public String getTemplateUploadPath() {
         return templateUploadPath;
@@ -52,8 +49,8 @@ public class ApplicationConfig {
         return mailPassword;
     }
 
-    public String getMailTransportProtocol() {
-        return mailTransportProtocol;
+    public String getMailProtocol() {
+        return mailProtocol;
     }
 
     public boolean isMailSMTPAuth() {
@@ -62,10 +59,6 @@ public class ApplicationConfig {
 
     public boolean isMailSMTPStarttlsEnable() {
         return mailSMTPStarttlsEnable;
-    }
-
-    public boolean isMailDebugMode() {
-        return mailDebugMode;
     }
 
 }
