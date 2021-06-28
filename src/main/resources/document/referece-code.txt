@@ -6,3 +6,7 @@
 
 - Xử lý các class bean cùng tên khác package
 	https://github.com/spring-projects/spring-framework/issues/24114
+
+- Quên mật khẩu
+	 https://www.codejava.net/frameworks/spring-boot/spring-security-forgot-password-tutorial
+	 
