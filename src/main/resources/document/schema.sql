@@ -75,6 +75,13 @@ CREATE TABLE `verification_codes` (
   `expire_time` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+CREATE TABLE `persistent_logins` (
+  `username` VARCHAR(64) NOT NULL,
+  `series` VARCHAR(64) NOT NULL,
+  `token` VARCHAR(64) NOT NULL,
+  `last_used` TIMESTAMP NOT NULL,
+  PRIMARY KEY (`series`));
+
 ALTER TABLE `header_templates`
   ADD PRIMARY KEY (`id`),
   ADD KEY `FKegyenvpeungft7o74vflbrv4s` (`user_id`);

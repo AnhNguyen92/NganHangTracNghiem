@@ -9,4 +9,6 @@
 
 - Quên mật khẩu
 	 https://www.codejava.net/frameworks/spring-boot/spring-security-forgot-password-tutorial
-	 
+
+- Remember me 
+	https://www.codejava.net/frameworks/spring-boot/spring-security-remember-me-examples
