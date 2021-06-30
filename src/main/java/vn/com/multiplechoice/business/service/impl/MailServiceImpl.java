@@ -24,7 +24,7 @@ public class MailServiceImpl implements MailService {
     private ApplicationConfig applicationConfig;
     
     @Override
-    public void sendEmail(String recipientEmail, String link) throws MessagingException, UnsupportedEncodingException {
+    public void sendResetPasswordEmail(String recipientEmail, String link) throws MessagingException, UnsupportedEncodingException {
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
 
@@ -43,4 +43,5 @@ public class MailServiceImpl implements MailService {
 
         mailSender.send(message);
     }
+
 }

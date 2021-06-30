@@ -23,7 +23,6 @@ import vn.com.multiplechoice.web.form.SignUpForm;
 public class SignupController {
 
     private static final String SIGNUP_FORM = "signUpForm";
-
     private static final String SIGNUP = "fo/signup";
 
     @Autowired
@@ -69,7 +68,6 @@ public class SignupController {
             model.addAttribute("successMessage", "Đăng ký thành công!");
             
             // send verify email
-            
         }
 
         return SIGNUP;

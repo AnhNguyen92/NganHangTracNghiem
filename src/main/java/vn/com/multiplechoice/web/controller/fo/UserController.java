@@ -66,7 +66,7 @@ public class UserController {
             code.setUser(user);
             verificationCodeService.save(code);
             try {
-                mailservice.sendEmail(email, RequestUtil.getSiteURL(request) + "/fo/reset-password?token=" + code.getToken());
+                mailservice.sendResetPasswordEmail(email, RequestUtil.getSiteURL(request) + "/fo/reset-password?token=" + code.getToken());
                 model.addAttribute(MESSAGE, "Email đã được gửi. Vui lòng kiểm tra hòm thư của bạn!");
             } catch (UnsupportedEncodingException | MessagingException e) {
                 log.error(e.getMessage());
