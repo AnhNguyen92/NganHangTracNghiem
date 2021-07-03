@@ -12,3 +12,5 @@
 
 - Remember me 
 	https://www.codejava.net/frameworks/spring-boot/spring-security-remember-me-examples
+- verify registration by mail
+	https://www.codejava.net/frameworks/spring-boot/email-verification-example

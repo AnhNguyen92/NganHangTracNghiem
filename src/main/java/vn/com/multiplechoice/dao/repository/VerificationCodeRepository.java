@@ -7,4 +7,6 @@ import vn.com.multiplechoice.dao.model.VerificationCode;
 
 public interface VerificationCodeRepository extends JpaRepository<VerificationCode, Long>, JpaSpecificationExecutor<VerificationCode> {
     VerificationCode findByToken(String token);
+
+    boolean existsByToken(String token);
 }

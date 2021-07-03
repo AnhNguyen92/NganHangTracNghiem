@@ -41,7 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         
         http.csrf().disable();
         http.authorizeRequests() //
-                .antMatchers(loginPage, "/fo/signup", "/fo/forgot-password", "/fo/reset-password").permitAll() //
+                .antMatchers(loginPage, "/fo/signup", "/fo/forgot-password", "/fo/reset-password", "/fo/verify").permitAll() //
                 .anyRequest().authenticated() //
                 .and().formLogin().loginPage(loginPage) //
                 .loginProcessingUrl("/fo/j_spring_security_login") //
