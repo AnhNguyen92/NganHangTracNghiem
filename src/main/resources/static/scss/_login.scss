@@ -2,7 +2,7 @@
 // Toshi the dog from https://unsplash.com/@charlesdeluvio - what a funny dog...
 
 .bg-login-image {
-  background: url($login-image);
+  background: url('/multiple-choice-quiz/imgs/header-logo.png');
   background-position: center;
   background-size: cover;
 }
@@ -16,7 +16,7 @@
 .bg-password-image {
   background: url($password-image);
   background-position: center;
-  background-size: cover;
+  background-size: 100% 100%;
 }
 
 form.user {
