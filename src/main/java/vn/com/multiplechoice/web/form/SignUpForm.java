@@ -19,6 +19,7 @@ public class SignUpForm implements Serializable {
     private Long id;
     
     @Length(min = 6, max = 100, message = "Tên đăng nhập phải từ 6 - 100 ký tự")
+    @NotEmpty(message = "Tên đăng  không được để trống!")
     private String username;
     
     @Length(max = 50, message = "Tên không được dài quá 50 ký tự")
