@@ -159,7 +159,7 @@
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" th:href="@{/bo/j_spring_security_logout}">
                                     <span class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></span>
                                     Đăng Xuất
                                 </a>
@@ -184,7 +184,8 @@
                             <div class="d-flex py-3 justify-content-center">
                                 <div class="col-lg-6">
                                     <form th:action="@{/bo/user/save}" th:object="${user}" method="POST">
-                                        <div class="form-group row">
+                                        <div>
+                                        <input type="hidden" th:field=*{}>
                                             <div class="col-sm-6">
                                                 <label class="control-label" for="inputWarning">Tên đăng nhập</label>
                                                 <input type="text" class="form-control" th:field="*{username}">
