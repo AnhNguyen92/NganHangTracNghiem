@@ -5,6 +5,7 @@ import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 import java.util.UUID;
 import java.util.function.Predicate;
@@ -18,6 +19,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+
+import com.github.javafaker.Faker;
 
 import vn.com.multiplechoice.business.service.AbstractService;
 import vn.com.multiplechoice.business.service.UserService;
@@ -126,17 +129,17 @@ public class UserServiceImpl extends AbstractService<User, Long> implements User
 
     private List<User> getFakeActiveUser() {
         List<User> users = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
+        Faker faker = new Faker(new Locale("vi_VN"));
+        for (int i = 0; i < 30; i++) {
             User user = new User();
             user.setId(i + 1l);
-            UUID uuid = UUID.randomUUID();
-            String uuidAsString = uuid.toString();
-            user.setUsername(uuidAsString);
-            user.setEmail(uuidAsString + (i + 1) + "@gmail.com");
-            user.setPhoneNumber("0123456789");
+            
+            user.setUsername(faker.name().username());
+            user.setEmail(faker.internet().emailAddress());
+            user.setPhoneNumber(faker.phoneNumber().phoneNumber());
             user.setRole(randomUserRole());
-            user.setFirstname("user" + (i + 1));
-            user.setLastname(uuidAsString);
+            user.setFirstname(faker.name().firstName());
+            user.setLastname(faker.name().lastName());
             user.setPassword("123456");
             user.setStatus(UserStatus.ACTIVE);
 
@@ -148,17 +151,16 @@ public class UserServiceImpl extends AbstractService<User, Long> implements User
 
     private List<User> getFakeWaitingUsers() {
         List<User> users = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
+        Faker faker = new Faker(new Locale("vi_VN"));
+        for (int i = 0; i < 30; i++) {
             User user = new User();
-            user.setId(i + 21l);
-            UUID uuid = UUID.randomUUID();
-            String uuidAsString = uuid.toString();
-            user.setUsername(uuidAsString);
-            user.setEmail(uuidAsString + (i + 21) + "@gmail.com");
-            user.setPhoneNumber("0123456789");
+            user.setId(i + 31l);
+            user.setUsername(faker.name().username());
+            user.setEmail(faker.internet().emailAddress());
+            user.setPhoneNumber(faker.phoneNumber().phoneNumber());
             user.setRole(randomUserRole());
-            user.setFirstname("user" + (i + 21));
-            user.setLastname(uuidAsString);
+            user.setFirstname(faker.name().firstName());
+            user.setLastname(faker.name().lastName());
             user.setPassword("123456");
             user.setStatus(UserStatus.IN_ACTIVE);
 
