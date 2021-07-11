@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -17,12 +18,15 @@ public class UserDto implements Serializable {
     private static final long serialVersionUID = 6968730512452533251L;
 
     private Long id;
+    @NotEmpty
     @Size(min = 6, max = 100)
     private String username;
     private String firstname;
     private String lastname;
+    @NotEmpty
     @Email
     private String email;
+    @NotEmpty
     @Size(min = 6, max = 100)
     private String password;
     private LocalDateTime createTime;
