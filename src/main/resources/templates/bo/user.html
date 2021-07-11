@@ -184,47 +184,47 @@
                             <div class="d-flex py-3 justify-content-center">
                                 <div class="col-lg-6">
                                     <form th:action="@{/bo/user/save}" th:object="${user}" method="POST">
-                                        <div>
-                                        <input type="hidden" th:field=*{}>
+                                        <div><input type="hidden" th:field=*{id}></div>
+                                        <div class="form-group row">
                                             <div class="col-sm-6">
-                                                <label class="control-label" for="inputWarning">Tên đăng nhập</label>
+                                                <label class="control-label">Tên đăng nhập</label>
                                                 <input type="text" class="form-control" th:field="*{username}">
                                             </div>
                                             <div class="col-sm-6">
-                                                <label class="control-label" for="inputWarning">Mật khẩu</label>
+                                                <label class="control-label">Mật khẩu</label>
                                                 <input type="password" class="form-control" th:field="*{password}">
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <div class="col-sm-6">
-                                                <label class="control-label" for="inputWarning">Họ</label>
+                                                <label class="control-label">Họ</label>
                                                 <input type="text" class="form-control" th:field="*{lastname}">
                                             </div>
                                             <div class="col-sm-6">
-                                                <label class="control-label" for="inputWarning">Tên</label>
+                                                <label class="control-label">Tên</label>
                                                 <input type="text" class="form-control" th:field="*{firstname}">
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <div class="col-sm-6">
-                                                <label class="control-label" for="inputWarning">Email</label>
+                                                <label class="control-label">Email</label>
                                                 <input type="email" class="form-control" th:field="*{email}">
                                             </div>
                                             <div class="col-sm-6">
-                                                <label class="control-label" for="inputWarning">Số điện thoại</label>
+                                                <label class="control-label">Số điện thoại</label>
                                                 <input type="tel" class="form-control" th:field="*{phoneNumber}">
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <div class="col-sm-6">
-                                                <label class="control-label" for="inputWarning">Trạng thái</label>
+                                                <label class="control-label">Trạng thái</label>
                                                 <select class="form-control" th:field="*{status}">
                                                     <option th:each="status : ${T(vn.com.multiplechoice.dao.model.enums.UserStatus).values()}"
                                                         th:value="${status}" th:text="${status.value}">Trạng thái</option>
                                                 </select>
                                             </div>
                                             <div class="col-sm-6">
-                                                <label class="control-label" for="inputWarning">Giới tính</label>
+                                                <label class="control-label">Giới tính</label>
                                                 <select class="form-control" th:field="*{gender}">
                                                     <option th:each="genderOtp : ${T(vn.com.multiplechoice.dao.model.enums.Gender).values()}"
                                                         th:value="${genderOtp}" th:text="${genderOtp.value}">Giới tính</option>
@@ -233,14 +233,14 @@
                                         </div>
                                         <div class="form-group row">
                                             <div class="col-sm-6">
-                                                <label class="control-label" for="inputWarning">Quyền</label>
+                                                <label class="control-label">Quyền</label>
                                                 <select class="form-control" th:field="*{role}">
                                                     <option th:each="role : ${T(vn.com.multiplechoice.dao.model.enums.UserRole).values()}"
                                                         th:value="${role}" th:text="${role.value}">Quyền</option>
                                                 </select>
                                             </div>
                                             <div class="col-sm-6">
-                                                <label class="control-label" for="inputWarning">Ngày sinh</label>
+                                                <label class="control-label">Ngày sinh</label>
                                                 <input type="text" th:field="*{birthday}" id="birthday" th:value="${user.birthday} ? ${#temporals.format(user.birthday, 'dd-MM-yyyy')}" class="form-control mb-4">
                                             </div>
                                         </div>

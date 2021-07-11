@@ -118,13 +118,13 @@ public class UserServiceImpl extends AbstractService<User, Long> implements User
 
     private List<User> getAllUser() {
         List<User> users = new ArrayList<>();
-        users.addAll(getActiveUser());
-        users.addAll(getWaitingUsers());
+        users.addAll(getFakeActiveUser());
+        users.addAll(getFakeWaitingUsers());
 
         return users;
     }
 
-    private List<User> getActiveUser() {
+    private List<User> getFakeActiveUser() {
         List<User> users = new ArrayList<>();
         for (int i = 0; i < 20; i++) {
             User user = new User();
@@ -146,7 +146,7 @@ public class UserServiceImpl extends AbstractService<User, Long> implements User
         return users;
     }
 
-    private List<User> getWaitingUsers() {
+    private List<User> getFakeWaitingUsers() {
         List<User> users = new ArrayList<>();
         for (int i = 0; i < 20; i++) {
             User user = new User();
@@ -190,9 +190,14 @@ public class UserServiceImpl extends AbstractService<User, Long> implements User
         try {
             r = SecureRandom.getInstanceStrong();
         } catch (NoSuchAlgorithmException e) {
-            log.error(e.getMessage());;
+            log.error(e.getMessage());
         }
         return r.nextInt((max - min) + 1) + min;
+    }
+
+    @Override
+    public List<User> getWaitingUsers() {
+        return userRepository.getWaitingUsers();
     }
 
 }

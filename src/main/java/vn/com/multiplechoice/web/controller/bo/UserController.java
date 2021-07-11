@@ -1,8 +1,14 @@
 package vn.com.multiplechoice.web.controller.bo;
 
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +25,8 @@ import vn.com.multiplechoice.web.dto.UserDto;
 @RequestMapping("/bo/user")
 public class UserController {
 
+    private static final String BO_USER_LIST = "bo/user-list";
+
     private static final Logger log = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
@@ -29,43 +37,60 @@ public class UserController {
 
     @GetMapping(value = {"", "/list"})
     public String getUsers(Model model) {
-        return "bo/user-list";
+        List<User> users = userService.findAll();
+        model.addAttribute("users", users);
+        
+        return BO_USER_LIST;
     }
 
-//    @GetMapping("/waiting-list")
-//    public String waitingUsers(Model model) {
-//        List<User> waitingUsers = getWaitingUsers();
-//
-//        model.addAttribute("users", waitingUsers);
-//
-//        return "bo/user-waiting-list";
-//    }
+    @GetMapping("/waiting-list")
+    public String waitingUsers(Model model) {
+        List<User> waitingUsers = userService.getWaitingUsers();
+
+        model.addAttribute("users", waitingUsers);
+
+        return "bo/user-waiting-list";
+    }
 
     @GetMapping("/{id}")
     public String findById(Model model, @PathVariable Long id) {
         // for test only
-        User user = userService.findOne(4l);
+        User user = userService.findOne(8l);
 //        User user = userService.findOne(id);
         model.addAttribute("user", userConverter.toDto(user));
         return "bo/user";
     }
 
     @GetMapping("/new")
-    public String addNew(Model model) {
+    public String addNew(Model model, HttpServletRequest request) {
         model.addAttribute("user", new UserDto());
-
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if ( !(principal instanceof UserDetails) ) {
+            return "bo/login";
+        }
+        
         return "bo/user";
     }
 
-    @PostMapping("/save")
-    public String save(Model model, UserDto dto) {
-        log.info("Admin create user by username : {}", dto.getUsername());
-        model.addAttribute("user", new UserDto());
-        User user = userConverter.toEntity(dto);
+    @PostMapping("update")
+    public String update(Model model, UserDto dto) {
+        log.info("Admin update user by username : {}", dto.getUsername());
+        User user = userService.findByUsername(dto.getUsername());
+        userConverter.updateUser(user, dto);
 
         userService.save(user);
 
-        return "bo/user-list";
+        return BO_USER_LIST;
+    }
+    
+    @PostMapping("/save")
+    public String save(Model model, UserDto dto) {
+        log.info("Admin create user by username : {}", dto.getUsername());
+        User user = userConverter.toNewEntity(dto);
+
+        userService.save(user);
+
+        return BO_USER_LIST;
     }
 
 }
