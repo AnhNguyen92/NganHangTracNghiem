@@ -34,7 +34,7 @@ public class AdminSecurityConfig extends WebSecurityConfigurerAdapter {
         http.antMatcher("/bo/**") //
                 .authorizeRequests() //
                 .antMatchers(loginPage, "/bo/user/ajax/list").permitAll() //
-                .antMatchers("/bo/user").permitAll() //
+                .antMatchers("/bo/user", "/bo/user/**").permitAll() //
                 .anyRequest().hasAnyRole("ADMIN", "INSPECTOR") //
                 .and().formLogin() //
                 .loginPage(loginPage)//
