@@ -2,8 +2,6 @@ package vn.com.multiplechoice.web.controller.bo;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +35,10 @@ public class UserController {
 
     @GetMapping(value = {"", "/list"})
     public String getUsers(Model model) {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if ( !(principal instanceof UserDetails) ) {
+            return "bo/login";
+        }
         List<User> users = userService.findAll();
         model.addAttribute("users", users);
         
@@ -45,6 +47,10 @@ public class UserController {
 
     @GetMapping("/waiting-list")
     public String waitingUsers(Model model) {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if ( !(principal instanceof UserDetails) ) {
+            return "bo/login";
+        }
         List<User> waitingUsers = userService.getWaitingUsers();
 
         model.addAttribute("users", waitingUsers);
@@ -54,6 +60,10 @@ public class UserController {
 
     @GetMapping("/{id}")
     public String findById(Model model, @PathVariable Long id) {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if ( !(principal instanceof UserDetails) ) {
+            return "bo/login";
+        }
         // for test only
         User user = userService.findOne(8l);
 //        User user = userService.findOne(id);
@@ -62,7 +72,7 @@ public class UserController {
     }
 
     @GetMapping("/new")
-    public String addNew(Model model, HttpServletRequest request) {
+    public String addNew(Model model) {
         model.addAttribute("user", new UserDto());
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if ( !(principal instanceof UserDetails) ) {
@@ -74,6 +84,10 @@ public class UserController {
 
     @PostMapping("update")
     public String update(Model model, UserDto dto) {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if ( !(principal instanceof UserDetails) ) {
+            return "bo/login";
+        }
         log.info("Admin update user by username : {}", dto.getUsername());
         User user = userService.findByUsername(dto.getUsername());
         userConverter.updateUser(user, dto);
@@ -85,6 +99,10 @@ public class UserController {
     
     @PostMapping("/save")
     public String save(Model model, UserDto dto) {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if ( !(principal instanceof UserDetails) ) {
+            return "bo/login";
+        }
         log.info("Admin create user by username : {}", dto.getUsername());
         User user = userConverter.toNewEntity(dto);
 

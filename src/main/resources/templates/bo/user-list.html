@@ -7,6 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
+<link rel="shortcut icon" href="#">
 <link th:href="@{/vendor/fontawesome/css/all.min.css}" rel="stylesheet" type="text/css">
 <link th:rel="stylesheet" th:href="@{/vendor/bootstrap-datepicker/css/bootstrap-datepicker.css}" />
 <link th:rel="stylesheet" th:href="@{/vendor/bootstrap-datepicker/css/bootstrap-datepicker.standalone.css}" />
@@ -188,10 +189,10 @@
                                     <thead>
                                         <tr>
                                             <th>ID</th>
-                                            <th>Tên</th>
                                             <th>Họ</th>
-                                            <th>Địa chỉ email</th>
+                                            <th>Tên</th>
                                             <th>Tên đăng nhập</th>
+                                            <th>Địa chỉ email</th>
                                             <th>Số điện thoại</th>
                                             <th>Quyền</th>
                                             <th>Hành động</th>
@@ -247,13 +248,13 @@
                 }
             },
             "columns": [
-                {"data": "id"},
-                {"data": "firstname"},
-                {"data": "lastname"},
-                {"data": "email"},
-                {"data": "username"},
-                {"data": "phoneNumber"},
-                {"data": "role",
+                {"data": "id", "width": "5%"},
+                {"data": "lastname", "width": "12%"},
+                {"data": "firstname", "width": "10%"},
+                {"data": "username", "width": "18%"},
+                {"data": "email", "width": "15%"},
+                {"data": "phoneNumber", "width": "15%"},
+                {"data": "role", "width": "12%",
                  render: function (data, type, row) {
                      if (data == 'USER') {
                          return 'Người dùng';
@@ -266,7 +267,7 @@
                  }
                      }   
                 }
-                ,{data: null,
+                ,{data: null, "width": "10%",
                     render: function ( data, type, row ) {
                         return '<div class="d-flex justify-content-around"><a href="/multiple-choice-quiz/bo/user/' + data.id + '" class="btn btn-primary mr-2" title="Chi tiết"><i class="fa fa-pencil-alt" aria-hidden="true"></i></a><a href="javascript:deleteUser(' + data.id + ')" class="btn btn-danger" title="Xóa"><i class="fa fa-trash-alt" aria-hidden="true"></i></a></div>';
                  
