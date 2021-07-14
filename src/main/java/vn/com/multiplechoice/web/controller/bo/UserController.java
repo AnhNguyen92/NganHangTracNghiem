@@ -65,8 +65,11 @@ public class UserController {
             return "bo/login";
         }
         // for test only
-        User user = userService.findOne(8l);
-//        User user = userService.findOne(id);
+//        User user = userService.findOne(8l);
+        User user = userService.findOne(id);
+        if (user == null) {
+            return "bo/error/404";
+        }
         model.addAttribute("user", userConverter.toDto(user));
         return "bo/user";
     }
