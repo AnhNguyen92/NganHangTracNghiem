@@ -23,6 +23,8 @@ import vn.com.multiplechoice.web.dto.UserDto;
 @RequestMapping("/bo/user")
 public class UserController {
 
+    private static final String BO_LOGIN = "/bo/login";
+
     private static final String BO_USER_LIST = "bo/user-list";
 
     private static final Logger log = LoggerFactory.getLogger(UserController.class);
@@ -35,9 +37,8 @@ public class UserController {
 
     @GetMapping(value = {"", "/list"})
     public String getUsers(Model model) {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if ( !(principal instanceof UserDetails) ) {
-            return "bo/login";
+        if (!isAuthenticatedAdminUser()) {
+            return BO_LOGIN;
         }
         List<User> users = userService.findAll();
         model.addAttribute("users", users);
@@ -47,9 +48,8 @@ public class UserController {
 
     @GetMapping("/waiting-list")
     public String waitingUsers(Model model) {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if ( !(principal instanceof UserDetails) ) {
-            return "bo/login";
+        if (!isAuthenticatedAdminUser()) {
+            return BO_LOGIN;
         }
         List<User> waitingUsers = userService.getWaitingUsers();
 
@@ -58,11 +58,12 @@ public class UserController {
         return "bo/user-waiting-list";
     }
 
+    
+
     @GetMapping("/{id}")
     public String findById(Model model, @PathVariable Long id) {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if ( !(principal instanceof UserDetails) ) {
-            return "bo/login";
+        if (!isAuthenticatedAdminUser()) {
+            return BO_LOGIN;
         }
         // for test only
 //        User user = userService.findOne(8l);
@@ -77,9 +78,8 @@ public class UserController {
     @GetMapping("/new")
     public String addNew(Model model) {
         model.addAttribute("user", new UserDto());
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if ( !(principal instanceof UserDetails) ) {
-            return "bo/login";
+        if (!isAuthenticatedAdminUser()) {
+            return BO_LOGIN;
         }
         
         return "bo/user";
@@ -87,9 +87,9 @@ public class UserController {
 
     @PostMapping("update")
     public String update(Model model, UserDto dto) {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if ( !(principal instanceof UserDetails) ) {
-            return "bo/login";
+        isAuthenticatedAdminUser();
+        if (!isAuthenticatedAdminUser()) {
+            return BO_LOGIN;
         }
         log.info("Admin update user by username : {}", dto.getUsername());
         User user = userService.findByUsername(dto.getUsername());
@@ -102,16 +102,21 @@ public class UserController {
     
     @PostMapping("/save")
     public String save(Model model, UserDto dto) {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if ( !(principal instanceof UserDetails) ) {
-            return "bo/login";
+        if (!isAuthenticatedAdminUser()) {
+            return BO_LOGIN;
         }
+        
         log.info("Admin create user by username : {}", dto.getUsername());
         User user = userConverter.toNewEntity(dto);
 
         userService.save(user);
 
         return BO_USER_LIST;
+    }
+
+    private boolean isAuthenticatedAdminUser() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return (principal instanceof UserDetails);
     }
 
 }
