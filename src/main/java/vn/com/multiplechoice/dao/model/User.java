@@ -3,14 +3,12 @@ package vn.com.multiplechoice.dao.model;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -65,9 +63,6 @@ public class User implements Serializable {
     private LocalDate birthday;
 
     private Gender gender;
-
-    @OneToMany(mappedBy = "user")
-    private List<HeaderTemplate> templates;
 
     public Long getId() {
         return id;
@@ -163,14 +158,6 @@ public class User implements Serializable {
 
     public void setGender(Gender gender) {
         this.gender = gender;
-    }
-
-    public List<HeaderTemplate> getTemplates() {
-        return templates;
-    }
-
-    public void setTemplates(List<HeaderTemplate> templates) {
-        this.templates = templates;
     }
 
 }
