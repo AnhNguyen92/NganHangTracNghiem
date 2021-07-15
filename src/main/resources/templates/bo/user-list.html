@@ -213,14 +213,17 @@
                  render: function (data, type, row) {
                      if (data == 'USER') {
                          return 'Người dùng';
-                 }
+                     }
                      if (data == 'ADMIN') {
                          return 'Quản trị viên';
-                 }
+                     }
                      if (data == 'INSPECTOR') {
                          return 'Kiểm duyệt viên';
-                 }
-                     }   
+                     }
+                     if (data == 'CREATOR') {
+                    	 return 'Người tạo đề thi';
+                     }
+                 }   
                 }
                 ,{data: null, "width": "10%",
                     render: function ( data, type, row ) {
