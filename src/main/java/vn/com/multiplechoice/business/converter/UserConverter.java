@@ -1,11 +1,13 @@
 package vn.com.multiplechoice.business.converter;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import vn.com.multiplechoice.dao.model.User;
 import vn.com.multiplechoice.dao.model.enums.UserRole;
@@ -13,13 +15,13 @@ import vn.com.multiplechoice.dao.model.enums.UserStatus;
 import vn.com.multiplechoice.web.dto.UserDto;
 import vn.com.multiplechoice.web.form.SignUpForm;
 
-@Service
-public class UserConverterService {
+@Component
+public class UserConverter {
     private ModelMapper modelMapper;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    public UserConverterService(ModelMapper modelMapper, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public UserConverter(ModelMapper modelMapper, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.modelMapper = modelMapper;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
@@ -43,6 +45,14 @@ public class UserConverterService {
         return user;
     }
 
+    public List<UserDto> toDto(List<User> users) {
+        List<UserDto> userDtos = new ArrayList<>();
+        for (User user : users) {
+            userDtos.add(toDto(user));
+        }
+        return userDtos;
+    }
+
     public UserDto toDto(User entity) {
         return modelMapper.map(entity, UserDto.class);
     }
@@ -57,7 +67,7 @@ public class UserConverterService {
 
         return user;
     }
-    
+
     public void updateUser(User model, UserDto dto) {
         if (dto.getBirthday() != null) {
             model.setBirthday(dto.getBirthday());

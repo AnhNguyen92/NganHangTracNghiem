@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import vn.com.multiplechoice.business.converter.UserConverterService;
+import vn.com.multiplechoice.business.converter.UserConverter;
 import vn.com.multiplechoice.business.service.MailService;
 import vn.com.multiplechoice.business.service.UserService;
 import vn.com.multiplechoice.business.service.VerificationCodeService;
@@ -36,7 +36,7 @@ public class SignupController {
     private static final String SIGNUP = "fo/signup";
 
     @Autowired
-    private UserConverterService userConverterService;
+    private UserConverter userConverterService;
 
     @Autowired
     private UserService userService;

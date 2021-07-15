@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import vn.com.multiplechoice.business.converter.UserConverterService;
+import vn.com.multiplechoice.business.converter.UserConverter;
 import vn.com.multiplechoice.business.service.UserService;
 import vn.com.multiplechoice.dao.model.User;
 import vn.com.multiplechoice.web.dto.UserDto;
@@ -30,7 +30,7 @@ public class UserController {
     private static final Logger log = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
-    private UserConverterService userConverter;
+    private UserConverter userConverter;
 
     @Autowired
     private UserService userService;

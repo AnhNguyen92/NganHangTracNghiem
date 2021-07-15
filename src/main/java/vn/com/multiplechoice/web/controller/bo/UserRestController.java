@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import vn.com.multiplechoice.business.converter.UserConverter;
 import vn.com.multiplechoice.business.service.UserService;
 import vn.com.multiplechoice.dao.model.User;
 import vn.com.multiplechoice.dao.model.paging.Page;
 import vn.com.multiplechoice.dao.model.paging.PagingRequest;
+import vn.com.multiplechoice.web.dto.UserDto;
 
 @RestController
 @RequestMapping("/bo/user")
@@ -25,10 +27,19 @@ public class UserRestController {
 
     @Autowired
     private UserService userService;
+    
+    @Autowired
+    private UserConverter userConverter;
 
     @PostMapping(value = "/ajax/list")
     public Page<User> list(@RequestBody PagingRequest pagingRequest) {
-        return userService.searchDataTable(pagingRequest);
+        Page<User> pageUser = userService.searchDataTable(pagingRequest);
+        Page<UserDto> pageUserDTO = new Page<>();
+        if (pageUser.getData() != null) {            
+            pageUserDTO.setData(userConverter.toDto(pageUser.getData()));
+        }
+        
+        return pageUser;
     }
 
     @DeleteMapping("/{id}")
