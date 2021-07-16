@@ -40,7 +40,8 @@ public class UserController {
             return BO_LOGIN;
         }
         List<User> users = userService.findAll();
-        model.addAttribute("users", users);
+        List<UserDto> userDtos = userConverter.toDto(users);
+        model.addAttribute("users", userDtos);
         
         return BO_USER_LIST;
     }
@@ -72,17 +73,16 @@ public class UserController {
 
     @GetMapping("/new")
     public String addNew(Model model) {
-        model.addAttribute("user", new UserDto());
         if (!isAuthenticatedAdminUser()) {
             return BO_LOGIN;
         }
+        model.addAttribute("user", new UserDto());
         
         return "bo/user";
     }
 
     @PostMapping("update")
     public String update(Model model, UserDto dto) {
-        isAuthenticatedAdminUser();
         if (!isAuthenticatedAdminUser()) {
             return BO_LOGIN;
         }
