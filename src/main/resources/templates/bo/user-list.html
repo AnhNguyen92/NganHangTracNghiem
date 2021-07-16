@@ -12,8 +12,8 @@
 <link th:rel="stylesheet" th:href="@{/vendor/bootstrap-datepicker/css/bootstrap-datepicker.css}" />
 <link th:rel="stylesheet" th:href="@{/vendor/bootstrap-datepicker/css/bootstrap-datepicker.standalone.css}" />
 <link th:rel="stylesheet" th:href="@{/assets/datatable/datatables.css}" />
-<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} " />
-<link th:href="@{/css/sb-admin-2.min.css}" rel="stylesheet">
+<!-- <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} " />
+ --><link th:href="@{/css/sb-admin-2.min.css}" rel="stylesheet">
 
 </head>
 <body id="page-top">
@@ -35,7 +35,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" th:href="@{''}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span>
                 </a>
@@ -57,8 +57,8 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Các Trang:</h6>
                         <a class="collapse-item" th:href="@{''}">Danh Sách</a>
-                        <a class="collapse-item" th:href="@{/bo/user/waiting-list}">Danh Sách Chờ</a>
-                        <a class="collapse-item" th:href="@{/bo/user/new}">Thêm Mới</a>
+                        <a class="collapse-item" th:href="@{/bo/users/waiting-list}">Danh Sách Chờ</a>
+                        <a class="collapse-item" th:href="@{/bo/users/new}">Thêm Mới</a>
                     </div>
                 </div>
             </li>
@@ -142,14 +142,14 @@
                                 <table id="example" class="table table-bordered table-responsive" style="width: 100%">
                                     <thead>
                                         <tr>
-                                            <th>ID</th>
-                                            <th>Họ</th>
-                                            <th>Tên</th>
-                                            <th>Tên đăng nhập</th>
-                                            <th>Địa chỉ email</th>
-                                            <th>Số điện thoại</th>
-                                            <th>Quyền</th>
-                                            <th>Hành động</th>
+                                            <th id="id">ID</th>
+                                            <th id="last-name">Họ</th>
+                                            <th id="first-name">Tên</th>
+                                            <th id="username">Tên đăng nhập</th>
+                                            <th id="email">Địa chỉ email</th>
+                                            <th id="phone-number">Số điện thoại</th>
+                                            <th id="role">Quyền</th>
+                                            <th id="action">Hành động</th>
                                         </tr>
                                     </thead>
                                 </table>
