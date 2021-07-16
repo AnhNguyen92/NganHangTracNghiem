@@ -30,7 +30,6 @@ public class UserServiceImpl extends AbstractService<User, Long> implements User
     private static final Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
 
     private static final Comparator<User> EMPTY_COMPARATOR = (e1, e2) -> 0;
-
     private UserRepository userRepository;
 
     @Autowired
@@ -109,8 +108,10 @@ public class UserServiceImpl extends AbstractService<User, Long> implements User
     }
 
     @Override
-    public List<User> getWaitingUsers() {
-        return userRepository.getWaitingUsers();
+    public Page<User> searchWaitingList(PagingRequest pagingRequest) {
+        List<User> users = userRepository.getWaitingUsers();
+
+        return getPage(users, pagingRequest);
     }
 
 }

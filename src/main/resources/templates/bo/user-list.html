@@ -66,25 +66,10 @@
             <!-- Divider -->
             <hr class="sidebar-divider">
 
-            <!-- Heading -->
-            <div class="sidebar-heading">Addons</div>
-
-            <!-- Nav Item - Charts -->
-            <li class="nav-item">
-                <a class="nav-link" href="charts.html">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Charts</span>
-                </a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider d-none d-md-block">
-
             <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
             </div>
-
         </ul>
         <!-- End of Sidebar -->
 
@@ -188,12 +173,16 @@
 <script th:src="@{/webjars/popper.js/1.12.9-1/umd/popper.min.js}"></script>
 <script th:src="@{/webjars/bootstrap/4.0.0-2/js/bootstrap.min.js}"></script>
 <script th:src="@{/assets/datatable/datatables.js}"></script>
+
+<!-- Custom scripts for all pages-->
+<script th:src="@{/js/sb-admin-2.min.js}"></script>
+
 <script>
         $('#example').DataTable({
             "processing": true,
             "serverSide": true,
             "ajax": {
-                "url": "/multiple-choice-quiz/bo/user/ajax/list",
+                "url": "/multiple-choice-quiz/bo/users/ajax/list",
                 "type": "POST",
                 "dataType": "json",
                 "contentType": "application/json",
@@ -226,7 +215,7 @@
                 }
                 ,{data: null, "width": "10%",
                     render: function ( data, type, row ) {
-                        return '<div class="d-flex justify-content-around"><a href="/multiple-choice-quiz/bo/user/' + data.id + '" class="btn btn-primary mr-2" title="Chi tiết"><i class="fa fa-pencil-alt" aria-hidden="true"></i></a><a href="javascript:deleteUser(' + data.id + ')" class="btn btn-danger" title="Xóa"><i class="fa fa-trash-alt" aria-hidden="true"></i></a></div>';
+                        return '<div class="d-flex justify-content-around"><a href="/multiple-choice-quiz/bo/users/' + data.id + '" class="btn btn-primary mr-2" title="Chi tiết"><i class="fa fa-pencil-alt" aria-hidden="true"></i></a><a href="javascript:deleteUser(' + data.id + ')" class="btn btn-danger" title="Xóa"><i class="fa fa-trash-alt" aria-hidden="true"></i></a></div>';
                  
                  
                       }}
@@ -249,7 +238,7 @@
         function deleteUser(id) {
         	$.ajax({
         		  type: "DELETE",
-        		  url: "/multiple-choice-quiz/bo/user/" + id,
+        		  url: "/multiple-choice-quiz/bo/users/" + id,
         		  contentType: "application/json",
         		  dataType: "json",
                   error: function (e) {

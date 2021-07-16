@@ -13,6 +13,6 @@ public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificat
 
     public User findByEmail(String email);
 
-    @Query(value = " Select * from user u where u.status = 'Chưa kích hoạt'; ", nativeQuery = true)
+    @Query(value = " Select * from users u where u.status = 'Chưa kích hoạt'; ", nativeQuery = true)
     public List<User> getWaitingUsers();
 }

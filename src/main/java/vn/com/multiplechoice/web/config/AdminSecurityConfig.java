@@ -33,13 +33,13 @@ public class AdminSecurityConfig extends WebSecurityConfigurerAdapter {
         String loginPage = "/bo/login";
         http.antMatcher("/bo/**") //
                 .authorizeRequests() //
-                .antMatchers(loginPage, "/bo/user/ajax/list").permitAll() //
-                .antMatchers("/bo/user", "/bo/user/**").permitAll() //
+                .antMatchers(loginPage, "/bo/users/ajax/list").permitAll() //
+                .antMatchers("/bo/users", "/bo/users/**").permitAll() //
                 .anyRequest().hasAnyRole("ADMIN", "INSPECTOR") //
                 .and().formLogin() //
                 .loginPage(loginPage)//
                 .loginProcessingUrl("/bo/j_spring_security_login") //
-                .defaultSuccessUrl("/bo/user", true) //
+                .defaultSuccessUrl("/bo/users", true) //
                 .usernameParameter("username").passwordParameter("password") //
                 .and().exceptionHandling().accessDeniedPage("/403") //
                 .and().logout() //

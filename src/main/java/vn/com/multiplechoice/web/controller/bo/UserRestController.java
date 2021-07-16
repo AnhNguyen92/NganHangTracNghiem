@@ -20,7 +20,7 @@ import vn.com.multiplechoice.dao.model.paging.PagingRequest;
 import vn.com.multiplechoice.web.dto.UserDto;
 
 @RestController
-@RequestMapping("/bo/user")
+@RequestMapping("/bo/users")
 public class UserRestController {
 
     private static final Logger log = LoggerFactory.getLogger(UserRestController.class);
@@ -34,6 +34,17 @@ public class UserRestController {
     @PostMapping(value = "/ajax/list")
     public Page<User> list(@RequestBody PagingRequest pagingRequest) {
         Page<User> pageUser = userService.searchDataTable(pagingRequest);
+        Page<UserDto> pageUserDTO = new Page<>();
+        if (pageUser.getData() != null) {            
+            pageUserDTO.setData(userConverter.toDto(pageUser.getData()));
+        }
+        
+        return pageUser;
+    }
+    
+    @PostMapping(value = "/ajax/waiting-list")
+    public Page<User> waitingList(@RequestBody PagingRequest pagingRequest) {
+        Page<User> pageUser = userService.searchWaitingList(pagingRequest);
         Page<UserDto> pageUserDTO = new Page<>();
         if (pageUser.getData() != null) {            
             pageUserDTO.setData(userConverter.toDto(pageUser.getData()));

@@ -20,14 +20,13 @@ import vn.com.multiplechoice.dao.model.User;
 import vn.com.multiplechoice.web.dto.UserDto;
 
 @Controller
-@RequestMapping("/bo/user")
+@RequestMapping("/bo/users")
 public class UserController {
 
-    private static final String BO_LOGIN = "/bo/login";
-
-    private static final String BO_USER_LIST = "bo/user-list";
-
     private static final Logger log = LoggerFactory.getLogger(UserController.class);
+
+    private static final String BO_LOGIN = "/bo/login";
+    private static final String BO_USER_LIST = "bo/user-list";
 
     @Autowired
     private UserConverter userConverter;
@@ -51,9 +50,6 @@ public class UserController {
         if (!isAuthenticatedAdminUser()) {
             return BO_LOGIN;
         }
-        List<User> waitingUsers = userService.getWaitingUsers();
-
-        model.addAttribute("users", waitingUsers);
 
         return "bo/user-waiting-list";
     }
@@ -65,13 +61,12 @@ public class UserController {
         if (!isAuthenticatedAdminUser()) {
             return BO_LOGIN;
         }
-        // for test only
-//        User user = userService.findOne(8l);
         User user = userService.findOne(id);
         if (user == null) {
             return "bo/error/404";
         }
         model.addAttribute("user", userConverter.toDto(user));
+
         return "bo/user";
     }
 
