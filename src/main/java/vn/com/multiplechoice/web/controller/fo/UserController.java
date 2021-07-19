@@ -11,17 +11,21 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import vn.com.multiplechoice.business.converter.UserConverter;
 import vn.com.multiplechoice.business.service.MailService;
 import vn.com.multiplechoice.business.service.UserService;
 import vn.com.multiplechoice.business.service.VerificationCodeService;
 import vn.com.multiplechoice.dao.model.User;
 import vn.com.multiplechoice.dao.model.VerificationCode;
 import vn.com.multiplechoice.dao.model.enums.VerificationType;
+import vn.com.multiplechoice.web.dto.UserDto;
 import vn.com.multiplechoice.web.utils.RequestUtil;
 
 @Controller
@@ -39,14 +43,36 @@ public class UserController {
     private UserService userService;
 
     @Autowired
+    private UserConverter userConverter;
+
+    @Autowired
     private VerificationCodeService verificationCodeService;
 
     @Autowired
     private MailService mailservice;
 
-    @GetMapping("/user")
-    public String detail() {
-        return "fo/user";
+    @GetMapping("/fo/user/profile")
+    public String profile(Model model) {
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userService.findByUsername(userDetails.getUsername());
+        model.addAttribute("user", userConverter.toDto(user));
+        
+        return "fo/user-profile";
+    }
+
+    @PostMapping("/fo/user/save")
+    public String updateProfile(Model model, UserDto userDto) {
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userService.findByUsername(userDetails.getUsername());
+        userConverter.updateUser(user, userDto);
+        userService.save(user);
+        if (userDto.getPassword() != null && userDto.getPassword().length() >= 6) {
+            SecurityContextHolder.clearContext();
+            return "fo/login";
+        }
+        model.addAttribute("user", userConverter.toDto(user));
+        
+        return "fo/index";
     }
 
     @GetMapping("/fo/forgot-password")
