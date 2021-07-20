@@ -1,0 +1,37 @@
+<header>
+    <div class="content">
+        <div class="header">
+            <div class="d-flex" style="position: relative; background-color: #EEF7F2;">
+                <div class="hd-logo"></div>
+                <div class="page-header font-weight-bold text-capitalize">
+                    Ngân hàng câu hỏi trắc nghiệm online
+                    <a href="home.html"></a>
+                </div>
+                <div class="ml-auto m-3 d-flex align-items-end">
+                    <!-- not authentication -->
+                    <div sec:authorize="isAnonymous()">
+                        <input type="button" class="btn btn-primary" id="btnLogin" value="Đăng Nhập">
+                        <input type="button" class="btn btn-primary" id="btnSignUp" value="Đăng Ký">
+                    </div>
+                    <!-- authentication -->
+                    <div sec:authorize="isAuthenticated()">
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false">
+                                    <i class="fa fa-user fa-fw pr-2"></i>
+                                    <span th:text="'Chào ' + ${#authentication.getPrincipal().getUsername()}">Chào bạn</span>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                                    <a class="dropdown-item" th:href="@{/fo/user/profile}">Thông tin cá nhân</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" th:href="@{/fo/logout}">Đăng xuất</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
