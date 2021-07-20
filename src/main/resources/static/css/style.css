@@ -11,7 +11,7 @@ html, body {
 /* HEADER */
 .hd-logo {
   background: url('/multiple-choice-quiz/imgs/header-logo.png');
-  width: 308px;
+  width: 309px;
   height: 144px;
   background-size: cover;
 }
