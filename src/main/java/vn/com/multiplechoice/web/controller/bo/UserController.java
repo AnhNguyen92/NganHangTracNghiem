@@ -34,7 +34,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping(value = {"", "/list"})
+    @GetMapping(value = { "", "/list" })
     public String getUsers(Model model) {
         if (!isAuthenticatedAdminUser()) {
             return BO_LOGIN;
@@ -42,7 +42,7 @@ public class UserController {
         List<User> users = userService.findAll();
         List<UserDto> userDtos = userConverter.toDto(users);
         model.addAttribute("users", userDtos);
-        
+
         return BO_USER_LIST;
     }
 
@@ -54,8 +54,6 @@ public class UserController {
 
         return "bo/user-waiting-list";
     }
-
-    
 
     @GetMapping("/{id}")
     public String findById(Model model, @PathVariable Long id) {
@@ -77,7 +75,7 @@ public class UserController {
             return BO_LOGIN;
         }
         model.addAttribute("user", new UserDto());
-        
+
         return "bo/user";
     }
 
@@ -94,13 +92,13 @@ public class UserController {
 
         return BO_USER_LIST;
     }
-    
+
     @PostMapping("/save")
     public String save(Model model, UserDto dto) {
         if (!isAuthenticatedAdminUser()) {
             return BO_LOGIN;
         }
-        
+
         log.info("Admin create user by username : {}", dto.getUsername());
         User user = userConverter.toNewEntity(dto);
 

@@ -59,24 +59,24 @@
                     <div class="answer-title d-flex">
                         <div class="text-danger p-1">Số đáp án</div>
                         <div class="text-center p-1">
-                            <label style="width: 3em; border: 1px solid black;">4</label>
+                            <label class="total-answer" style="width: 3em; border: 1px solid black;">4</label>
                         </div>
-                        <div class="ml-auto p-2">
+                        <div class="ml-auto py-2">
                             <button type="button" style="border: 0; outline: 0;">
-                                <i class="fa fa-plus" aria-hidden="true" title="Thêm câu hỏi" style="font-size: 30px; color: #28a745"></i>
+                                <i class="fa fa-plus" aria-hidden="true" title="Thêm đáp án" onclick="addMoreAnswer()" style="font-size: 30px; color: #28a745"></i>
                             </button>
                         </div>
                     </div>
-                    <div class="answer-content">
+                    <div class="answer-content" th:value="${mcqDto.answerDtos[0]}">
                         <div class="anwer-item d-flex flex-row mb-2">
                             <div class="ml-2">
-                                <input type="checkbox" class="checkbox-answer" onclick="onlyOneAnswer(this)" title="Chọn đáp án đúng">
+                                <input th:checked="${mcqDto.answerDtos[0].isTrueAnswer}" type="checkbox" class="checkbox-answer" onclick="onlyOneAnswer(this)" title="Chọn đáp án đúng">
                             </div>
                             <div class="ml-4">
-                                <label>Đáp án A</label>
+                                <label class="answer__label">Đáp án A</label>
                             </div>
-                            <div class="ml-4">
-                                <input type="text" style="width: 700px;">
+                            <div class="ml-4 w-100">
+                                <input type="text" class="answer__value">
                             </div>
                             <div class="ml-4">
                                 <i class="fa fa-exchange" aria-hidden="true" style="font-size: 30px; color: #00bfff;"></i>
@@ -89,32 +89,13 @@
                     <div class="answer-content">
                         <div class="anwer-item d-flex flex-row mb-2">
                             <div class="ml-2" data-tip="This is the text of the tooltip2">
-                                <input type="checkbox" class="checkbox-answer" onclick="onlyOneAnswer(this)" title="Chọn đáp án đúng">
+                                <input th:checked="${mcqDto.answerDtos[0].isTrueAnswer}" type="checkbox" class="checkbox-answer" onclick="onlyOneAnswer(this)" title="Chọn đáp án đúng">
                             </div>
                             <div class="ml-4">
-                                <label>Đáp án B</label>
+                                <label class="answer__label">Đáp án B</label>
                             </div>
-                            <div class="ml-4" >
-                                <input type="text" style="width: 700px;">
-                            </div>
-                            <div class="ml-4">
-                                <i class="fa fa-exchange" aria-hidden="true" style="font-size: 30px; color: #00bfff;"></i>
-                            </div>
-                            <div class="ml-4">
-                                <i class="fa fa-window-close" aria-hidden="true" style="font-size: 30px; color: #ff0000"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="answer-content">
-                        <div class="anwer-item d-flex flex-row mb-2">
-                            <div class="ml-2">
-                                <input type="checkbox" class="checkbox-answer" onclick="onlyOneAnswer(this)" title="Chọn đáp án đúng">
-                            </div>
-                            <div class="ml-4">
-                                <label>Đáp án C</label>
-                            </div>
-                            <div class="ml-4">
-                                <input type="text" style="width: 700px;">
+                            <div class="ml-4 w-100">
+                                <input type="text" class="answer__value">
                             </div>
                             <div class="ml-4">
                                 <i class="fa fa-exchange" aria-hidden="true" style="font-size: 30px; color: #00bfff;"></i>
@@ -130,10 +111,29 @@
                                 <input type="checkbox" class="checkbox-answer" onclick="onlyOneAnswer(this)" title="Chọn đáp án đúng">
                             </div>
                             <div class="ml-4">
-                                <label>Đáp án D</label>
+                                <label class="answer__label">Đáp án C</label>
+                            </div>
+                            <div class="ml-4 w-100">
+                                <input type="text" class="answer__value">
                             </div>
                             <div class="ml-4">
-                                <input type="text" style="width: 700px;">
+                                <i class="fa fa-exchange" aria-hidden="true" style="font-size: 30px; color: #00bfff;"></i>
+                            </div>
+                            <div class="ml-4">
+                                <i class="fa fa-window-close" aria-hidden="true" style="font-size: 30px; color: #ff0000"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="answer-content">
+                        <div class="anwer-item d-flex flex-row mb-2">
+                            <div class="ml-2">
+                                <input type="checkbox" class="checkbox-answer" onclick="onlyOneAnswer(this)" title="Chọn đáp án đúng">
+                            </div>
+                            <div class="ml-4">
+                                <label class="answer__label">Đáp án D</label>
+                            </div>
+                            <div class="ml-4 w-100">
+                                <input type="text" class="answer__value">
                             </div>
                             <div class="ml-4">
                                 <i class="fa fa-exchange" aria-hidden="true" style="font-size: 30px; color: #00bfff;"></i>
@@ -166,14 +166,73 @@
     </footer>
     <!-- end footer -->
 
-<script type="text/javascript">
-    function onlyOneAnswer(checkbox) {
-        let checkboxes = document.getElementsByClassName('checkbox-answer');
-        for (item of checkboxes) {
-            if (item !== checkbox) item.checked = false        	
+    <script type="text/javascript">
+
+    	let alphabetArr = [ 'A', 'B', 'C', 'D',
+    						'E', 'F', 'G', 'H' ];	
+    
+    	function onlyOneAnswer(checkbox) {
+            let checkboxes = document.getElementsByClassName('checkbox-answer');
+            for (item of checkboxes) {
+                if (item !== checkbox) item.checked = false        	
+            }
         }
-    }
-</script>
+
+        function addMoreAnswer() {
+        	let lastAnserLbl = getLastLabel();
+        	let lblText = Array.prototype.filter
+            .call(lastAnserLbl.childNodes, x => x.nodeName === "#text")
+            .map(x => x.textContent)
+            .join(" ")
+            .trim();
+        	let lblAnswer = lblText.split(" ");
+        	let lastAnswer = lastItem(lblAnswer);
+        	let indexOfLastAnswer  = indexOf(lastAnswer);
+        	if (indexOfLastAnswer == 7) {
+        		alert("Số câu trả lời tối đa là 8");
+        	} else {
+        		let nextAnswer = getCharacterByIndex(indexOfLastAnswer + 1);
+        		let answerItem = `<div class="answer-content">
+            		<div class="anwer-item d-flex flex-row mb-2">
+            			<div class="ml-2">
+            				<input type="checkbox" class="checkbox-answer" onclick="onlyOneAnswer(this)" title="Chọn đáp án đúng">
+            			</div>
+            			<div class="ml-4">
+            				<label class="answer__label">Đáp án ` + nextAnswer + ` </label>
+            	    	</div>
+            	    	<div class="ml-4 w-100">
+            				<input type="text" class="answer__value">
+                		</div>
+                    	<div class="ml-4">
+                			<i class="fa fa-exchange" aria-hidden="true" style="font-size: 30px; color: #00bfff;"></i>
+                		</div>
+                    	<div class="ml-4">
+                			<i class="fa fa-window-close" aria-hidden="true" style="font-size: 30px; color: #ff0000"></i>
+                		</div>
+                	</div>
+                </div>`
+            	$('.answer').append(answerItem);
+        	}
+        }
+
+        function getLastLabel() {
+        	let answerLbls = document.getElementsByClassName('answer__label');
+        	return answerLbls[answerLbls.length - 1];
+        }
+
+        function lastItem(array) {
+            return array[array.length - 1];
+        }
+
+        function getCharacterByIndex(index) {
+            return alphabetArr[index];
+        }
+        
+        function indexOf(chracter) {
+        	return alphabetArr.indexOf(chracter);
+        }
+        
+	</script>
 
 </body>
 

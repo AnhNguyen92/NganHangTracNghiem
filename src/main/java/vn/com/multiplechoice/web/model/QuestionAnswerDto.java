@@ -4,7 +4,7 @@ public class QuestionAnswerDto {
     private int order;
     private boolean randomPosition;
     private String content;
-    private boolean isTrueAnswer;
+    private boolean isTrueAnswer = false;
 
     public int getOrder() {
         return order;

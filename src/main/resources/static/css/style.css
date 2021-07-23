@@ -419,3 +419,17 @@ legend.scheduler-border {
   -moz-text-align-last: center; /* For Firefox prior 58.0 */
   text-align-last: center;
 }
+
+/************************* CREATE ONE ANSWER QUESTION *************************/
+.answer__label {
+    display: block;
+    width:68px;
+}
+
+.answer__value {
+    width: 100%;
+    width: -moz-available;
+    width: -webkit-fill-available;
+    width: fill-available;
+}
+
