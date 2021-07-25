@@ -26,10 +26,10 @@ import vn.com.multiplechoice.web.model.QuestionAnswerDto;
 @Controller
 @RequestMapping(value = "/fo/questions")
 public class MCQController {
-    private static final String FO_CREATE_QUESTION_ONE_ANS = "fo/create-question-one-ans";
-
     private static final Logger log = LoggerFactory.getLogger(MCQController.class);
-
+    private static final String FO_CREATE_QUESTION_ONE_ANS = "fo/create-question-one-ans";
+    private static final String[] ANSWER_LABELS =  new String[] {"Đáp án A", "Đáp án B", "Đáp án C", "Đáp án D", "Đáp án E", "Đáp án F", "Đáp án G", "Đáp án H"};
+    
     @Autowired
     private UserService userService;
 
@@ -43,7 +43,9 @@ public class MCQController {
             questionAnswerDtos = new ArrayList<>();
         }
         for (int i = 0; i < 4; i++) {
-            questionAnswerDtos.add(new QuestionAnswerDto());
+            QuestionAnswerDto questionAnswerDto = new QuestionAnswerDto();
+            questionAnswerDto.setAnswerLabel(ANSWER_LABELS[i]);
+            questionAnswerDtos.add(questionAnswerDto);
         }
         mcqDto.setQuestionAnswerDtos(questionAnswerDtos);
         model.addAttribute("mcqDto", mcqDto);
@@ -53,18 +55,24 @@ public class MCQController {
 
     @RequestMapping(value = "/one-ans", params = { "add-answer" })
     public String addAnswer(Model model, final MCQDto mcqDto, final BindingResult result) {
-        mcqDto.getQuestionAnswerDtos().add(new QuestionAnswerDto());
+        for (int i = 0; i < mcqDto.getQuestionAnswerDtos().size(); i++) {
+            QuestionAnswerDto questionAnswerDto = mcqDto.getQuestionAnswerDtos().get(i);
+            questionAnswerDto.setAnswerLabel(ANSWER_LABELS[i]);
+        }
+        QuestionAnswerDto newQuestionAnswerDto = new QuestionAnswerDto();
+        newQuestionAnswerDto.setAnswerLabel(ANSWER_LABELS[mcqDto.getQuestionAnswerDtos().size()]);
+        mcqDto.getQuestionAnswerDtos().add(newQuestionAnswerDto);
         model.addAttribute("mcqDto", mcqDto);
 
         return FO_CREATE_QUESTION_ONE_ANS;
     }
 
-    // @RequestMapping(value = "/one-ans", params = { "remove-answer" })
-    // public String removeAnswer(final MCQDto mcqDto, final BindingResult result, final HttpServletRequest req) {
-    // mcqDto.getQuestionAnswerDtos().add(new QuestionAnswerDto());
-    //
-    // return FO_CREATE_QUESTION_ONE_ANS;
-    // }
+    @RequestMapping(value = "/one-ans", params = { "remove-answer" })
+    public String removeAnswer(final MCQDto mcqDto, final BindingResult result, final HttpServletRequest req) {
+        mcqDto.getQuestionAnswerDtos().add(new QuestionAnswerDto());
+
+        return FO_CREATE_QUESTION_ONE_ANS;
+    }
 
     @PostMapping("/one-ans")
     public String saveOneAnswerQuestion(Model model, final @ModelAttribute("mcqDto") MCQDto mcqDto, final BindingResult result) {

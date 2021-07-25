@@ -26,7 +26,7 @@
 
   <!-- content -->
   <div class="container mt-3">
-    <div class="page-title">TẠO CÂU HỎI MỘT ĐÁP ÁN MỚI</div>
+    <div class="page-title">TẠO MỚI CÂU HỎI MỘT ĐÁP ÁN</div>
     <form action="#" id="f-one-ans-question" th:action="@{/fo/questions/one-ans}" method="post" th:object="${mcqDto}">
       <div class="mcq">
         <div class="extention d-flex flex-row mt-3">
@@ -72,7 +72,7 @@
                 <input th:field="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].trueAnswer}" type="checkbox" class="checkbox-answer" onclick="onlyOneAnswer(this)" title="Chọn đáp án đúng">
               </div>
               <div class="ml-4">
-                <label class="answer__label">Đáp án </label>
+                <label class="answer__label" th:text="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].answerLabel}">Đáp án </label>
               </div>
               <div class="ml-4 w-100">
                 <input type="text" class="answer__value" th:field="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].answerContent}">
@@ -80,7 +80,6 @@
               <div class="ml-4">
                 <button class="btn-swap-answer">
                   <i class="fa fa-exchange" aria-hidden="true"></i>
-
                 </button>
               </div>
               <div class="ml-4">

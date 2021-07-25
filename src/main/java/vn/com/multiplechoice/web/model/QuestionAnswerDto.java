@@ -3,6 +3,7 @@ package vn.com.multiplechoice.web.model;
 public class QuestionAnswerDto {
     private int order;
     private boolean randomPosition;
+    private String answerLabel;
     private String answerContent;
     private boolean trueAnswer = false;
 
@@ -20,6 +21,14 @@ public class QuestionAnswerDto {
 
     public void setRandomPosition(boolean randomPosition) {
         this.randomPosition = randomPosition;
+    }
+
+    public String getAnswerLabel() {
+        return answerLabel;
+    }
+
+    public void setAnswerLabel(String answerLabel) {
+        this.answerLabel = answerLabel;
     }
 
     public String getAnswerContent() {
