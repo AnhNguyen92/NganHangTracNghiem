@@ -1,6 +1,5 @@
 package vn.com.multiplechoice.web.model;
 
-import java.util.Arrays;
 import java.util.List;
 
 import vn.com.multiplechoice.dao.model.User;
@@ -12,7 +11,7 @@ public class MCQDto {
     private String answerSuggestion;
     private String content;
     // list answer of question
-    private List<QuestionAnswerDto> answerDtos = Arrays.asList(new QuestionAnswerDto[8]);
+    private List<QuestionAnswerDto> questionAnswerDtos;
 
     public QuestionType getType() {
         return type;
@@ -46,12 +45,12 @@ public class MCQDto {
         this.content = content;
     }
 
-    public List<QuestionAnswerDto> getAnswerDtos() {
-        return answerDtos;
+    public List<QuestionAnswerDto> getQuestionAnswerDtos() {
+        return questionAnswerDtos;
     }
 
-    public void setAnswerDtos(List<QuestionAnswerDto> answerDtos) {
-        this.answerDtos = answerDtos;
+    public void setQuestionAnswerDtos(List<QuestionAnswerDto> questionAnswerDtos) {
+        this.questionAnswerDtos = questionAnswerDtos;
     }
 
 }

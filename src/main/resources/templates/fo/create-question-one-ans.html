@@ -12,165 +12,113 @@
 <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap-4.4.1/css/bootstrap.min.css}" />
 <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"> -->
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script th:src="@{/css/bootstrap-4.4.1/js/bootstrap.min.js}" /></script>
+<script type="text/javascript" th:src="@{/css/bootstrap-4.4.1/js/bootstrap.min.js}"></script>
 
 </head>
 
 <body>
-    <!-- header -->
-    <header th:replace="fragments/fo/header.html :: header "> </header>
-    <!-- end header -->
+  <!-- header -->
+  <header th:replace="fragments/fo/header.html :: header "> </header>
+  <!-- end header -->
 
-    <!-- content -->
-    <div class="container mt-3">
-        <div class="page-title">TẠO CÂU HỎI MỘT ĐÁP ÁN MỚI</div>
-        <form th:action="@{/fo/questions/one-ans/save}" method="post" th:object="${mcqDto}">
-            <div class="mcq">
-                <div class="extention d-flex flex-row mt-3" style="height: 30px;">
-                    <div>Nội dung câu hỏi</div>
-                    <div>
-                        <input type="button" id="add-note" onchange="addQuestionNote(event)" style="display: none;">
-                        <label style="cursor: pointer; margin: 0 auto;">
-                            <i class="fa fa-sticky-note px-2" aria-hidden="true"></i>
-                        </label>
-                        <input type="file" accept="image/*" name="image" id="file" onchange="loadFile(event)" style="display: none;">
-                        <label for="file" style="cursor: pointer; margin: 0 auto;">
-                            <i class="fa fa-paperclip" aria-hidden="true"></i>
-                        </label>
-                    </div>
-                    <div class="ml-auto p-2">
-                        <i class="fa fa-align-right" aria-hidden="true"></i>
-                        <i class="fa fa-align-center" aria-hidden="true"></i>
-                        <i class="fa fa-align-left" aria-hidden="true"></i>
-                        <i class="fa fa-align-justify" aria-hidden="true"></i>
-                        <i class="fa fa-bold" aria-hidden="true"></i>
-                        <i class="fa fa-italic" aria-hidden="true"></i>
-                        <i class="fa fa-underline" aria-hidden="true"></i>
-                    </div>
-                </div>
-                <div class="mcp-content">
-                    <textarea th:field="*{content}" style="width: -webkit-fill-available; width: -moz-available; min-height: 120px;"></textarea>
-                </div>
-                <div class="answer">
-                    <div class="answer-title d-flex">
-                        <div class="text-danger p-1">Số đáp án</div>
-                        <div class="text-center p-1">
-                            <label class="total-answer" style="width: 3em; border: 1px solid black;">4</label>
-                        </div>
-                        <div class="ml-auto py-2">
-                            <button type="button" style="border: 0; outline: 0;">
-                                <i class="fa fa-plus" aria-hidden="true" title="Thêm đáp án" onclick="addMoreAnswer()" style="font-size: 30px; color: #28a745"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="answer-content" th:value="${mcqDto.answerDtos[0]}">
-                        <div class="anwer-item d-flex flex-row mb-2">
-                            <div class="ml-2">
-                                <input th:checked="${mcqDto.answerDtos[0].isTrueAnswer}" type="checkbox" class="checkbox-answer" onclick="onlyOneAnswer(this)" title="Chọn đáp án đúng">
-                            </div>
-                            <div class="ml-4">
-                                <label class="answer__label">Đáp án A</label>
-                            </div>
-                            <div class="ml-4 w-100">
-                                <input type="text" class="answer__value">
-                            </div>
-                            <div class="ml-4">
-                                <i class="fa fa-exchange" aria-hidden="true" style="font-size: 30px; color: #00bfff;"></i>
-                            </div>
-                            <div class="ml-4">
-                                <i class="fa fa-window-close" aria-hidden="true" style="font-size: 30px; color: #ff0000"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="answer-content">
-                        <div class="anwer-item d-flex flex-row mb-2">
-                            <div class="ml-2" data-tip="This is the text of the tooltip2">
-                                <input th:checked="${mcqDto.answerDtos[0].isTrueAnswer}" type="checkbox" class="checkbox-answer" onclick="onlyOneAnswer(this)" title="Chọn đáp án đúng">
-                            </div>
-                            <div class="ml-4">
-                                <label class="answer__label">Đáp án B</label>
-                            </div>
-                            <div class="ml-4 w-100">
-                                <input type="text" class="answer__value">
-                            </div>
-                            <div class="ml-4">
-                                <i class="fa fa-exchange" aria-hidden="true" style="font-size: 30px; color: #00bfff;"></i>
-                            </div>
-                            <div class="ml-4">
-                                <i class="fa fa-window-close" aria-hidden="true" style="font-size: 30px; color: #ff0000"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="answer-content">
-                        <div class="anwer-item d-flex flex-row mb-2">
-                            <div class="ml-2">
-                                <input type="checkbox" class="checkbox-answer" onclick="onlyOneAnswer(this)" title="Chọn đáp án đúng">
-                            </div>
-                            <div class="ml-4">
-                                <label class="answer__label">Đáp án C</label>
-                            </div>
-                            <div class="ml-4 w-100">
-                                <input type="text" class="answer__value">
-                            </div>
-                            <div class="ml-4">
-                                <i class="fa fa-exchange" aria-hidden="true" style="font-size: 30px; color: #00bfff;"></i>
-                            </div>
-                            <div class="ml-4">
-                                <i class="fa fa-window-close" aria-hidden="true" style="font-size: 30px; color: #ff0000"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="answer-content">
-                        <div class="anwer-item d-flex flex-row mb-2">
-                            <div class="ml-2">
-                                <input type="checkbox" class="checkbox-answer" onclick="onlyOneAnswer(this)" title="Chọn đáp án đúng">
-                            </div>
-                            <div class="ml-4">
-                                <label class="answer__label">Đáp án D</label>
-                            </div>
-                            <div class="ml-4 w-100">
-                                <input type="text" class="answer__value">
-                            </div>
-                            <div class="ml-4">
-                                <i class="fa fa-exchange" aria-hidden="true" style="font-size: 30px; color: #00bfff;"></i>
-                            </div>
-                            <div class="ml-4">
-                                <i class="fa fa-window-close" aria-hidden="true" style="font-size: 30px; color: #ff0000"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="mt-3 d-flex justify-content-center pb-3">
-                    <div class="mx-2">
-                        <input type="submit" class="btn btn-success" value="Hoàn thành">
-                    </div>
-                    <div class="mx-2">
-                        <input type="reset" class="btn btn-primary" value="Làm lại">
-                    </div>
-                    <div class="mx-2">
-                        <a type="button" class="btn btn-danger" th:href="@{'/fo/index'}">Huỷ bỏ</a>
-                    </div>
-                </div>
+  <!-- content -->
+  <div class="container mt-3">
+    <div class="page-title">TẠO CÂU HỎI MỘT ĐÁP ÁN MỚI</div>
+    <form action="#" id="f-one-ans-question" th:action="@{/fo/questions/one-ans}" method="post" th:object="${mcqDto}">
+      <div class="mcq">
+        <div class="extention d-flex flex-row mt-3">
+          <div>Nội dung câu hỏi</div>
+          <div>
+            <input type="button" id="btn-add-note" onchange="addQuestionNote(event)">
+            <label class="cursor--lbl">
+              <i class="fa fa-sticky-note px-2" aria-hidden="true"></i>
+            </label>
+            <input type="file" accept="image/*" name="image" id="file" onchange="loadFile(event)" style="display: none;">
+            <label class="cursor--lbl" for="file">
+              <i class="fa fa-paperclip" aria-hidden="true"></i>
+            </label>
+          </div>
+          <div class="ml-auto p-2">
+            <i class="fa fa-align-right" aria-hidden="true"></i>
+            <i class="fa fa-align-center" aria-hidden="true"></i>
+            <i class="fa fa-align-left" aria-hidden="true"></i>
+            <i class="fa fa-align-justify" aria-hidden="true"></i>
+            <i class="fa fa-bold" aria-hidden="true"></i>
+            <i class="fa fa-italic" aria-hidden="true"></i>
+            <i class="fa fa-underline" aria-hidden="true"></i>
+          </div>
+        </div>
+        <div class="mcp-content">
+          <textarea class="question-content" th:filed="*{content}"></textarea>
+        </div>
+        <div class="answer">
+          <div class="total-answer d-flex">
+            <div class="text-danger p-1">Số đáp án</div>
+            <div class="text-center p-1">
+              <label class="total-answer__value" th:text="${#lists.size(mcqDto.questionAnswerDtos)}">4</label>
             </div>
-        </form>
-    </div>
-    <!-- end content -->
+            <div class="ml-auto py-2">
+              <button class="btn-add-answer" id="btn-add-answer" type="submit" name="add-answer" onclick="return addMoreAnswer(this)">
+                <i class="fa fa-plus" aria-hidden="true" title="Thêm đáp án"></i>
+              </button>
+            </div>
+          </div>
+          <div class="answer-content" th:each="questionAnswerDto, questionAnswerDtoStat : *{questionAnswerDtos}">
+            <div class="answer-content__item d-flex flex-row mb-2">
+              <div class="ml-2">
+                <input th:field="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].trueAnswer}" type="checkbox" class="checkbox-answer" onclick="onlyOneAnswer(this)" title="Chọn đáp án đúng">
+              </div>
+              <div class="ml-4">
+                <label class="answer__label">Đáp án </label>
+              </div>
+              <div class="ml-4 w-100">
+                <input type="text" class="answer__value" th:field="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].answerContent}">
+              </div>
+              <div class="ml-4">
+                <button class="btn-swap-answer">
+                  <i class="fa fa-exchange" aria-hidden="true"></i>
 
-    <!-- footer -->
-    <footer th:replace="fragments/fo/footer.html :: footer">
-        <p>2021 mqconline.com</p>
-    </footer>
-    <!-- end footer -->
+                </button>
+              </div>
+              <div class="ml-4">
+                <button class="btn-delete-answer" type="submit" name="remove">
+                  <i class="fa fa-window-close" aria-hidden="true"></i>
+                </button>
+              </div>
+            </div>
+          </div>
 
-    <script type="text/javascript">
+        </div>
+        <div class="mt-3 d-flex justify-content-center pb-3">
+          <div class="mx-2">
+            <input type="submit" class="btn btn-success" value="Hoàn thành">
+          </div>
+          <div class="mx-2">
+            <input type="reset" class="btn btn-primary" value="Làm lại">
+          </div>
+          <div class="mx-2">
+            <a type="button" class="btn btn-danger" th:href="@{'/fo/index'}">Huỷ bỏ</a>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <!-- end content -->
+
+  <!-- footer -->
+  <footer th:replace="fragments/fo/footer.html :: footer">
+    <p>2021 mqconline.com</p>
+  </footer>
+  <!-- end footer -->
+
+  <script type="text/javascript">
 
     	let alphabetArr = [ 'A', 'B', 'C', 'D',
     						'E', 'F', 'G', 'H' ];	
-    
+    	
     	function onlyOneAnswer(checkbox) {
             let checkboxes = document.getElementsByClassName('checkbox-answer');
             for (item of checkboxes) {
@@ -178,40 +126,13 @@
             }
         }
 
-        function addMoreAnswer() {
-        	let lastAnserLbl = getLastLabel();
-        	let lblText = Array.prototype.filter
-            .call(lastAnserLbl.childNodes, x => x.nodeName === "#text")
-            .map(x => x.textContent)
-            .join(" ")
-            .trim();
-        	let lblAnswer = lblText.split(" ");
-        	let lastAnswer = lastItem(lblAnswer);
-        	let indexOfLastAnswer  = indexOf(lastAnswer);
-        	if (indexOfLastAnswer == 7) {
+        function addMoreAnswer(event) {
+        	let totalAnswer = $(".answer__value").length;
+        	if (totalAnswer == 8) {
         		alert("Số câu trả lời tối đa là 8");
+        		return false;
         	} else {
-        		let nextAnswer = getCharacterByIndex(indexOfLastAnswer + 1);
-        		let answerItem = `<div class="answer-content">
-            		<div class="anwer-item d-flex flex-row mb-2">
-            			<div class="ml-2">
-            				<input type="checkbox" class="checkbox-answer" onclick="onlyOneAnswer(this)" title="Chọn đáp án đúng">
-            			</div>
-            			<div class="ml-4">
-            				<label class="answer__label">Đáp án ` + nextAnswer + ` </label>
-            	    	</div>
-            	    	<div class="ml-4 w-100">
-            				<input type="text" class="answer__value">
-                		</div>
-                    	<div class="ml-4">
-                			<i class="fa fa-exchange" aria-hidden="true" style="font-size: 30px; color: #00bfff;"></i>
-                		</div>
-                    	<div class="ml-4">
-                			<i class="fa fa-window-close" aria-hidden="true" style="font-size: 30px; color: #ff0000"></i>
-                		</div>
-                	</div>
-                </div>`
-            	$('.answer').append(answerItem);
+        		$("#f-one-ans-question").submit();
         	}
         }
 

@@ -3,8 +3,8 @@ package vn.com.multiplechoice.web.model;
 public class QuestionAnswerDto {
     private int order;
     private boolean randomPosition;
-    private String content;
-    private boolean isTrueAnswer = false;
+    private String answerContent;
+    private boolean trueAnswer = false;
 
     public int getOrder() {
         return order;
@@ -22,20 +22,20 @@ public class QuestionAnswerDto {
         this.randomPosition = randomPosition;
     }
 
-    public String getContent() {
-        return content;
+    public String getAnswerContent() {
+        return answerContent;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setAnswerContent(String answerContent) {
+        this.answerContent = answerContent;
     }
 
-    public boolean isTrueAnswer() {
-        return isTrueAnswer;
+    public boolean getTrueAnswer() {
+        return trueAnswer;
     }
 
-    public void setTrueAnswer(boolean isTrueAnswer) {
-        this.isTrueAnswer = isTrueAnswer;
+    public void setTrueAnswer(boolean trueAnswer) {
+        this.trueAnswer = trueAnswer;
     }
 
 }
