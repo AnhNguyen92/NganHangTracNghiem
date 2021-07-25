@@ -14,3 +14,6 @@
 	https://www.codejava.net/frameworks/spring-boot/spring-security-remember-me-examples
 - verify registration by mail
 	https://www.codejava.net/frameworks/spring-boot/email-verification-example
+	- dynamic field
+	https://www.thymeleaf.org/doc/tutorials/2.1/thymeleafspring.html#listing-seed-starter-data
+	https://stingh711.github.io/dynamic-forms-with-springmvc-and-thymeleaf.html
