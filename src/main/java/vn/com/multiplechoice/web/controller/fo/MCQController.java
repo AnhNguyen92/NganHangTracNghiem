@@ -45,6 +45,7 @@ public class MCQController {
         for (int i = 0; i < 4; i++) {
             QuestionAnswerDto questionAnswerDto = new QuestionAnswerDto();
             questionAnswerDto.setAnswerLabel(ANSWER_LABELS[i]);
+            questionAnswerDto.setOrder(i);
             questionAnswerDtos.add(questionAnswerDto);
         }
         mcqDto.setQuestionAnswerDtos(questionAnswerDtos);
@@ -74,6 +75,7 @@ public class MCQController {
         questionAnswerDtos.remove(questionAnswerDtos.get(Integer.parseInt(index)));
         for (int i = 0; i < questionAnswerDtos.size(); i++) {
             QuestionAnswerDto questionAnswerDto = questionAnswerDtos.get(i);
+            questionAnswerDto.setOrder(i);
             questionAnswerDto.setAnswerLabel(ANSWER_LABELS[i]);
         }
         model.addAttribute("mcqDto", mcqDto);
