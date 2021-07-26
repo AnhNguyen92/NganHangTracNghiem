@@ -61,7 +61,7 @@
               <label class="total-answer__value" th:text="${#lists.size(mcqDto.questionAnswerDtos)}">4</label>
             </div>
             <div class="ml-auto py-2">
-              <button class="btn-add-answer" id="btn-add-answer" type="submit" name="add-answer" onclick="return addMoreAnswer(this)">
+              <button class="btn-add-answer" id="btn-add-answer" type="submit" name="add-answer" onclick="return addMoreAnswer()">
                 <i class="fa fa-plus" aria-hidden="true" title="Thêm đáp án"></i>
               </button>
             </div>
@@ -83,7 +83,7 @@
                 </button>
               </div>
               <div class="ml-4">
-                <button class="btn-delete-answer" type="submit" name="remove">
+                <button class="btn-delete-answer" type="submit" name="remove-answer" th:value="${questionAnswerDtoStat.index}" onclick="return removeAnswer()">
                   <i class="fa fa-window-close" aria-hidden="true"></i>
                 </button>
               </div>
@@ -125,7 +125,7 @@
             }
         }
 
-        function addMoreAnswer(event) {
+        function addMoreAnswer() {
         	let totalAnswer = $(".answer__value").length;
         	if (totalAnswer == 8) {
         		alert("Số câu trả lời tối đa là 8");
@@ -135,6 +135,16 @@
         	}
         }
 
+        function removeAnswer() {
+        	let totalAnswer = $(".answer__value").length;
+        	if (totalAnswer == 4) {
+        		alert("Số câu trả lời tối thiểu là 4");
+        		return false;
+        	} else {
+        		$("#f-one-ans-question").submit();
+        	}
+        }
+        
         function getLastLabel() {
         	let answerLbls = document.getElementsByClassName('answer__label');
         	return answerLbls[answerLbls.length - 1];

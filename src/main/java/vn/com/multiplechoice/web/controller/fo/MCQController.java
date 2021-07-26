@@ -68,9 +68,16 @@ public class MCQController {
     }
 
     @RequestMapping(value = "/one-ans", params = { "remove-answer" })
-    public String removeAnswer(final MCQDto mcqDto, final BindingResult result, final HttpServletRequest req) {
-        mcqDto.getQuestionAnswerDtos().add(new QuestionAnswerDto());
-
+    public String removeAnswer(Model model, MCQDto mcqDto, final BindingResult result, final HttpServletRequest req) {
+        List<QuestionAnswerDto> questionAnswerDtos = mcqDto.getQuestionAnswerDtos();
+        String index = req.getParameter("remove-answer");
+        questionAnswerDtos.remove(questionAnswerDtos.get(Integer.parseInt(index)));
+        for (int i = 0; i < questionAnswerDtos.size(); i++) {
+            QuestionAnswerDto questionAnswerDto = questionAnswerDtos.get(i);
+            questionAnswerDto.setAnswerLabel(ANSWER_LABELS[i]);
+        }
+        model.addAttribute("mcqDto", mcqDto);
+        
         return FO_CREATE_QUESTION_ONE_ANS;
     }
 
