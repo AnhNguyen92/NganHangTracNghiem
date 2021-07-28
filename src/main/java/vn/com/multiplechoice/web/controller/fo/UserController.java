@@ -35,7 +35,7 @@ public class UserController {
     private static final String MESSAGE = "message";
 
     private static final Logger log = LoggerFactory.getLogger(UserController.class);
-    
+
     private static final String FO_FORGOT_PASSWORD = "fo/forgot-password";
     private static final String FO_RESET_PASSWORD = "fo/reset-password";
 
@@ -56,7 +56,7 @@ public class UserController {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userService.findByUsername(userDetails.getUsername());
         model.addAttribute("user", userConverter.toDto(user));
-        
+
         return "fo/user-profile";
     }
 
@@ -71,7 +71,7 @@ public class UserController {
             return "fo/login";
         }
         model.addAttribute("user", userConverter.toDto(user));
-        
+
         return "fo/index";
     }
 
@@ -105,11 +105,11 @@ public class UserController {
 
         return FO_FORGOT_PASSWORD;
     }
-    
+
     @GetMapping("/fo/reset-password")
     public String resetPassword(@Param(value = "token") String token, Model model) {
         VerificationCode verificationCode = verificationCodeService.findByToken(token);
-        if (verificationCode != null && verificationCode.getExpireTime().isAfter(LocalDateTime.now())) {         
+        if (verificationCode != null && verificationCode.getExpireTime().isAfter(LocalDateTime.now())) {
             model.addAttribute("token", token);
         } else {
             model.addAttribute(ERROR, "Token không hợp lệ!");
@@ -130,11 +130,11 @@ public class UserController {
                 model.addAttribute(ERROR, "Mật khẩu phải từ 6 ký tự trở lên");
             } else {
                 User user = verificationCode.getUser();
-                userService.resetNewPassword(user, password);            
-                model.addAttribute(MESSAGE, "Cập nhật mật khẩu thành công!");                
+                userService.resetNewPassword(user, password);
+                model.addAttribute(MESSAGE, "Cập nhật mật khẩu thành công!");
             }
         }
-        
+
         return FO_RESET_PASSWORD;
     }
 
