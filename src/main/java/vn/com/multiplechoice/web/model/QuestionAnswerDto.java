@@ -2,7 +2,7 @@ package vn.com.multiplechoice.web.model;
 
 public class QuestionAnswerDto {
     private int order;
-    private boolean randomPosition;
+    private boolean randomPosition = true;
     private String answerLabel;
     private String answerContent;
     private boolean trueAnswer = false;

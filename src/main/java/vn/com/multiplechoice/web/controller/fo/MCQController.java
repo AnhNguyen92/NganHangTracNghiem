@@ -58,6 +58,7 @@ public class MCQController {
     public String addAnswer(Model model, final MCQDto mcqDto, final BindingResult result) {
         for (int i = 0; i < mcqDto.getQuestionAnswerDtos().size(); i++) {
             QuestionAnswerDto questionAnswerDto = mcqDto.getQuestionAnswerDtos().get(i);
+            questionAnswerDto.setOrder(i);
             questionAnswerDto.setAnswerLabel(ANSWER_LABELS[i]);
         }
         QuestionAnswerDto newQuestionAnswerDto = new QuestionAnswerDto();
