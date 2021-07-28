@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org">
+
+<head>
+
+<title>Gửi yêu cầu</title>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="shortcut icon" href="#">
+<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap-4.4.1/css/bootstrap.min.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script type="text/javascript" th:src="@{/css/bootstrap-4.4.1/js/bootstrap.min.js}"></script>
+
+</head>
+
+<body>
+    <!-- header -->
+    <header th:replace="fragments/fo/header.html :: header "> </header>
+    <!-- end header -->
+
+    <!-- content -->
+    <div class="container mt-3">
+        <div class="page-title">LIÊN HỆ</div>
+        <div>
+            <h2>
+                <span class="text-success" style="font-size: 16px;" th:utext="${message}"></span>
+            </h2>
+        </div>
+        <form id="f-contact" th:action="@{/fo/contact}" method="post" th:object="${userRequest}">
+            <div class="message">
+                <div class="extention d-flex flex-row mt-3">
+                    <div>Nội dung yêu cầu</div>
+                </div>
+                <div class="mcp-content">
+                    <textarea class="question-content" th:field="*{content}"></textarea>
+                </div>
+            </div>
+            <div class="mt-3 d-flex justify-content-center pb-3">
+                    <div class="mx-2">
+                        <input type="submit" class="btn btn-success" value="Hoàn thành">
+                    </div>
+                    <div class="mx-2">
+                        <a type="button" class="btn btn-danger" th:href="@{'/fo/index'}">Huỷ bỏ</a>
+                    </div>
+                </div>
+        </form>
+    </div>
+    <!-- end content -->
+
+    <!-- footer -->
+    <footer th:replace="fragments/fo/footer.html :: footer">
+        <p>2021 mqconline.com</p>
+    </footer>
+    <!-- end footer -->
+
+    <script type="text/javascript">
+					
+				</script>
+
+</body>
+
+</html>
