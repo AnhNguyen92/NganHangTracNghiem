@@ -73,15 +73,19 @@
                                     onclick="onlyOneAnswer(this)" title="Chọn đáp án đúng">
                             </div>
                             <div class="ml-4">
-                                <label class="answer__label" th:text="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].answerLabel}">Đáp án </label>
+                                <label class="answer__label" th:text="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].answerLabel}">Đáp án</label>
                             </div>
                             <div class="ml-4 w-100">
                                 <input type="text" class="answer__value" th:field="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].answerContent}">
                             </div>
+                            <div>
+                                <input type="number" hidden="true" th:field="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].order}">
+                            </div>
                             <div class="ml-4">
-                                <button class="btn-swap-answer" title="Không hóa vị vị trí">
+                                <button class="btn-swap-answer" th:id=" 'btn-swap-pos-' + ${questionAnswerDtoStat.index} " type="button" title="Bỏ hoán vị vị trí" th:onclick="|return changePermutation(${questionAnswerDtoStat.index})|">
                                     <i class="fa fa-exchange" aria-hidden="true"></i>
                                 </button>
+                                <input type="checkbox" hidden="true" th:id=" 'swap-pos-' + ${questionAnswerDtoStat.index}" name="active" th:field="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].randomPosition}" />
                             </div>
                             <div class="ml-4">
                                 <button class="btn-delete-answer" type="submit" name="remove-answer" th:value="${questionAnswerDtoStat.index}"
@@ -162,6 +166,22 @@
         
         function indexOf(chracter) {
         	return alphabetArr.indexOf(chracter);
+        }
+        
+        function changePermutation(inputId) {
+        	let inputElm = $("#swap-pos-" + inputId);
+        	if(inputElm.is(':checked')) {
+        	    $(inputElm).prop('checked',false);
+        	} else {
+        	    $(inputElm).prop('checked',true);
+        	}
+        	
+        	let btnSwapTitle = $("#btn-swap-pos-" + inputId).attr("title");
+        	if(btnSwapTitle == "Bỏ hoán vị vị trí") {
+        	    $("#btn-swap-pos-" + inputId).prop('title', 'Cho phép hoán vị vị trí');
+        	} else {
+        	    $("#btn-swap-pos-" + inputId).prop('title', 'Bỏ hoán vị vị trí');
+        	}
         }
         
 	</script>
