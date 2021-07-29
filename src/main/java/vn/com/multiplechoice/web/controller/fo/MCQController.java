@@ -96,4 +96,24 @@ public class MCQController {
         return "fo/index";
     }
 
+    @RequestMapping("/true-false")
+    public String createTrueFalseQuestion(Model model, MCQDto mcqDto) {
+        log.info("===== GET one answer question form =====");
+
+        mcqDto.setType(QuestionType.ONE_ANSWER);
+        List<QuestionAnswerDto> questionAnswerDtos = mcqDto.getQuestionAnswerDtos();
+        if (questionAnswerDtos == null) {
+            questionAnswerDtos = new ArrayList<>();
+        }
+        for (int i = 0; i < 4; i++) {
+            QuestionAnswerDto questionAnswerDto = new QuestionAnswerDto();
+            questionAnswerDto.setAnswerLabel(ANSWER_LABELS[i]);
+            questionAnswerDto.setOrder(i);
+            questionAnswerDtos.add(questionAnswerDto);
+        }
+        mcqDto.setQuestionAnswerDtos(questionAnswerDtos);
+        model.addAttribute("mcqDto", mcqDto);
+
+        return "/fo/create-question-true-false";
+    }
 }
