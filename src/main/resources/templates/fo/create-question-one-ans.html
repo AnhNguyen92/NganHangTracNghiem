@@ -52,7 +52,7 @@
                     </div>
                 </div>
                 <div class="mcp-content">
-                    <textarea class="question-content" th:field="*{content}"></textarea>
+                    <textarea required class="question-content" th:field="*{content}"></textarea>
                 </div>
                 <div class="answer">
                     <div class="total-answer d-flex">
@@ -69,14 +69,14 @@
                     <div class="answer-content" th:each="questionAnswerDto, questionAnswerDtoStat : *{questionAnswerDtos}">
                         <div class="answer-content__item d-flex flex-row mb-2">
                             <div class="ml-2">
-                                <input th:field="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].trueAnswer}" type="checkbox" class="checkbox-answer"
-                                    onclick="onlyOneAnswer(this)" title="Chọn đáp án đúng">
+                                <input name="trueAnswer" th:value="${mcqDto.questionAnswerDtos[__${questionAnswerDtoStat.index}__].trueAnswer}" type="radio" required class="radio-answer"
+                                    title="Chọn đáp án đúng">
                             </div>
                             <div class="ml-4">
                                 <label class="answer__label" th:text="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].answerLabel}">Đáp án</label>
                             </div>
                             <div class="ml-4 w-100">
-                                <input type="text" class="answer__value" th:field="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].answerContent}">
+                                <input required type="text" class="answer__value" th:field="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].answerContent}">
                             </div>
                             <div>
                                 <input type="number" hidden="true" th:field="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].order}">
@@ -99,7 +99,7 @@
                 </div>
                 <div class="mt-3 d-flex justify-content-center pb-3">
                     <div class="mx-2">
-                        <input type="submit" class="btn btn-success" value="Hoàn thành">
+                        <button type="submit" class="btn btn-success" value="Hoàn thành" >Hoàn thành</button>
                     </div>
                     <div class="mx-2">
                         <input type="reset" class="btn btn-primary" value="Làm lại">
@@ -120,16 +120,8 @@
     <!-- end footer -->
 
     <script type="text/javascript">
-
     	let alphabetArr = [ 'A', 'B', 'C', 'D',
-    						'E', 'F', 'G', 'H' ];	
-    	
-    	function onlyOneAnswer(checkbox) {
-            let checkboxes = document.getElementsByClassName('checkbox-answer');
-            for (item of checkboxes) {
-                if (item !== checkbox) item.checked = false        	
-            }
-        }
+    						'E', 'F', 'G', 'H' ];
 
         function addMoreAnswer() {
         	let totalAnswer = $(".answer__value").length;
