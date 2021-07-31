@@ -56,11 +56,6 @@ public class Question implements Serializable {
     @Column(name = "answer_h")
     private String answerH;
 
-    @Column(name = "answer_i")
-    private String answerI;
-    @Column(name = "answer_j")
-    private String answerJ;
-
     @Column(name = "group_id")
     private Long groupId;
 
@@ -164,22 +159,6 @@ public class Question implements Serializable {
 
     public void setAnswerH(String answerH) {
         this.answerH = answerH;
-    }
-
-    public String getAnswerI() {
-        return answerI;
-    }
-
-    public void setAnswerI(String answerI) {
-        this.answerI = answerI;
-    }
-
-    public String getAnswerJ() {
-        return answerJ;
-    }
-
-    public void setAnswerJ(String answerJ) {
-        this.answerJ = answerJ;
     }
 
     public Long getGroupId() {
