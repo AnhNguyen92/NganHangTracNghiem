@@ -76,7 +76,7 @@
                                 <label class="answer__label" th:text="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].answerLabel}">Đáp án</label>
                             </div>
                             <div class="ml-4 w-100">
-                                <input required type="text" class="answer__value" th:field="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].answerContent}">
+                                <input required type="text" title="Nội dung câu trả lời" class="answer__value" th:field="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].answerContent}">
                             </div>
                             <div>
                                 <input type="number" hidden="true" th:field="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].order}">

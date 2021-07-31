@@ -73,10 +73,10 @@
                                     onclick="onlyOneAnswer(this)" title="Chọn đáp án đúng">
                             </div>
                             <div class="ml-4">
-                                <label class="answer__label" th:text="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].answerLabel}">Đáp án </label>
+                                <label class="answer__label" th:text="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].answerLabel}">Đáp án</label>
                             </div>
                             <div class="ml-4 w-100">
-                                <input type="text" class="answer__value" th:field="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].answerContent}">
+                                <input type="text" class="answer__value" title="Nội dung câu trả lời" th:field="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].answerContent}">
                             </div>
                             <div class="ml-4">
                                 <button class="btn-swap-answer" title="Không hóa vị vị trí">
