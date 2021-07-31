@@ -3,7 +3,7 @@ package vn.com.multiplechoice.web.model;
 import java.util.List;
 
 import vn.com.multiplechoice.dao.model.User;
-import vn.com.multiplechoice.web.enums.QuestionType;
+import vn.com.multiplechoice.dao.model.enums.QuestionType;
 
 public class MCQDto {
     private QuestionType type;
