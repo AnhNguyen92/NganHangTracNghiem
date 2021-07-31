@@ -6,6 +6,7 @@ public class QuestionAnswerDto {
     private String answerLabel;
     private String answerContent;
     private boolean trueAnswer = false;
+    private int score;
 
     public int getOrder() {
         return order;
@@ -45,6 +46,14 @@ public class QuestionAnswerDto {
 
     public void setTrueAnswer(boolean trueAnswer) {
         this.trueAnswer = trueAnswer;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
     }
 
 }
