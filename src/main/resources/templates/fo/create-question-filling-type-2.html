@@ -117,9 +117,6 @@
     <!-- end footer -->
 
     <script type="text/javascript">
-
-    	let alphabetArr = [ 'A', 'B', 'C', 'D',
-    						'E', 'F', 'G', 'H' ];	
     	
     	function onlyOneAnswer(checkbox) {
             let checkboxes = document.getElementsByClassName('checkbox-answer');
@@ -146,23 +143,6 @@
         	} else {
         		$("#f-one-ans-question").submit();
         	}
-        }
-        
-        function getLastLabel() {
-        	let answerLbls = document.getElementsByClassName('answer__label');
-        	return answerLbls[answerLbls.length - 1];
-        }
-
-        function lastItem(array) {
-            return array[array.length - 1];
-        }
-
-        function getCharacterByIndex(index) {
-            return alphabetArr[index];
-        }
-        
-        function indexOf(chracter) {
-        	return alphabetArr.indexOf(chracter);
         }
         
 	</script>

@@ -128,17 +128,7 @@
     </footer>
     <!-- end footer -->
 
-    <script type="text/javascript">
-
-    	let alphabetArr = [ 'A', 'B', 'C', 'D',
-    						'E', 'F', 'G', 'H' ];	
-    	
-    	function onlyOneAnswer(checkbox) {
-            let checkboxes = document.getElementsByClassName('checkbox-answer');
-            for (item of checkboxes) {
-                if (item !== checkbox) item.checked = false        	
-            }
-        }
+    <script type="text/javascript">	
 
         function addMoreAnswer() {
         	let totalAnswer = $(".answer__value").length;
@@ -158,23 +148,6 @@
         	} else {
         		$("#f-true-false-question").submit();
         	}
-        }
-        
-        function getLastLabel() {
-        	let answerLbls = document.getElementsByClassName('answer__label');
-        	return answerLbls[answerLbls.length - 1];
-        }
-
-        function lastItem(array) {
-            return array[array.length - 1];
-        }
-
-        function getCharacterByIndex(index) {
-            return alphabetArr[index];
-        }
-        
-        function indexOf(chracter) {
-        	return alphabetArr.indexOf(chracter);
         }
         
         function changePermutation(inputId) {
