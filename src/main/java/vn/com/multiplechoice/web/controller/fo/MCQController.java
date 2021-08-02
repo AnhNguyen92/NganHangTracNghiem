@@ -182,10 +182,6 @@ public class MCQController {
         question.setUser(user);
         question.setAnswerA(mcqDto.getQuestionAnswerDtos().get(0).getAnswerContent());
         question.setAnswerB(mcqDto.getQuestionAnswerDtos().get(1).getAnswerContent());
-//        question.setAnswerC(mcqDto.getQuestionAnswerDtos().get(2).getAnswerContent());
-//        question.setAnswerD(mcqDto.getQuestionAnswerDtos().get(3).getAnswerContent());
-        
-//        questionService.save(question);
         
         log.info("===== CREATE true false answer question form END =====");
 
@@ -258,8 +254,6 @@ public class MCQController {
         question.setAnswerB(mcqDto.getQuestionAnswerDtos().get(1).getAnswerContent());
         question.setAnswerC(mcqDto.getQuestionAnswerDtos().get(2).getAnswerContent());
         question.setAnswerD(mcqDto.getQuestionAnswerDtos().get(3).getAnswerContent());
-        
-//        questionService.save(question);
         
         log.info("===== CREATE one answer question form END =====");
 
