@@ -449,6 +449,11 @@ legend.scheduler-border {
     min-height: 120px;
 }
 
+.answer {
+    border: 1px solid #E7E9EB;
+    min-height:300px;
+}
+
 .answer__label {
     display: block;
     width: 70px;
