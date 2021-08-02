@@ -12,6 +12,7 @@
 <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap-4.4.1/css/bootstrap.min.css}" />
 <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link th:rel="stylesheet" th:href="@{/summernote/summernote-bs4.css}"/>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -27,7 +28,7 @@
     <!-- content -->
     <div class="container mt-3">
         <div class="page-title">TẠO MỚI CÂU HỎI GẠCH CHÂN</div>
-        <form action="#" id="f-one-ans-question" th:action="@{/fo/questions/one-ans}" method="post" th:object="${mcqDto}">
+        <form action="#" id="f-underline-question" th:action="@{/fo/questions/underline}" method="post" th:object="${mcqDto}">
             <div class="mcq">
                 <div class="extention d-flex flex-row mt-3">
                     <div>Nội dung câu hỏi</div>
@@ -36,25 +37,16 @@
                         <label class="cursor--lbl">
                             <i class="fa fa-sticky-note px-2" aria-hidden="true"></i>
                         </label>
-                        <input type="file" accept="image/*" name="image" id="file" onchange="loadFile(event)" style="display: none;">
+                        <input type="file" accept="video/*, audio/*, image/*, .doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" name="image" id="file" onchange="loadFile(event)" style="display: none;">
                         <label class="cursor--lbl" for="file">
                             <i class="fa fa-paperclip" aria-hidden="true"></i>
                         </label>
                     </div>
-                    <div class="ml-auto p-2">
-                        <i class="fa fa-align-right" aria-hidden="true"></i>
-                        <i class="fa fa-align-center" aria-hidden="true"></i>
-                        <i class="fa fa-align-left" aria-hidden="true"></i>
-                        <i class="fa fa-align-justify" aria-hidden="true"></i>
-                        <i class="fa fa-bold" aria-hidden="true"></i>
-                        <i class="fa fa-italic" aria-hidden="true"></i>
-                        <i class="fa fa-underline" aria-hidden="true"></i>
-                    </div>
                 </div>
                 <div class="mcp-content">
-                    <textarea class="question-content" th:field="*{content}"></textarea>
+                    <textarea id="content" class="question-content" th:field="*{content}"></textarea>
                 </div>
-                <div class="answer">
+                <div class="answer mt-2  p-2">
                     <div class="total-answer d-flex">
                         <div class="text-danger p-1">Số đáp án</div>
                         <div class="text-center p-1">
@@ -69,8 +61,8 @@
                     <div class="answer-content" th:each="questionAnswerDto, questionAnswerDtoStat : *{questionAnswerDtos}">
                         <div class="answer-content__item d-flex flex-row mb-2">
                             <div class="ml-2">
-                                <input th:field="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].trueAnswer}" type="checkbox" class="checkbox-answer"
-                                    onclick="onlyOneAnswer(this)" title="Chọn đáp án đúng">
+                                <input name="trueAnswer" th:value="${mcqDto.questionAnswerDtos[__${questionAnswerDtoStat.index}__].trueAnswer}" type="radio" class="radio-answer"
+                                    title="Chọn đáp án đúng">
                             </div>
                             <div class="ml-4">
                                 <label class="answer__label" th:text="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].answerLabel}">Đáp án</label>
@@ -79,10 +71,12 @@
                                 <input type="text" class="answer__value" title="Nội dung câu trả lời" th:field="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].answerContent}">
                             </div>
                             <div class="ml-4">
-                                <button class="btn-swap-answer" title="Không hóa vị vị trí">
+                                <button class="btn-swap-answer" th:id=" 'btn-swap-pos-' + ${questionAnswerDtoStat.index} " type="button"
+                                    title="Bỏ hoán vị vị trí" th:onclick="|return changePermutation(${questionAnswerDtoStat.index})|">
                                     <i class="fa fa-exchange" aria-hidden="true"></i>
                                 </button>
-                                <input type="checkbox" name="active" th:checked="${questionAnswerDtoStat.randomPosition}" />
+                                <input type="checkbox" hidden="true" th:id=" 'swap-pos-' + ${questionAnswerDtoStat.index}" name="active"
+                                    th:field="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].randomPosition}" />
                             </div>
                             <div class="ml-4">
                                 <button class="btn-delete-answer" type="submit" name="remove-answer" th:value="${questionAnswerDtoStat.index}"
@@ -116,8 +110,14 @@
     </footer>
     <!-- end footer -->
 
+    <script th:src="@{/summernote/summernote-bs4.js}"></script>
+
     <script type="text/javascript">	
     	
+        $('#content').summernote({
+            height: 200
+        });
+        
     	function onlyOneAnswer(checkbox) {
             let checkboxes = document.getElementsByClassName('checkbox-answer');
             for (item of checkboxes) {
@@ -131,7 +131,7 @@
         		alert("Số câu trả lời tối đa là 8");
         		return false;
         	} else {
-        		$("#f-one-ans-question").submit();
+        		$("#f-underline-question").submit();
         	}
         }
 
@@ -141,25 +141,24 @@
         		alert("Số câu trả lời tối thiểu là 4");
         		return false;
         	} else {
-        		$("#f-one-ans-question").submit();
+        		$("#f-underline-question").submit();
         	}
         }
         
-        function getLastLabel() {
-        	let answerLbls = document.getElementsByClassName('answer__label');
-        	return answerLbls[answerLbls.length - 1];
-        }
-
-        function lastItem(array) {
-            return array[array.length - 1];
-        }
-
-        function getCharacterByIndex(index) {
-            return alphabetArr[index];
-        }
-        
-        function indexOf(chracter) {
-        	return alphabetArr.indexOf(chracter);
+        function changePermutation(inputId) {
+        	let inputElm = $("#swap-pos-" + inputId);
+        	if(inputElm.is(':checked')) {
+        	    $(inputElm).prop('checked',false);
+        	} else {
+        	    $(inputElm).prop('checked',true);
+        	}
+        	
+        	let btnSwapTitle = $("#btn-swap-pos-" + inputId).attr("title");
+        	if(btnSwapTitle == "Bỏ hoán vị vị trí") {
+        	    $("#btn-swap-pos-" + inputId).prop('title', 'Cho phép hoán vị vị trí');
+        	} else {
+        	    $("#btn-swap-pos-" + inputId).prop('title', 'Bỏ hoán vị vị trí');
+        	}
         }
         
 	</script>
