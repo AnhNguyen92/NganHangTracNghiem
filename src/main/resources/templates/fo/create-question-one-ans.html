@@ -52,9 +52,9 @@
                     </div>
                 </div>
                 <div class="mcp-content">
-                    <textarea required class="question-content" th:field="*{content}"></textarea>
+                    <textarea class="question-content" th:field="*{content}"></textarea>
                 </div>
-                <div class="answer">
+                <div class="answer mt-2 p-2">
                     <div class="total-answer d-flex">
                         <div class="text-danger p-1">Số đáp án</div>
                         <div class="text-center p-1">
@@ -67,16 +67,19 @@
                         </div>
                     </div>
                     <div class="answer-content" th:each="questionAnswerDto, questionAnswerDtoStat : *{questionAnswerDtos}">
+                        <div>
+                            <input type="hidden" th:field="*{type}">
+                        </div>
                         <div class="answer-content__item d-flex flex-row mb-2">
                             <div class="ml-2">
-                                <input name="trueAnswer" th:value="${mcqDto.questionAnswerDtos[__${questionAnswerDtoStat.index}__].trueAnswer}" type="radio" required class="radio-answer"
-                                    title="Chọn đáp án đúng">
+                                <input type="checkbox" class="checkbox-answer" th:field="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].trueAnswer}" th:value="${mcqDto.questionAnswerDtos[__${questionAnswerDtoStat.index}__].trueAnswer}"
+                                    onchange="updateTrueAnsVal(this)" title="Chọn đáp án đúng">
                             </div>
                             <div class="ml-4">
                                 <label class="answer__label" th:text="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].answerLabel}">Đáp án</label>
                             </div>
                             <div class="ml-4 w-100">
-                                <input required type="text" title="Nội dung câu trả lời" class="answer__value" th:field="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].answerContent}">
+                                <input type="text" title="Nội dung câu trả lời" class="answer__value" th:field="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].answerContent}">
                             </div>
                             <div>
                                 <input type="number" hidden="true" th:field="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].order}">
@@ -120,6 +123,18 @@
     <!-- end footer -->
 
     <script type="text/javascript">
+
+    	function updateTrueAnsVal(radio) {
+            let radios = document.getElementsByClassName('checkbox-answer');
+            for (item of radios) {
+                if (item !== radio) {
+                	item.value = false;
+                	item.checked = false;
+                }
+            }
+            radio.value = true;
+            radio.checked = true;
+        }
 
         function addMoreAnswer() {
         	let totalAnswer = $(".answer__value").length;
