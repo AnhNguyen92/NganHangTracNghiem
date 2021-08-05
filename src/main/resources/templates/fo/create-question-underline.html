@@ -12,7 +12,7 @@
 <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap-4.4.1/css/bootstrap.min.css}" />
 <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link th:rel="stylesheet" th:href="@{/summernote/summernote-bs4.css}"/>
+<link th:rel="stylesheet" th:href="@{/summernote/summernote-bs4.min.css}"/>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -110,7 +110,7 @@
     </footer>
     <!-- end footer -->
 
-    <script th:src="@{/summernote/summernote-bs4.js}"></script>
+    <script th:src="@{/summernote/summernote-bs4.min.js}"></script>
 
     <script type="text/javascript">	
     	
@@ -118,17 +118,6 @@
             height: 200
         });
         
-        $(".summernote").on("summernote.change", function (e) {   // callback as jquery custom event 
-            console.log('it is changed');
-        });
-        
-    	function onlyOneAnswer(checkbox) {
-            let checkboxes = document.getElementsByClassName('checkbox-answer');
-            for (item of checkboxes) {
-                if (item !== checkbox) item.checked = false        	
-            }
-        }
-
         function addMoreAnswer() {
         	let totalAnswer = $(".answer__value").length;
         	if (totalAnswer == 8) {
