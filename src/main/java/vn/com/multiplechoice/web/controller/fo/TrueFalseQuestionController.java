@@ -31,6 +31,12 @@ public class TrueFalseQuestionController {
 
     private static final Logger log = LoggerFactory.getLogger(TrueFalseQuestionController.class);
     
+    private static final String FO_INDEX = "fo/index";
+    private static final String FO_CREATE_QUESTION_TRUE_FALSE = "/fo/create-question-true-false";
+    private static final String[] ANSWER_LABELS =  new String[] {"Đáp án A", "Đáp án B", "Đáp án C", "Đáp án D", "Đáp án E", "Đáp án F", "Đáp án G", "Đáp án H"};
+    private static final String MCQ_DTO = "mcqDto";
+    private static final String REMOVE_ANSWER = "remove-answer";
+
     @Autowired
     private UserService userService;
 
@@ -38,7 +44,7 @@ public class TrueFalseQuestionController {
     private QuestionService questionService;
 
     @RequestMapping("/true-false-short")
-    public String createTrueFalseQuestion(Model model, MCQDto mcqDto) {
+    public String createDefaultTrueFalseQuestion(Model model, MCQDto mcqDto) {
         log.info("===== GET true false question form =====");
 
         mcqDto.setType(QuestionType.TRUE_FALSE);
@@ -62,13 +68,13 @@ public class TrueFalseQuestionController {
         questionAnswerDtos.add(falseAnswerDto);
 
         mcqDto.setQuestionAnswerDtos(questionAnswerDtos);
-        model.addAttribute("mcqDto", mcqDto);
+        model.addAttribute(MCQ_DTO, mcqDto);
 
         return "fo/create-question-true-false-short";
     }
 
     @PostMapping("/true-false-short")
-    public String saveTrueFalseQuestion(Model model, final @ModelAttribute("mcqDto") MCQDto mcqDto, final BindingResult result) {
+    public String saveDefaultTrueFalseQuestion(Model model, final @ModelAttribute("mcqDto") MCQDto mcqDto, final BindingResult result) {
         log.info("===== START create true false two answer question form =====");
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userService.findByUsername(userDetails.getUsername());
@@ -83,6 +89,78 @@ public class TrueFalseQuestionController {
 
         log.info("===== CREATE true false two answer question form END =====");
 
-        return "fo/index";
+        return FO_INDEX;
     }
+    
+    @RequestMapping("/true-false")
+    public String createTrueFalseQuestion(Model model, MCQDto mcqDto) {
+        log.info("===== GET true false question form =====");
+
+        mcqDto.setType(QuestionType.TRUE_FALSE);
+        List<QuestionAnswerDto> questionAnswerDtos = mcqDto.getQuestionAnswerDtos();
+        if (questionAnswerDtos == null) {
+            questionAnswerDtos = new ArrayList<>();
+        }
+        for (int i = 0; i < 4; i++) {
+            QuestionAnswerDto questionAnswerDto = new QuestionAnswerDto();
+            questionAnswerDto.setAnswerLabel(ANSWER_LABELS[i]);
+            questionAnswerDto.setOrder(i);
+            questionAnswerDtos.add(questionAnswerDto);
+        }
+        mcqDto.setQuestionAnswerDtos(questionAnswerDtos);
+        model.addAttribute(MCQ_DTO, mcqDto);
+
+        return FO_CREATE_QUESTION_TRUE_FALSE;
+    }
+    
+    @RequestMapping(value = "/true-false", params = { "add-answer" })
+    public String addTrueFalseAnswer(Model model, final MCQDto mcqDto, final BindingResult result) {
+        for (int i = 0; i < mcqDto.getQuestionAnswerDtos().size(); i++) {
+            QuestionAnswerDto questionAnswerDto = mcqDto.getQuestionAnswerDtos().get(i);
+            questionAnswerDto.setOrder(i);
+            questionAnswerDto.setAnswerLabel(ANSWER_LABELS[i]);
+        }
+        QuestionAnswerDto newQuestionAnswerDto = new QuestionAnswerDto();
+        newQuestionAnswerDto.setAnswerLabel(ANSWER_LABELS[mcqDto.getQuestionAnswerDtos().size()]);
+        mcqDto.getQuestionAnswerDtos().add(newQuestionAnswerDto);
+        model.addAttribute(MCQ_DTO, mcqDto);
+
+        return FO_CREATE_QUESTION_TRUE_FALSE;
+    }
+
+    @RequestMapping(value = "/true-false", params = { REMOVE_ANSWER })
+    public String removeTrueFalseAnswer(Model model, MCQDto mcqDto, final BindingResult result, final HttpServletRequest req) {
+        List<QuestionAnswerDto> questionAnswerDtos = mcqDto.getQuestionAnswerDtos();
+        String index = req.getParameter(REMOVE_ANSWER);
+        questionAnswerDtos.remove(questionAnswerDtos.get(Integer.parseInt(index)));
+        for (int i = 0; i < questionAnswerDtos.size(); i++) {
+            QuestionAnswerDto questionAnswerDto = questionAnswerDtos.get(i);
+            questionAnswerDto.setOrder(i);
+            questionAnswerDto.setAnswerLabel(ANSWER_LABELS[i]);
+        }
+        model.addAttribute(MCQ_DTO, mcqDto);
+        
+        return FO_CREATE_QUESTION_TRUE_FALSE;
+    }
+
+    
+    @PostMapping("/true-false")
+    public String saveTrueFalseQuestion(Model model, final @ModelAttribute(MCQ_DTO) MCQDto mcqDto, final BindingResult result) {
+        log.info("===== START create true false question form =====");
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userService.findByUsername(userDetails.getUsername());
+        mcqDto.setUser(user);
+        Question question = new Question();
+        question.setContent(mcqDto.getContent());
+        question.setSuggest(mcqDto.getAnswerSuggestion());
+        question.setQuestionType(QuestionType.TRUE_FALSE);
+        question.setUser(user);
+        question.setAnswerA(mcqDto.getQuestionAnswerDtos().get(0).getAnswerContent());
+        question.setAnswerB(mcqDto.getQuestionAnswerDtos().get(1).getAnswerContent());
+        
+        log.info("===== CREATE true false answer question form END =====");
+
+        return FO_INDEX;
+    }
+    
 }
