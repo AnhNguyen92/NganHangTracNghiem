@@ -12,6 +12,7 @@
 <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap-4.4.1/css/bootstrap.min.css}" />
 <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link th:rel="stylesheet" th:href="@{/summernote/summernote-bs4.min.css}"/>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -41,18 +42,9 @@
                             <i class="fa fa-paperclip" aria-hidden="true"></i>
                         </label>
                     </div>
-                    <div class="ml-auto p-2">
-                        <i class="fa fa-align-right" aria-hidden="true"></i>
-                        <i class="fa fa-align-center" aria-hidden="true"></i>
-                        <i class="fa fa-align-left" aria-hidden="true"></i>
-                        <i class="fa fa-align-justify" aria-hidden="true"></i>
-                        <i class="fa fa-bold" aria-hidden="true"></i>
-                        <i class="fa fa-italic" aria-hidden="true"></i>
-                        <i class="fa fa-underline" aria-hidden="true"></i>
-                    </div>
                 </div>
                 <div class="mcp-content">
-                    <textarea class="question-content" th:field="*{content}"></textarea>
+                    <textarea id="content" class="question-content" th:field="*{content}"></textarea>
                 </div>
                 <div class="answer mt-2 p-2">
                     <div class="total-answer d-flex">
@@ -108,7 +100,12 @@
     </footer>
     <!-- end footer -->
 
-    <script type="text/javascript">	
+    <script th:src="@{/summernote/summernote-bs4.min.js}"></script>
+
+    <script type="text/javascript">
+        $('#content').summernote({
+            height: 200
+        });	
 
         function addMoreAnswer() {
         	let totalAnswer = $(".answer__value").length;
