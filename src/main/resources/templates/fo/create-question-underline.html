@@ -24,111 +24,112 @@
 
 <style type="text/css">
 .dropdown-toggle::after {
-  content: inherit;
+    content: inherit;
 }
 
 .navbar-nav .dropdown-menu {
-  position: absolute;
+    position: absolute;
 }
 </style>
 
 </head>
 
 <body>
-  <!-- header -->
-  <header th:replace="fragments/fo/header.html :: header "> </header>
-  <!-- end header -->
+    <!-- header -->
+    <header th:replace="fragments/fo/header.html :: header "> </header>
+    <!-- end header -->
 
-  <!-- content -->
-  <div class="container mt-3">
-    <div class="page-title">TẠO MỚI CÂU HỎI GẠCH CHÂN</div>
-    <form action="#" id="f-underline-question" th:action="@{/fo/questions/underline}" method="post" th:object="${mcqDto}">
-      <div class="mcq">
-        <div class="extention d-flex flex-row mt-3">
-          <div>Nội dung câu hỏi</div>
-          <div>
-            <input type="button" id="btn-add-note" onchange="addQuestionNote(event)">
-            <label class="cursor--lbl">
-              <i class="fa fa-sticky-note px-2" aria-hidden="true"></i>
-            </label>
-            <input type="file" accept="image/*" name="image" id="file" onchange="loadFile(event)" style="display: none;">
-            <label class="cursor--lbl" for="file">
-              <i class="fa fa-paperclip" aria-hidden="true"></i>
-            </label>
-          </div>
-        </div>
-        <div class="mcp-content">
-          <textarea id="content" class="question-content" th:field="*{content}"></textarea>
-        </div>
-        <div class="answer mt-2 p-2">
-          <div class="total-answer d-flex">
-            <div class="text-danger p-1">Số đáp án</div>
-            <div class="text-center p-1">
-              <label class="total-answer__value" th:text="${#lists.size(mcqDto.questionAnswerDtos)}">4</label>
-            </div>
-            <div class="ml-auto py-2">
-              <button class="btn-add-answer" id="btn-add-answer" type="submit" name="add-answer" onclick="return addMoreAnswer()">
-                <i class="fa fa-plus" aria-hidden="true" title="Thêm đáp án"></i>
-              </button>
-            </div>
-          </div>
-          <div class="answer-content" th:each="questionAnswerDto, questionAnswerDtoStat : *{questionAnswerDtos}">
-            <div>
-              <input type="hidden" th:field="*{type}">
-            </div>
-            <div class="answer-content__item d-flex flex-row mb-2">
-              <div class="ml-2">
-                <input type="checkbox" class="checkbox-answer" th:field="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].trueAnswer}"
-                  th:value="${mcqDto.questionAnswerDtos[__${questionAnswerDtoStat.index}__].trueAnswer}" onchange="updateTrueAnsVal(this)"
-                  title="Chọn đáp án đúng">
-              </div>
-              <div class="ml-4">
-                <label class="answer__label" th:text="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].answerLabel}">Đáp án</label>
-              </div>
-              <div class="ml-4 w-100">
-                <input type="text" class="answer__value" title="Nội dung câu trả lời"
-                  th:field="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].answerContent}">
-              </div>
-              <div class="ml-4">
-                <button class="btn-swap-answer" th:id=" 'btn-swap-pos-' + ${questionAnswerDtoStat.index} " type="button" title="Bỏ hoán vị vị trí"
-                  th:onclick="|return changePermutation(${questionAnswerDtoStat.index})|">
-                  <i class="fa fa-exchange" aria-hidden="true"></i>
-                </button>
-                <input type="checkbox" hidden="true" th:id=" 'swap-pos-' + ${questionAnswerDtoStat.index}" name="active"
-                  th:field="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].randomPosition}" />
-              </div>
-              <div class="ml-4">
-                <button class="btn-delete-answer" type="submit" name="remove-answer" th:value="${questionAnswerDtoStat.index}" onclick="return removeAnswer()">
-                  <i class="fa fa-window-close" aria-hidden="true"></i>
-                </button>
-              </div>
-            </div>
-          </div>
+    <!-- content -->
+    <div class="container mt-3">
+        <div class="page-title">TẠO MỚI CÂU HỎI GẠCH CHÂN</div>
+        <form action="#" id="f-underline-question" th:action="@{/fo/questions/underline}" method="post" th:object="${mcqDto}">
+            <div class="mcq">
+                <div class="extention d-flex flex-row mt-3">
+                    <div>Nội dung câu hỏi</div>
+                    <div>
+                        <input type="button" id="btn-add-note" onchange="addQuestionNote(event)">
+                        <label class="cursor--lbl">
+                            <i class="fa fa-sticky-note px-2" aria-hidden="true"></i>
+                        </label>
+                        <input type="file" accept="image/*" name="image" id="file" onchange="loadFile(event)" style="display: none;">
+                        <label class="cursor--lbl" for="file">
+                            <i class="fa fa-paperclip" aria-hidden="true"></i>
+                        </label>
+                    </div>
+                </div>
+                <div class="mcp-content">
+                    <textarea id="content" class="question-content" th:field="*{content}"></textarea>
+                </div>
+                <div class="answer mt-2 p-2" id="answer">
+                    <div class="total-answer d-flex">
+                        <div class="text-danger p-1">Số đáp án</div>
+                        <div class="text-center p-1">
+                            <label class="total-answer__value" th:text="${#lists.size(mcqDto.questionAnswerDtos)}">4</label>
+                        </div>
+                        <!-- <div class="ml-auto py-2">
+                            <button class="btn-add-answer" id="btn-add-answer" type="submit" name="add-answer" onclick="return addMoreAnswer()">
+                                <i class="fa fa-plus" aria-hidden="true" title="Thêm đáp án"></i>
+                            </button>
+                        </div> -->
+                    </div>
+                    <div class="answer-content" th:each="questionAnswerDto, questionAnswerDtoStat : *{questionAnswerDtos}">
+                        <div>
+                            <input type="hidden" th:field="*{type}">
+                        </div>
+                        <div class="answer-content__item d-flex flex-row mb-2">
+                            <div class="ml-2">
+                                <input type="checkbox" class="checkbox-answer" th:field="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].trueAnswer}"
+                                    th:value="${mcqDto.questionAnswerDtos[__${questionAnswerDtoStat.index}__].trueAnswer}" onchange="updateTrueAnsVal(this)"
+                                    title="Chọn đáp án đúng">
+                            </div>
+                            <div class="ml-4">
+                                <label class="answer__label" th:text="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].answerLabel}">Đáp án</label>
+                            </div>
+                            <div class="ml-4 w-100">
+                                <input type="text" class="answer__value" title="Nội dung câu trả lời"
+                                    th:field="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].answerContent}">
+                            </div>
+                            <div class="ml-4">
+                                <button class="btn-swap-answer" th:id=" 'btn-swap-pos-' + ${questionAnswerDtoStat.index} " type="button"
+                                    title="Bỏ hoán vị vị trí" th:onclick="|return changePermutation(${questionAnswerDtoStat.index})|">
+                                    <i class="fa fa-exchange" aria-hidden="true"></i>
+                                </button>
+                                <input type="checkbox" hidden="true" th:id=" 'swap-pos-' + ${questionAnswerDtoStat.index}" name="active"
+                                    th:field="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].randomPosition}" />
+                            </div>
+                            <div class="ml-4">
+                                <button class="btn-delete-answer" type="submit" name="remove-answer" th:value="${questionAnswerDtoStat.index}"
+                                    onclick="return removeAnswer()">
+                                    <i class="fa fa-window-close" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
 
-        </div>
-        <div class="mt-3 d-flex justify-content-center pb-3">
-          <div class="mx-2">
-            <input type="submit" class="btn btn-success" value="Hoàn thành">
-          </div>
-          <div class="mx-2">
-            <input type="reset" class="btn btn-primary" value="Làm lại">
-          </div>
-          <div class="mx-2">
-            <a type="button" class="btn btn-danger" th:href="@{'/fo/index'}">Huỷ bỏ</a>
-          </div>
-        </div>
-      </div>
-    </form>
-  </div>
-  <!-- end content -->
+                </div>
+                <div class="mt-3 d-flex justify-content-center pb-3">
+                    <div class="mx-2">
+                        <input type="submit" class="btn btn-success" value="Hoàn thành">
+                    </div>
+                    <div class="mx-2">
+                        <input type="reset" class="btn btn-primary" value="Làm lại">
+                    </div>
+                    <div class="mx-2">
+                        <a type="button" class="btn btn-danger" th:href="@{'/fo/index'}">Huỷ bỏ</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!-- end content -->
 
-  <!-- footer -->
-  <footer th:replace="fragments/fo/footer.html :: footer">
-    <p>2021 mqconline.com</p>
-  </footer>
-  <!-- end footer -->
+    <!-- footer -->
+    <footer th:replace="fragments/fo/footer.html :: footer">
+        <p>2021 mqconline.com</p>
+    </footer>
+    <!-- end footer -->
 
-  <script type="text/javascript">
+    <script type="text/javascript">
 			$('#content').summernote({
 				height : 200,
 				callbacks : {
@@ -139,6 +140,7 @@
 					    children = $(contentHtml).find('u');
     					for(var i = 0; i < children.length; i++){
     						console.log('children[i]: ', children[i].firstChild.nodeValue);
+    						createAnswerElm(children[i].firstChild.nodeValue);
     					    /* if (children[i].tagName == "u") {
     					        childrendivs.push(children[i]);
     					        console.log('onChange:', contents);
@@ -147,6 +149,11 @@
 					}
 				}
 			});
+			
+			function createAnswerElm(answerValue) {
+				let answerElm = $('#answer');
+				let totalAnswerLblElm = $('.total-answer__value')[0];
+			}
 			
 			function updateTrueAnsVal(radio) {
 	            let radios = document.getElementsByClassName('checkbox-answer');
