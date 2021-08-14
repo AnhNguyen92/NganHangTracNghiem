@@ -46,7 +46,7 @@ public class MatchingQuestionController {
     public String createUnderlineQuestion(Model model, MCQDto mcqDto) {
         log.info("===== GET underline question form =====");
 
-        mcqDto.setType(QuestionType.TRUE_FALSE);
+        mcqDto.setType(QuestionType.MATCHING);
         List<QuestionAnswerDto> questionAnswerDtos = mcqDto.getQuestionAnswerDtos();
         if (questionAnswerDtos == null) {
             questionAnswerDtos = new ArrayList<>();
