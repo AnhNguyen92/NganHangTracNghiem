@@ -57,6 +57,9 @@
                         </label>
                     </div>
                 </div>
+                <div>
+                    <input type="hidden" th:field="*{type}">
+                </div>
                 <div class="mcp-content">
                     <textarea id="content" class="question-content" th:field="*{content}"></textarea>
                 </div>
@@ -73,9 +76,6 @@
                         </div>
                     </div>
                     <div class="answer-content" th:each="questionAnswerDto, questionAnswerDtoStat : *{questionAnswerDtos}">
-                        <div>
-                            <input type="hidden" th:field="*{type}">
-                        </div>
                         <div class="answer-content__item d-flex flex-row mb-2">
                             <div class="ml-2">
                                 <input type="checkbox" class="checkbox-answer" th:field="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].trueAnswer}" th:value="${mcqDto.questionAnswerDtos[__${questionAnswerDtoStat.index}__].trueAnswer}"
