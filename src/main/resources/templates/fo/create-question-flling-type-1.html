@@ -48,15 +48,7 @@
                 <div class="extention d-flex flex-row mt-3">
                     <div>Nội dung câu hỏi</div>
                     <div>
-                        <input type="button" id="btn-add-note" onchange="addQuestionNote(event)">
-                        <label class="cursor--lbl">
-                            <i class="fa fa-sticky-note px-2" aria-hidden="true"></i>
-                        </label>
-                        <input type="file" accept="image/*" name="image" id="file" onchange="loadFile(event)"
-                            style="display: none;">
-                        <label class="cursor--lbl" for="file">
-                            <i class="fa fa-paperclip" aria-hidden="true"></i>
-                        </label>
+                        <input type="button" id="btn-filling" value="Tạo điền khuyết" onchange="addQuestionAnswer(event)">
                     </div>
                 </div>
                 <div>
@@ -79,33 +71,30 @@
                             </button>
                         </div>
                     </div>
-                    <div class="answer-content"
-                        th:each="questionAnswerDto, questionAnswerDtoStat : *{questionAnswerDtos}">
+                    <div class="answer-content" th:each="questionAnswerDto, questionAnswerDtoStat : *{questionAnswerDtos}">
                         <div class="answer-content__item d-flex flex-row mb-2">
                             <div class="ml-2">
-                                <input th:field="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].trueAnswer}"
-                                    type="checkbox" class="checkbox-answer" onclick="onlyOneAnswer(this)"
-                                    title="Chọn đáp án đúng">
+                                <input type="checkbox" class="checkbox-answer" th:field="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].trueAnswer}" th:value="${mcqDto.questionAnswerDtos[__${questionAnswerDtoStat.index}__].trueAnswer}"
+                                    onchange="updateTrueAnsVal(this)" title="Chọn đáp án đúng">
                             </div>
                             <div class="ml-4">
-                                <label class="answer__label"
-                                    th:text="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].answerLabel}">Đáp
-                                    án</label>
+                                <label class="answer__label" th:text="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].answerLabel}">Đáp án</label>
                             </div>
                             <div class="ml-4 w-100">
-                                <input type="text" class="answer__value" title="Nội dung câu trả lời"
-                                    th:field="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].answerContent}">
+                                <input type="text" title="Nội dung câu trả lời" class="answer__value" th:field="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].answerContent}">
+                            </div>
+                            <div>
+                                <input type="number" hidden="true" th:field="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].order}">
                             </div>
                             <div class="ml-4">
-                                <button class="btn-swap-answer" title="Không hóa vị vị trí">
+                                <button class="btn-swap-answer" th:id=" 'btn-swap-pos-' + ${questionAnswerDtoStat.index} " type="button" title="Bỏ hoán vị vị trí" th:onclick="|return changePermutation(${questionAnswerDtoStat.index})|">
                                     <i class="fa fa-exchange" aria-hidden="true"></i>
                                 </button>
-                                <input type="checkbox" name="active"
-                                    th:checked="${questionAnswerDtoStat.randomPosition}" />
+                                <!-- <input type="checkbox" hidden="true" th:id=" 'swap-pos-' + ${questionAnswerDtoStat.index}" th:field="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].randomPosition}" /> -->
                             </div>
                             <div class="ml-4">
-                                <button class="btn-delete-answer" type="submit" name="remove-answer"
-                                    th:value="${questionAnswerDtoStat.index}" onclick="return removeAnswer()">
+                                <button class="btn-delete-answer" type="submit" name="remove-answer" th:value="${questionAnswerDtoStat.index}"
+                                    onclick="return removeAnswer()">
                                     <i class="fa fa-window-close" aria-hidden="true"></i>
                                 </button>
                             </div>
@@ -137,6 +126,22 @@
 
     <script type="text/javascript">
         let alphabetLblArr = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
+
+        function getSelectionText() {
+            var text = "";
+            var activeEl = document.activeElement;
+            var activeElTagName = activeEl ? activeEl.tagName.toLowerCase() : null;
+            if (
+            (activeElTagName == "textarea") || (activeElTagName == "input" &&
+            /^(?:text|search|password|tel|url)$/i.test(activeEl.type)) &&
+            (typeof activeEl.selectionStart == "number")
+            ) {
+                text = activeEl.value.slice(activeEl.selectionStart, activeEl.selectionEnd);
+            } else if (window.getSelection) {
+                text = window.getSelection().toString();
+            }
+            return text;
+        }
 
         $('#content').summernote({
             height: 200,

@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import vn.com.multiplechoice.business.service.QuestionService;
 import vn.com.multiplechoice.business.service.UserService;
 import vn.com.multiplechoice.dao.model.Question;
 import vn.com.multiplechoice.dao.model.User;
@@ -38,9 +37,6 @@ public class FillingQuestionController {
 
     @Autowired
     private UserService userService;
-
-    @Autowired
-    private QuestionService questionService;
 
     @RequestMapping("/filling-type-1")
     public String createUnderlineQuestion(Model model, MCQDto mcqDto) {

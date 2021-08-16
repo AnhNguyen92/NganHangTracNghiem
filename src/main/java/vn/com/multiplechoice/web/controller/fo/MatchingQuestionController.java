@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import vn.com.multiplechoice.business.service.QuestionService;
 import vn.com.multiplechoice.business.service.UserService;
 import vn.com.multiplechoice.dao.model.Question;
 import vn.com.multiplechoice.dao.model.User;
@@ -30,7 +29,7 @@ import vn.com.multiplechoice.web.model.QuestionAnswerDto;
 @Controller
 public class MatchingQuestionController {
 
-    private static final String FO_CREATE_QUESTION_UNDERLINE = "fo/create-question-underline";
+    private static final String FO_CREATE_QUESTION_UNDERLINE = "fo/create-question-matching";
     private static final Logger log = LoggerFactory.getLogger(MatchingQuestionController.class);
     private static final String[] ANSWER_LABELS = new String[] { "Đáp án A", "Đáp án B", "Đáp án C", "Đáp án D", "Đáp án E", "Đáp án F", "Đáp án G",
             "Đáp án H" };
@@ -39,20 +38,29 @@ public class MatchingQuestionController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private QuestionService questionService;
-
     @RequestMapping("/matching")
     public String createUnderlineQuestion(Model model, MCQDto mcqDto) {
         log.info("===== GET underline question form =====");
 
         mcqDto.setType(QuestionType.MATCHING);
-        List<QuestionAnswerDto> questionAnswerDtos = mcqDto.getQuestionAnswerDtos();
-        if (questionAnswerDtos == null) {
-            questionAnswerDtos = new ArrayList<>();
+        List<QuestionAnswerDto> leftAnswerDtos = new ArrayList<>();
+        List<QuestionAnswerDto> rightAnswerDtos = new ArrayList<>();
+        for (int i = 0; i < 4; i++) {
+            QuestionAnswerDto questionAnswerDto = new QuestionAnswerDto();
+            questionAnswerDto.setAnswerLabel( (i + 1) + "");
+            questionAnswerDto.setOrder(i);
+            questionAnswerDto.setLeftSide(true);
+            leftAnswerDtos.add(questionAnswerDto);
         }
-
-        mcqDto.setQuestionAnswerDtos(questionAnswerDtos);
+        for (int i = 0; i < 4; i++) {
+            QuestionAnswerDto questionAnswerDto = new QuestionAnswerDto();
+            questionAnswerDto.setAnswerLabel(ANSWER_LABELS[i]);
+            questionAnswerDto.setOrder(i);
+            questionAnswerDto.setLeftSide(true);
+            rightAnswerDtos.add(questionAnswerDto);
+        }
+        mcqDto.setLeftAnswerDtos(leftAnswerDtos);
+        mcqDto.setRightAnswerDtos(rightAnswerDtos);
         model.addAttribute(MCQ_DTO, mcqDto);
 
         return FO_CREATE_QUESTION_UNDERLINE;

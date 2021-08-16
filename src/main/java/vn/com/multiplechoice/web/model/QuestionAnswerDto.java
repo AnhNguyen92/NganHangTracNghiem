@@ -7,6 +7,7 @@ public class QuestionAnswerDto {
     private String answerContent;
     private boolean trueAnswer = false;
     private int score;
+    private boolean leftSide = true;
 
     public int getOrder() {
         return order;
@@ -54,6 +55,14 @@ public class QuestionAnswerDto {
 
     public void setScore(int score) {
         this.score = score;
+    }
+
+    public boolean isLeftSide() {
+        return leftSide;
+    }
+
+    public void setLeftSide(boolean leftSide) {
+        this.leftSide = leftSide;
     }
 
 }

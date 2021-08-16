@@ -12,6 +12,8 @@ public class MCQDto {
     private String content;
     // list answer of question
     private List<QuestionAnswerDto> questionAnswerDtos;
+    private List<QuestionAnswerDto> leftAnswerDtos;
+    private List<QuestionAnswerDto> rightAnswerDtos;
 
     public QuestionType getType() {
         return type;
@@ -51,6 +53,22 @@ public class MCQDto {
 
     public void setQuestionAnswerDtos(List<QuestionAnswerDto> questionAnswerDtos) {
         this.questionAnswerDtos = questionAnswerDtos;
+    }
+
+    public List<QuestionAnswerDto> getLeftAnswerDtos() {
+        return leftAnswerDtos;
+    }
+
+    public void setLeftAnswerDtos(List<QuestionAnswerDto> leftAnswerDtos) {
+        this.leftAnswerDtos = leftAnswerDtos;
+    }
+
+    public List<QuestionAnswerDto> getRightAnswerDtos() {
+        return rightAnswerDtos;
+    }
+
+    public void setRightAnswerDtos(List<QuestionAnswerDto> rightAnswerDtos) {
+        this.rightAnswerDtos = rightAnswerDtos;
     }
 
 }
