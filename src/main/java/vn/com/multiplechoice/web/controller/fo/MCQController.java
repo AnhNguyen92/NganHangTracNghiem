@@ -106,7 +106,7 @@ public class MCQController {
         question.setUser(user);
         saveQuestionAnswer(question, mcqDto.getQuestionAnswerDtos());
         String[] answerLabelList = new String[] {"A", "B", "C", "D", "E", "F", "G", "H"};
-        int trueAnswerPos = mcqDto.getRightAnswerDtos().stream().filter(answer -> answer.getTrueAnswer()).findFirst().get().getOrder();
+        int trueAnswerPos = mcqDto.getQuestionAnswerDtos().stream().filter(answer -> answer.getTrueAnswer()).findFirst().get().getOrder();
         question.setRightAnswer(answerLabelList[trueAnswerPos]);
         
         questionService.save(question);
