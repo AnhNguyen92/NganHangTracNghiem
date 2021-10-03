@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -28,7 +29,10 @@ public class UserRequest implements Serializable {
     private String content;
 
     @ManyToOne
-    private User user;
+    private User creator;
+    
+    @OneToOne
+    private User viewPerson;
 
     public Long getId() {
         return id;
@@ -54,12 +58,20 @@ public class UserRequest implements Serializable {
         this.content = content;
     }
 
-    public User getUser() {
-        return user;
+    public User getCreator() {
+        return creator;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setCreator(User creator) {
+        this.creator = creator;
+    }
+
+    public User getViewPerson() {
+        return viewPerson;
+    }
+
+    public void setViewPerson(User viewPerson) {
+        this.viewPerson = viewPerson;
     }
 
 }

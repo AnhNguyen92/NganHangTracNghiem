@@ -41,7 +41,7 @@ public class ContactController {
         logger.info("START check request");
         User user = onlineUserUtil.getOnlineUser();
         userRequest.setCreateDate(LocalDate.now());
-        userRequest.setUser(user);
+        userRequest.setCreator(user);
         userRequestService.save(userRequest);
         
         model.addAttribute("message", "Yêu cầu đã được gửi tới admin!");
