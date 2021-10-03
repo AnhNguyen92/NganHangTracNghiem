@@ -2,6 +2,8 @@ package vn.com.multiplechoice.web.controller.fo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -34,14 +36,15 @@ public class MCQController {
     private static final String MCQ_DTO = "mcqDto";
     private static final String FO_CREATE_QUESTION_ONE_ANS = "fo/create-question-one-ans";
     private static final String FO_CREATE_QUESTION_MULTIPLE_ANS = "fo/create-question-multiple-ans";
-    private static final String[] ANSWER_LABELS =  new String[] {"Đáp án A", "Đáp án B", "Đáp án C", "Đáp án D", "Đáp án E", "Đáp án F", "Đáp án G", "Đáp án H"};
-    
+    private static final String[] ANSWER_LABELS = new String[] { "Đáp án A", "Đáp án B", "Đáp án C", "Đáp án D", "Đáp án E", "Đáp án F", "Đáp án G",
+            "Đáp án H" };
+
     @Autowired
     private UserService userService;
 
     @Autowired
     private QuestionService questionService;
-    
+
     @RequestMapping("/one-ans")
     public String createOneAnswerQuestion(Model model, MCQDto mcqDto) {
         log.info("===== GET one answer question form =====");
@@ -89,7 +92,7 @@ public class MCQController {
             questionAnswerDto.setAnswerLabel(ANSWER_LABELS[i]);
         }
         model.addAttribute(MCQ_DTO, mcqDto);
-        
+
         return FO_CREATE_QUESTION_ONE_ANS;
     }
 
@@ -105,17 +108,22 @@ public class MCQController {
         question.setQuestionType(QuestionType.ONE_ANSWER);
         question.setUser(user);
         saveQuestionAnswer(question, mcqDto.getQuestionAnswerDtos());
-        String[] answerLabelList = new String[] {"A", "B", "C", "D", "E", "F", "G", "H"};
-        int trueAnswerPos = mcqDto.getQuestionAnswerDtos().stream().filter(answer -> answer.getTrueAnswer()).findFirst().get().getOrder();
+        String[] answerLabelList = new String[] { "A", "B", "C", "D", "E", "F", "G", "H" };
+        Optional<QuestionAnswerDto> trueAnsPosOptinal = mcqDto.getQuestionAnswerDtos().stream().filter(QuestionAnswerDto::getTrueAnswer).findFirst();
+        int trueAnswerPos = trueAnsPosOptinal.isPresent() ? trueAnsPosOptinal.get().getOrder() : 0;
         question.setRightAnswer(answerLabelList[trueAnswerPos]);
-        
+        String permutationPosLst = mcqDto.getQuestionAnswerDtos().stream().filter(QuestionAnswerDto::isRandomPosition)
+                .map(answer -> answerLabelList[answer.getOrder()]).collect(Collectors.joining(","));
+        log.info(permutationPosLst);
+        question.setAnswerPemutation(permutationPosLst);
+
         questionService.save(question);
-        
+
         log.info("===== CREATE one answer question form END =====");
 
         return FO_INDEX;
     }
-    
+
     @RequestMapping("/multiple-ans")
     public String createMultipleAnswerQuestion(Model model, MCQDto mcqDto) {
         log.info("===== GET one answer question form =====");
@@ -163,7 +171,7 @@ public class MCQController {
             questionAnswerDto.setAnswerLabel(ANSWER_LABELS[i]);
         }
         model.addAttribute(MCQ_DTO, mcqDto);
-        
+
         return FO_CREATE_QUESTION_MULTIPLE_ANS;
     }
 
@@ -182,36 +190,37 @@ public class MCQController {
         question.setAnswerB(mcqDto.getQuestionAnswerDtos().get(1).getAnswerContent());
         question.setAnswerC(mcqDto.getQuestionAnswerDtos().get(2).getAnswerContent());
         question.setAnswerD(mcqDto.getQuestionAnswerDtos().get(3).getAnswerContent());
-        
+
         log.info("===== CREATE one answer question form END =====");
 
         return FO_INDEX;
     }
-    
+
     private void saveQuestionAnswer(Question question, List<QuestionAnswerDto> questionAnswerDtos) {
-        if (questionAnswerDtos.size() > 0) {
+        if (!questionAnswerDtos.isEmpty()) {
             question.setAnswerA(questionAnswerDtos.get(0).getAnswerContent());
-        }
-        if (questionAnswerDtos.size() > 1) {
-            question.setAnswerB(questionAnswerDtos.get(1).getAnswerContent());
-        }
-        if (questionAnswerDtos.size() > 2) {
-            question.setAnswerC(questionAnswerDtos.get(2).getAnswerContent());
-        }
-        if (questionAnswerDtos.size() > 3) {
-            question.setAnswerD(questionAnswerDtos.get(3).getAnswerContent());
-        }
-        if (questionAnswerDtos.size() > 4) {
-            question.setAnswerE(questionAnswerDtos.get(4).getAnswerContent());
-        }
-        if (questionAnswerDtos.size() > 5) {
-            question.setAnswerF(questionAnswerDtos.get(5).getAnswerContent());
-        }
-        if (questionAnswerDtos.size() > 6) {
-            question.setAnswerG(questionAnswerDtos.get(6).getAnswerContent());
-        }
-        if (questionAnswerDtos.size() > 7) {
-            question.setAnswerH(questionAnswerDtos.get(7).getAnswerContent());
+
+            if (questionAnswerDtos.size() > 1) {
+                question.setAnswerB(questionAnswerDtos.get(1).getAnswerContent());
+            }
+            if (questionAnswerDtos.size() > 2) {
+                question.setAnswerC(questionAnswerDtos.get(2).getAnswerContent());
+            }
+            if (questionAnswerDtos.size() > 3) {
+                question.setAnswerD(questionAnswerDtos.get(3).getAnswerContent());
+            }
+            if (questionAnswerDtos.size() > 4) {
+                question.setAnswerE(questionAnswerDtos.get(4).getAnswerContent());
+            }
+            if (questionAnswerDtos.size() > 5) {
+                question.setAnswerF(questionAnswerDtos.get(5).getAnswerContent());
+            }
+            if (questionAnswerDtos.size() > 6) {
+                question.setAnswerG(questionAnswerDtos.get(6).getAnswerContent());
+            }
+            if (questionAnswerDtos.size() > 7) {
+                question.setAnswerH(questionAnswerDtos.get(7).getAnswerContent());
+            }
         }
     }
 }
