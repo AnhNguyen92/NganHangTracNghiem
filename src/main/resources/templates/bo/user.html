@@ -139,12 +139,12 @@
                             </div>
                             <div class="d-flex py-3 justify-content-center">
                                 <div class="col-lg-6">
-                                    <form th:action="@{/bo/user/save}" th:object="${user}" method="POST">
+                                    <form th:action="@{/bo/users/save}" th:object="${user}" method="POST">
                                         <div><input type="hidden" th:field=*{id}></div>
                                         <div class="form-group row">
                                             <div class="col-sm-6">
                                                 <label class="control-label">Tên đăng nhập</label>
-                                                <input type="text" class="form-control" th:field="*{username}">
+                                                <input type="text" class="form-control" th:field="*{username}" th:readonly=="${user.username} != null">
                                             </div>
                                             <div class="col-sm-6">
                                                 <label class="control-label">Mật khẩu</label>
