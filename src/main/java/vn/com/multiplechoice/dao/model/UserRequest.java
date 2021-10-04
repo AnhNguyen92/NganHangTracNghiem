@@ -28,9 +28,12 @@ public class UserRequest implements Serializable {
     @Column(name = "content")
     private String content;
 
+    @Column(name = "status")
+    private String status;
+
     @ManyToOne
     private User creator;
-    
+
     @OneToOne
     private User viewPerson;
 
@@ -56,6 +59,14 @@ public class UserRequest implements Serializable {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public User getCreator() {
