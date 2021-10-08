@@ -20,5 +20,11 @@ public class QuestionServiceImpl extends AbstractService<Question, Long> impleme
         super(questionRepository);
         this.questionRepository = questionRepository;
     }
+
+	@Override
+	public Object getPage(int pageNumber, int size) {
+		// TODO Auto-generated method stub
+		return null;
+	}
     
 }
