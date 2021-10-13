@@ -28,7 +28,7 @@ public class TestFeedback implements Serializable {
     private String content;
     
     @ManyToOne
-    private TestQuestion testQuestion;
+    private Test test;
     
     @OneToOne
     private User user;

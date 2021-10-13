@@ -60,14 +60,21 @@
 			<div class="col-md-8 m-3">
 				<form method="post" th:action="@{/fo/contests}"
 					th:object="${options}">
-
-					<select multiple="multiple" size="10" name="selected[]"
-						id="optionsbox" th:field="*{selected}" class="form-control">
-						<option th:each="quesId : ${questIds}" th:value="${quesId}"
-							th:text="'Cau hoi ' + ${quesId}"></option>
-					</select>
-
-					<button class="btn btn-primary mt-3" type="submit">Tao moi</button>
+					<div>
+						<label>Ten de thi:</labeL>
+						<input type="text" th:field="*{content}">
+					</div>
+					<div>
+						<select multiple="multiple" size="10" name="selected[]"
+							id="optionsbox" th:field="*{selected}" class="form-control">
+							<option th:each="quesId : ${questIds}" th:value="${quesId}"
+								th:text="'Cau hoi ' + ${quesId}"></option>
+						</select>
+					</div>
+					<div>
+						<button class="btn btn-primary mt-3" type="submit">Tao
+							moi</button>
+					</div>
 				</form>
 			</div>
 		</div>
