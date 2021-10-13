@@ -17,3 +17,5 @@
 	- dynamic field
 	https://www.thymeleaf.org/doc/tutorials/2.1/thymeleafspring.html#listing-seed-starter-data
 	https://stingh711.github.io/dynamic-forms-with-springmvc-and-thymeleaf.html
+- Thymeleaf demos (many different demo)
+	https://frontbackend.com/thymeleaf
