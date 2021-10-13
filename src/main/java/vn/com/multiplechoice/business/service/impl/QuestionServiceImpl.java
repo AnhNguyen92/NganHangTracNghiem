@@ -1,5 +1,7 @@
 package vn.com.multiplechoice.business.service.impl;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +25,12 @@ public class QuestionServiceImpl extends AbstractService<Question, Long> impleme
 
 	@Override
 	public Object getPage(int pageNumber, int size) {
-		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public List<Question> findByAuthor(Long userId) {
+		return questionRepository.findByAuthor(userId);
 	}
     
 }
