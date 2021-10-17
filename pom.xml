@@ -52,7 +52,6 @@
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
 
-		<!-- hot swapping, disable cache for template, enable live reload -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
@@ -159,6 +158,12 @@
 			<groupId>org.webjars</groupId>
 			<artifactId>webjars-locator</artifactId>
 			<version>${webjars-locator.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.zwobble.mammoth</groupId>
+			<artifactId>mammoth</artifactId>
+			<version>1.4.2</version>
 		</dependency>
 
 	</dependencies>
