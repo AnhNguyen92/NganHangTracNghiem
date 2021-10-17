@@ -61,19 +61,19 @@
 				<form method="post" th:action="@{/fo/contests}"
 					th:object="${options}">
 					<div>
-						<label>Ten de thi:</labeL>
-						<input type="text" th:field="*{content}">
+						<label>Tên đề thi:</labeL> <input type="text"
+							th:field="*{content}">
 					</div>
 					<div>
 						<select multiple="multiple" size="10" name="selected[]"
 							id="optionsbox" th:field="*{selected}" class="form-control">
-							<option th:each="quesId : ${questIds}" th:value="${quesId}"
-								th:text="'Cau hoi ' + ${quesId}"></option>
+							<option th:each="questId : ${questIds}" th:value="${questId}" th:onclick="viewQuestion('${questId}')"
+								th:text="'Cau hoi ' + ${questId}"></option>
 						</select>
 					</div>
 					<div>
-						<button class="btn btn-primary mt-3" type="submit">Tao
-							moi</button>
+						<button class="btn btn-primary mt-3" type="submit">Tạo
+							mới</button>
 					</div>
 				</form>
 			</div>
@@ -109,6 +109,12 @@
 		preserveSelectionOnMove : 'moved',
 		moveOnSelect : false,
 	});
+	$(document).ready(function() {
+		function viewQuestion(questId) {
+			let questId = $('#optionsbox').value;
+			console.log(questId);
+		}
+	}
 </script>
 
 </html>

@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import vn.com.multiplechoice.dao.model.User;
 
 public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificationExecutor<User> {
-	@Query(value = " Select u from User u where u.username = ?1 ")
+	@Query(value = " Select * from users where username = ?1 ", nativeQuery = true)
 	public User findByUsername(String username);
 
     public User findByEmail(String email);
