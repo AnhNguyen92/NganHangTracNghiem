@@ -40,6 +40,23 @@ public class FileStorageServiceImpl implements FileStorageService {
         return uploadSuccess;
     }
 
+    /**
+     * Delete file and its folder, set fileFolderDirectory = null in case file doesn't separate folder
+     */
+    public void deleteFileAndFolder(String fileFolderDirectory, String fileDirectory) {
+        try {
+            Path filePath = Paths.get(fileDirectory);
+            Files.delete(filePath);
+            if (fileFolderDirectory != null) {
+                Path fileFolderPath = Paths.get(fileFolderDirectory);
+                Files.delete(fileFolderPath);
+            }
+            logger.info("------------ DELETE user avatar successfull! ------------");
+        } catch (IOException e) {
+            logger.info("{}", e.getMessage());
+        }
+    }
+    
     @Override
     public boolean delete(String filename) {
         boolean result = false;
