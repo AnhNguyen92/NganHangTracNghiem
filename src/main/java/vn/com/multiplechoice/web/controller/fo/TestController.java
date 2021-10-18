@@ -1,9 +1,12 @@
 package vn.com.multiplechoice.web.controller.fo;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
@@ -12,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,8 +23,11 @@ import org.springframework.web.multipart.MultipartFile;
 import org.zwobble.mammoth.DocumentConverter;
 import org.zwobble.mammoth.Result;
 
+import vn.com.multiplechoice.business.config.ApplicationConfig;
+import vn.com.multiplechoice.business.service.FileStorageService;
 import vn.com.multiplechoice.business.service.QuestionService;
 import vn.com.multiplechoice.business.service.TestService;
+import vn.com.multiplechoice.dao.model.HeaderTemplate;
 import vn.com.multiplechoice.dao.model.Options;
 import vn.com.multiplechoice.dao.model.Question;
 import vn.com.multiplechoice.dao.model.Test;
@@ -31,7 +38,9 @@ import vn.com.multiplechoice.web.utils.OnlineUserUtil;
 @RequestMapping("/fo/contests")
 public class TestController {
 	Logger logger = LoggerFactory.getLogger(TestController.class);
-
+	private static final String[] ANSWER_LABELS = new String[] { "Đáp án A", "Đáp án B", "Đáp án C", "Đáp án D", "Đáp án E", "Đáp án F", "Đáp án G",
+    "Đáp án H" };
+	
 	@Autowired
 	private QuestionService questionService;
 
@@ -41,7 +50,13 @@ public class TestController {
 	@Autowired
 	private TestService testService;
 
-	@GetMapping
+	@Autowired
+	private FileStorageService fileStorageService;
+
+	@Autowired
+	private ApplicationConfig applicationConfig;
+	
+	@GetMapping("")
 	public String createTest(Model model) {
 		User user = onlineUserUtil.getOnlineUser();
 		List<Question> questions = questionService.findByAuthor(user.getId());
@@ -54,8 +69,24 @@ public class TestController {
 		return "fo/test";
 	}
 
+	@GetMapping("/{id}")
+	public String detail(@PathVariable(name = "id") Long id, Model model) throws FileNotFoundException {
+		Test test = testService.findOne(id);
+		model.addAttribute("test", test);
+		model.addAttribute("answerLabels", ANSWER_LABELS);
+		if (test.getHeader() != null) {
+			HeaderTemplate headerTemplate = test.getHeader();
+			String sourcePath = applicationConfig.getTemplateUploadPath() + headerTemplate.getSourcePath();
+			FileInputStream templateFile = new FileInputStream(sourcePath);
+			String header = parseHeaderTemplateToHtml(templateFile);
+			model.addAttribute("header", header);
+		}
+		
+		return "/fo/test-detail";
+	}
+
 	@PostMapping
-	public String save(Options options,@RequestParam("file") MultipartFile multipartFile, Model model) {
+	public String save(Options options, @RequestParam("file") MultipartFile multipartFile, Model model) {
 		model.addAttribute("options", options);
 		Test test = new Test();
 
@@ -65,30 +96,38 @@ public class TestController {
 			Question question = questionService.findOne(Long.parseLong(idStr));
 			questions.add(question);
 		}
-		
-		// header doc, docx
-		DocumentConverter converter = new DocumentConverter();
-		try {
-			Result<String> result = converter.convertToHtml(multipartFile.getInputStream());
-			String html = result.getValue(); // The generated HTML
-			logger.info("html:\n {}", html);
-			Set<String> warnings = result.getWarnings();
-			logger.info("warnings: \n{}", warnings);
-		} catch (IOException e) {
-			logger.error(e.getMessage());
+
+		// save header
+		if (multipartFile != null) {
+			fileStorageService.upload(applicationConfig.getTemplateUploadPath(), multipartFile.getOriginalFilename(), multipartFile);
 		}
-		
 		
 		test.setNumOfQuestions(selecteds.size());
 		User creator = onlineUserUtil.getOnlineUser();
+		test.setCreateDate(new Date());
 		test.setCreator(creator);
 		test.setContent(options.getContent());
 		test.setQuestions(questions);
-		//testService.save(test);
+		testService.save(test);
 
 		return "fo/saved";
 	}
 
+	private String parseHeaderTemplateToHtml(InputStream inputStream) {
+		// header docx
+		DocumentConverter converter = new DocumentConverter();
+		String html = "";
+		try {
+			Result<String> result = converter.convertToHtml(inputStream);
+			html = result.getValue(); // The generated HTML
+			// logger.info("html:\n {}", html);
+			// Set<String> warnings = result.getWarnings();
+			// logger.info("warnings: \n{}", warnings);
+		} catch (IOException e) {
+			logger.error(e.getMessage());
+		}
 
-	
+		return html;
+	}
+
 }

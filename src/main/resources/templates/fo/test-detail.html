@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org">
+
+<head>
+
+<title>Đề thi chi tiết</title>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="shortcut icon" href="#">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/bootstrap-4.4.1/css/bootstrap.min.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script th:src="@{/css/bootstrap-4.4.1/js/bootstrap.min.js}"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+</head>
+
+<body>
+	<!-- header -->
+	<header th:replace="fragments/fo/header.html :: header "> </header>
+	<!-- end header -->
+
+	<!-- content -->
+	<div class="container mt-3" style="width: 595.2756px;"
+		th:object="${test}">
+		<div class="page-title">ĐỀ THI CHI TIẾT</div>
+
+		<div class="test-content">
+			<div th:utext="${header}"></div>
+			<div>
+				<h3 class="text-center my-3 font-" th:text="${test.content}"></h3>
+			</div>
+			<div class="detail" th:each="question,iterStat : ${test.questions}">
+				<div>
+					<p class="font-weight-bold"
+						th:utext="'Câu ' + (${iterStat.index} + 1) + '. ' + ${question.content}"></p>
+				</div>
+				<div class="question-answer">
+					<div class="flex-row" th:if="${question.answerA} != null">
+						<div class="ml-4">
+							<p th:text="'A. ' + ${question.answerA}" style="width: 700px;">
+						</div>
+					</div>
+					<div class="flex-row" th:if="${question.answerB} != null">
+						<div class="ml-4">
+							<p th:text="'B. ' + ${question.answerB}" style="width: 700px;">
+						</div>
+					</div>
+					<div class="flex-row" th:if="${question.answerC} != null">
+						<div class="ml-4">
+							<p th:text="'C. ' + ${question.answerC}" style="width: 700px;">
+						</div>
+					</div>
+					<div class="flex-row" th:if="${question.answerD} != null">
+						<div class="ml-4">
+							<p th:text="'D. ' + ${question.answerD}" style="width: 700px;">
+						</div>
+					</div>
+					<div class="flex-row" th:if="${question.answerE} != null">
+						<div class="ml-4">
+							<p th:text="'E. ' + ${question.answerE}" style="width: 700px;">
+						</div>
+					</div>
+					<div class="flex-row" th:if="${question.answerF} != null">
+						<div class="ml-4">
+							<p th:text="'F. ' + ${question.answerF}" style="width: 700px;">
+						</div>
+					</div>
+					<div class="flex-row" th:if="${question.answerG} != null">
+						<div class="ml-4">
+							<p th:text="'G. ' + ${question.answerG}" style="width: 700px;">
+						</div>
+					</div>
+					<div class="flex-row" th:if="${question.answerH} != null">
+						<div class="ml-4">
+							<p th:text="'H. ' + ${question.answerH}" style="width: 700px;">
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+		<div class="mt-3 d-flex justify-content-center pb-3">
+			<div class="mx-2">
+				<input type="button" class="btn btn-success" value="Tải file word">
+			</div>
+			<div class="mx-2">
+				<input id="generatePdf" type="button"
+					class="btn btn-primary" value="Tải file pdf">
+			</div>
+			<div class="mx-2">
+				<input type="button" class="btn btn-danger" value="Huỷ bỏ">
+			</div>
+		</div>
+	</div>
+	<!-- end content -->
+
+	<!-- footer -->
+	<footer th:replace="fragments/fo/footer.html :: footer">
+		<p>2021 mqconline.com</p>
+	</footer>
+	<!-- end footer -->
+
+/* 	$(function() {
+	    $(document).on("click", "#generatePdf", function() {
+	    	let a4 = [595.28, 841.89]; // for a4 size paper width and height;
+	        var doc = new jsPDF(
+	            unit: 'px',
+	            format: 'a4'
+	        );
+	        doc.fromHTML($('#test-content').html(), 15, 15, {
+	            'width': 170
+	        });
+	        let today = new Date();
+	        let dd = today.getDate();
+	        let mm = today.getMonth() + 1;
+	        let yyyy = today.getFullYear();
+	        if (dd < 10) {
+	            dd = '0' + dd;
+	        }
+	        if (mm < 10) {
+	            mm = '0' + mm;
+	        }
+	        var today = dd + '/' + mm + '/' + yyyy;
+
+	        doc.save('de-thi_' + today + '.pdf');
+	    });
+	}); */
+
+    <script>  
+        (function () {  
+            var  
+             form = $('#test-content'),  
+             cache_width = form.width(),  
+             a4 = [595.28, 841.89]; // for a4 size paper width and height  
+      
+            $('#generatePdf').on('click', function () {  
+                $('body').scrollTop(0);  
+                createPDF();  
+            });  
+            //create pdf  
+            function createPDF() {  
+                getCanvas().then(function (canvas) {  
+                    var  
+                     img = canvas.toDataURL("image/png"),  
+                     doc = new jsPDF({  
+                         unit: 'px',  
+                         format: 'a4'  
+                     });  
+                    doc.addImage(img, 'JPEG', 20, 20);  
+                    doc.save('Bhavdip-html-to-pdf.pdf');  
+                    form.width(cache_width);  
+                });  
+            }  
+      
+            // create canvas object  
+            function getCanvas() {  
+                form.width((a4[0] * 1.33333) - 80).css('max-width', 'none');  
+                return html2canvas(form, {  
+                    imageTimeout: 2000,  
+                    removeContainer: true  
+                });  
+            }  
+      
+        }());  
+    </script>  
+    <script>  
+        /* 
+     * jQuery helper plugin for examples and tests 
+     */  
+        (function ($) {  
+            $.fn.html2canvas = function (options) {  
+                var date = new Date(),  
+                $message = null,  
+                timeoutTimer = false,  
+                timer = date.getTime();  
+                html2canvas.logging = options && options.logging;  
+                html2canvas.Preload(this[0], $.extend({  
+                    complete: function (images) {  
+                        var queue = html2canvas.Parse(this[0], images, options),  
+                        $canvas = $(html2canvas.Renderer(queue, options)),  
+                        finishTime = new Date();  
+      
+                        $canvas.css({ position: 'absolute', left: 0, top: 0 }).appendTo(document.body);  
+                        $canvas.siblings().toggle();  
+      
+                        $(window).click(function () {  
+                            if (!$canvas.is(':visible')) {  
+                                $canvas.toggle().siblings().toggle();  
+                                throwMessage("Canvas Render visible");  
+                            } else {  
+                                $canvas.siblings().toggle();  
+                                $canvas.toggle();  
+                                throwMessage("Canvas Render hidden");  
+                            }  
+                        });  
+                        throwMessage('Screenshot created in ' + ((finishTime.getTime() - timer) / 1000) + " seconds<br />", 4000);  
+                    }  
+                }, options));  
+      
+                function throwMessage(msg, duration) {  
+                    window.clearTimeout(timeoutTimer);  
+                    timeoutTimer = window.setTimeout(function () {  
+                        $message.fadeOut(function () {  
+                            $message.remove();  
+                        });  
+                    }, duration || 2000);  
+                    if ($message)  
+                        $message.remove();  
+                    $message = $('<div ></div>').html(msg).css({  
+                        margin: 0,  
+                        padding: 10,  
+                        background: "#000",  
+                        opacity: 0.7,  
+                        position: "fixed",  
+                        top: 10,  
+                        right: 10,  
+                        fontFamily: 'Tahoma',  
+                        color: '#fff',  
+                        fontSize: 12,  
+                        borderRadius: 12,  
+                        width: 'auto',  
+                        height: 'auto',  
+                        textAlign: 'center',  
+                        textDecoration: 'none'  
+                    }).hide().fadeIn().appendTo('body');  
+                }  
+            };  
+        })(jQuery);  
+      
+    </script>  
+
+</body>
+
+</html>
