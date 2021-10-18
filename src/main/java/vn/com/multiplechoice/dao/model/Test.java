@@ -2,11 +2,13 @@ package vn.com.multiplechoice.dao.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,6 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Table(name = "test")
@@ -32,6 +35,9 @@ public class Test implements Serializable {
 	@Column(name = "num_of_question")
 	private int numOfQuestions;
 
+	@Column(name = "create_date")
+	private Date createDate;
+
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User creator;
@@ -39,6 +45,10 @@ public class Test implements Serializable {
 	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinTable(name = "test_question", joinColumns = @JoinColumn(name = "test_id"), inverseJoinColumns = @JoinColumn(name = "question_id"))
 	private List<Question> questions = new ArrayList<>();
+
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "header_template_id")
+	private HeaderTemplate header;
 
 	public Long getId() {
 		return id;
@@ -64,6 +74,14 @@ public class Test implements Serializable {
 		this.numOfQuestions = numOfQuestions;
 	}
 
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+
 	public User getCreator() {
 		return creator;
 	}
@@ -78,6 +96,14 @@ public class Test implements Serializable {
 
 	public void setQuestions(List<Question> questions) {
 		this.questions = questions;
+	}
+
+	public HeaderTemplate getHeader() {
+		return header;
+	}
+
+	public void setHeader(HeaderTemplate header) {
+		this.header = header;
 	}
 
 }
