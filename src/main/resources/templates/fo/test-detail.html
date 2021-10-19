@@ -148,8 +148,20 @@
 									-(PDF_Height * i) + (top_left_margin * 4),
 									canvas_image_width, canvas_image_height);
 						}
-
-						pdf.save("HTML-Document.pdf");
+						let today = new Date();
+				        let dd = today.getDate();
+				        let mm = today.getMonth() + 1;
+				        let yyyy = today.getFullYear();
+				        if (dd < 10) {
+				            dd = '0' + dd;
+				        }
+				        if (mm < 10) {
+				            mm = '0' + mm;
+				        }
+				        
+				        let fileName = "[[${test.content}]]" ;
+				        today = dd + '/' + mm + '/' + yyyy;
+						pdf.save(fileName + "_" + today + ".pdf");
 					});
 		};
 	</script>
