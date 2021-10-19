@@ -2,17 +2,35 @@
 <html lang="vi" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>CHÍNH SÁCH VÀ ĐIỀU KHOẢN</title>
+
+<link rel="shortcut icon" href="#">
 <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap-4.4.1/css/bootstrap.min.css}" />
-<link rel="stylesheet" type="js" th:href="@{/css/bootstrap-4.4.1/js/bootstrap.min.js}" />
+<link rel="stylesheet" type="text/css" th:href="@{/vendor/fontawesome/css/fontawesome.min.css}">
 <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
 </head>
 <body>
-    <div class="container">
+	<!-- header -->
+    <header th:replace="fragments/fo/header.html :: header"></header>
+    <!-- end header -->
+    
+    <div class="container  mt-3">
         <div class="row">
             <div class="page-title text-capitalize">Chính sách dành cho người tham gia</div>
             <div></div>
         </div>
     </div>
+    
+    <footer th:replace="fragments/fo/footer.html :: footer">
+        <p>2021 mqconline.com</p>
+    </footer>
+    
 </body>
 </html>
