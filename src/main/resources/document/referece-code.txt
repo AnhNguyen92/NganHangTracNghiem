@@ -19,6 +19,11 @@
 	https://stingh711.github.io/dynamic-forms-with-springmvc-and-thymeleaf.html
 - Thymeleaf demos (many different demo)
 	https://frontbackend.com/thymeleaf
-- Convert doc to html
+- Convert doc to html (Java backend)
 	https://github.com/Vincit/spring-boot-word-to-html-example
 	https://github.com/mwilliamson/java-mammoth
+- Convert html to pdf
+	https://stackoverflow.com/questions/18191893/generate-pdf-from-html-in-div-using-javascript
+- Export html to doc
+	https://www.tutsplanet.com/export-html-to-ms-word-document-using-javascript/
+	https://qawithexperts.com/article/javascript/convert-html-to-word-with-images-using-javascript-or-using-j/251
