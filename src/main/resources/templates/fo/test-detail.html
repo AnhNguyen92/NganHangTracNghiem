@@ -95,11 +95,11 @@
 
 		<div class="mt-3 d-flex justify-content-center pb-3">
 			<div class="mx-2">
-				<input type="button" class="btn btn-success" value="Tải file word">
+				<input id="generateDocx" type="button" onclick="export2Word();" class="btn btn-primary" value="Tải file word">
 			</div>
 			<div class="mx-2">
 				<input id="generatePdf" type="button" onclick="getPDF()"
-					class="btn btn-primary" value="Tải file pdf">
+					class="btn btn-warning" value="Tải file pdf">
 			</div>
 			<div class="mx-2">
 				<input type="button" class="btn btn-danger" value="Huỷ bỏ">
@@ -148,22 +148,63 @@
 									-(PDF_Height * i) + (top_left_margin * 4),
 									canvas_image_width, canvas_image_height);
 						}
-						let today = new Date();
-				        let dd = today.getDate();
-				        let mm = today.getMonth() + 1;
-				        let yyyy = today.getFullYear();
-				        if (dd < 10) {
-				            dd = '0' + dd;
-				        }
-				        if (mm < 10) {
-				            mm = '0' + mm;
-				        }
+						
+				        let fileName = "[[${test.content}]]";
 				        
-				        let fileName = "[[${test.content}]]" ;
-				        today = dd + '/' + mm + '/' + yyyy;
-						pdf.save(fileName + "_" + today + ".pdf");
+						pdf.save(fileName + "_" + getTodayInformat() + ".pdf");
 					});
 		};
+		
+		function export2Word(){
+		    var preHtml = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Export HTML To Doc</title></head><body>";
+		    var postHtml = "</body></html>";
+		    var html = preHtml+document.getElementById('test-content').innerHTML+postHtml;
+
+		    var blob = new Blob(['\ufeff', html], {
+		        type: 'application/msword'
+		    });
+		    
+		    // Specify link url
+		    var url = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(html);
+		    
+		    // Specify file name
+		    filename = "[[${test.content}]]" + "_" + getTodayInformat() + '.doc';
+		    
+		    // Create download link element
+		    var downloadLink = document.createElement("a");
+
+		    document.body.appendChild(downloadLink);
+		    
+		    if(navigator.msSaveOrOpenBlob ){
+		        navigator.msSaveOrOpenBlob(blob, filename);
+		    }else{
+		        // Create a link to the file
+		        downloadLink.href = url;
+		        
+		        // Setting the file name
+		        downloadLink.download = filename;
+		        
+		        //triggering the function
+		        downloadLink.click();
+		    }
+		    
+		    document.body.removeChild(downloadLink);
+		}
+		
+		function getTodayInformat() {
+			let today = new Date();
+	        let dd = today.getDate();
+	        let mm = today.getMonth() + 1;
+	        let yyyy = today.getFullYear();
+	        if (dd < 10) {
+	            dd = '0' + dd;
+	        }
+	        if (mm < 10) {
+	            mm = '0' + mm;
+	        }
+	        
+	        return (dd + '/' + mm + '/' + yyyy);
+		}
 	</script>
 </body>
 
