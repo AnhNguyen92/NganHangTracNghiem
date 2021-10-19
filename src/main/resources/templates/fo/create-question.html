@@ -30,8 +30,8 @@
         <form th:action="@{/fo/questions/save}" method="post" th:object="${question}">
             <div class="create-options">
                 <div class="mb-2">
-                    <label style="width: 105px;">Loại câu hỏi</label>
-                    <select class="custom-select mr-sm-2" id="question-type" style="width: 140px;">
+                    <label style="width: 105px;">Loại câu hỏi</label> <select class="custom-select mr-sm-2"
+                        id="question-type" style="width: 140px;">
                         <option selected>Chọn...</option>
                         <option value="1">Một đáp án</option>
                         <option value="2">Nhiều đáp án</option>
@@ -41,8 +41,8 @@
                     </select>
                 </div>
                 <div class="mb-2">
-                    <label style="width: 105px;">Loại kiến thức</label>
-                    <select class="custom-select mr-sm-2" id="question-knowledge" style="width: 140px;">
+                    <label style="width: 105px;">Loại kiến thức</label> <select class="custom-select mr-sm-2"
+                        id="question-knowledge" style="width: 140px;">
                         <option selected>Chọn...</option>
                         <option value="1">Tổng hợp</option>
                         <option value="2">Toán</option>
@@ -54,23 +54,20 @@
                 <div>
                     <fieldset class="border p-2" id="question-level">
                         <legend class="w-auto">Mức độ câu hỏi</legend>
-                        <input type="radio" name="level" id="knowledge" value="knowledge" checked>
-                        <label for="knowledge">Nhận biết</label>
-                        <input type="radio" name="level" id="understandingsv" value="understanding">
-                        <label for="understandingsv">Thông hiểu</label>
-                        <input type="radio" name="level" id="manipulate" value="manipulate">
-                        <label for="manipulate">Vận dụng</label>
-                        <input type="radio" name="level" id="high-application" value="high application">
-                        <label for="high-application">Vận dụng cao</label>
+                        <input type="radio" name="level" id="knowledge" value="knowledge" checked> <label
+                            for="knowledge">Nhận biết</label> <input type="radio" name="level" id="understandingsv"
+                            value="understanding"> <label for="understandingsv">Thông hiểu</label> <input
+                            type="radio" name="level" id="manipulate" value="manipulate"> <label
+                            for="manipulate">Vận dụng</label> <input type="radio" name="level" id="high-application"
+                            value="high application"> <label for="high-application">Vận dụng cao</label>
                     </fieldset>
                 </div>
                 <div>
                     <fieldset class="border p-2" id="question-type">
                         <legend class="w-auto">Dạng câu hỏi</legend>
-                        <input type="radio" name="type" id="txt" value="txt" checked>
-                        <label for="txt">Dạng đơn</label>
-                        <input type="radio" name="type" id="csv" value="csv">
-                        <label for="csv">Dạng chùm</label>
+                        <input type="radio" name="type" id="txt" value="txt" checked> <label for="txt">Dạng
+                            đơn</label> <input type="radio" name="type" id="csv" value="csv"> <label for="csv">Dạng
+                            chùm</label>
                     </fieldset>
                 </div>
             </div>
@@ -79,22 +76,18 @@
                     <div>Nội dung câu hỏi</div>
                     <div>
                         <input type="button" id="add-note" onchange="addQuestionNote(event)" style="display: none;">
-                        <label style="cursor: pointer; margin: 0 auto;">
-                            <i class="fa fa-sticky-note px-2" aria-hidden="true"></i>
-                        </label>
-                        <input type="file" accept="image/*" name="image" id="file" onchange="loadFile(event)" style="display: none;">
-                        <label for="file" style="cursor: pointer; margin: 0 auto;">
+                        <label style="cursor: pointer; margin: 0 auto;"> <i class="fa fa-sticky-note px-2"
+                            aria-hidden="true"></i>
+                        </label> <input type="file" accept="image/*" name="image" id="file" onchange="loadFile(event)"
+                            style="display: none;"> <label for="file" style="cursor: pointer; margin: 0 auto;">
                             <i class="fa fa-paperclip" aria-hidden="true"></i>
                         </label>
                     </div>
                     <div class="ml-auto p-2">
-                        <i class="fa fa-align-right" aria-hidden="true"></i>
-                        <i class="fa fa-align-center" aria-hidden="true"></i>
-                        <i class="fa fa-align-left" aria-hidden="true"></i>
-                        <i class="fa fa-align-justify" aria-hidden="true"></i>
-                        <i class="fa fa-bold" aria-hidden="true"></i>
-                        <i class="fa fa-italic" aria-hidden="true"></i>
-                        <i class="fa fa-underline" aria-hidden="true"></i>
+                        <i class="fa fa-align-right" aria-hidden="true"></i> <i class="fa fa-align-center"
+                            aria-hidden="true"></i> <i class="fa fa-align-left" aria-hidden="true"></i> <i
+                            class="fa fa-align-justify" aria-hidden="true"></i> <i class="fa fa-bold" aria-hidden="true"></i>
+                        <i class="fa fa-italic" aria-hidden="true"></i> <i class="fa fa-underline" aria-hidden="true"></i>
                     </div>
                 </div>
                 <div class="mcp-content">
@@ -108,7 +101,8 @@
                         </div>
                         <div class="ml-auto p-2">
                             <button type="button" style="border: 0; outline: 0;">
-                                <i class="fa fa-plus" aria-hidden="true" title="Thêm câu hỏi" style="font-size: 30px; color: #28a745"></i>
+                                <i class="fa fa-plus" aria-hidden="true" title="Thêm câu hỏi"
+                                    style="font-size: 30px; color: #28a745"></i>
                             </button>
                         </div>
                     </div>
@@ -212,7 +206,7 @@
     <!-- end footer -->
 
 </body>
-    <script type="text/javascript">
+<script type="text/javascript">
         
         function onlyOneAnswer(checkbox) {
             let checkboxes = document.getElementsByClassName('checkbox-answer');
@@ -242,5 +236,5 @@
         }
         
     </script>
-    
+
 </html>

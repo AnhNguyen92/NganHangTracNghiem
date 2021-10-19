@@ -3,24 +3,24 @@
 
 <head>
 
-    <title>Tạo câu hỏi điền khuyết loại 1</title>
+<title>Tạo câu hỏi điền khuyết loại 1</title>
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="shortcut icon" href="#">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap-4.4.1/css/bootstrap.min.css}" />
-    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="shortcut icon" href="#">
+<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap-4.4.1/css/bootstrap.min.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <!-- include libraries(jQuery, bootstrap) -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<!-- include libraries(jQuery, bootstrap) -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-    <!-- include summernote css/js -->
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+<!-- include summernote css/js -->
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 
 </head>
 
@@ -38,7 +38,8 @@
                 <div class="extention d-flex flex-row mt-3">
                     <div>Nội dung câu hỏi</div>
                     <div>
-                        <input type="button" id="btn-filling" value="Tạo điền khuyết" onchange="addQuestionAnswer(event)">
+                        <input type="button" id="btn-filling" value="Tạo điền khuyết"
+                            onchange="addQuestionAnswer(event)">
                     </div>
                 </div>
                 <div>
@@ -51,8 +52,7 @@
                     <div class="total-answer d-flex">
                         <div class="text-danger p-1">Số đáp án</div>
                         <div class="text-center p-1">
-                            <label class="total-answer__value"
-                                th:text="${#lists.size(mcqDto.questionAnswerDtos)}">4</label>
+                            <label class="total-answer__value" th:text="${#lists.size(mcqDto.questionAnswerDtos)}">4</label>
                         </div>
                         <div class="ml-auto py-2">
                             <button class="btn-add-answer" id="btn-add-answer" type="submit" name="add-answer"
@@ -61,30 +61,40 @@
                             </button>
                         </div>
                     </div>
-                    <div class="answer-content" th:each="questionAnswerDto, questionAnswerDtoStat : *{questionAnswerDtos}">
+                    <div class="answer-content"
+                        th:each="questionAnswerDto, questionAnswerDtoStat : *{questionAnswerDtos}">
                         <div class="answer-content__item d-flex flex-row mb-2">
                             <div class="ml-2">
-                                <input type="checkbox" class="checkbox-answer" th:field="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].trueAnswer}" th:value="${mcqDto.questionAnswerDtos[__${questionAnswerDtoStat.index}__].trueAnswer}"
+                                <input type="checkbox" class="checkbox-answer"
+                                    th:field="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].trueAnswer}"
+                                    th:value="${mcqDto.questionAnswerDtos[__${questionAnswerDtoStat.index}__].trueAnswer}"
                                     onchange="updateTrueAnsVal(this)" title="Chọn đáp án đúng">
                             </div>
                             <div class="ml-4">
-                                <label class="answer__label" th:text="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].answerLabel}">Đáp án</label>
+                                <label class="answer__label"
+                                    th:text="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].answerLabel}">Đáp
+                                    án</label>
                             </div>
                             <div class="ml-4 w-100">
-                                <input type="text" title="Nội dung câu trả lời" class="answer__value" th:field="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].answerContent}">
+                                <input type="text" title="Nội dung câu trả lời" class="answer__value"
+                                    th:field="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].answerContent}">
                             </div>
                             <div>
-                                <input type="number" hidden="true" th:field="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].order}">
+                                <input type="number" hidden="true"
+                                    th:field="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].order}">
                             </div>
                             <div class="ml-4">
-                                <button class="btn-swap-answer" th:id=" 'btn-swap-pos-' + ${questionAnswerDtoStat.index} " type="button" title="Bỏ hoán vị vị trí" th:onclick="|return changePermutation(${questionAnswerDtoStat.index})|">
+                                <button class="btn-swap-answer"
+                                    th:id=" 'btn-swap-pos-' + ${questionAnswerDtoStat.index} " type="button"
+                                    title="Bỏ hoán vị vị trí"
+                                    th:onclick="|return changePermutation(${questionAnswerDtoStat.index})|">
                                     <i class="fa fa-exchange" aria-hidden="true"></i>
                                 </button>
                                 <!-- <input type="checkbox" hidden="true" th:id=" 'swap-pos-' + ${questionAnswerDtoStat.index}" th:field="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].randomPosition}" /> -->
                             </div>
                             <div class="ml-4">
-                                <button class="btn-delete-answer" type="submit" name="remove-answer" th:value="${questionAnswerDtoStat.index}"
-                                    onclick="return removeAnswer()">
+                                <button class="btn-delete-answer" type="submit" name="remove-answer"
+                                    th:value="${questionAnswerDtoStat.index}" onclick="return removeAnswer()">
                                     <i class="fa fa-window-close" aria-hidden="true"></i>
                                 </button>
                             </div>

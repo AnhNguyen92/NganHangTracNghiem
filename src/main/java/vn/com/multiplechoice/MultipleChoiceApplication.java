@@ -14,15 +14,15 @@ import vn.com.multiplechoice.MultipleChoiceApplication.CustomGenerator;
 @ComponentScan(nameGenerator = CustomGenerator.class)
 public class MultipleChoiceApplication extends SpringBootServletInitializer {
 
-    public static void main(String[] args) {
-        SpringApplication.run(MultipleChoiceApplication.class, args);
-    }
+	public static void main(String[] args) {
+		SpringApplication.run(MultipleChoiceApplication.class, args);
+	}
 
-    public static class CustomGenerator extends AnnotationBeanNameGenerator {
-        @Override
-        public String generateBeanName(BeanDefinition definition, BeanDefinitionRegistry registry) {
-            return definition.getBeanClassName();
-        }
-    }
+	public static class CustomGenerator extends AnnotationBeanNameGenerator {
+		@Override
+		public String generateBeanName(BeanDefinition definition, BeanDefinitionRegistry registry) {
+			return definition.getBeanClassName();
+		}
+	}
 
 }

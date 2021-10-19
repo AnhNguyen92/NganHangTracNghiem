@@ -25,46 +25,46 @@
 </head>
 
 <body>
-  <!-- header -->
-  <header th:replace="fragments/fo/header.html :: header "> </header>
-  <!-- end header -->
+    <!-- header -->
+    <header th:replace="fragments/fo/header.html :: header "> </header>
+    <!-- end header -->
 
-  <!-- content -->
-  <div class="container mt-3">
-    <div class="page-title">LIÊN HỆ</div>
-    <div>
-      <h2>
-        <span class="text-success" style="font-size: 16px;" th:utext="${message}"></span>
-      </h2>
+    <!-- content -->
+    <div class="container mt-3">
+        <div class="page-title">LIÊN HỆ</div>
+        <div>
+            <h2>
+                <span class="text-success" style="font-size: 16px;" th:utext="${message}"></span>
+            </h2>
+        </div>
+        <form id="f-contact" th:action="@{/fo/contact}" method="post" th:object="${userRequest}">
+            <div class="message">
+                <div class="extention d-flex flex-row mt-3">
+                    <div>Nội dung yêu cầu</div>
+                </div>
+                <div class="mcp-content">
+                    <textarea i="content" class="question-content" th:field="*{content}"></textarea>
+                </div>
+            </div>
+            <div class="mt-3 d-flex justify-content-center pb-3">
+                <div class="mx-2">
+                    <input type="submit" class="btn btn-success" value="Gửi">
+                </div>
+                <div class="mx-2">
+                    <a type="button" class="btn btn-danger" th:href="@{'/fo/index'}">Huỷ bỏ</a>
+                </div>
+            </div>
+        </form>
     </div>
-    <form id="f-contact" th:action="@{/fo/contact}" method="post" th:object="${userRequest}">
-      <div class="message">
-        <div class="extention d-flex flex-row mt-3">
-          <div>Nội dung yêu cầu</div>
-        </div>
-        <div class="mcp-content">
-          <textarea i="content" class="question-content" th:field="*{content}"></textarea>
-        </div>
-      </div>
-      <div class="mt-3 d-flex justify-content-center pb-3">
-        <div class="mx-2">
-          <input type="submit" class="btn btn-success" value="Gửi">
-        </div>
-        <div class="mx-2">
-          <a type="button" class="btn btn-danger" th:href="@{'/fo/index'}">Huỷ bỏ</a>
-        </div>
-      </div>
-    </form>
-  </div>
-  <!-- end content -->
+    <!-- end content -->
 
-  <!-- footer -->
-  <footer th:replace="fragments/fo/footer.html :: footer">
-    <p>2021 mqconline.com</p>
-  </footer>
-  <!-- end footer -->
+    <!-- footer -->
+    <footer th:replace="fragments/fo/footer.html :: footer">
+        <p>2021 mqconline.com</p>
+    </footer>
+    <!-- end footer -->
 
-  <script type="text/javascript">
+    <script type="text/javascript">
     $('#content').summernote({
         height: 200
     });

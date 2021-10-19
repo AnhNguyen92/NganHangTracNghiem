@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/fo/policy")
 public class PolicyController {
-    @GetMapping
-    public String policy() {
-        return "fo/policy";
-    }
+	@GetMapping
+	public String policy() {
+		return "fo/policy";
+	}
 }

@@ -22,54 +22,40 @@
             <div class="d-flex" style="position: relative; background-color: #EEF7F2;">
                 <div class="hd-logo"></div>
                 <div class="page-header font-weight-bold text-capitalize">
-                    Ngân hàng câu hỏi trắc nghiệm online
-                    <a href="home.html"></a>
+                    Ngân hàng câu hỏi trắc nghiệm online <a href="home.html"></a>
                 </div>
                 <div class="ml-auto bottom-text">
                     <ul class="nav nav-pills">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Chào
-                                Tuan Anh</a>
+                        <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-toggle="dropdown"
+                            href="#" role="button" aria-haspopup="true" aria-expanded="false">Chào Tuan Anh</a>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="/profile">Profile</a>
-                                <a class="dropdown-item" href="/test">Đề thi</a>
-                                <a class="dropdown-item" href="/logout">Đăng xuất</a>
-                            </div>
-                        </li>
+                                <a class="dropdown-item" href="/profile">Profile</a> <a class="dropdown-item"
+                                    href="/test">Đề thi</a> <a class="dropdown-item" href="/logout">Đăng xuất</a>
+                            </div></li>
                     </ul>
                 </div>
             </div>
         </div>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand" href="#">Trang chủ</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Tạo câu hỏi</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false"> Đề thi </a>
+                    <li class="nav-item"><a class="nav-link" href="#">Tạo câu hỏi</a></li>
+                    <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+                        role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Đề thi </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="#">Đề thi của tôi</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="#">Tạo mới</a>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Chính sách</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Liên hệ</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Hướng dẫn sử dụng</a>
-                    </li>
+                        </div></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Chính sách</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Liên hệ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Hướng dẫn sử dụng</a></li>
                 </ul>
             </div>
         </nav>
@@ -81,15 +67,13 @@
                         <fieldset class="border p-2" id="question-level">
                             <legend class="w-auto">Thiết lập đầu trang</legend>
                             <div class="form-group">
-                                <label class="font-weight-bold">
-                                    Chọn mẫu header
-                                    <span class="text-danger ml-2">*</span>
+                                <label class="font-weight-bold"> Chọn mẫu header <span class="text-danger ml-2">*</span>
                                 </label>
                                 <div class="custom-file">
                                     <input type="file"
                                         accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-                                        class="custom-file-input" id="customFile">
-                                    <label class="custom-file-label" for="customFile">Chọn file</label>
+                                        class="custom-file-input" id="customFile"> <label
+                                        class="custom-file-label" for="customFile">Chọn file</label>
                                 </div>
                             </div>
                         </fieldset>
@@ -108,7 +92,8 @@
                             </div> -->
                             <div class="mcp-content">
                                 <!-- <textarea class="end-exam-footer" style="width: -webkit-fill-available; min-height: 120px;">--- Hết ---</textarea> -->
-                                <textarea rows="4" id="content" placeholder="Content" class="form-control" th:field="*{content}" autocomplete="off"></textarea>
+                                <textarea rows="4" id="content" placeholder="Content" class="form-control"
+                                    th:field="*{content}" autocomplete="off"></textarea>
                             </div>
                         </fieldset>
                         <div class="action">
@@ -131,7 +116,8 @@
             <div class="row">
                 <div class="col-md-3 col-lg-3 my-md-3 my-0 mt-4 mb-1">
                     <h5 class="font-weight-bold text-uppercase mb-4">Ngân hàng câu hỏi trắc nghiệm</h5>
-                    <p>Đây là một hệ thống trực tuyến giúp bạn tạo đề thi dễ dàng trực quan. Hỗ trợ việc làm bài kiểm tra trực tuyến, in ấn đề thi.</p>
+                    <p>Đây là một hệ thống trực tuyến giúp bạn tạo đề thi dễ dàng trực quan. Hỗ trợ việc làm bài
+                        kiểm tra trực tuyến, in ấn đề thi.</p>
                 </div>
                 <hr class="clearfix w-100 d-md-none">
                 <div class="col-md-3 col-lg-3 my-md-4 my-0 mt-4 mb-1">
@@ -160,22 +146,21 @@
                     <ul class="list-unstyled">
                         <li>
                             <p>
-                                <i class="fa fa-map-marker mr-3" aria-hidden="true"></i>
-                                <a
+                                <i class="fa fa-map-marker mr-3" aria-hidden="true"></i> <a
                                     href="https://www.google.com/maps/place/%C4%90%E1%BA%A1i+H%E1%BB%8Dc+B%C3%A1ch+Khoa/@10.7726083,106.6555093,17z/data=!3m1!4b1!4m5!3m4!1s0x31752ec17709146b:0x54a1658a0639d341!8m2!3d10.772603!4d106.657698?hl=vi">268
                                     Lý Thường Kiệt, P.14, Q.10</a>
                             </p>
                         </li>
                         <li>
                             <p>
-                                <i class="fa fa-envelope-o mr-2" aria-hidden="true"></i>
-                                <a href="mailto:contact@mqconline.com">contact@mqconline.com</a>
+                                <i class="fa fa-envelope-o mr-2" aria-hidden="true"></i> <a
+                                    href="mailto:contact@mqconline.com">contact@mqconline.com</a>
                             </p>
                         </li>
                         <li>
                             <p>
-                                <i class="fa fa-phone mr-3" aria-hidden="true"></i>
-                                <a href="tel:09123456789">09 123 456 78</a>
+                                <i class="fa fa-phone mr-3" aria-hidden="true"></i> <a href="tel:09123456789">09 123
+                                    456 78</a>
                             </p>
                         </li>
                     </ul>
@@ -186,14 +171,14 @@
                     <ul class="list-unstyled">
                         <li>
                             <p>
-                                <i class="fa fa-facebook-official mr-2" aria-hidden="true"></i>
-                                <a href="facebook.com" target="_blank">Facebook</a>
+                                <i class="fa fa-facebook-official mr-2" aria-hidden="true"></i> <a href="facebook.com"
+                                    target="_blank">Facebook</a>
                             </p>
                         </li>
                         <li>
                             <p>
-                                <i class="fa fa-twitter mr-2" aria-hidden="true"></i>
-                                <a href="twitter.com/explore" target="_blank">Twister</a>
+                                <i class="fa fa-twitter mr-2" aria-hidden="true"></i> <a href="twitter.com/explore"
+                                    target="_blank">Twister</a>
                             </p>
                         </li>
                     </ul>
@@ -201,9 +186,7 @@
             </div>
         </div>
         <div class="footer-copyright text-center py-3">
-            © 2020 Copyright:
-            <a href="mqconline.com">mqconline.com</a>
-            - Nguyễn Tuấn Anh - 1733403
+            © 2020 Copyright: <a href="mqconline.com">mqconline.com</a> - Nguyễn Tuấn Anh - 1733403
         </div>
     </footer>
 </body>

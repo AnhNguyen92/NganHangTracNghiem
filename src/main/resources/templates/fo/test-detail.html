@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="vi" xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org">
+<html lang="vi" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org">
 
 <head>
 
@@ -23,222 +22,242 @@
 </head>
 
 <body>
-	<!-- header -->
-	<header th:replace="fragments/fo/header.html :: header "> </header>
-	<!-- end header -->
+    <!-- header -->
+    <header th:replace="fragments/fo/header.html :: header "> </header>
+    <!-- end header -->
 
-	<!-- content -->
-	<div class="container mt-3" style="width: 595.2756px;"
-		th:object="${test}">
-		<div class="page-title">ĐỀ THI CHI TIẾT</div>
+    <!-- content -->
+    <div class="container mt-3" style="width: 595.2756px;" th:object="${test}">
+        <div class="page-title">ĐỀ THI CHI TIẾT</div>
 
-		<div class="test-content" id="test-content">
-			<div th:utext="${header}"></div>
-			<div>
-				<h3 class="text-center my-3 font-" th:text="${test.content}"></h3>
-			</div>
-			<div class="detail" th:each="question,iterStat : ${test.questions}">
-				<div>
-					<p class="font-weight-bold"
-						th:utext="'Câu ' + (${iterStat.index} + 1) + '. ' + ${question.content}"></p>
-				</div>
-				<div class="question-answer">
-					<div class="flex-row" th:if="${question.answerA} != null">
-						<div class="ml-4">
-							<p th:text="'A. ' + ${question.answerA}" style="width: 700px;">
-						</div>
-					</div>
-					<div class="flex-row" th:if="${question.answerB} != null">
-						<div class="ml-4">
-							<p th:text="'B. ' + ${question.answerB}" style="width: 700px;">
-						</div>
-					</div>
-					<div class="flex-row" th:if="${question.answerC} != null">
-						<div class="ml-4">
-							<p th:text="'C. ' + ${question.answerC}" style="width: 700px;">
-						</div>
-					</div>
-					<div class="flex-row" th:if="${question.answerD} != null">
-						<div class="ml-4">
-							<p th:text="'D. ' + ${question.answerD}" style="width: 700px;">
-						</div>
-					</div>
-					<div class="flex-row" th:if="${question.answerE} != null">
-						<div class="ml-4">
-							<p th:text="'E. ' + ${question.answerE}" style="width: 700px;">
-						</div>
-					</div>
-					<div class="flex-row" th:if="${question.answerF} != null">
-						<div class="ml-4">
-							<p th:text="'F. ' + ${question.answerF}" style="width: 700px;">
-						</div>
-					</div>
-					<div class="flex-row" th:if="${question.answerG} != null">
-						<div class="ml-4">
-							<p th:text="'G. ' + ${question.answerG}" style="width: 700px;">
-						</div>
-					</div>
-					<div class="flex-row" th:if="${question.answerH} != null">
-						<div class="ml-4">
-							<p th:text="'H. ' + ${question.answerH}" style="width: 700px;">
-						</div>
-					</div>
-				</div>
+        <div class="test-content" id="test-content">
+            <div th:utext="${header}"></div>
+            <div>
+                <h3 class="text-center my-3 font-" th:text="${test.content}"></h3>
+            </div>
+            <div class="detail" th:each="question,iterStat : ${test.questions}">
+                <div>
+                    <p class="font-weight-bold" th:utext="'Câu ' + (${iterStat.index} + 1) + '. ' + ${question.content}"></p>
+                </div>
+                <div class="question-answer">
+                    <div class="flex-row" th:if="${question.answerA} != null">
+                        <div class="ml-4">
+                            <p th:text="'A. ' + ${question.answerA}" style="width: 700px;">
+                        </div>
+                    </div>
+                    <div class="flex-row" th:if="${question.answerB} != null">
+                        <div class="ml-4">
+                            <p th:text="'B. ' + ${question.answerB}" style="width: 700px;">
+                        </div>
+                    </div>
+                    <div class="flex-row" th:if="${question.answerC} != null">
+                        <div class="ml-4">
+                            <p th:text="'C. ' + ${question.answerC}" style="width: 700px;">
+                        </div>
+                    </div>
+                    <div class="flex-row" th:if="${question.answerD} != null">
+                        <div class="ml-4">
+                            <p th:text="'D. ' + ${question.answerD}" style="width: 700px;">
+                        </div>
+                    </div>
+                    <div class="flex-row" th:if="${question.answerE} != null">
+                        <div class="ml-4">
+                            <p th:text="'E. ' + ${question.answerE}" style="width: 700px;">
+                        </div>
+                    </div>
+                    <div class="flex-row" th:if="${question.answerF} != null">
+                        <div class="ml-4">
+                            <p th:text="'F. ' + ${question.answerF}" style="width: 700px;">
+                        </div>
+                    </div>
+                    <div class="flex-row" th:if="${question.answerG} != null">
+                        <div class="ml-4">
+                            <p th:text="'G. ' + ${question.answerG}" style="width: 700px;">
+                        </div>
+                    </div>
+                    <div class="flex-row" th:if="${question.answerH} != null">
+                        <div class="ml-4">
+                            <p th:text="'H. ' + ${question.answerH}" style="width: 700px;">
+                        </div>
+                    </div>
+                </div>
 
-			</div>
-		</div>
+            </div>
+        </div>
 
-		<div class="mt-3 d-flex justify-content-center pb-3">
-			<div class="mx-2">
-				<input id="generateDocx" type="button" onclick="export2Word();" class="btn btn-primary" value="Tải file word">
-			</div>
-			<div class="mx-2">
-				<input id="generatePdf" type="button" onclick="getPDF()"
-					class="btn btn-warning" value="Tải file pdf">
-			</div>
-			<div class="mx-2">
-				<input type="button" class="btn btn-danger" value="Huỷ bỏ">
-			</div>
-		</div>
-	</div>
-	<!-- end content -->
+        <div class="mt-3 d-flex justify-content-center pb-3">
+            <div class="mx-2">
+                <input id="generateDocx" type="button" onclick="export2Word();" class="btn btn-primary"
+                    value="Tải file word">
+            </div>
+            <div class="mx-2">
+                <input id="generatePdf" type="button" onclick="getPDF()" class="btn btn-warning" value="Tải file pdf">
+            </div>
+            <div class="mx-2">
+                <input type="button" class="btn btn-danger" value="Huỷ bỏ">
+            </div>
+        </div>
+    </div>
+    <!-- end content -->
 
-	<!-- footer -->
-	<footer th:replace="fragments/fo/footer.html :: footer">
-		<p>2021 mqconline.com</p>
-	</footer>
-	<!-- end footer -->
+    <!-- footer -->
+    <footer th:replace="fragments/fo/footer.html :: footer">
+        <p>2021 mqconline.com</p>
+    </footer>
+    <!-- end footer -->
 
-	<script type="text/javascript">
-		function getPDF() {
+    <script type="text/javascript">
+					function getPDF() {
 
-			let HTML_Width = $(".test-content").width();
-			let HTML_Height = $(".test-content").height();
-			let top_left_margin = 15;
-			let PDF_Width = HTML_Width + (top_left_margin * 2);
-			let PDF_Height = (PDF_Width * 1.5) + (top_left_margin * 2);
-			let canvas_image_width = HTML_Width;
-			let canvas_image_height = HTML_Height;
+						let HTML_Width = $(".test-content").width();
+						let HTML_Height = $(".test-content").height();
+						let top_left_margin = 15;
+						let PDF_Width = HTML_Width + (top_left_margin * 2);
+						let PDF_Height = (PDF_Width * 1.5)
+								+ (top_left_margin * 2);
+						let canvas_image_width = HTML_Width;
+						let canvas_image_height = HTML_Height;
 
-			let totalPDFPages = Math.ceil(HTML_Height / PDF_Height) - 1;
+						let totalPDFPages = Math.ceil(HTML_Height / PDF_Height) - 1;
 
-			html2canvas($(".test-content")[0], {
-				allowTaint : true
-			}).then(
-					function(canvas) {
-						canvas.getContext('2d');
+						html2canvas($(".test-content")[0], {
+							allowTaint : true
+						})
+								.then(
+										function(canvas) {
+											canvas.getContext('2d');
 
-						//console.log(canvas.height + "  " + canvas.width);
+											//console.log(canvas.height + "  " + canvas.width);
 
-						let imgData = canvas.toDataURL("image/jpeg", 1.0);
-						let pdf = new jsPDF('p', 'pt',
-								[ PDF_Width, PDF_Height ]);
-						pdf.addImage(imgData, 'JPG', top_left_margin,
-								top_left_margin, canvas_image_width,
-								canvas_image_height);
+											let imgData = canvas.toDataURL(
+													"image/jpeg", 1.0);
+											let pdf = new jsPDF('p', 'pt', [
+													PDF_Width, PDF_Height ]);
+											pdf.addImage(imgData, 'JPG',
+													top_left_margin,
+													top_left_margin,
+													canvas_image_width,
+													canvas_image_height);
 
-						for (let i = 1; i <= totalPDFPages; i++) {
-							pdf.addPage(PDF_Width, PDF_Height);
-							pdf.addImage(imgData, 'JPG', top_left_margin,
-									-(PDF_Height * i) + (top_left_margin * 4),
-									canvas_image_width, canvas_image_height);
+											for (let i = 1; i <= totalPDFPages; i++) {
+												pdf.addPage(PDF_Width,
+														PDF_Height);
+												pdf
+														.addImage(
+																imgData,
+																'JPG',
+																top_left_margin,
+																-(PDF_Height * i)
+																		+ (top_left_margin * 4),
+																canvas_image_width,
+																canvas_image_height);
+											}
+
+											let fileName = "[[${test.content}]]";
+
+											pdf.save(fileName + "_"
+													+ getTodayInformat()
+													+ ".pdf");
+										});
+					};
+
+					function ExportToDoc() {
+						let header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Export HTML to Word Document with JavaScript</title></head><body>";
+
+						let footer = "</body></html>";
+
+						let html = header
+								+ document.getElementById('test-content').innerHTML
+								+ footer;
+
+						let blob = new Blob([ '\ufeff', html ], {
+							type : 'application/msword'
+						});
+
+						// Specify link url
+						let url = 'data:application/vnd.ms-word;charset=utf-8,'
+								+ encodeURIComponent(html);
+
+						// Specify file name
+						filename = "[[${test.content}]]" + "_"
+								+ getTodayInformat() + '.docx';
+
+						// Create download link element
+						let downloadLink = document.createElement("a");
+
+						document.body.appendChild(downloadLink);
+
+						if (navigator.msSaveOrOpenBlob) {
+							navigator.msSaveOrOpenBlob(blob, filename);
+						} else {
+							// Create a link to the file
+							downloadLink.href = url;
+
+							// Setting the file name
+							downloadLink.download = filename;
+
+							//triggering the function
+							downloadLink.click();
 						}
-						
-				        let fileName = "[[${test.content}]]";
-				        
-						pdf.save(fileName + "_" + getTodayInformat() + ".pdf");
-					});
-		};
-		
-		function ExportToDoc(){
-		   let header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Export HTML to Word Document with JavaScript</title></head><body>";
 
-		   let footer = "</body></html>";
+						document.body.removeChild(downloadLink);
+					}
 
-		   let html = header + document.getElementById('test-content').innerHTML + footer;
+					function export2Word() {
+						let preHtml = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Export HTML To Doc</title></head><body>";
+						let postHtml = "</body></html>";
+						let html = preHtml
+								+ document.getElementById('test-content').innerHTML
+								+ postHtml;
 
-		   let blob = new Blob(['\ufeff', html], {
-		        type: 'application/msword'
-		    });
-		    
-		    // Specify link url
-		   let url = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(html);
-		    
-		    // Specify file name
-		    filename = "[[${test.content}]]" + "_" + getTodayInformat() + '.docx';
-		    
-		    // Create download link element
-		   let downloadLink = document.createElement("a");
+						let blob = new Blob([ '\ufeff', html ], {
+							type : 'application/msword'
+						});
 
-		    document.body.appendChild(downloadLink);
-		    
-		    if(navigator.msSaveOrOpenBlob ){
-		        navigator.msSaveOrOpenBlob(blob, filename);
-		    } else {
-		        // Create a link to the file
-		        downloadLink.href = url;
-		        
-		        // Setting the file name
-		        downloadLink.download = filename;
-		        
-		        //triggering the function
-		        downloadLink.click();
-		    }
-		    
-		    document.body.removeChild(downloadLink);
-		}
-		
-		function export2Word(){
-		   let preHtml = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Export HTML To Doc</title></head><body>";
-		   let postHtml = "</body></html>";
-		   let html = preHtml+document.getElementById('test-content').innerHTML + postHtml;
+						// Specify link url
+						let url = 'data:application/vnd.ms-word;charset=utf-8,'
+								+ encodeURIComponent(html);
 
-		   let blob = new Blob(['\ufeff', html], {
-		        type: 'application/msword'
-		    });
-		    
-		    // Specify link url
-		   let url = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(html);
-		    
-		    // Specify file name
-		    filename = "[[${test.content}]]" + "_" + getTodayInformat() + '.doc';
-		    
-		    // Create download link element
-		   let downloadLink = document.createElement("a");
+						// Specify file name
+						filename = "[[${test.content}]]" + "_"
+								+ getTodayInformat() + '.doc';
 
-		    document.body.appendChild(downloadLink);
-		    
-		    if(navigator.msSaveOrOpenBlob ){
-		        navigator.msSaveOrOpenBlob(blob, filename);
-		    } else {
-		        // Create a link to the file
-		        downloadLink.href = url;
-		        
-		        // Setting the file name
-		        downloadLink.download = filename;
-		        
-		        //triggering the function
-		        downloadLink.click();
-		    }
-		    
-		    document.body.removeChild(downloadLink);
-		}
-		
-		function getTodayInformat() {
-			let today = new Date();
-	        let dd = today.getDate();
-	        let mm = today.getMonth() + 1;
-	        let yyyy = today.getFullYear();
-	        if (dd < 10) {
-	            dd = '0' + dd;
-	        }
-	        if (mm < 10) {
-	            mm = '0' + mm;
-	        }
-	        
-	        return (dd + '/' + mm + '/' + yyyy);
-		}
-	</script>
+						// Create download link element
+						let downloadLink = document.createElement("a");
+
+						document.body.appendChild(downloadLink);
+
+						if (navigator.msSaveOrOpenBlob) {
+							navigator.msSaveOrOpenBlob(blob, filename);
+						} else {
+							// Create a link to the file
+							downloadLink.href = url;
+
+							// Setting the file name
+							downloadLink.download = filename;
+
+							//triggering the function
+							downloadLink.click();
+						}
+
+						document.body.removeChild(downloadLink);
+					}
+
+					function getTodayInformat() {
+						let today = new Date();
+						let dd = today.getDate();
+						let mm = today.getMonth() + 1;
+						let yyyy = today.getFullYear();
+						if (dd < 10) {
+							dd = '0' + dd;
+						}
+						if (mm < 10) {
+							mm = '0' + mm;
+						}
+
+						return (dd + '/' + mm + '/' + yyyy);
+					}
+				</script>
 </body>
 
 </html>
