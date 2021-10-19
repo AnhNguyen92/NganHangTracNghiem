@@ -22,7 +22,8 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script th:src="@{/css/bootstrap-4.4.1/js/bootstrap.min.js}"></script>
 <script
-	src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+	src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.3/jspdf.min.js"></script>
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
 
 </head>
 
@@ -97,8 +98,8 @@
 				<input type="button" class="btn btn-success" value="Tải file word">
 			</div>
 			<div class="mx-2">
-				<input id="generatePdf" type="button" class="btn btn-primary"
-					value="Tải file pdf">
+				<input id="generatePdf" type="button" onclick="getPDF()"
+					class="btn btn-primary" value="Tải file pdf">
 			</div>
 			<div class="mx-2">
 				<input type="button" class="btn btn-danger" value="Huỷ bỏ">
@@ -112,19 +113,40 @@
 		<p>2021 mqconline.com</p>
 	</footer>
 	<!-- end footer -->
-	
+
 	<script type="text/javascript">
-        $("#generatePdf").on("click", function () {
-            var divContents = $("#test-content").html();
-            var printWindow = window.open('', '', 'height=400,width=800');
-            printWindow.document.write('<html><head><title></title>');
-            printWindow.document.write('</head><body >');
-            printWindow.document.write(divContents);
-            printWindow.document.write('</body></html>');
-            printWindow.document.close();
-            printWindow.print();
+	function getPDF(){
+
+		let HTML_Width = $(".test-content").width();
+		let HTML_Height = $(".test-content").height();
+		let top_left_margin = 15;
+		let PDF_Width = HTML_Width+(top_left_margin*2);
+		let PDF_Height = (PDF_Width*1.5)+(top_left_margin*2);
+		let canvas_image_width = HTML_Width;
+		let canvas_image_height = HTML_Height;
+		
+		let totalPDFPages = Math.ceil(HTML_Height/PDF_Height)-1;
+		
+
+		html2canvas($(".test-content")[0],{allowTaint:true}).then(function(canvas) {
+			canvas.getContext('2d');
+			
+			console.log(canvas.height+"  "+canvas.width);
+			
+			
+			let imgData = canvas.toDataURL("image/jpeg", 1.0);
+			let pdf = new jsPDF('p', 'pt',  [PDF_Width, PDF_Height]);
+		    pdf.addImage(imgData, 'JPG', top_left_margin, top_left_margin,canvas_image_width,canvas_image_height);
+			
+			
+			for (let i = 1; i <= totalPDFPages; i++) { 
+				pdf.addPage(PDF_Width, PDF_Height);
+				pdf.addImage(imgData, 'JPG', top_left_margin, -(PDF_Height*i)+(top_left_margin*4),canvas_image_width,canvas_image_height);
+			}
+			
+		    pdf.save("HTML-Document.pdf");
         });
-    </script>
+	};
 
 </body>
 
