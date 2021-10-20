@@ -16,7 +16,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script th:src="@{/css/bootstrap-4.4.1/js/bootstrap.min.js}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.3/jspdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
 <script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
 
 </head>
@@ -87,7 +87,7 @@
 
         <div class="mt-3 d-flex justify-content-center pb-3">
             <div class="mx-2">
-                <input id="generateDocx" type="button" onclick="export2Word();" class="btn btn-primary"
+                <input id="generateDocx" type="button" onclick="ExportToDoc();" class="btn btn-primary"
                     value="Tải file word">
             </div>
             <div class="mx-2">
@@ -107,157 +107,152 @@
     <!-- end footer -->
 
     <script type="text/javascript">
-					function getPDF() {
+    function getPDF() {
+        let HTML_Width = $(".test-content").width();
+        let HTML_Height = $(".test-content").height();
+        let top_left_margin = 15;
+        let PDF_Width = HTML_Width + (top_left_margin * 2);
+        let PDF_Height = (PDF_Width * 1.5) + (top_left_margin * 2);
+        let canvas_image_width = HTML_Width;
+        let canvas_image_height = HTML_Height;
+        let totalPDFPages = Math.ceil(HTML_Height / PDF_Height) - 1;
 
-						let HTML_Width = $(".test-content").width();
-						let HTML_Height = $(".test-content").height();
-						let top_left_margin = 15;
-						let PDF_Width = HTML_Width + (top_left_margin * 2);
-						let PDF_Height = (PDF_Width * 1.5)
-								+ (top_left_margin * 2);
-						let canvas_image_width = HTML_Width;
-						let canvas_image_height = HTML_Height;
+        html2canvas($(".test-content")[0], {
+                allowTaint: true
+            })
+            .then(
+                function(canvas) {
+                    canvas.getContext('2d');
+                    //console.log(canvas.height + "  " + canvas.width);
+                    let imgData = canvas.toDataURL("image/jpeg", 1.0);
+                    let pdf = new jsPDF('p', 'pt', [
+                        PDF_Width, PDF_Height
+                    ]);
+                    pdf.addImage(imgData, 'JPG',
+                        top_left_margin,
+                        top_left_margin,
+                        canvas_image_width,
+                        canvas_image_height);
 
-						let totalPDFPages = Math.ceil(HTML_Height / PDF_Height) - 1;
+                    for (let i = 1; i <= totalPDFPages; i++) {
+                        pdf.addPage(PDF_Width,
+                            PDF_Height);
+                        pdf
+                            .addImage(
+                                imgData,
+                                'JPG',
+                                top_left_margin,
+                                -(PDF_Height * i) +
+                                (top_left_margin * 4),
+                                canvas_image_width,
+                                canvas_image_height);
+                    }
 
-						html2canvas($(".test-content")[0], {
-							allowTaint : true
-						})
-								.then(
-										function(canvas) {
-											canvas.getContext('2d');
+                    let fileName = "[[${test.content}]]";
 
-											//console.log(canvas.height + "  " + canvas.width);
+                    pdf.save(fileName + "_" +
+                        getTodayInformat() +
+                        ".pdf");
+                });
+    };
 
-											let imgData = canvas.toDataURL(
-													"image/jpeg", 1.0);
-											let pdf = new jsPDF('p', 'pt', [
-													PDF_Width, PDF_Height ]);
-											pdf.addImage(imgData, 'JPG',
-													top_left_margin,
-													top_left_margin,
-													canvas_image_width,
-													canvas_image_height);
+    function ExportToDoc() {
+        let header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Export HTML to Word Document with JavaScript</title></head><body>";
 
-											for (let i = 1; i <= totalPDFPages; i++) {
-												pdf.addPage(PDF_Width,
-														PDF_Height);
-												pdf
-														.addImage(
-																imgData,
-																'JPG',
-																top_left_margin,
-																-(PDF_Height * i)
-																		+ (top_left_margin * 4),
-																canvas_image_width,
-																canvas_image_height);
-											}
+        let footer = "</body></html>";
 
-											let fileName = "[[${test.content}]]";
+        let html = header +
+            document.getElementById('test-content').innerHTML +
+            footer;
 
-											pdf.save(fileName + "_"
-													+ getTodayInformat()
-													+ ".pdf");
-										});
-					};
+        let blob = new Blob(['\ufeff', html], {
+            type: 'application/msword'
+        });
 
-					function ExportToDoc() {
-						let header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Export HTML to Word Document with JavaScript</title></head><body>";
+        // Specify link url
+        let url = 'data:application/vnd.ms-word;charset=utf-8,' +
+            encodeURIComponent(html);
 
-						let footer = "</body></html>";
+        // Specify file name
+        filename = "[[${test.content}]]" + "_" +
+            getTodayInformat() + '.docx';
 
-						let html = header
-								+ document.getElementById('test-content').innerHTML
-								+ footer;
+        // Create download link element
+        let downloadLink = document.createElement("a");
 
-						let blob = new Blob([ '\ufeff', html ], {
-							type : 'application/msword'
-						});
+        document.body.appendChild(downloadLink);
 
-						// Specify link url
-						let url = 'data:application/vnd.ms-word;charset=utf-8,'
-								+ encodeURIComponent(html);
+        if (navigator.msSaveOrOpenBlob) {
+            navigator.msSaveOrOpenBlob(blob, filename);
+        } else {
+            // Create a link to the file
+            downloadLink.href = url;
 
-						// Specify file name
-						filename = "[[${test.content}]]" + "_"
-								+ getTodayInformat() + '.docx';
+            // Setting the file name
+            downloadLink.download = filename;
 
-						// Create download link element
-						let downloadLink = document.createElement("a");
+            //triggering the function
+            downloadLink.click();
+        }
 
-						document.body.appendChild(downloadLink);
+        document.body.removeChild(downloadLink);
+    }
 
-						if (navigator.msSaveOrOpenBlob) {
-							navigator.msSaveOrOpenBlob(blob, filename);
-						} else {
-							// Create a link to the file
-							downloadLink.href = url;
+    function export2Word() {
+        let preHtml = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Export HTML To Doc</title></head><body>";
+        let postHtml = "</body></html>";
+        let html = preHtml +
+            document.getElementById('test-content').innerHTML +
+            postHtml;
 
-							// Setting the file name
-							downloadLink.download = filename;
+        let blob = new Blob(['\ufeff', html], {
+            type: 'application/msword'
+        });
 
-							//triggering the function
-							downloadLink.click();
-						}
+        // Specify link url
+        let url = 'data:application/vnd.ms-word;charset=utf-8,' +
+            encodeURIComponent(html);
 
-						document.body.removeChild(downloadLink);
-					}
+        // Specify file name
+        filename = "[[${test.content}]]" + "_" +
+            getTodayInformat() + '.docx';
 
-					function export2Word() {
-						let preHtml = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Export HTML To Doc</title></head><body>";
-						let postHtml = "</body></html>";
-						let html = preHtml
-								+ document.getElementById('test-content').innerHTML
-								+ postHtml;
+        // Create download link element
+        let downloadLink = document.createElement("a");
 
-						let blob = new Blob([ '\ufeff', html ], {
-							type : 'application/msword'
-						});
+        document.body.appendChild(downloadLink);
 
-						// Specify link url
-						let url = 'data:application/vnd.ms-word;charset=utf-8,'
-								+ encodeURIComponent(html);
+        if (navigator.msSaveOrOpenBlob) {
+            navigator.msSaveOrOpenBlob(blob, filename);
+        } else {
+            // Create a link to the file
+            downloadLink.href = url;
 
-						// Specify file name
-						filename = "[[${test.content}]]" + "_"
-								+ getTodayInformat() + '.doc';
+            // Setting the file name
+            downloadLink.download = filename;
 
-						// Create download link element
-						let downloadLink = document.createElement("a");
+            //triggering the function
+            downloadLink.click();
+        }
 
-						document.body.appendChild(downloadLink);
+        document.body.removeChild(downloadLink);
+    }
 
-						if (navigator.msSaveOrOpenBlob) {
-							navigator.msSaveOrOpenBlob(blob, filename);
-						} else {
-							// Create a link to the file
-							downloadLink.href = url;
+    function getTodayInformat() {
+        let today = new Date();
+        let dd = today.getDate();
+        let mm = today.getMonth() + 1;
+        let yyyy = today.getFullYear();
+        if (dd < 10) {
+            dd = '0' + dd;
+        }
+        if (mm < 10) {
+            mm = '0' + mm;
+        }
 
-							// Setting the file name
-							downloadLink.download = filename;
-
-							//triggering the function
-							downloadLink.click();
-						}
-
-						document.body.removeChild(downloadLink);
-					}
-
-					function getTodayInformat() {
-						let today = new Date();
-						let dd = today.getDate();
-						let mm = today.getMonth() + 1;
-						let yyyy = today.getFullYear();
-						if (dd < 10) {
-							dd = '0' + dd;
-						}
-						if (mm < 10) {
-							mm = '0' + mm;
-						}
-
-						return (dd + '/' + mm + '/' + yyyy);
-					}
-				</script>
+        return (dd + '/' + mm + '/' + yyyy);
+    }
+	</script>
 </body>
 
 </html>
