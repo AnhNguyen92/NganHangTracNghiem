@@ -12,8 +12,7 @@
 <link th:rel="stylesheet" th:href="@{/vendor/bootstrap-datepicker/css/bootstrap-datepicker.css}" />
 <link th:rel="stylesheet" th:href="@{/vendor/bootstrap-datepicker/css/bootstrap-datepicker.standalone.css}" />
 <link th:rel="stylesheet" th:href="@{/assets/datatable/datatables.css}" />
-<!-- <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} " />
- --><link th:href="@{/css/sb-admin-2.min.css}" rel="stylesheet">
+ <link th:href="@{/css/sb-admin-2.min.css}" rel="stylesheet">
 
 </head>
 <body id="page-top">
@@ -50,7 +49,7 @@
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item active">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-cog"></i>
+                    <i class="fas fa-fw fa-user"></i>
                     <span>Người Dùng</span>
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -62,7 +61,19 @@
                     </div>
                 </div>
             </li>
-
+            <li class="nav-item active">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+                    <i class="fas fa-fw fa-question-circle"></i>
+                    <span>Câu hỏi</span>
+                </a>
+                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Các Trang:</h6>
+                        <a class="collapse-item" th:href="@{/bo/questions}">Danh Sách</a>
+                        <a class="collapse-item" th:href="@{/bo/questions/new}">Thêm Mới</a>
+                    </div>
+                </div>
+            </li>
             <!-- Divider -->
             <hr class="sidebar-divider">
 
