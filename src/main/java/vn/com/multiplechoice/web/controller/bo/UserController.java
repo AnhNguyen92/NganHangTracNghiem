@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import vn.com.multiplechoice.business.converter.UserConverter;
+import vn.com.multiplechoice.business.service.QuestionService;
 import vn.com.multiplechoice.business.service.UserService;
 import vn.com.multiplechoice.dao.model.User;
 import vn.com.multiplechoice.web.dto.UserDto;
@@ -25,7 +26,7 @@ public class UserController {
 
     private static final Logger log = LoggerFactory.getLogger(UserController.class);
 
-    private static final String BO_LOGIN = "/bo/login";
+    private static final String BO_LOGIN = "bo/login";
     private static final String BO_USER_LIST = "bo/user-list";
 
     @Autowired
