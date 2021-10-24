@@ -1,0 +1,111 @@
+<!DOCTYPE HTML>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>THÊM NGƯỜI DÙNG MỚI</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<link rel="shortcut icon" href="#">
+<link th:href="@{/vendor/fontawesome/css/all.min.css}" rel="stylesheet" type="text/css">
+<link th:rel="stylesheet" th:href="@{/vendor/bootstrap-datepicker/css/bootstrap-datepicker.css}" />
+<link th:rel="stylesheet" th:href="@{/vendor/bootstrap-datepicker/css/bootstrap-datepicker.standalone.css}" />
+
+<!-- Custom styles for this template-->
+<link th:href="@{/css/sb-admin-2.min.css}" rel="stylesheet">
+</head>
+<body id="page-top">
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+        <!-- header -->
+        <header th:replace="fragments/bo/header.html :: header "> </header>
+        <!-- end header -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+
+                        <div class="topbar-divider d-none d-sm-block"></div>
+
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item dropdown no-arrow"><a class="nav-link dropdown-toggle" href="#"
+                            id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false"> <span class="mr-2 d-none d-lg-inline text-gray-600 small"
+                                th:text="${#authentication.getPrincipal().getUsername()}">Chào Admin</span> <img
+                                class="img-profile rounded-circle" th:src="@{/imgs/undraw_profile.svg}" alt="profile">
+                        </a> <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
+                                <a class="dropdown-item" th:href="@{/bo/j_spring_security_logout}"> <span
+                                    class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></span> Đăng Xuất
+                                </a>
+                            </div></li>
+
+                    </ul>
+
+                </nav>
+                <!-- End of Topbar -->
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+                    <!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+                    </div>
+                    <div>
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary text-center text-capitalize">Thông tin
+                                    người dùng</h6>
+                            </div>
+                            <div class="d-flex py-3 justify-content-center">
+                                <div class="col-lg-6">
+                                    <form th:action="@{/bo/questions/save}" th:object="${question}" method="POST">
+
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.container-fluid -->
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- footer -->
+            <footer th:replace="fragments/bo/footer.html :: footer">
+                <p>2021 mqconline.com</p>
+            </footer>
+            <!-- end footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top"> <i class="fas fa-angle-up"></i>
+    </a>
+
+</body>
+
+<script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script th:src="@{/vendor/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js}"></script>
+
+<!-- Custom scripts for all pages-->
+<script th:src="@{/js/sb-admin-2.min.js}"></script>
+
+</html>
