@@ -44,7 +44,7 @@ public class TestController {
 	}
 
 	public String create(Model model) {
-		logger.info("------- Start create test -------");
+		logger.info("------- Start create a new test -------");
 		model.addAttribute("test", new Test());
 		return "bo/test";
 	}
