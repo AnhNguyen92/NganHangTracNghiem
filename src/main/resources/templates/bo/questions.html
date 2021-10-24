@@ -39,18 +39,23 @@
                         <div class="topbar-divider d-none d-sm-block"></div>
 
                         <!-- Nav Item - User Information -->
-                        <li class="nav-item dropdown no-arrow"><a class="nav-link dropdown-toggle" href="#"
-                            id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false"> <span class="mr-2 d-none d-lg-inline text-gray-600 small"
-                                th:text="${#authentication.getPrincipal().getUsername()}">Chào Admin</span> <img
-                                class="img-profile rounded-circle" th:src="@{/imgs/undraw_profile.svg}" alt="profile">
-                        </a> <!-- Dropdown - User Information -->
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"
+                                    th:text="${#authentication.getPrincipal().getUsername()}">Chào Admin</span>
+                                <img class="img-profile rounded-circle" th:src="@{/imgs/undraw_profile.svg}"
+                                    alt="profile">
+                            </a>
+                            <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" th:href="@{/bo/j_spring_security_logout}"> <span
-                                    class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></span> Đăng Xuất
+                                <a class="dropdown-item" th:href="@{/bo/j_spring_security_logout}">
+                                    <span class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></span>
+                                    Đăng Xuất
                                 </a>
-                            </div></li>
+                            </div>
+                        </li>
 
                     </ul>
 
@@ -70,8 +75,7 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table id="example" class="table table-bordered table-responsive" th:object="questions"
-                                    style="width: 100%">
+                                <table id="example" class="table table-bordered table-responsive" style="width: 100%">
                                     <thead>
                                         <tr>
                                             <th>ID</th>
@@ -84,13 +88,21 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr th:each="question : ${questions.page.content}">
+                                        <tr th:each="question : ${questions}">
                                             <td th:text="${question.id}"></td>
                                             <td th:text="${question.content}"></td>
                                             <td th:text="${question.questionType}"></td>
-                                            <td th:text="${question.suggest}"></td>
-                                            <td th:text="${question.user.username}"></td>
-                                            <td></td>
+                                            <td th:text="${question.rightAnswer}"></td>
+                                            <td th:utext="${question.suggest}"></td>
+                                            <td th:text="*{question.user.username}"></td>
+                                            <td>
+                                                <div class="d-flex justify-content-around">
+                                                    <a th:href="@{'/bo/questions/' + ${question.id}}"
+                                                        class="btn btn-primary mr-2" title="Chi tiết">
+                                                        <i class="fa fa-pencil-alt" aria-hidden="true"></i>
+                                                    </a>
+                                                </div>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -115,7 +127,8 @@
         <!-- End of Page Wrapper -->
 
         <!-- Scroll to Top Button-->
-        <a class="scroll-to-top rounded" href="#page-top"> <i class="fas fa-angle-up"></i>
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fas fa-angle-up"></i>
         </a>
     </div>
 </body>
