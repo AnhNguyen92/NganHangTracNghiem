@@ -13,11 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import vn.com.multiplechoice.business.service.QuestionService;
 import vn.com.multiplechoice.dao.model.Question;
+import vn.com.multiplechoice.dao.model.Test;
 
 @Controller
 @RequestMapping("/bo/questions")
 public class QuestionController {
-    private static final Logger log = LoggerFactory.getLogger(QuestionController.class);
+    private static final Logger logger = LoggerFactory.getLogger(QuestionController.class);
 
     private QuestionService questionService;
     
@@ -29,8 +30,8 @@ public class QuestionController {
     @GetMapping(value = { "", "/list" })
 //    public String getQuestions(@RequestParam(value = "pageNumber", required = false, defaultValue = "1") int pageNumber,
 //            @RequestParam(value = "size", required = false, defaultValue = "5") int size, Model model) {
-	public String getQuestions(Model model) {
-    	log.info("start get list question");
+	public String list(Model model) {
+    	logger.info("start get list question");
 		int pageNumber = 1;
 		int size = 5;
 		List<Question> questions = questionService.findAll();
@@ -41,7 +42,7 @@ public class QuestionController {
 
     @GetMapping("/{id}")
 	public String detail(Model model, @PathVariable long id) {
-    	log.info("start get question detail");
+    	logger.info("start get question detail");
     	Question question = questionService.findOne(id);
     	if (question == null) {
     		return "bo/error/404";
@@ -51,4 +52,16 @@ public class QuestionController {
 		return "bo/question";
 	}
 
+    public String create(Model model) {
+		logger.info("------- Start create new question -------");
+		model.addAttribute("test", new Question());
+		return "bo/test";
+	}
+
+	public String save(Question question) {
+		logger.info("------- Start save new test -------");
+		questionService.save(question);
+		
+		return "redirect:bo/questions/" + question.getId();
+	}
 }
