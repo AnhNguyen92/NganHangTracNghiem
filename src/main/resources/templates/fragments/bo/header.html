@@ -45,10 +45,24 @@
     <li class="nav-item active">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true"
             aria-controls="collapseThree">
+            <i class="fas fa-book-open"></i>
+            <span>Đề thi</span>
+        </a>
+        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Các Trang:</h6>
+                <a class="collapse-item" th:href="@{/bo/tests}">Danh Sách</a>
+                <a class="collapse-item" th:href="@{/bo/tests/new}">Thêm Mới</a>
+            </div>
+        </div>
+    </li>
+    <li class="nav-item active">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFour" aria-expanded="true"
+            aria-controls="collapseFour">
             <i class="fas fa-fw fa-question-circle"></i>
             <span>Câu hỏi</span>
         </a>
-        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionSidebar">
+        <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Các Trang:</h6>
                 <a class="collapse-item" th:href="@{/bo/questions}">Danh Sách</a>
