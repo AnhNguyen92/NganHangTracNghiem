@@ -13,65 +13,16 @@
 <link th:rel="stylesheet" th:href="@{/vendor/bootstrap-datepicker/css/bootstrap-datepicker.standalone.css}" />
 <link th:rel="stylesheet" th:href="@{/assets/datatable/datatables.css}" />
 <!-- <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} " />
- --><link th:href="@{/css/sb-admin-2.min.css}" rel="stylesheet">
+ -->
+<link th:href="@{/css/sb-admin-2.min.css}" rel="stylesheet">
 
 </head>
 <body id="page-top">
     <!-- Page Wrapper -->
     <div id="wrapper">
-        <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
-            <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-                <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laugh-wink"></i>
-                </div>
-                <div class="sidebar-brand-text mx-3">MCQ Admin</div>
-            </a>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider my-0">
-
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
-                <a class="nav-link" th:href="@{''}">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span>
-                </a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Heading -->
-            <div class="sidebar-heading">Interface</div>
-
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item active">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>Người Dùng</span>
-                </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Các Trang:</h6>
-                        <a class="collapse-item" th:href="@{''}">Danh Sách</a>
-                        <a class="collapse-item" th:href="@{/bo/users/waiting-list}">Danh Sách Chờ</a>
-                        <a class="collapse-item" th:href="@{/bo/users/new}">Thêm Mới</a>
-                    </div>
-                </div>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Sidebar Toggler (Sidebar) -->
-            <div class="text-center d-none d-md-inline">
-                <button class="rounded-circle border-0" id="sidebarToggle"></button>
-            </div>
-        </ul>
-        <!-- End of Sidebar -->
+        <!-- header -->
+        <header th:replace="fragments/bo/header.html :: header "> </header>
+        <!-- end header -->
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
@@ -90,21 +41,18 @@
                         <div class="topbar-divider d-none d-sm-block"></div>
 
                         <!-- Nav Item - User Information -->
-                        <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
-                                aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small" th:text="${#authentication.getPrincipal().getUsername()}">Chào
-                                    Admin</span>
-                                <img class="img-profile rounded-circle" th:src="@{/imgs/undraw_profile.svg}" alt="profile">
-                            </a>
-                            <!-- Dropdown - User Information -->
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                                <a class="dropdown-item" th:href="@{/bo/j_spring_security_logout}">
-                                    <span class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></span>
-                                    Đăng Xuất
+                        <li class="nav-item dropdown no-arrow"><a class="nav-link dropdown-toggle" href="#"
+                            id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false"> <span class="mr-2 d-none d-lg-inline text-gray-600 small"
+                                th:text="${#authentication.getPrincipal().getUsername()}">Chào Admin</span> <img
+                                class="img-profile rounded-circle" th:src="@{/imgs/undraw_profile.svg}" alt="profile">
+                        </a> <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
+                                <a class="dropdown-item" th:href="@{/bo/j_spring_security_logout}"> <span
+                                    class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></span> Đăng Xuất
                                 </a>
-                            </div>
-                        </li>
+                            </div></li>
 
                     </ul>
 
@@ -147,15 +95,11 @@
                 </div>
                 <!-- End of Main Content -->
 
-                <!-- Footer -->
-                <footer class="sticky-footer bg-white">
-                    <div class="container my-auto">
-                        <div class="copyright text-center my-auto">
-                            <span>Copyright &copy; MQC Admin 2021</span>
-                        </div>
-                    </div>
+                <!-- footer -->
+                <footer th:replace="fragments/bo/footer.html :: footer">
+                    <p>2021 mqconline.com</p>
                 </footer>
-                <!-- End of Footer -->
+                <!-- end footer -->
 
             </div>
             <!-- End of Content Wrapper -->
@@ -164,8 +108,7 @@
         <!-- End of Page Wrapper -->
 
         <!-- Scroll to Top Button-->
-        <a class="scroll-to-top rounded" href="#page-top">
-            <i class="fas fa-angle-up"></i>
+        <a class="scroll-to-top rounded" href="#page-top"> <i class="fas fa-angle-up"></i>
         </a>
     </div>
 </body>
@@ -179,84 +122,111 @@
 <script th:src="@{/js/sb-admin-2.min.js}"></script>
 
 <script>
-        $('#example').DataTable({
-            "processing": true,
-            "serverSide": true,
-            "ajax": {
-                "url": "/multiple-choice-quiz/bo/users/ajax/waiting-list",
-                "type": "POST",
-                "dataType": "json",
-                "contentType": "application/json",
-                "data": function (d) {
-                    return JSON.stringify(d);
-                }
-            },
-            "columns": [
-                {"data": "id", "width": "5%"},
-                {"data": "lastname", "width": "10%"},
-                {"data": "firstname", "width": "10%"},
-                {"data": "username", "width": "15%"},
-                {"data": "email", "width": "18%"},
-                {"data": "phoneNumber", "width": "12%"},
-                {"data": "role", "width": "15%",
-                 render: function (data, type, row) {
-                     if (data == 'USER') {
-                         return 'Người dùng';
-                     }
-                     if (data == 'ADMIN') {
-                         return 'Quản trị viên';
-                     }
-                     if (data == 'INSPECTOR') {
-                         return 'Kiểm duyệt viên';
-                     }
-                     if (data == 'CREATOR') {
-                         return 'Người tạo đề thi';
-                     }
-                 }   
-                },
-                {"data": "status", "width": "15%",
-                    render: function (data, type, row) {
-                        if (data == 'ACTIVE') {
-                            return 'Kích hoạt';
-                        }
-                        if (data == 'IN_ACTIVE') {
-                            return 'Chưa kích hoạt';
-                        }
-                    }   
-                   },
-                {data: null, "width": "10%",
-                    render: function ( data, type, row ) {
-                        return '<div class="d-flex justify-content-around"><a href="/multiple-choice-quiz/bo/users/' + data.id + '" class="btn btn-primary mr-2" title="Chi tiết"><i class="fa fa-pencil-alt" aria-hidden="true"></i></a><a href="javascript:deleteUser(' + data.id + ')" class="btn btn-danger" title="Xóa"><i class="fa fa-trash-alt" aria-hidden="true"></i></a></div>';
-                 
-                 
-                      }}
-            ],
-            "language": {
-                "info": "Hiển thị _START_ tới _END_ của _TOTAL_",
-                "emptyTable": "Không có dữ liệu",
-                "lengthMenu": "Hiển thị _MENU_ kết quả",
-                "loadingRecords": "Xin đợi - Đang tải ...",
-                "search": "Tìm kiếm:",
-                "paginate": {
-                    "first":      "Đầu",
-                    "last":       "Cuối",
-                    "next":       "Kế",
-                    "previous":   "Trước"
-                }
-            }
-        });
+	$('#example')
+			.DataTable(
+					{
+						"processing" : true,
+						"serverSide" : true,
+						"ajax" : {
+							"url" : "/multiple-choice-quiz/bo/users/ajax/waiting-list",
+							"type" : "POST",
+							"dataType" : "json",
+							"contentType" : "application/json",
+							"data" : function(d) {
+								return JSON.stringify(d);
+							}
+						},
+						"columns" : [
+								{
+									"data" : "id",
+									"width" : "5%"
+								},
+								{
+									"data" : "lastname",
+									"width" : "10%"
+								},
+								{
+									"data" : "firstname",
+									"width" : "10%"
+								},
+								{
+									"data" : "username",
+									"width" : "15%"
+								},
+								{
+									"data" : "email",
+									"width" : "18%"
+								},
+								{
+									"data" : "phoneNumber",
+									"width" : "12%"
+								},
+								{
+									"data" : "role",
+									"width" : "15%",
+									render : function(data, type, row) {
+										if (data == 'USER') {
+											return 'Người dùng';
+										}
+										if (data == 'ADMIN') {
+											return 'Quản trị viên';
+										}
+										if (data == 'INSPECTOR') {
+											return 'Kiểm duyệt viên';
+										}
+										if (data == 'CREATOR') {
+											return 'Người tạo đề thi';
+										}
+									}
+								},
+								{
+									"data" : "status",
+									"width" : "15%",
+									render : function(data, type, row) {
+										if (data == 'ACTIVE') {
+											return 'Kích hoạt';
+										}
+										if (data == 'IN_ACTIVE') {
+											return 'Chưa kích hoạt';
+										}
+									}
+								},
+								{
+									data : null,
+									"width" : "10%",
+									render : function(data, type, row) {
+										return '<div class="d-flex justify-content-around"><a href="/multiple-choice-quiz/bo/users/' + data.id + '" class="btn btn-primary mr-2" title="Chi tiết"><i class="fa fa-pencil-alt" aria-hidden="true"></i></a><a href="javascript:deleteUser('
+												+ data.id
+												+ ')" class="btn btn-danger" title="Xóa"><i class="fa fa-trash-alt" aria-hidden="true"></i></a></div>';
 
-        function deleteUser(id) {
-            $.ajax({
-                  type: "DELETE",
-                  url: "/multiple-choice-quiz/bo/users/" + id,
-                  contentType: "application/json",
-                  dataType: "json",
-                  error: function (e) {
-                    console.log(e);
-                  }
-                });
-        }
-    </script>
+									}
+								} ],
+						"language" : {
+							"info" : "Hiển thị _START_ tới _END_ của _TOTAL_",
+							"emptyTable" : "Không có dữ liệu",
+							"lengthMenu" : "Hiển thị _MENU_ kết quả",
+							"loadingRecords" : "Xin đợi - Đang tải ...",
+							"search" : "Tìm kiếm:",
+							"paginate" : {
+								"first" : "Đầu",
+								"last" : "Cuối",
+								"next" : "Kế",
+								"previous" : "Trước"
+							}
+						}
+					});
+
+	function deleteUser(id) {
+		$.ajax({
+			type : "DELETE",
+			url : "/multiple-choice-quiz/bo/users/" + id,
+			contentType : "application/json",
+			dataType : "json",
+			error : function(e) {
+				console.log(e);
+			}
+		});
+	}
+</script>
 
 </html>
