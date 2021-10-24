@@ -8,6 +8,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,6 +20,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import vn.com.multiplechoice.dao.model.enums.TestStatus;
 
 @Table(name = "test")
 @Entity
@@ -37,6 +41,10 @@ public class Test implements Serializable {
 
 	@Column(name = "create_date")
 	private Date createDate;
+
+	@Column(name = "status")
+	@Enumerated(EnumType.STRING)
+	private TestStatus status;
 
 	@ManyToOne
 	@JoinColumn(name = "user_id")
@@ -80,6 +88,14 @@ public class Test implements Serializable {
 
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
+	}
+
+	public TestStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(TestStatus status) {
+		this.status = status;
 	}
 
 	public User getCreator() {
