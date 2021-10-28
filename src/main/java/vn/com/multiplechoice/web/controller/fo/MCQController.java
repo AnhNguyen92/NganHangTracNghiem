@@ -38,7 +38,8 @@ public class MCQController {
     private static final String FO_CREATE_QUESTION_MULTIPLE_ANS = "fo/create-question-multiple-ans";
     private static final String[] ANSWER_LABELS = new String[] { "Đáp án A", "Đáp án B", "Đáp án C", "Đáp án D", "Đáp án E", "Đáp án F", "Đáp án G",
             "Đáp án H" };
-
+    private static final String[] answerLabelList = new String[] { "A", "B", "C", "D", "E", "F", "G", "H" };
+    
     @Autowired
     private UserService userService;
 
@@ -108,7 +109,7 @@ public class MCQController {
         question.setQuestionType(QuestionType.ONE_ANSWER);
         question.setUser(user);
         saveQuestionAnswer(question, mcqDto.getQuestionAnswerDtos());
-        String[] answerLabelList = new String[] { "A", "B", "C", "D", "E", "F", "G", "H" };
+        
         Optional<QuestionAnswerDto> trueAnsPosOptinal = mcqDto.getQuestionAnswerDtos().stream().filter(QuestionAnswerDto::getTrueAnswer).findFirst();
         int trueAnswerPos = trueAnsPosOptinal.isPresent() ? trueAnsPosOptinal.get().getOrder() : 0;
         question.setRightAnswer(answerLabelList[trueAnswerPos]);
@@ -185,6 +186,9 @@ public class MCQController {
         question.setContent(mcqDto.getContent());
         question.setSuggest(mcqDto.getAnswerSuggestion());
         question.setQuestionType(QuestionType.MULTIPLE_ANSWER);
+        String permutationPosLst = mcqDto.getQuestionAnswerDtos().stream().filter(QuestionAnswerDto::isRandomPosition)
+                .map(answer -> answerLabelList[answer.getOrder()]).collect(Collectors.joining(","));
+        question.setAnswerPemutation(permutationPosLst);
         question.setUser(user);
         question.setAnswerA(mcqDto.getQuestionAnswerDtos().get(0).getAnswerContent());
         question.setAnswerB(mcqDto.getQuestionAnswerDtos().get(1).getAnswerContent());
