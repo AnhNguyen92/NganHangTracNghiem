@@ -15,10 +15,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import vn.com.multiplechoice.business.converter.QuestionConverter;
 import vn.com.multiplechoice.business.service.QuestionService;
 import vn.com.multiplechoice.business.service.UserService;
 import vn.com.multiplechoice.dao.model.Question;
@@ -45,6 +48,9 @@ public class MCQController {
 
     @Autowired
     private QuestionService questionService;
+    
+    @Autowired
+    private QuestionConverter questionConverter;
 
     @RequestMapping("/one-ans")
     public String createOneAnswerQuestion(Model model, MCQDto mcqDto) {
@@ -125,6 +131,15 @@ public class MCQController {
         return FO_INDEX;
     }
 
+    @GetMapping("/one-ans/{id}")
+    public String oneAnswerDetail(Model model, @PathVariable long id) {
+    	Question question = questionService.findOne(id);
+    	MCQDto mcqDto = questionConverter.toDto(question);
+    	model.addAttribute(MCQ_DTO, mcqDto);
+    	
+    	return FO_CREATE_QUESTION_ONE_ANS;
+    }
+    
     @RequestMapping("/multiple-ans")
     public String createMultipleAnswerQuestion(Model model, MCQDto mcqDto) {
         log.info("===== GET one answer question form =====");
