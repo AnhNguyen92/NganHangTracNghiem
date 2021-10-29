@@ -49,24 +49,28 @@ public class QuestionConverter {
 		// map answer A
 		answerDto.setAnswerContent(question.getAnswerA());
 		answerDto.setTrueAnswer(question.getRightAnswer().equals("A"));
+		answerDto.setRandomPosition(question.getAnswerPemutation().contains("A"));
 		questionAnswerDtos.add(answerDto);
 
 		// map answer B
 		answerDto = new QuestionAnswerDto();
 		answerDto.setAnswerContent(question.getAnswerB());
 		answerDto.setTrueAnswer(question.getRightAnswer().equals("B"));
+		answerDto.setRandomPosition(question.getAnswerPemutation().contains("B"));
 		questionAnswerDtos.add(answerDto);
 
 		// map answer C
 		answerDto = new QuestionAnswerDto();
 		answerDto.setAnswerContent(question.getAnswerC());
 		answerDto.setTrueAnswer(question.getRightAnswer().equals("C"));
+		answerDto.setRandomPosition(question.getAnswerPemutation().contains("C"));
 		questionAnswerDtos.add(answerDto);
 
 		// map answer D
 		answerDto = new QuestionAnswerDto();
 		answerDto.setAnswerContent(question.getAnswerD());
 		answerDto.setTrueAnswer(question.getRightAnswer().equals("D"));
+		answerDto.setRandomPosition(question.getAnswerPemutation().contains("D"));
 		questionAnswerDtos.add(answerDto);
 
 		// map answer E
@@ -74,6 +78,7 @@ public class QuestionConverter {
 			answerDto = new QuestionAnswerDto();
 			answerDto.setAnswerContent(question.getAnswerE());
 			answerDto.setTrueAnswer(question.getRightAnswer().equals("E"));
+			answerDto.setRandomPosition(question.getAnswerPemutation().contains("E"));
 			questionAnswerDtos.add(answerDto);
 		}
 		// map answer F
@@ -81,6 +86,7 @@ public class QuestionConverter {
 			answerDto = new QuestionAnswerDto();
 			answerDto.setAnswerContent(question.getAnswerF());
 			answerDto.setTrueAnswer(question.getRightAnswer().equals("F"));
+			answerDto.setRandomPosition(question.getAnswerPemutation().contains("F"));
 			questionAnswerDtos.add(answerDto);
 		}
 		// map answer G
@@ -88,6 +94,7 @@ public class QuestionConverter {
 			answerDto = new QuestionAnswerDto();
 			answerDto.setAnswerContent(question.getAnswerG());
 			answerDto.setTrueAnswer(question.getRightAnswer().equals("G"));
+			answerDto.setRandomPosition(question.getAnswerPemutation().contains("G"));
 			questionAnswerDtos.add(answerDto);
 		}
 		// map answer H
@@ -95,6 +102,7 @@ public class QuestionConverter {
 			answerDto = new QuestionAnswerDto();
 			answerDto.setAnswerContent(question.getAnswerH());
 			answerDto.setTrueAnswer(question.getRightAnswer().equals("H"));
+			answerDto.setRandomPosition(question.getAnswerPemutation().contains("H"));
 			questionAnswerDtos.add(answerDto);
 		}
 
@@ -102,18 +110,26 @@ public class QuestionConverter {
 	}
 
 	private List<QuestionAnswerDto> randomAnswerPosition(List<QuestionAnswerDto> questionAnswerDtos) {
-		List<QuestionAnswerDto> result = new ArrayList<>();
+		int size = questionAnswerDtos.size();
+		List<QuestionAnswerDto> result = new ArrayList<>(size);
+
 		Random rand;
 		try {
 			rand = SecureRandom.getInstanceStrong();
-			List<Integer> givenList = new ArrayList<>(Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7));
-			int size = questionAnswerDtos.size();
-			givenList = givenList.subList(0, size);
+			List<Integer> givenList = new ArrayList<>();
+			for (int i = 0; i < size; i++) {
+				if (questionAnswerDtos.get(i).isRandomPosition()) {
+					givenList.add(i);
+				}
+			}
 
 			for (int i = 0; i < size; i++) {
-				int randomIndex = rand.nextInt(givenList.size());
-				QuestionAnswerDto answerDto = questionAnswerDtos.get(givenList.get(randomIndex));
-				givenList.remove(randomIndex);
+				QuestionAnswerDto answerDto = questionAnswerDtos.get(i);
+				if (answerDto.isRandomPosition()) {
+					int randomIndex = rand.nextInt(givenList.size());
+					answerDto = questionAnswerDtos.get(givenList.get(randomIndex));
+					givenList.remove(randomIndex);	
+				}
 				answerDto.setAnswerLabel(ANSWER_LABELS[i]);
 				answerDto.setOrder(i);
 				result.add(answerDto);
