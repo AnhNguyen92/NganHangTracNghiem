@@ -29,13 +29,13 @@ public class AdminSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable();
         String loginPage = "/bo/login";
         http.antMatcher("/bo/**") //
                 .authorizeRequests() //
                 .antMatchers(loginPage, "/bo/users/ajax/list").permitAll() //
-                .antMatchers("/bo/users", "/bo/users/**", "/bo/questions/**").permitAll() //
-                .anyRequest().hasAnyRole("ADMIN", "INSPECTOR") //
+                //.antMatchers("/bo/users", "/bo/users/**", "/bo/questions/**").permitAll() //
+                .anyRequest().authenticated() //
+//                .anyRequest().hasAnyRole("ADMIN", "INSPECTOR") //
                 .and().formLogin() //
                 .loginPage(loginPage)//
                 .loginProcessingUrl("/bo/j_spring_security_login") //
@@ -44,7 +44,9 @@ public class AdminSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().exceptionHandling().accessDeniedPage("/403") //
                 .and().logout() //
                 .logoutUrl("/bo/j_spring_security_logout") //
-                .logoutSuccessUrl(loginPage);
+                .logoutSuccessUrl(loginPage) //
+                .and()
+                .csrf().disable().cors();
     }
 
     @Override
