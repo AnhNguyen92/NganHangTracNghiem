@@ -32,6 +32,7 @@ public class QuestionConverter {
 		dto.setUser(question.getUser());
 		dto.setAnswerSuggestion(question.getSuggest());
 		dto.setContent(question.getContent());
+		dto.setAnswerSuggestion(question.getSuggest());
 		QuestionType questionType = question.getQuestionType();
 		dto.setType(questionType);
 		if (QuestionType.ONE_ANSWER.equals(questionType)) {
