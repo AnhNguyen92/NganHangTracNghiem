@@ -35,22 +35,34 @@
         <form action="#" id="f-one-ans-question" th:action="@{/fo/questions/one-ans}" method="post"
             th:object="${mcqDto}">
             <div class="mcq">
-                <div class="extention d-flex flex-row mt-3">
-                    <div>Nội dung câu hỏi</div>
-                    <div>
-                        <input type="button" id="btn-add-note" onchange="addQuestionNote(event)"> <label
-                            class="cursor--lbl"> <i class="fa fa-sticky-note px-2" aria-hidden="true"></i>
-                        </label> <input type="file" accept="image/*" name="image" id="file" onchange="loadFile(event)"
-                            style="display: none;"> <label class="cursor--lbl" for="file"> <i
-                            class="fa fa-paperclip" aria-hidden="true"></i>
-                        </label>
-                    </div>
-                </div>
                 <div>
                     <input type="hidden" th:field="*{type}">
                 </div>
+                <div class="mt-3">
+                    <div>
+                        <label>File nghe đính kèm:</labeL>
+                    </div>
+                    <div class="custom-file">
+                        <input type="file" name="file" accept=".doc, .docx" id="actual-btn" hidden />
+                        <!-- our custom upload button -->
+                        <label class="actual-lbl" for="actual-btn">Choose File</label>
+                        <!-- name of file chosen -->
+                        <span id="file-chosen">No file chosen</span>
+                    </div>
+                </div>
+                <div class="mt-3">
+                    <label>Nội dung câu hỏi</labeL>
+                </div>
                 <div class="mcp-content">
                     <textarea id="content" class="question-content" th:field="*{content}"></textarea>
+                </div>
+                <div class="extention d-flex flex-row mt-3">
+                    <div>
+                        <label>Hướng dẫn/Giải thích đáp án</labeL>
+                    </div>
+                </div>
+                <div class="mcp-content">
+                    <textarea id="suggest" class="question-suggest" th:field="*{answerSuggestion}"></textarea>
                 </div>
                 <div class="answer mt-2 p-2">
                     <div class="total-answer d-flex">
@@ -99,7 +111,7 @@
                                     th:field="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].randomPosition}" />
                             </div>
                             <div class="ml-4">
-                                <button class="btn-delete-answer" type="submit" name="remove-answer"
+                                <button class="btn-delete-answer" type="submit" name="remove-answer" title="Xóa bỏ câu trả lời"
                                     th:value="${questionAnswerDtoStat.index}" onclick="return removeAnswer()">
                                     <i class="fa fa-window-close" aria-hidden="true"></i>
                                 </button>
@@ -132,7 +144,11 @@
 
     <script type="text/javascript">
         $('#content').summernote({
-            height: 200
+            height: 100
+        });
+        
+        $('#suggest').summernote({
+            height: 100
         });
         
     	function updateTrueAnsVal(radio) {
