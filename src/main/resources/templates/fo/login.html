@@ -27,17 +27,24 @@
                     </div>
                     <form th:action="@{/fo/j_spring_security_login}" method="post" name="login">
                         <div class="form-group">
-                            <label for="username"> Tên Đăng Nhập <span class="text-danger ml-1">*</span>
-                            </label> <input type="text" name="username" class="form-control" id="username"
+                            <label for="username">
+                                Tên Đăng Nhập
+                                <span class="text-danger ml-1">*</span>
+                            </label>
+                            <input type="text" name="username" class="form-control" id="username"
                                 placeholder="Nhập tên đăng nhập" required autofocus>
                         </div>
                         <div class="form-group">
-                            <label for="password"> Mật khẩu <span class="text-danger ml-1">*</span>
-                            </label> <input type="password" name="password" id="password" class="form-control"
+                            <label for="password">
+                                Mật khẩu
+                                <span class="text-danger ml-1">*</span>
+                            </label>
+                            <input type="password" name="password" id="password" class="form-control"
                                 placeholder="Nhập mật khẩu" required>
                         </div>
                         <div class="form-group">
-                            <input type="checkbox" name="remember-me" /> Remember Me
+                            <input type="checkbox" name="remember-me" />
+                            Remember Me
                         </div>
                         <div class="col-md-12 text-center ">
                             <button type="submit" class=" btn btn-block mybtn btn-primary tx-tfm">Đăng nhập</button>
@@ -50,14 +57,16 @@
                         </div>
                         <div class="col-md-12 mb-3">
                             <p class="text-center">
-                                <a href="javascript:void();" class="facebook btn mybtn"> <i
-                                    class="fa fa-facebook-square fa-1x" aria-hidden="true"></i> Đăng nhập với Facebook
+                                <a href="javascript:void();" class="facebook btn mybtn">
+                                    <i class="fa fa-facebook-square fa-1x" aria-hidden="true"></i>
+                                    Đăng nhập với Facebook
                                 </a>
                             </p>
                         </div>
                         <div class="form-group">
                             <p class="text-center">
-                                Chưa có tài khoản? <a th:href="@{/fo/signup}" id="signup">Đăng ký</a>
+                                Chưa có tài khoản?
+                                <a th:href="@{/fo/signup}" id="signup">Đăng ký</a>
                             </p>
                             <p class="text-center">
                                 <a th:href="@{/fo/forgot-password}" id="forgot-password">Quên mật khẩu</a>

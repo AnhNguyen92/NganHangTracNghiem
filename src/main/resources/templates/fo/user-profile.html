@@ -19,7 +19,7 @@
     <!-- header -->
     <header th:replace="fragments/fo/header.html :: header "> </header>
     <!-- end header -->
-    
+
     <div class="container mt-3">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary text-center text-capitalize">Thông tin người dùng</h6>
@@ -31,43 +31,44 @@
                 </div>
                 <div class="form-group row">
                     <div class="col-sm-6">
-                        <label class="control-label">Tên đăng nhập</label> <input type="text" disabled
-                            class="form-control" th:field="*{username}">
+                        <label class="control-label">Tên đăng nhập</label>
+                        <input type="text" disabled class="form-control" th:field="*{username}">
                     </div>
                     <div class="col-sm-6">
-                        <label class="control-label">Mật khẩu</label> <input type="password" class="form-control"
-                            th:field="*{password}">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-sm-6">
-                        <label class="control-label">Họ</label> <input type="text" class="form-control"
-                            th:field="*{lastname}">
-                    </div>
-                    <div class="col-sm-6">
-                        <label class="control-label">Tên</label> <input type="text" class="form-control"
-                            th:field="*{firstname}">
+                        <label class="control-label">Mật khẩu</label>
+                        <input type="password" class="form-control" th:field="*{password}">
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-sm-6">
-                        <label class="control-label">Email</label> <input type="email" class="form-control"
-                            th:field="*{email}">
+                        <label class="control-label">Họ</label>
+                        <input type="text" class="form-control" th:field="*{lastname}">
                     </div>
                     <div class="col-sm-6">
-                        <label class="control-label">Số điện thoại</label> <input type="tel" class="form-control"
-                            th:field="*{phoneNumber}">
+                        <label class="control-label">Tên</label>
+                        <input type="text" class="form-control" th:field="*{firstname}">
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-sm-6">
-                        <label class="control-label">Ngày sinh</label> <input type="text" th:field="*{birthday}"
-                            id="birthday"
+                        <label class="control-label">Email</label>
+                        <input type="email" class="form-control" th:field="*{email}">
+                    </div>
+                    <div class="col-sm-6">
+                        <label class="control-label">Số điện thoại</label>
+                        <input type="tel" class="form-control" th:field="*{phoneNumber}">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        <label class="control-label">Ngày sinh</label>
+                        <input type="text" th:field="*{birthday}" id="birthday"
                             th:value="${user.birthday} ? ${#temporals.format(user.birthday, 'dd-MM-yyyy')}"
                             class="form-control mb-4">
                     </div>
                     <div class="col-sm-6">
-                        <label class="control-label">Giới tính</label> <select class="form-control" th:field="*{gender}">
+                        <label class="control-label">Giới tính</label>
+                        <select class="form-control" th:field="*{gender}">
                             <option th:each="genderOtp : ${T(vn.com.multiplechoice.dao.model.enums.Gender).values()}"
                                 th:value="${genderOtp}" th:text="${genderOtp.value}">Giới tính</option>
                         </select>
@@ -80,7 +81,7 @@
         </div>
 
     </div>
-    
+
     <!-- footer -->
     <footer th:replace="fragments/fo/footer.html :: footer">
         <p>2021 mqconline.com</p>

@@ -33,39 +33,48 @@
                     <form th:action="@{/fo/signup}" method="post" th:object="${signUpForm}">
                         <div class="form-group row">
                             <div class="col-sm-6">
-                                <label for="lastname">Họ</label> <input type="text" th:field="*{lastname}"
-                                    class="form-control" id="lastname" placeholder="Nhập họ">
+                                <label for="lastname">Họ</label>
+                                <input type="text" th:field="*{lastname}" class="form-control" id="lastname"
+                                    placeholder="Nhập họ">
                             </div>
                             <div class="col-sm-6">
-                                <label for="firstname">Tên</label> <input type="text" th:field="*{firstname}"
-                                    class="form-control" id="firstname" placeholder="Nhập tên">
+                                <label for="firstname">Tên</label>
+                                <input type="text" th:field="*{firstname}" class="form-control" id="firstname"
+                                    placeholder="Nhập tên">
                             </div>
 
                         </div>
                         <div class="form-group">
-                            <label for="username"> Tên đăng nhập <span class="text-danger ml-1">*</span>
-                            </label> <input type="text" th:field="*{username}" class="form-control" id="username"
-                                placeholder="Nhập tên đăng nhập"> <small
-                                th:if="${#fields.hasErrors('username')}" th:errors="*{username}"
+                            <label for="username">
+                                Tên đăng nhập
+                                <span class="text-danger ml-1">*</span>
+                            </label>
+                            <input type="text" th:field="*{username}" class="form-control" id="username"
+                                placeholder="Nhập tên đăng nhập">
+                            <small th:if="${#fields.hasErrors('username')}" th:errors="*{username}"
                                 class="validation-message"></small>
                         </div>
                         <div class="form-group">
-                            <label for="email"> Địa chỉ Email <span class="text-danger ml-1">*</span>
-                            </label> <input type="email" th:field="*{email}" class="form-control" id="email"
-                                placeholder="Nhập email"> <small th:if="${#fields.hasErrors('email')}"
-                                th:errors="*{email}" class="validation-message"></small>
+                            <label for="email">
+                                Địa chỉ Email
+                                <span class="text-danger ml-1">*</span>
+                            </label>
+                            <input type="email" th:field="*{email}" class="form-control" id="email"
+                                placeholder="Nhập email">
+                            <small th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="validation-message"></small>
                         </div>
                         <div class="form-group row">
                             <div class="col-sm-6">
-                                <label class="control-label" for="inputWarning">Ngày sinh</label> <input type="text"
-                                    name="birthday" id="birthday"
+                                <label class="control-label" for="inputWarning">Ngày sinh</label>
+                                <input type="text" name="birthday" id="birthday"
                                     th:value="${#temporals.format(signUpForm?.birthday, 'dd-MM-yyyy')}"
-                                    class="form-control"> <small th:if="${#fields.hasErrors('birthday')}"
-                                    th:errors="*{birthday}" class="validation-message"></small>
+                                    class="form-control">
+                                <small th:if="${#fields.hasErrors('birthday')}" th:errors="*{birthday}"
+                                    class="validation-message"></small>
                             </div>
                             <div class="col-sm-6">
-                                <label class="control-label" for="inputWarning">Giới tính</label> <select
-                                    class="form-control" th:field="*{gender}">
+                                <label class="control-label" for="inputWarning">Giới tính</label>
+                                <select class="form-control" th:field="*{gender}">
                                     <option
                                         th:each="genderOtp : ${T(vn.com.multiplechoice.dao.model.enums.Gender).values()}"
                                         th:value="${genderOtp}" th:text="${genderOtp.value}">Giới tính</option>
@@ -73,22 +82,30 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="password"> Mật khẩu <span class="text-danger ml-1">*</span>
-                            </label> <input type="password" th:field="*{password}" id="password" class="form-control"
-                                placeholder="Nhập mật khẩu"> <small th:if="${#fields.hasErrors('password')}"
-                                th:errors="*{password}" class="validation-message"></small>
+                            <label for="password">
+                                Mật khẩu
+                                <span class="text-danger ml-1">*</span>
+                            </label>
+                            <input type="password" th:field="*{password}" id="password" class="form-control"
+                                placeholder="Nhập mật khẩu">
+                            <small th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
+                                class="validation-message"></small>
                         </div>
                         <div class="form-group">
-                            <label for="re-password"> Nhập lại mật khẩu <span class="text-danger ml-1">*</span>
-                            </label> <input type="password" th:field="*{rePassword}" id="re-password" class="form-control"
-                                placeholder="Nhập lại mật khẩu"> <small
-                                th:if="${#fields.hasErrors('rePassword')}" th:errors="*{rePassword}"
+                            <label for="re-password">
+                                Nhập lại mật khẩu
+                                <span class="text-danger ml-1">*</span>
+                            </label>
+                            <input type="password" th:field="*{rePassword}" id="re-password" class="form-control"
+                                placeholder="Nhập lại mật khẩu">
+                            <small th:if="${#fields.hasErrors('rePassword')}" th:errors="*{rePassword}"
                                 class="validation-message"></small>
                         </div>
                         <div class="form-group">
                             <p class="text-center">
-                                Bằng việc đăng ký, bạn đã đồng ý với <a th:href="@{/policy}">Điều Khoản</a> của chúng
-                                tôi.
+                                Bằng việc đăng ký, bạn đã đồng ý với
+                                <a th:href="@{/policy}">Điều Khoản</a>
+                                của chúng tôi.
                             </p>
                         </div>
                         <div class="col-md-12 text-center mb-3">
@@ -115,18 +132,18 @@
 <script th:src="@{/js/sb-admin-2.min.js}"></script>
 
 <script>
-    $('#birthday').datepicker({
-        autoclose: true,
-        todayHighlight: true,
-        format: "dd-mm-yyyy",
-    });
-    /* function updateBirthday() {
-    	let date = $('#birthdayDisplay').datepicker('getDate');
-    	$('#birthday').val(date.getDay() + "-" + date.getMonth() + "-" + date.getFullYear());
-        console.log($('#birthday').value);
-        // let parts = birthdayStr.split("-");
-        //$('#birthday').value = new Date(parseInt(parts[2], 10), parseInt(parts[1], 10) - 1, parseInt(parts[0], 10));
-    } */
+	$('#birthday').datepicker({
+		autoclose : true,
+		todayHighlight : true,
+		format : "dd-mm-yyyy",
+	});
+	/* function updateBirthday() {
+		let date = $('#birthdayDisplay').datepicker('getDate');
+		$('#birthday').val(date.getDay() + "-" + date.getMonth() + "-" + date.getFullYear());
+	    console.log($('#birthday').value);
+	    // let parts = birthdayStr.split("-");
+	    //$('#birthday').value = new Date(parseInt(parts[2], 10), parseInt(parts[1], 10) - 1, parseInt(parts[0], 10));
+	} */
 </script>
 
 </html>

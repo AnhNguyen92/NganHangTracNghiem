@@ -11,10 +11,11 @@
 <link rel="shortcut icon" href="#">
 <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link th:rel="stylesheet" th:href="@{/summernote/summernote-bs4.css}"/>
-<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+<link th:rel="stylesheet" th:href="@{/summernote/summernote-bs4.css}" />
+<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} " />
 
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 
 </head>
 
@@ -32,11 +33,14 @@
                 <div class="extention d-flex flex-row mt-3">
                     <div>Nội dung câu hỏi</div>
                     <div>
-                        <input type="button" id="btn-add-note" onchange="addQuestionNote(event)"> <label
-                            class="cursor--lbl"> <i class="fa fa-sticky-note px-2" aria-hidden="true"></i>
-                        </label> <input type="file" accept="image/*" name="image" id="file" onchange="loadFile(event)"
-                            style="display: none;"> <label class="cursor--lbl" for="file"> <i
-                            class="fa fa-paperclip" aria-hidden="true"></i>
+                        <input type="button" id="btn-add-note" onchange="addQuestionNote(event)">
+                        <label class="cursor--lbl">
+                            <i class="fa fa-sticky-note px-2" aria-hidden="true"></i>
+                        </label>
+                        <input type="file" accept="image/*" name="image" id="file" onchange="loadFile(event)"
+                            style="display: none;">
+                        <label class="cursor--lbl" for="file">
+                            <i class="fa fa-paperclip" aria-hidden="true"></i>
                         </label>
                     </div>
                 </div>
@@ -152,31 +156,30 @@
     <script th:src="@{/summernote/summernote-bs4.js}"></script>
 
     <script type="text/javascript">
-        $('#content').summernote({
-            height: 200
-        });
+					$('#content').summernote({
+						height : 200
+					});
 
-        function addMoreAnswer() {
-            let totalAnswer = $(".answer__value").length;
-            if (totalAnswer == 8) {
-                alert("Số câu trả lời tối đa là 8");
-                return false;
-            } else {
-                $("#f-one-ans-question").submit();
-            }
-        }
+					function addMoreAnswer() {
+						let totalAnswer = $(".answer__value").length;
+						if (totalAnswer == 8) {
+							alert("Số câu trả lời tối đa là 8");
+							return false;
+						} else {
+							$("#f-one-ans-question").submit();
+						}
+					}
 
-        function removeAnswer() {
-            let totalAnswer = $(".answer__value").length;
-            if (totalAnswer == 4) {
-                alert("Số câu trả lời tối thiểu là 4");
-                return false;
-            } else {
-                $("#f-one-ans-question").submit();
-            }
-        }
-
-    </script>
+					function removeAnswer() {
+						let totalAnswer = $(".answer__value").length;
+						if (totalAnswer == 4) {
+							alert("Số câu trả lời tối thiểu là 4");
+							return false;
+						} else {
+							$("#f-one-ans-question").submit();
+						}
+					}
+				</script>
 
 </body>
 
