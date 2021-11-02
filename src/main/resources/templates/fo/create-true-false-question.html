@@ -30,39 +30,22 @@
         <form action="#" id="f-true-false-question" th:action="@{/fo/questions/true-false}" method="post"
             th:object="${mcqDto}">
             <div class="mcq">
-                <div class="extention d-flex flex-row mt-3">
-                    <div>Nội dung câu hỏi</div>
-                    <div>
-                        <input type="button" id="btn-add-note" onchange="addQuestionNote(event)">
-                        <label class="cursor--lbl">
-                            <i class="fa fa-sticky-note px-2" aria-hidden="true"></i>
-                        </label>
-                        <input type="file" accept="image/*" name="image" id="file" onchange="loadFile(event)"
-                            style="display: none;">
-                        <label class="cursor--lbl" for="file">
-                            <i class="fa fa-paperclip" aria-hidden="true"></i>
-                        </label>
-                    </div>
+                <div class="mt-3">
+                    <label class="font-weight-bold">Nội dung câu hỏi</labeL>
+                </div>
+                <div class="mcp-content">
+                    <textarea id="content" class="question-content" th:field="*{content}"></textarea>
                 </div>
                 <div class="extention d-flex flex-row mt-3">
-                    <div>Hướng dẫn/Giải thích đáp án</div>
                     <div>
-                        <input type="button" id="btn-add-note" onchange="addQuestionNote(event)">
-                        <label class="cursor--lbl">
-                            <i class="fa fa-sticky-note px-2" aria-hidden="true"></i>
-                        </label>
-                        <input type="file" accept="image/*" name="image" id="file" onchange="loadFile(event)"
-                            style="display: none;">
-                        <label class="cursor--lbl" for="file">
-                            <i class="fa fa-paperclip" aria-hidden="true"></i>
-                        </label>
+                        <label class="font-weight-bold">Hướng dẫn/Giải thích đáp án</labeL>
                     </div>
                 </div>
                 <div>
                     <input type="hidden" th:field="*{type}">
                 </div>
                 <div class="mcp-content">
-                    <textarea id="content" class="question-content" th:field="*{content}"></textarea>
+                    <textarea id="content" class="question-content" th:field="*{answerSuggestion}"></textarea>
                 </div>
                 <div class="answer mt-2 p-2">
                     <div class="total-answer d-flex">
@@ -96,7 +79,8 @@
                             <div class="ml-2">
                                 <div class="answer__true-answer">
                                     <input type="checkbox" th:id="'true-ans-' + ${questionAnswerDtoStat.index}"
-                                        th:checked="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].trueAnswer}">
+                                        th:field="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].trueAnswer}"
+                                        th:value="${mcqDto.questionAnswerDtos[__${questionAnswerDtoStat.index}__].trueAnswer}">
                                     <label title="Chọn đáp án đúng"
                                         th:for="'true-ans-' + ${questionAnswerDtoStat.index}">
                                         <span></span>
@@ -151,49 +135,50 @@
     <script th:src="@{/summernote/summernote-bs4.js}"></script>
 
     <script type="text/javascript">
-					$('#content').summernote({
-						height : 200
-					});
+    	$('#content').summernote({
+        	height : 200
+        });
 
-					function addMoreAnswer() {
-						let totalAnswer = $(".answer__value").length;
-						if (totalAnswer == 8) {
-							alert("Số câu trả lời tối đa là 8");
-							return false;
-						} else {
-							$("#f-true-false-question").submit();
-						}
-					}
+		$('#suggest').summernote({
+        	height : 200
+        });
 
-					function removeAnswer() {
-						let totalAnswer = $(".answer__value").length;
-						if (totalAnswer == 4) {
-							alert("Số câu trả lời tối thiểu là 4");
-							return false;
-						} else {
-							$("#f-true-false-question").submit();
-						}
-					}
+        function addMoreAnswer() {
+        	let totalAnswer = $(".answer__value").length;
+            if (totalAnswer == 8) {
+            	alert("Số câu trả lời tối đa là 8");
+            	return false;
+            } else {
+            	$("#f-true-false-question").submit();
+            }
+        }
 
-					function changePermutation(inputId) {
-						let inputElm = $("#swap-pos-" + inputId);
-						if (inputElm.is(':checked')) {
-							$(inputElm).prop('checked', false);
-						} else {
-							$(inputElm).prop('checked', true);
-						}
+        function removeAnswer() {
+        	let totalAnswer = $(".answer__value").length;
+            if (totalAnswer == 4) {
+            	alert("Số câu trả lời tối thiểu là 4");
+                return false;
+            } else {
+            	$("#f-true-false-question").submit();
+            }
+        }
 
-						let btnSwapTitle = $("#btn-swap-pos-" + inputId).attr(
-								"title");
-						if (btnSwapTitle == "Bỏ hoán vị vị trí") {
-							$("#btn-swap-pos-" + inputId).prop('title',
-									'Cho phép hoán vị vị trí');
-						} else {
-							$("#btn-swap-pos-" + inputId).prop('title',
-									'Bỏ hoán vị vị trí');
-						}
-					}
-				</script>
+        function changePermutation(inputId) {
+        	let inputElm = $("#swap-pos-" + inputId);
+            if (inputElm.is(':checked')) {
+            	$(inputElm).prop('checked', false);
+            } else {
+            	$(inputElm).prop('checked', true);
+            }
+
+            let btnSwapTitle = $("#btn-swap-pos-" + inputId).attr("title");
+            if (btnSwapTitle == "Bỏ hoán vị vị trí") {
+            	$("#btn-swap-pos-" + inputId).prop('title', 'Cho phép hoán vị vị trí');
+            } else {
+            	$("#btn-swap-pos-" + inputId).prop('title', 'Bỏ hoán vị vị trí');
+            }
+    	}
+	</script>
 
 </body>
 
