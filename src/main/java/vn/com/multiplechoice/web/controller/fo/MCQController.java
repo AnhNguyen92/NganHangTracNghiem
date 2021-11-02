@@ -34,8 +34,8 @@ public class MCQController {
 	private static final String REMOVE_ANSWER = "remove-answer";
     private static final String FO_INDEX = "fo/index";
     private static final String MCQ_DTO = "mcqDto";
-    private static final String FO_CREATE_QUESTION_ONE_ANS = "fo/create-question-one-ans";
-    private static final String FO_CREATE_QUESTION_MULTIPLE_ANS = "fo/create-question-multiple-ans";
+    private static final String FO_CREATE_ONE_ANS_QUESTION = "fo/create-one-ans-question";
+    private static final String FO_CREATE_MULTIPLE_ANS_QUESTION = "fo/create-multiple-ans-question";
     private static final String[] ANSWER_LABELS = new String[] { "Đáp án A", "Đáp án B", "Đáp án C", "Đáp án D", "Đáp án E", "Đáp án F", "Đáp án G",
             "Đáp án H" };
     
@@ -67,7 +67,7 @@ public class MCQController {
         mcqDto.setQuestionAnswerDtos(questionAnswerDtos);
         model.addAttribute(MCQ_DTO, mcqDto);
 
-        return FO_CREATE_QUESTION_ONE_ANS;
+        return FO_CREATE_ONE_ANS_QUESTION;
     }
 
     @RequestMapping(value = "/one-ans", params = { "add-answer" })
@@ -82,7 +82,7 @@ public class MCQController {
         mcqDto.getQuestionAnswerDtos().add(newQuestionAnswerDto);
         model.addAttribute(MCQ_DTO, mcqDto);
 
-        return FO_CREATE_QUESTION_ONE_ANS;
+        return FO_CREATE_ONE_ANS_QUESTION;
     }
 
     @RequestMapping(value = "/one-ans", params = { REMOVE_ANSWER })
@@ -97,7 +97,7 @@ public class MCQController {
         }
         model.addAttribute(MCQ_DTO, mcqDto);
 
-        return FO_CREATE_QUESTION_ONE_ANS;
+        return FO_CREATE_ONE_ANS_QUESTION;
     }
 
     @PostMapping("/one-ans")
@@ -118,7 +118,7 @@ public class MCQController {
     	MCQDto mcqDto = questionConverter.toDto(question);
     	model.addAttribute(MCQ_DTO, mcqDto);
     	
-    	return FO_CREATE_QUESTION_ONE_ANS;
+    	return FO_CREATE_ONE_ANS_QUESTION;
     }
     
     @RequestMapping("/multiple-ans")
@@ -140,7 +140,7 @@ public class MCQController {
         mcqDto.setQuestionAnswerDtos(questionAnswerDtos);
         model.addAttribute(MCQ_DTO, mcqDto);
 
-        return FO_CREATE_QUESTION_MULTIPLE_ANS;
+        return FO_CREATE_MULTIPLE_ANS_QUESTION;
     }
 
     @RequestMapping(value = "/multiple-ans", params = { "add-answer" })
@@ -156,7 +156,7 @@ public class MCQController {
         mcqDto.getQuestionAnswerDtos().add(newQuestionAnswerDto);
         model.addAttribute(MCQ_DTO, mcqDto);
 
-        return FO_CREATE_QUESTION_MULTIPLE_ANS;
+        return FO_CREATE_MULTIPLE_ANS_QUESTION;
     }
 
     @RequestMapping(value = "/multiple-ans", params = { REMOVE_ANSWER })
@@ -172,7 +172,7 @@ public class MCQController {
         }
         model.addAttribute(MCQ_DTO, mcqDto);
 
-        return FO_CREATE_QUESTION_MULTIPLE_ANS;
+        return FO_CREATE_MULTIPLE_ANS_QUESTION;
     }
 
     @PostMapping("/multiple-ans")

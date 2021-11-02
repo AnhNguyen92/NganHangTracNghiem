@@ -29,7 +29,7 @@ public class TrueFalseQuestionController {
     private static final Logger log = LoggerFactory.getLogger(TrueFalseQuestionController.class);
     
     private static final String FO_INDEX = "fo/index";
-    private static final String FO_CREATE_QUESTION_TRUE_FALSE = "/fo/create-question-true-false";
+    private static final String FO_CREATE_QUESTION_TRUE_FALSE = "/fo/create-true-false-question";
     private static final String[] ANSWER_LABELS =  new String[] {"Đáp án A", "Đáp án B", "Đáp án C", "Đáp án D", "Đáp án E", "Đáp án F", "Đáp án G", "Đáp án H"};
     private static final String MCQ_DTO = "mcqDto";
     private static final String REMOVE_ANSWER = "remove-answer";
@@ -40,9 +40,9 @@ public class TrueFalseQuestionController {
     @Autowired
     private QuestionConverter questionConverter;
     
-    @RequestMapping("/true-false-short")
+    @RequestMapping("/yes-no")
     public String createDefaultTrueFalseQuestion(Model model, MCQDto mcqDto) {
-        log.info("===== GET true false question form =====");
+        log.info("===== GET yes no question form =====");
         mcqDto.setType(QuestionType.YES_NO);
         List<QuestionAnswerDto> questionAnswerDtos = mcqDto.getQuestionAnswerDtos();
         if (questionAnswerDtos == null) {
@@ -66,15 +66,15 @@ public class TrueFalseQuestionController {
         mcqDto.setQuestionAnswerDtos(questionAnswerDtos);
         model.addAttribute(MCQ_DTO, mcqDto);
 
-        return "fo/create-question-true-false-short";
+        return "fo/create-yes-no-question";
     }
 
-    @PostMapping("/true-false-short")
+    @PostMapping("/yes-no")
     public String saveDefaultTrueFalseQuestion(Model model, final @ModelAttribute("mcqDto") MCQDto mcqDto, final BindingResult result) {
-        log.info("===== START create true false two answer question form =====");
+        log.info("===== START create yes no question form =====");
         Question question = questionConverter.toEntity(mcqDto);
         questionService.save(question);
-        log.info("===== CREATE true false two answer question form END =====");
+        log.info("===== CREATE -yes no question form END =====");
 
         return FO_INDEX;
     }
