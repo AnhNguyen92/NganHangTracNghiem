@@ -8,8 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,9 +15,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import vn.com.multiplechoice.business.service.UserService;
+import vn.com.multiplechoice.business.converter.QuestionConverter;
+import vn.com.multiplechoice.business.service.QuestionService;
 import vn.com.multiplechoice.dao.model.Question;
-import vn.com.multiplechoice.dao.model.User;
 import vn.com.multiplechoice.dao.model.enums.QuestionType;
 import vn.com.multiplechoice.web.model.MCQDto;
 import vn.com.multiplechoice.web.model.QuestionAnswerDto;
@@ -37,13 +35,15 @@ public class TrueFalseQuestionController {
     private static final String REMOVE_ANSWER = "remove-answer";
 
     @Autowired
-    private UserService userService;
-
+    private QuestionService questionService;
+    
+    @Autowired
+    private QuestionConverter questionConverter;
+    
     @RequestMapping("/true-false-short")
     public String createDefaultTrueFalseQuestion(Model model, MCQDto mcqDto) {
         log.info("===== GET true false question form =====");
-
-        mcqDto.setType(QuestionType.TRUE_FALSE);
+        mcqDto.setType(QuestionType.YES_NO);
         List<QuestionAnswerDto> questionAnswerDtos = mcqDto.getQuestionAnswerDtos();
         if (questionAnswerDtos == null) {
             questionAnswerDtos = new ArrayList<>();
@@ -72,17 +72,8 @@ public class TrueFalseQuestionController {
     @PostMapping("/true-false-short")
     public String saveDefaultTrueFalseQuestion(Model model, final @ModelAttribute("mcqDto") MCQDto mcqDto, final BindingResult result) {
         log.info("===== START create true false two answer question form =====");
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User user = userService.findByUsername(userDetails.getUsername());
-        mcqDto.setUser(user);
-        Question question = new Question();
-        question.setContent(mcqDto.getContent());
-        question.setSuggest(mcqDto.getAnswerSuggestion());
-        question.setQuestionType(QuestionType.TRUE_FALSE);
-        question.setUser(user);
-        question.setAnswerA(mcqDto.getQuestionAnswerDtos().get(0).getAnswerContent());
-        question.setAnswerB(mcqDto.getQuestionAnswerDtos().get(1).getAnswerContent());
-
+        Question question = questionConverter.toEntity(mcqDto);
+        questionService.save(question);
         log.info("===== CREATE true false two answer question form END =====");
 
         return FO_INDEX;
@@ -142,17 +133,8 @@ public class TrueFalseQuestionController {
     
     @PostMapping("/true-false")
     public String saveTrueFalseQuestion(Model model, final @ModelAttribute(MCQ_DTO) MCQDto mcqDto, final BindingResult result) {
-        log.info("===== START create true false question form =====");
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User user = userService.findByUsername(userDetails.getUsername());
-        mcqDto.setUser(user);
-        Question question = new Question();
-        question.setContent(mcqDto.getContent());
-        question.setSuggest(mcqDto.getAnswerSuggestion());
-        question.setQuestionType(QuestionType.TRUE_FALSE);
-        question.setUser(user);
-        question.setAnswerA(mcqDto.getQuestionAnswerDtos().get(0).getAnswerContent());
-        question.setAnswerB(mcqDto.getQuestionAnswerDtos().get(1).getAnswerContent());
+    	Question question = questionConverter.toEntity(mcqDto);
+        questionService.save(question);
         
         log.info("===== CREATE true false answer question form END =====");
 
