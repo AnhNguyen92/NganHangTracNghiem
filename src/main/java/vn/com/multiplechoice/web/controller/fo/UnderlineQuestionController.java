@@ -29,7 +29,7 @@ import vn.com.multiplechoice.web.model.QuestionAnswerDto;
 @Controller
 public class UnderlineQuestionController {
 
-    private static final String FO_CREATE_QUESTION_UNDERLINE = "fo/create-question-underline";
+    private static final String FO_CREATE_QUESTION_UNDERLINE = "fo/create-underline-question";
     private static final Logger log = LoggerFactory.getLogger(UnderlineQuestionController.class);
     private static final String[] ANSWER_LABELS = new String[] { "Đáp án A", "Đáp án B", "Đáp án C", "Đáp án D", "Đáp án E", "Đáp án F", "Đáp án G",
             "Đáp án H" };

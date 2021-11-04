@@ -29,7 +29,7 @@ import vn.com.multiplechoice.web.model.QuestionAnswerDto;
 @Controller
 public class FillingQuestionController {
 
-    private static final String FO_CREATE_QUESTION_FILLING_TYPE_1 = "fo/create-question-flling-type-1";
+    private static final String FO_CREATE_FILLING_TYPE_1_QUESTION = "fo/create-flling-type-1-question";
     private static final Logger log = LoggerFactory.getLogger(FillingQuestionController.class);
     private static final String[] ANSWER_LABELS = new String[] { "Đáp án A", "Đáp án B", "Đáp án C", "Đáp án D", "Đáp án E", "Đáp án F", "Đáp án G",
             "Đáp án H" };
@@ -40,7 +40,7 @@ public class FillingQuestionController {
 
     @RequestMapping("/filling-type-1")
     public String createUnderlineQuestion(Model model, MCQDto mcqDto) {
-        log.info("===== GET underline question form =====");
+        log.info("===== GET filling type 1 question form =====");
 
         mcqDto.setType(QuestionType.COMPLETION_1);
         List<QuestionAnswerDto> questionAnswerDtos = mcqDto.getQuestionAnswerDtos();
@@ -51,7 +51,7 @@ public class FillingQuestionController {
         mcqDto.setQuestionAnswerDtos(questionAnswerDtos);
         model.addAttribute(MCQ_DTO, mcqDto);
 
-        return FO_CREATE_QUESTION_FILLING_TYPE_1;
+        return FO_CREATE_FILLING_TYPE_1_QUESTION;
     }
 
     @RequestMapping(value = "/filling-type-1", params = { "add-answer" })
@@ -73,7 +73,7 @@ public class FillingQuestionController {
 
         model.addAttribute(MCQ_DTO, mcqDto);
 
-        return FO_CREATE_QUESTION_FILLING_TYPE_1;
+        return FO_CREATE_FILLING_TYPE_1_QUESTION;
     }
 
     @RequestMapping(value = "/filling-type-1", params = { "remove-answer" })
@@ -88,12 +88,12 @@ public class FillingQuestionController {
         }
         model.addAttribute(MCQ_DTO, mcqDto);
 
-        return FO_CREATE_QUESTION_FILLING_TYPE_1;
+        return FO_CREATE_FILLING_TYPE_1_QUESTION;
     }
 
     @PostMapping("/filling")
     public String saveUnderlineQuestion(Model model, final @ModelAttribute("mcqDto") MCQDto mcqDto, final BindingResult result) {
-        log.info("===== START create underline question form =====");
+        log.info("===== START create filling type 1 question form =====");
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userService.findByUsername(userDetails.getUsername());
         mcqDto.setUser(user);

@@ -8,8 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,9 +15,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import vn.com.multiplechoice.business.service.UserService;
+import vn.com.multiplechoice.business.converter.QuestionConverter;
+import vn.com.multiplechoice.business.service.QuestionService;
 import vn.com.multiplechoice.dao.model.Question;
-import vn.com.multiplechoice.dao.model.User;
 import vn.com.multiplechoice.dao.model.enums.QuestionType;
 import vn.com.multiplechoice.web.model.MCQDto;
 import vn.com.multiplechoice.web.model.QuestionAnswerDto;
@@ -31,19 +29,21 @@ public class TrueFalseQuestionController {
     private static final Logger log = LoggerFactory.getLogger(TrueFalseQuestionController.class);
     
     private static final String FO_INDEX = "fo/index";
-    private static final String FO_CREATE_QUESTION_TRUE_FALSE = "/fo/create-question-true-false";
+    private static final String FO_CREATE_QUESTION_TRUE_FALSE = "/fo/create-true-false-question";
     private static final String[] ANSWER_LABELS =  new String[] {"Đáp án A", "Đáp án B", "Đáp án C", "Đáp án D", "Đáp án E", "Đáp án F", "Đáp án G", "Đáp án H"};
     private static final String MCQ_DTO = "mcqDto";
     private static final String REMOVE_ANSWER = "remove-answer";
 
     @Autowired
-    private UserService userService;
-
-    @RequestMapping("/true-false-short")
+    private QuestionService questionService;
+    
+    @Autowired
+    private QuestionConverter questionConverter;
+    
+    @RequestMapping("/yes-no")
     public String createDefaultTrueFalseQuestion(Model model, MCQDto mcqDto) {
-        log.info("===== GET true false question form =====");
-
-        mcqDto.setType(QuestionType.TRUE_FALSE);
+        log.info("===== GET yes no question form =====");
+        mcqDto.setType(QuestionType.YES_NO);
         List<QuestionAnswerDto> questionAnswerDtos = mcqDto.getQuestionAnswerDtos();
         if (questionAnswerDtos == null) {
             questionAnswerDtos = new ArrayList<>();
@@ -66,24 +66,15 @@ public class TrueFalseQuestionController {
         mcqDto.setQuestionAnswerDtos(questionAnswerDtos);
         model.addAttribute(MCQ_DTO, mcqDto);
 
-        return "fo/create-question-true-false-short";
+        return "fo/create-yes-no-question";
     }
 
-    @PostMapping("/true-false-short")
+    @PostMapping("/yes-no")
     public String saveDefaultTrueFalseQuestion(Model model, final @ModelAttribute("mcqDto") MCQDto mcqDto, final BindingResult result) {
-        log.info("===== START create true false two answer question form =====");
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User user = userService.findByUsername(userDetails.getUsername());
-        mcqDto.setUser(user);
-        Question question = new Question();
-        question.setContent(mcqDto.getContent());
-        question.setSuggest(mcqDto.getAnswerSuggestion());
-        question.setQuestionType(QuestionType.TRUE_FALSE);
-        question.setUser(user);
-        question.setAnswerA(mcqDto.getQuestionAnswerDtos().get(0).getAnswerContent());
-        question.setAnswerB(mcqDto.getQuestionAnswerDtos().get(1).getAnswerContent());
-
-        log.info("===== CREATE true false two answer question form END =====");
+        log.info("===== START create yes no question form =====");
+        Question question = questionConverter.toEntity(mcqDto);
+        questionService.save(question);
+        log.info("===== CREATE -yes no question form END =====");
 
         return FO_INDEX;
     }
@@ -142,17 +133,8 @@ public class TrueFalseQuestionController {
     
     @PostMapping("/true-false")
     public String saveTrueFalseQuestion(Model model, final @ModelAttribute(MCQ_DTO) MCQDto mcqDto, final BindingResult result) {
-        log.info("===== START create true false question form =====");
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User user = userService.findByUsername(userDetails.getUsername());
-        mcqDto.setUser(user);
-        Question question = new Question();
-        question.setContent(mcqDto.getContent());
-        question.setSuggest(mcqDto.getAnswerSuggestion());
-        question.setQuestionType(QuestionType.TRUE_FALSE);
-        question.setUser(user);
-        question.setAnswerA(mcqDto.getQuestionAnswerDtos().get(0).getAnswerContent());
-        question.setAnswerB(mcqDto.getQuestionAnswerDtos().get(1).getAnswerContent());
+    	Question question = questionConverter.toEntity(mcqDto);
+        questionService.save(question);
         
         log.info("===== CREATE true false answer question form END =====");
 

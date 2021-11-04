@@ -585,3 +585,12 @@ legend.scheduler-border {
   margin-left: 0.3rem;
   font-family: sans-serif;
 }
+
+/* fix config icon of summer text cause by bootstrap css */
+.note-editor > .panel-heading > .note-btn > .dropdown-togger:after {
+    content: inherit;
+}
+
+.dropdown .dropdown-menu {
+    position:absolute;
+}

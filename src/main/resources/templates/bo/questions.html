@@ -91,13 +91,20 @@
                                         <tr th:each="question : ${questions}">
                                             <td th:text="${question.id}"></td>
                                             <td th:text="${question.content}"></td>
-                                            <td th:if="${#strings.equals(question.questionType, 'ONE_ANSWER')}">Một câu trả lời</td>
-                                            <td th:if="${#strings.equals(question.questionType, 'MULTIPLE_ANSWER')}">Nhiều đáp án đúng</td>
-                                            <td th:if="${#strings.equals(question.questionType, 'MATCHING')}">Câu hỏi nối chéo</td>
-                                            <td th:if="${#strings.equals(question.questionType, 'COMPLETION_1')}">Điền khuyết loại 1</td>
-                                            <td th:if="${#strings.equals(question.questionType, 'COMPLETION_2')}">Điền khuyết loại 2</td>
-                                            <td th:if="${#strings.equals(question.questionType, 'UDERLINE')}">Câu hỏi gạch chân</td>
-                                            <td th:if="${#strings.equals(question.questionType, 'TRUE_FALSE')}">Đúng sai</td>
+                                            <td th:if="${#strings.equals(question.questionType, 'ONE_ANSWER')}">Một
+                                                câu trả lời</td>
+                                            <td th:if="${#strings.equals(question.questionType, 'MULTIPLE_ANSWER')}">Nhiều
+                                                đáp án đúng</td>
+                                            <td th:if="${#strings.equals(question.questionType, 'MATCHING')}">Câu
+                                                hỏi nối chéo</td>
+                                            <td th:if="${#strings.equals(question.questionType, 'COMPLETION_1')}">Điền
+                                                khuyết loại 1</td>
+                                            <td th:if="${#strings.equals(question.questionType, 'COMPLETION_2')}">Điền
+                                                khuyết loại 2</td>
+                                            <td th:if="${#strings.equals(question.questionType, 'UDERLINE')}">Câu
+                                                hỏi gạch chân</td>
+                                            <td th:if="${#strings.equals(question.questionType, 'TRUE_FALSE')}">Đúng
+                                                sai</td>
                                             <td th:text="${question.rightAnswer}"></td>
                                             <td th:utext="${question.suggest}"></td>
                                             <td th:text="*{question.user.username}"></td>
