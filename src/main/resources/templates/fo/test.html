@@ -35,12 +35,12 @@
             <div class="col-md-8 m-3">
                 <form method="post" th:action="@{/fo/contests}" enctype="multipart/form-data" th:object="${options}">
                     <div>
-                        <label>Tên đề thi:</labeL>
+                        <label class="font-weight-bold">Tên đề thi:</labeL>
                         <input type="text" th:field="*{content}">
                     </div>
                     <div class="form-group">
                         <div>
-                            <label>Header cho đề thi:</labeL>
+                            <label class="font-weight-bold">Header cho đề thi:</labeL>
                         </div>
                         <div class="custom-file">
                             <input type="file" name="file" accept=".doc, .docx" id="actual-btn" hidden />
@@ -56,6 +56,14 @@
                             <option th:each="questId : ${questIds}" th:value="${questId}"
                                 th:text="'Cau hoi ' + ${questId}"></option>
                         </select>
+                    </div>
+                    
+                    <!-- fragment: question content detail -->
+                    <div class="question-content mt-2">
+                        <div>
+                            <label class="font-weight-bold">Chi tiết câu hỏi</label>
+                        </div>
+                        <div id="question-detail"></div>
                     </div>
                     <div>
                         <button class="btn btn-primary mt-3" type="submit">Tạo mới</button>
@@ -97,6 +105,28 @@
 		removeAllLabel : 'Làm lại',
 		preserveSelectionOnMove : 'moved',
 		moveOnSelect : false,
+	});
+	
+	$(document).ready(function() {
+	    $("select[name='selected_helper1']").on('change', function(e) {
+	        let val = $(this).val();
+	        $("select[name='selected_helper1'] option:selected").each(function() {
+	          var $this = $(this);
+	          if ($this.length) {
+	            let questionId = $this.val();
+	            // alert(questionId);
+	            // call ajax here
+	            $.ajax({
+	            	type : "GET",
+	             	url : "/multiple-choice-quiz/fo/questions/fragment/" + questionId,
+	             	success : function(response) {
+	             		$("#question-detail").replaceWith(response);
+	             	}
+	            });
+	          }
+	        });
+
+	      });
 	});
 </script>
 

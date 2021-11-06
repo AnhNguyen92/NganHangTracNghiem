@@ -121,6 +121,14 @@ public class MCQController {
     	return FO_CREATE_ONE_ANS_QUESTION;
     }
     
+    @GetMapping("/fragment/{id}")
+    public String questionFragmentDetail(Model model, @PathVariable long id) {
+    	Question question = questionService.findOne(id);
+    	model.addAttribute("question", question);
+    	
+    	return "fragments/fo/question";
+    }
+    
     @RequestMapping("/multiple-ans")
     public String createMultipleAnswerQuestion(Model model, MCQDto mcqDto) {
         log.info("===== GET multiple answer question form =====");
