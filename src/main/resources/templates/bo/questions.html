@@ -76,7 +76,7 @@
                         <div class="card-body">
                             <form class="d-none d-md-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
                                 <div class="input-group">
-                                    <input type="text" class="form-control col-4 bg-light border-0 small"
+                                    <input type="text" class="form-control col-4 bg-light small" style="border: 1px solid #d1d3e2;"
                                         placeholder="Tìm kiếm ..." aria-label="Tìm kiếm">
                                     <div class="dropdown mx-2">
                                         <select class="custom-select">
@@ -91,9 +91,9 @@
                                             <option value="COMPLETION_2">Điền khuyết loại 2</option>
                                         </select>
                                     </div>
-                                    <div class="input-group-append">
+                                    <div class="input-group">
                                         <button class="btn btn-primary" type="button">
-                                            <i class="fas fa-search fa-sm"></i>
+                                            Tìm kiếm
                                         </button>
                                     </div>
                                 </div>
@@ -140,10 +140,12 @@
                                                 khuyết loại 1</td>
                                             <td th:if="${#strings.equals(question.questionType, 'COMPLETION_2')}">Điền
                                                 khuyết loại 2</td>
-                                            <td th:if="${#strings.equals(question.questionType, 'UDERLINE')}">Câu
+                                            <td th:if="${#strings.equals(question.questionType, 'UNDERLINE')}">Câu
                                                 hỏi gạch chân</td>
-                                            <td th:if="${#strings.equals(question.questionType, 'TRUE_FALSE')}">Đúng
+                                            <td th:if="${#strings.equals(question.questionType, 'YES_NO')}">Đúng
                                                 sai</td>
+                                            <td th:if="${#strings.equals(question.questionType, 'TRUE_FALSE')}">Đúng
+                                                sai có điểm</td>
                                             <td th:text="${question.rightAnswer}"></td>
                                             <td th:utext="${question.suggest}"></td>
                                             <td th:text="*{question.user.username}"></td>
