@@ -1,0 +1,170 @@
+<!DOCTYPE HTML>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>DANH SÁCH ĐỀ THI</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="shortcut icon" href="#">
+<link th:href="@{/vendor/fontawesome/css/all.min.css}" rel="stylesheet" type="text/css">
+<link th:rel="stylesheet" th:href="@{/vendor/bootstrap-datepicker/css/bootstrap-datepicker.css}" />
+<link th:rel="stylesheet" th:href="@{/vendor/bootstrap-datepicker/css/bootstrap-datepicker.standalone.css}" />
+<link th:rel="stylesheet" th:href="@{/assets/datatable/datatables.css}" />
+<link th:href="@{/css/sb-admin-2.min.css}" rel="stylesheet">
+
+</head>
+<body id="page-top">
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+        <!-- header -->
+        <header th:replace="fragments/bo/header.html :: header "> </header>
+        <!-- end header -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+
+                        <div class="topbar-divider d-none d-sm-block"></div>
+
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"
+                                    th:text="${#authentication.getPrincipal().getUsername()}">Chào Admin</span>
+                                <img class="img-profile rounded-circle" th:src="@{/imgs/undraw_profile.svg}"
+                                    alt="profile">
+                            </a>
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
+                                <a class="dropdown-item" th:href="@{/bo/j_spring_security_logout}">
+                                    <span class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></span>
+                                    Đăng Xuất
+                                </a>
+                            </div>
+                        </li>
+
+                    </ul>
+
+                </nav>
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-2 text-gray-800">Đề thi</h1>
+
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Danh sách</h6>
+                        </div>
+                        <div class="card-body">
+                            <form class="d-none d-md-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+                                <div class="input-group">
+                                    <input type="text" class="form-control col-4 bg-light border-0 small"
+                                        placeholder="Tìm kiếm ..." aria-label="Tìm kiếm">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-primary" type="button">
+                                            <i class="fas fa-search fa-sm"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="dataTable-top float-left">
+                                    <div class="dataTable-dropdown my-2">
+                                        <label>
+                                            Hiển thị
+                                            <select class="dataTable-selector mx-2 px-2">
+                                                <option value="5">5</option>
+                                                <option value="10" selected>10</option>
+                                                <option value="15">15</option>
+                                                <option value="20">20</option>
+                                                <option value="25">25</option>
+                                            </select>kết quả
+                                        </label>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="table-responsive">
+                                <table id="example" class="table table-bordered table-responsive" style="width: 100%">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Tên đề thi</th>
+                                            <th>Số lượng câu hỏi</th>
+                                            <th>Ngày tạo</th>
+                                            <th>Trạng thái</th>
+                                            <th>Tác giả</th>
+                                            <th>Hành động</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="test : ${tests}">
+                                            <td th:text="${test.id}"></td>
+                                            <td th:text="${test.content}"></td>
+                                            <td th:text="${test.numOfQuestions}"></td>
+                                            <td th:text="${test.createDate}"></td>
+                                            <td th:if="${test.status}"></td>
+                                            <td th:text="${test.creator.username}"></td>
+                                            <td>
+                                                <div class="d-flex justify-content-around">
+                                                    <a th:href="@{'/bo/tests/' + ${test.id}}"
+                                                        class="btn btn-primary mr-2" title="Chi tiết">
+                                                        <i class="fa fa-pencil-alt" aria-hidden="true"></i>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.container-fluid -->
+
+                </div>
+                <!-- End of Main Content -->
+
+                <!-- footer -->
+                <footer th:replace="fragments/bo/footer.html :: footer">
+                    <p>2021 mqconline.com</p>
+                </footer>
+                <!-- end footer -->
+
+            </div>
+            <!-- End of Content Wrapper -->
+
+        </div>
+        <!-- End of Page Wrapper -->
+
+        <!-- Scroll to Top Button-->
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fas fa-angle-up"></i>
+        </a>
+    </div>
+</body>
+
+<script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/1.12.9-1/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/4.0.0-2/js/bootstrap.min.js}"></script>
+<script th:src="@{/assets/datatable/datatables.js}"></script>
+
+<!-- Custom scripts for all pages-->
+<script th:src="@{/js/sb-admin-2.min.js}"></script>
+
+</html>
