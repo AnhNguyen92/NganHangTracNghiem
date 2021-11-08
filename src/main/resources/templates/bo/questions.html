@@ -74,6 +74,45 @@
                             <h6 class="m-0 font-weight-bold text-primary">Danh sách</h6>
                         </div>
                         <div class="card-body">
+                            <form class="d-none d-md-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+                                <div class="input-group">
+                                    <input type="text" class="form-control col-4 bg-light border-0 small"
+                                        placeholder="Tìm kiếm ..." aria-label="Tìm kiếm">
+                                    <div class="dropdown mx-2">
+                                        <select class="custom-select">
+                                            <option value="" selected>Loại câu hỏi</option>
+                                            <option value="YES_NO">Đúng sai</option>
+                                            <option value="TRUE_FALSE">Đúng sai có điểm</option>
+                                            <option value="ONE_ANSWER">Một đáp án</option>
+                                            <option value="MULTIPLE_ANSWER">Nhiều đáp án</option>
+                                            <option value="MATCHING">Ghép cặp</option>
+                                            <option value="UNDERLINE">Gạch chân</option>
+                                            <option value="COMPLETION_1">Điền khuyết loại 1</option>
+                                            <option value="COMPLETION_2">Điền khuyết loại 2</option>
+                                        </select>
+                                    </div>
+                                    <div class="input-group-append">
+                                        <button class="btn btn-primary" type="button">
+                                            <i class="fas fa-search fa-sm"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="dataTable-top float-left">
+                                    <div class="dataTable-dropdown my-2">
+                                        <label>
+                                            Hiển thị
+                                            <select class="dataTable-selector mx-2 px-2">
+                                                <option value="5">5</option>
+                                                <option value="10" selected>10</option>
+                                                <option value="15">15</option>
+                                                <option value="20">20</option>
+                                                <option value="25">25</option>
+                                            </select>kết quả
+                                        </label>
+                                    </div>
+                                </div>
+                            </form>
                             <div class="table-responsive">
                                 <table id="example" class="table table-bordered table-responsive" style="width: 100%">
                                     <thead>
