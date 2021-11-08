@@ -32,6 +32,8 @@ import vn.com.multiplechoice.dao.model.Options;
 import vn.com.multiplechoice.dao.model.Question;
 import vn.com.multiplechoice.dao.model.Test;
 import vn.com.multiplechoice.dao.model.User;
+import vn.com.multiplechoice.dao.model.enums.TestStatus;
+import vn.com.multiplechoice.dao.model.enums.UserRole;
 import vn.com.multiplechoice.web.utils.OnlineUserUtil;
 
 @Controller
@@ -108,6 +110,12 @@ public class TestController {
 		test.setCreator(creator);
 		test.setContent(options.getContent());
 		test.setQuestions(questions);
+		if (creator.getRole().equals(UserRole.USER)) {
+			test.setStatus(TestStatus.WAITING);
+		} else {
+			test.setStatus(TestStatus.APPROVED);
+		}
+		
 		testService.save(test);
 
 		return "fo/saved";
