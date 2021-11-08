@@ -42,7 +42,7 @@ public class UnderlineQuestionController {
     public String createUnderlineQuestion(Model model, MCQDto mcqDto) {
         log.info("===== GET underline question form =====");
 
-        mcqDto.setType(QuestionType.UDERLINE);
+        mcqDto.setType(QuestionType.UNDERLINE);
         List<QuestionAnswerDto> questionAnswerDtos = mcqDto.getQuestionAnswerDtos();
         if (questionAnswerDtos == null) {
             questionAnswerDtos = new ArrayList<>();
