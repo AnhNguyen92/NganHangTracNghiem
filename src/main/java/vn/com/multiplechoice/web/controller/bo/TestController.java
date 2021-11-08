@@ -21,7 +21,8 @@ public class TestController {
 
 	@Autowired
 	private TestService testService;
-	
+
+	@GetMapping(value = { "", "/list" })
 	public String list(Model model) {
 		logger.info("------- Start get test list -------");
 		List<Test> tests = testService.findAll();
