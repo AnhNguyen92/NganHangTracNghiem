@@ -45,16 +45,16 @@
                         <div class="custom-file">
                             <input type="file" name="file" accept=".doc, .docx" id="actual-btn" hidden />
                             <!-- our custom upload button -->
-                            <label class="actual-lbl" for="actual-btn">Choose File</label>
+                            <label class="actual-lbl" for="actual-btn">Chọn tệp tin</label>
                             <!-- name of file chosen -->
-                            <span id="file-chosen">No file chosen</span>
+                            <span id="file-chosen">Chưa có tệp tin được chọn</span>
                         </div>
                     </div>
                     <div>
                         <select multiple="multiple" size="10" name="selected[]" id="optionsbox" th:field="*{selected}"
                             class="form-control">
                             <option th:each="questId : ${questIds}" th:value="${questId}"
-                                th:text="'Cau hoi ' + ${questId}"></option>
+                                th:text="'Câu hỏi ' + ${questId}"></option>
                         </select>
                     </div>
                     
