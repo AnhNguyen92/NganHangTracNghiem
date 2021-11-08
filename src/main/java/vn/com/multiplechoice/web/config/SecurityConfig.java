@@ -46,7 +46,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().formLogin().loginPage(loginPage) //
                 .loginProcessingUrl("/fo/j_spring_security_login") //
                 .failureUrl("/fo/login?error=true") //
-                .defaultSuccessUrl("/fo/contests/1", true) //
+                .defaultSuccessUrl("/fo/questions/underline", true) //
                 .usernameParameter("username").passwordParameter("password") //
                 .and() //
                 .logout().logoutRequestMatcher(new AntPathRequestMatcher("/fo/logout")) //
