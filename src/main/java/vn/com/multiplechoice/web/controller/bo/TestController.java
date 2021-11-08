@@ -26,9 +26,8 @@ public class TestController {
 	public String list(Model model) {
 		logger.info("------- Start get test list -------");
 		List<Test> tests = testService.findAll();
-//		List<Test> tests = testService.findAll(pageAble);
 		model.addAttribute("tests", tests);
-		
+
 		return "bo/tests";
 	}
 
@@ -53,8 +52,8 @@ public class TestController {
 	public String save(Test test) {
 		logger.info("------- Start save new test -------");
 		testService.save(test);
-		
+
 		return "redirect:bo/tests/" + test.getId();
 	}
-	
+
 }

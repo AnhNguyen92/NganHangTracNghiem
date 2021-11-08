@@ -9,10 +9,9 @@
 <meta name="author" content="">
 <link rel="shortcut icon" href="#">
 <link th:href="@{/vendor/fontawesome/css/all.min.css}" rel="stylesheet" type="text/css">
-<link th:rel="stylesheet" th:href="@{/vendor/bootstrap-datepicker/css/bootstrap-datepicker.css}" />
-<link th:rel="stylesheet" th:href="@{/vendor/bootstrap-datepicker/css/bootstrap-datepicker.standalone.css}" />
-<link th:rel="stylesheet" th:href="@{/assets/datatable/datatables.css}" />
 <link th:href="@{/css/sb-admin-2.min.css}" rel="stylesheet">
+<link th:rel="stylesheet" th:href="@{assets/daterangepicker/daterangepicker.css}"/>
+<link th:rel="stylesheet" th:href="@{webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
 
 </head>
 <body id="page-top">
@@ -75,17 +74,34 @@
                         </div>
                         <div class="card-body">
                             <form class="d-none d-md-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-                                <div class="input-group">
-                                    <input type="text" class="form-control col-4 bg-light border-0 small"
-                                        placeholder="Tìm kiếm ..." aria-label="Tìm kiếm">
-                                    <div class="input-group-append">
+                                <div class="form-group row">
+                                    <input type="text" class="form-control col-4 bg-light small" style="border: 1px solid #d1d3e2;"
+                                        placeholder="Tên đề thi ..." aria-label="Tìm kiếm">
+                                    <div class="dropdown mx-2">
+                                        <select class="custom-select">
+                                            <option value="" selected>Trạng thái</option>
+                                            <option value="WAITING">Chờ duyệt</option>
+                                            <option value="APPROVED">Đã duyệt</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4 mt-5">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" id="dateRange" autocomplete="off" />
+                                            <div class="input-group-append">
+                                                <span class="input-group-text">
+                                                    <i class="far fa-calendar-alt"></i>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="input-group">
                                         <button class="btn btn-primary" type="button">
-                                            <i class="fas fa-search fa-sm"></i>
+                                            Tìm kiếm
                                         </button>
                                     </div>
                                 </div>
 
-                                <div class="dataTable-top float-left">
+                                <div class="dataTable-top float-left mt-2">
                                     <div class="dataTable-dropdown my-2">
                                         <label>
                                             Hiển thị
@@ -118,8 +134,9 @@
                                             <td th:text="${test.id}"></td>
                                             <td th:text="${test.content}"></td>
                                             <td th:text="${test.numOfQuestions}"></td>
-                                            <td th:text="${test.createDate}"></td>
-                                            <td th:if="${test.status}"></td>
+                                            <td th:text="${#dates.format(test.createDate, 'dd-MM-yyyy')}"></td>
+                                            <td th:if="${#strings.equals(test.status, 'WAITING')}">Chờ</td>
+                                            <td th:if="${#strings.equals(test.status, 'APPROVED')}">Đã duyệt</td>
                                             <td th:text="${test.creator.username}"></td>
                                             <td>
                                                 <div class="d-flex justify-content-around">
@@ -162,9 +179,17 @@
 <script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}"></script>
 <script th:src="@{/webjars/popper.js/1.12.9-1/umd/popper.min.js}"></script>
 <script th:src="@{/webjars/bootstrap/4.0.0-2/js/bootstrap.min.js}"></script>
-<script th:src="@{/assets/datatable/datatables.js}"></script>
+<script th:src="@{assets/moment/moment.min.js}"></script>
+<script th:src="@{assets/daterangepicker/daterangepicker.js}"></script>
 
-<!-- Custom scripts for all pages-->
-<script th:src="@{/js/sb-admin-2.min.js}"></script>
+<script>
+    var $dateRange = $('#dateRange');
+
+    $dateRange.daterangepicker();
+    $dateRange.on('apply.daterangepicker', function (ev, picker) {
+        $('input[name="dateFrom"]').val(picker.startDate.format('DD/MM/YYYY'));
+        $('input[name="dateTo"]').val(picker.endDate.format('DD/MM/YYYY'));
+    });
+</script>
 
 </html>
