@@ -10,8 +10,8 @@
 <link rel="shortcut icon" href="#">
 <link th:href="@{/vendor/fontawesome/css/all.min.css}" rel="stylesheet" type="text/css">
 <link th:href="@{/css/sb-admin-2.min.css}" rel="stylesheet">
-<link th:rel="stylesheet" th:href="@{assets/daterangepicker/daterangepicker.css}"/>
-<link th:rel="stylesheet" th:href="@{webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+<link th:rel="stylesheet" th:href="@{/assets/daterangepicker/daterangepicker.css}"/>
+<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
 
 </head>
 <body id="page-top">
@@ -179,13 +179,13 @@
 <script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}"></script>
 <script th:src="@{/webjars/popper.js/1.12.9-1/umd/popper.min.js}"></script>
 <script th:src="@{/webjars/bootstrap/4.0.0-2/js/bootstrap.min.js}"></script>
-<script th:src="@{assets/moment/moment.min.js}"></script>
-<script th:src="@{assets/daterangepicker/daterangepicker.js}"></script>
+<script th:src="@{/assets/moment/moment.min.js}"></script>
+<script th:src="@{/assets/daterangepicker/daterangepicker.js}"></script>
 
 <script>
     var $dateRange = $('#dateRange');
 
-    $dateRange.daterangepicker();
+    $dateRange.daterangepicker({  maxDate: new Date() });
     $dateRange.on('apply.daterangepicker', function (ev, picker) {
         $('input[name="dateFrom"]').val(picker.startDate.format('DD/MM/YYYY'));
         $('input[name="dateTo"]').val(picker.endDate.format('DD/MM/YYYY'));
