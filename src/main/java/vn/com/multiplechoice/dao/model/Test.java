@@ -46,9 +46,16 @@ public class Test implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private TestStatus status;
 
+	@Column(name = "is_public")
+	private boolean isPublic;
+
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User creator;
+
+	@ManyToOne
+	@JoinColumn(name = "inspector")
+	private User inspector;
 
 	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinTable(name = "test_question", joinColumns = @JoinColumn(name = "test_id"), inverseJoinColumns = @JoinColumn(name = "question_id"))
@@ -98,12 +105,32 @@ public class Test implements Serializable {
 		this.status = status;
 	}
 
+	public boolean getIsPublic() {
+		return isPublic;
+	}
+
+	public void setPublic(boolean isPublic) {
+		this.isPublic = isPublic;
+	}
+
 	public User getCreator() {
 		return creator;
 	}
 
 	public void setCreator(User creator) {
 		this.creator = creator;
+	}
+
+	public User getInspector() {
+		return inspector;
+	}
+
+	public void setInspector(User inspector) {
+		this.inspector = inspector;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 	public List<Question> getQuestions() {
