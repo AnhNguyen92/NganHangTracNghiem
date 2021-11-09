@@ -6,25 +6,25 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 public class DateRange {
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	private Date dateFrom;
+	private Date fromDate;
 
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	private Date dateTo;
+	private Date toDate;
 
-	public Date getDateFrom() {
-		return dateFrom;
+	public Date getFromDate() {
+		return fromDate;
 	}
 
-	public void setDateFrom(Date dateFrom) {
-		this.dateFrom = dateFrom;
+	public void setFromDate(Date fromDate) {
+		this.fromDate = fromDate;
 	}
 
-	public Date getDateTo() {
-		return dateTo;
+	public Date getToDate() {
+		return toDate;
 	}
 
-	public void setDateTo(Date dateTo) {
-		this.dateTo = dateTo;
+	public void setToDate(Date toDate) {
+		this.toDate = toDate;
 	}
 
 }
