@@ -105,7 +105,7 @@ public class Test implements Serializable {
 		this.status = status;
 	}
 
-	public boolean getIsPublic() {
+	public boolean isPublic() {
 		return isPublic;
 	}
 

@@ -140,8 +140,8 @@
                                             <td th:if="${#strings.equals(test.status, 'WAITING')}">Chờ</td>
                                             <td th:if="${#strings.equals(test.status, 'APPROVED')}">Đã duyệt</td>
                                             <td>
-                                                <span th:if="${test.isPublic} == true">Có</span>
-                                                <span th:if="${test.isPublic} == false">Không</span>
+                                                <span th:if="*{test.public} == true">Có</span>
+                                                <span th:if="*{test.public} == false">Không</span>
                                             </td>
                                             <td th:text="${test.creator.username}"></td>
                                             <td th:text="${test.inspector.username}"></td>
