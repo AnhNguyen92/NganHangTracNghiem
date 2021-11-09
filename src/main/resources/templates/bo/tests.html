@@ -120,13 +120,15 @@
                                 <table id="example" class="table table-bordered table-responsive" style="width: 100%">
                                     <thead>
                                         <tr>
-                                            <th>ID</th>
-                                            <th>Tên đề thi</th>
-                                            <th>Số lượng câu hỏi</th>
-                                            <th>Ngày tạo</th>
-                                            <th>Trạng thái</th>
-                                            <th>Tác giả</th>
-                                            <th>Hành động</th>
+                                            <th id="id">ID</th>
+                                            <th id="test-name">Tên đề thi</th>
+                                            <th id="numb-of-question">Số lượng câu hỏi</th>
+                                            <th id="created-date">Ngày tạo</th>
+                                            <th id="status">Trạng thái</th>
+                                            <th id="is-public">Công khai</th>
+                                            <th id="creator">Tác giả</th>
+                                            <th id="inspector">Người duyệt</th>
+                                            <th id="action">Hành động</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -137,7 +139,12 @@
                                             <td th:text="${#dates.format(test.createDate, 'dd-MM-yyyy')}"></td>
                                             <td th:if="${#strings.equals(test.status, 'WAITING')}">Chờ</td>
                                             <td th:if="${#strings.equals(test.status, 'APPROVED')}">Đã duyệt</td>
+                                            <td>
+                                                <span th:if="${test.isPublic} == true">Có</span>
+                                                <span th:if="${test.isPublic} == false">Không</span>
+                                            </td>
                                             <td th:text="${test.creator.username}"></td>
+                                            <td th:text="${test.inspector.username}"></td>
                                             <td>
                                                 <div class="d-flex justify-content-around">
                                                     <a th:href="@{'/bo/tests/' + ${test.id}}"

@@ -9,10 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import vn.com.multiplechoice.business.service.TestService;
+import vn.com.multiplechoice.dao.criteria.TestCriteria;
 import vn.com.multiplechoice.dao.model.DateRange;
 import vn.com.multiplechoice.dao.model.Test;
 
@@ -25,10 +27,11 @@ public class TestController {
 	private TestService testService;
 
 	@GetMapping(value = { "", "/list" })
-	public String list(Model model) {
+	public String list(@ModelAttribute("criteria") TestCriteria criteria, Model model) {
 		logger.info("------- Start get test list -------");
 		List<Test> tests = testService.findAll();
 		model.addAttribute("tests", tests);
+		
         DateRange dateRange = new DateRange();
         dateRange.setDateFrom(new Date());
         dateRange.setDateTo(new Date());
