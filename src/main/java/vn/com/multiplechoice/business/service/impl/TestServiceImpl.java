@@ -38,9 +38,9 @@ public class TestServiceImpl extends AbstractService<Test, Long> implements Test
 		CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Test> criteriaQuery = cb.createQuery(Test.class);
         Root<Test> root = criteriaQuery.from(Test.class);
-        Predicate onStart = cb.greaterThanOrEqualTo(root.get("startDate"), testCriteria.getDateRange().getFromDate());
-        Predicate onEnd = cb.lessThanOrEqualTo(root.get("endDate"), testCriteria.getDateRange().getToDate());
-        if (!StringUtils.isEmpty(testCriteria.getSearchText().trim())) {
+        Predicate onStart = cb.greaterThanOrEqualTo(root.get("createDate"), testCriteria.getDateRange().getFromDate());
+        Predicate onEnd = cb.lessThanOrEqualTo(root.get("createDate"), testCriteria.getDateRange().getToDate());
+        if (!StringUtils.isEmpty(testCriteria.getSearchText())) {
         	cb.like(root.get("content"), testCriteria.getSearchText().trim());
         }
         if (testCriteria.getStatus() != null) {
