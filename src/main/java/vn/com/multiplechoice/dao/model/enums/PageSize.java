@@ -5,7 +5,6 @@ public enum PageSize {
 
 	private int size;
 
-	
 	private PageSize(int size) {
 		this.size = size;
 	}
