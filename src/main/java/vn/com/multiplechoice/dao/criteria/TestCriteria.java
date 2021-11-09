@@ -10,6 +10,7 @@ import vn.com.multiplechoice.dao.model.enums.TestStatus;
 public class TestCriteria {
 	private String searchText;
 	private TestStatus status;
+	private long start;
 	private PageSize size;
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date fromDate;
@@ -31,6 +32,14 @@ public class TestCriteria {
 
 	public void setStatus(TestStatus status) {
 		this.status = status;
+	}
+
+	public long getStart() {
+		return start;
+	}
+
+	public void setStart(long start) {
+		this.start = start;
 	}
 
 	public PageSize getSize() {

@@ -1,6 +1,5 @@
 package vn.com.multiplechoice.web.controller.bo;
 
-import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import vn.com.multiplechoice.business.service.TestService;
 import vn.com.multiplechoice.dao.criteria.TestCriteria;
-import vn.com.multiplechoice.dao.model.DateRange;
 import vn.com.multiplechoice.dao.model.Test;
 
 @Controller
@@ -28,7 +26,7 @@ public class TestController {
 	@RequestMapping(value = { "", "/list" })
 	public String list(TestCriteria testCriteria, Model model) {
 		logger.info("------- Start get test list -------");
-		List<Test> tests = testService.findAll();
+		List<Test> tests = testService.findAll(testCriteria);
 		model.addAttribute("tests", tests);
 		
 		return "bo/tests";
