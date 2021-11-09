@@ -1,21 +1,28 @@
 package vn.com.multiplechoice.dao.criteria;
 
-import vn.com.multiplechoice.dao.model.DateRange;
+import java.util.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 import vn.com.multiplechoice.dao.model.enums.PageSize;
 import vn.com.multiplechoice.dao.model.enums.TestStatus;
 
 public class TestCriteria {
-	private String authorName;
+	private String searchText;
 	private TestStatus status;
 	private PageSize size;
-	private DateRange dateRange = new DateRange();
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	private Date fromDate;
 
-	public String getAuthorName() {
-		return authorName;
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	private Date toDate;
+
+	public String getSearchText() {
+		return searchText;
 	}
 
-	public void setAuthorName(String authorName) {
-		this.authorName = authorName;
+	public void setSearchText(String searchText) {
+		this.searchText = searchText;
 	}
 
 	public TestStatus getStatus() {
@@ -34,12 +41,20 @@ public class TestCriteria {
 		this.size = size;
 	}
 
-	public DateRange getDateRange() {
-		return dateRange;
+	public Date getFromDate() {
+		return fromDate;
 	}
 
-	public void setDateRange(DateRange dateRange) {
-		this.dateRange = dateRange;
+	public void setFromDate(Date fromDate) {
+		this.fromDate = fromDate;
+	}
+
+	public Date getToDate() {
+		return toDate;
+	}
+
+	public void setToDate(Date toDate) {
+		this.toDate = toDate;
 	}
 
 }

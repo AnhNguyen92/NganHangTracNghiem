@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -26,17 +25,12 @@ public class TestController {
 	@Autowired
 	private TestService testService;
 
-	@GetMapping(value = { "", "/list" })
-	public String list(@ModelAttribute("criteria") TestCriteria criteria, Model model) {
+	@RequestMapping(value = { "", "/list" })
+	public String list(TestCriteria testCriteria, Model model) {
 		logger.info("------- Start get test list -------");
 		List<Test> tests = testService.findAll();
 		model.addAttribute("tests", tests);
 		
-        DateRange dateRange = new DateRange();
-        dateRange.setDateFrom(new Date());
-        dateRange.setDateTo(new Date());
-        model.addAttribute("dateRange", dateRange);
-
 		return "bo/tests";
 	}
 
