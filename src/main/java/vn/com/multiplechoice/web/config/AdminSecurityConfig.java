@@ -39,7 +39,8 @@ public class AdminSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().formLogin() //
                 .loginPage(loginPage)//
                 .loginProcessingUrl("/bo/j_spring_security_login") //
-                .defaultSuccessUrl("/bo/users", true) //
+                // .defaultSuccessUrl("/bo/users", true) //
+                .defaultSuccessUrl("/bo/questions", true) //
                 .usernameParameter("username").passwordParameter("password") //
                 .and().exceptionHandling().accessDeniedPage("/403") //
                 .and().logout() //
