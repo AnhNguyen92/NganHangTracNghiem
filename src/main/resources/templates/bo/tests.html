@@ -94,11 +94,9 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div th:field="${testCriteria.dateRange}">
-                                        <input type="hidden" name="dateRangefromDate" th:field="${dateRange.fromDate}"/>
-                                        <input type="hidden" name="dateRangetoDate" th:field="${dateRange.toDate}"/>
-                                        <input type="hidden" name="fromDate"/>
-                                        <input type="hidden" name="toDate"/>
+                                    <div th:object="${testCriteria.dateRange}">
+                                        <input type="hidden" th:field="*{fromDate}"/>
+                                        <input type="hidden" th:field="*{toDate}"/>
                                     </div>
                                     <div class="input-group">
                                         <button class="btn btn-primary" type="submit">
@@ -205,14 +203,14 @@
     });
 
     $dateRange.on('apply.daterangepicker', function (ev, picker) {
-        $('input[name="fromDate"]').val(picker.startDate.format('DD/MM/YYYY'));
-        $('input[name="toDate"]').val(picker.endDate.format('DD/MM/YYYY'));
+        $('input[name="dateRange.fromDate"]').val(picker.startDate.format('DD/MM/YYYY'));
+        $('input[name="dateRange.toDate"]').val(picker.endDate.format('DD/MM/YYYY'));
     });
     
     $(function() {
         console.log(moment());
-        $('input[name="fromDate"]').val(moment().format('DD/MM/YYYY'));
-        $('input[name="toDate"]').val(moment().format('DD/MM/YYYY'));
+        $('input[name="dateRange.fromDate"]').val(moment().format('DD/MM/YYYY'));
+        $('input[name="dateRange.toDate"]').val(moment().format('DD/MM/YYYY'));
     });
     
     
