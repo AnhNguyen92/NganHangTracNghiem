@@ -110,10 +110,12 @@ public class TestController {
 		test.setCreator(creator);
 		test.setContent(options.getContent());
 		test.setQuestions(questions);
+		test.setPublic(options.isPublic());
 		if (creator.getRole().equals(UserRole.USER)) {
 			test.setStatus(TestStatus.WAITING);
 		} else {
 			test.setStatus(TestStatus.APPROVED);
+			test.setInspector(creator);
 		}
 		
 		testService.save(test);
