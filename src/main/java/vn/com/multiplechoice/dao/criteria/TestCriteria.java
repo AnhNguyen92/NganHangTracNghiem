@@ -7,7 +7,7 @@ import vn.com.multiplechoice.dao.model.enums.TestStatus;
 public class TestCriteria {
 	private String searchText;
 	private TestStatus status;
-	private long start;
+	private long startPage;
 	private PageSize size;
 	private DateRange dateRange;
 
@@ -27,12 +27,12 @@ public class TestCriteria {
 		this.status = status;
 	}
 
-	public long getStart() {
-		return start;
+	public long getStartPage() {
+		return startPage;
 	}
 
-	public void setStart(long start) {
-		this.start = start;
+	public void setStartPage(long startPage) {
+		this.startPage = startPage;
 	}
 
 	public PageSize getSize() {
