@@ -24,39 +24,45 @@ import vn.com.multiplechoice.dao.repository.TestRepository;
 @Service
 @Transactional
 public class TestServiceImpl extends AbstractService<Test, Long> implements TestService {
-    private EntityManager em;
+	private EntityManager em;
 	private TestRepository testRepository;
 
-    @Autowired
-    public TestServiceImpl(EntityManager em, TestRepository testRepository) {
-        super(testRepository);
-        this.testRepository = testRepository;
-        this.em = em;
-    }
+	@Autowired
+	public TestServiceImpl(EntityManager em, TestRepository testRepository) {
+		super(testRepository);
+		this.testRepository = testRepository;
+		this.em = em;
+	}
 
 	@Override
 	public List<Test> findAll(TestCriteria testCriteria) {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<Test> criteriaQuery = cb.createQuery(Test.class);
-        Root<Test> root = criteriaQuery.from(Test.class);
-        List<Predicate> predicates = new ArrayList<>();
-        Predicate onStartPredicate = cb.greaterThanOrEqualTo(root.get("createDate"), testCriteria.getDateRange().getFromDate());
-        Predicate onEndPredicate = cb.lessThanOrEqualTo(root.get("createDate"), testCriteria.getDateRange().getToDate());
-        predicates.add(onStartPredicate);
-        predicates.add(onEndPredicate);
-        if (!StringUtils.isEmpty(testCriteria.getSearchText())) {
-        	Predicate searchTextPredicate = cb.like(root.get("content"), "%" + testCriteria.getSearchText().trim() + "%");
-        	predicates.add(searchTextPredicate);
-        }
-        if (testCriteria.getStatus() != null) {
-        	Predicate statusPredicate = cb.equal(root.get("status"), testCriteria.getStatus());
-        	predicates.add(statusPredicate);
-        }
-        criteriaQuery.where(cb.and(predicates.toArray(new Predicate[0])));
-        TypedQuery<Test> query = em.createQuery(criteriaQuery);
-        List<Test> tests = query.getResultList();
+		CriteriaQuery<Test> criteriaQuery = cb.createQuery(Test.class);
+		Root<Test> root = criteriaQuery.from(Test.class);
+		List<Predicate> predicates = new ArrayList<>();
+		Predicate onStartPredicate = cb.greaterThanOrEqualTo(root.get("createDate"),
+				testCriteria.getDateRange().getFromDate());
+		Predicate onEndPredicate = cb.lessThanOrEqualTo(root.get("createDate"),
+				testCriteria.getDateRange().getToDate());
+		predicates.add(onStartPredicate);
+		predicates.add(onEndPredicate);
+		if (!StringUtils.isEmpty(testCriteria.getSearchText())) {
+			Predicate searchTextPredicate = cb
+					.or(cb.like(root.get("content"), "%" + testCriteria.getSearchText().trim() + "%"),
+							cb.like(cb.concat(cb.concat(root.get("creator").get("lastname"), " "),
+									root.get("creator").get("firstname")),
+									"%" + testCriteria.getSearchText().trim() + "%"));
+			predicates.add(searchTextPredicate);
+		}
+		if (testCriteria.getStatus() != null) {
+			Predicate statusPredicate = cb.equal(root.get("status"), testCriteria.getStatus());
+			predicates.add(statusPredicate);
+		}
+		criteriaQuery.where(cb.and(predicates.toArray(new Predicate[0])));
+		TypedQuery<Test> query = em.createQuery(criteriaQuery);
+		List<Test> tests = query.getResultList();
 
-        return tests;
+		return tests;
 	}
 
 }
