@@ -125,99 +125,98 @@
 <script th:src="@{/js/sb-admin-2.min.js}"></script>
 
 <script>
-	$('#example')
-			.DataTable(
-					{
-						"processing" : true,
-						"serverSide" : true,
-						"ajax" : {
-							"url" : "/multiple-choice-quiz/bo/users/ajax/list",
-							"type" : "POST",
-							"dataType" : "json",
-							"contentType" : "application/json",
-							"data" : function(d) {
-								return JSON.stringify(d);
-							}
-						},
-						"columns" : [
-								{
-									"data" : "id",
-									"width" : "5%"
-								},
-								{
-									"data" : "lastname",
-									"width" : "12%"
-								},
-								{
-									"data" : "firstname",
-									"width" : "12%"
-								},
-								{
-									"data" : "username",
-									"width" : "18%"
-								},
-								{
-									"data" : "email",
-									"width" : "18%"
-								},
-								{
-									"data" : "phoneNumber",
-									"width" : "15%"
-								},
-								{
-									"data" : "role",
-									"width" : "15%",
-									render : function(data, type, row) {
-										if (data == 'USER') {
-											return 'Người dùng';
-										}
-										if (data == 'ADMIN') {
-											return 'Quản trị viên';
-										}
-										if (data == 'INSPECTOR') {
-											return 'Kiểm duyệt viên';
-										}
-										if (data == 'CREATOR') {
-											return 'Người tạo đề thi';
-										}
-									}
-								},
-								{
-									data : null,
-									"width" : "10%",
-									render : function(data, type, row) {
-										return '<div class="d-flex justify-content-around"><a href="/multiple-choice-quiz/bo/users/' + data.id + '" class="btn btn-primary mr-2" title="Chi tiết"><i class="fa fa-pencil-alt" aria-hidden="true"></i></a><a href="javascript:deleteUser('
-												+ data.id
-												+ ')" class="btn btn-danger" title="Xóa"><i class="fa fa-trash-alt" aria-hidden="true"></i></a></div>';
 
-									}
-								} ],
-						"language" : {
-							"info" : "Hiển thị _START_ tới _END_ của _TOTAL_",
-							"emptyTable" : "Không có dữ liệu",
-							"lengthMenu" : "Hiển thị _MENU_ kết quả",
-							"loadingRecords" : "Xin đợi - Đang tải ...",
-							"search" : "Tìm kiếm:",
-							"paginate" : {
-								"first" : "Đầu",
-								"last" : "Cuối",
-								"next" : "Kế",
-								"previous" : "Trước"
-							}
-						}
-					});
+    $('#example')
+    .DataTable({
+        "processing": true,
+        "serverSide": true,
+        "ajax": {
+            "url": "/multiple-choice-quiz/bo/users/ajax/list",
+            "type": "POST",
+            "dataType": "json",
+            "contentType": "application/json",
+            "data": function(d) {
+                return JSON.stringify(d);
+            }
+        },
+        "columns": [{
+                "data": "id",
+                "width": "5%"
+            },
+            {
+                "data": "lastname",
+                "width": "12%"
+            },
+            {
+                "data": "firstname",
+                "width": "12%"
+            },
+            {
+                "data": "username",
+                "width": "18%"
+            },
+            {
+                "data": "email",
+                "width": "18%"
+            },
+            {
+                "data": "phoneNumber",
+                "width": "15%"
+            },
+            {
+                "data": "role",
+                "width": "15%",
+                render: function(data, type, row) {
+                    if (data == 'USER') {
+                        return 'Người dùng';
+                    }
+                    if (data == 'ADMIN') {
+                        return 'Quản trị viên';
+                    }
+                    if (data == 'INSPECTOR') {
+                        return 'Kiểm duyệt viên';
+                    }
+                    if (data == 'CREATOR') {
+                        return 'Người tạo đề thi';
+                    }
+                }
+            },
+            {
+                data: null,
+                "width": "10%",
+                render: function(data, type, row) {
+                    return '<div class="d-flex justify-content-around"><a href="/multiple-choice-quiz/bo/users/' + data.id + '" class="btn btn-primary mr-2" title="Chi tiết"><i class="fa fa-pencil-alt" aria-hidden="true"></i></a><a href="javascript:deleteUser(' +
+                        data.id +
+                        ')" class="btn btn-danger" title="Xóa"><i class="fa fa-trash-alt" aria-hidden="true"></i></a></div>';
+                }
+            }
+        ],
+        "language": {
+            "info": "Hiển thị _START_ tới _END_ của _TOTAL_",
+            "emptyTable": "Không có dữ liệu",
+            "lengthMenu": "Hiển thị _MENU_ kết quả",
+            "loadingRecords": "Xin đợi - Đang tải ...",
+            "search": "Tìm kiếm:",
+            "paginate": {
+                "first": "Đầu",
+                "last": "Cuối",
+                "next": "Kế",
+                "previous": "Trước"
+            }
+        }
+    });
 
-	function deleteUser(id) {
-		$.ajax({
-			type : "DELETE",
-			url : "/multiple-choice-quiz/bo/users/" + id,
-			contentType : "application/json",
-			dataType : "json",
-			error : function(e) {
-				console.log(e);
-			}
-		});
-	}
+    function deleteUser(id) {
+        $.ajax({
+            type : "DELETE",
+            url : "/multiple-choice-quiz/bo/users/" + id,
+            contentType : "application/json",
+            dataType : "json",
+            error : function(e) {
+                console.log(e);
+            }
+        });
+    }
 </script>
 
 </html>
