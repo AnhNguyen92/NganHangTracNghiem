@@ -74,12 +74,12 @@
                             <h6 class="m-0 font-weight-bold text-primary">Danh sách</h6>
                         </div>
                         <div class="card-body">
-                            <form class="d-none d-md-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+                            <form class="d-none d-md-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0" th:action="@{/bo/questions}" method="post" th:object="${questionCriteria}">
                                 <div class="input-group">
-                                    <input type="text" class="form-control col-4 bg-light small" style="border: 1px solid #d1d3e2;"
+                                    <input type="text" class="rounded col-3 bg-light small" th:field="*{searchText}" style="border: 1px solid #d1d3e2;"
                                         placeholder="Tìm kiếm ..." aria-label="Tìm kiếm">
                                     <div class="dropdown mx-2">
-                                        <select class="custom-select">
+                                        <select class="custom-select" th:field="*{type}">
                                             <option value="" selected>Loại câu hỏi</option>
                                             <option value="YES_NO">Đúng sai</option>
                                             <option value="TRUE_FALSE">Đúng sai có điểm</option>
@@ -102,7 +102,7 @@
                                     <div class="dataTable-dropdown my-2">
                                         <label>
                                             Hiển thị
-                                            <select class="dataTable-selector mx-2 px-2" th:field="*{size}">
+                                            <select class="custom-select custom-select form-control form-control mx-2" th:field="*{size}">
                                                 <option th:each="pageSize : ${T(vn.com.multiplechoice.dao.model.enums.PageSize).values()}"
                                                         th:value="${pageSize}"
                                                         th:text="${pageSize.size}">

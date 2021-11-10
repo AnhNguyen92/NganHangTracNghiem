@@ -6,7 +6,7 @@ public enum QuestionType {
     MATCHING,         // GHEP CAP
     COMPLETION_1,     // DIEN KHUYET LOAI 1
     COMPLETION_2,     // DIEN KHUYET LOAI 2, DUNG CHO DOAN VAN NHU BAI KIEM TRA TIENG ANH
-    UNDERLINE,         // GACH CHAN
-    YES_NO, // DUNG SAI MAC DINH
+    UNDERLINE,        // GACH CHAN
+    YES_NO, 		  // DUNG SAI MAC DINH
     TRUE_FALSE;       // DUNG SAI
 }

@@ -27,13 +27,9 @@ public class QuestionController {
         this.questionService = questionService;
     }
 
-    @GetMapping(value = { "", "/list" })
-//    public String getQuestions(@RequestParam(value = "pageNumber", required = false, defaultValue = "1") int pageNumber,
-//            @RequestParam(value = "size", required = false, defaultValue = "5") int size, Model model) {
+    @RequestMapping(value = { "", "/list" })
 	public String list(QuestionCriteria questionCriteria, Model model) {
     	logger.info("start get list question");
-		int pageNumber = 1;
-		int size = 5;
 		List<Question> questions = questionService.findAll(questionCriteria);
 		model.addAttribute("questions", questions);
 

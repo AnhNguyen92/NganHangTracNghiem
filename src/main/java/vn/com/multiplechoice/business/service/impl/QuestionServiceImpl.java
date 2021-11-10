@@ -1,11 +1,13 @@
 package vn.com.multiplechoice.business.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 
@@ -17,7 +19,6 @@ import vn.com.multiplechoice.business.service.AbstractService;
 import vn.com.multiplechoice.business.service.QuestionService;
 import vn.com.multiplechoice.dao.criteria.QuestionCriteria;
 import vn.com.multiplechoice.dao.model.Question;
-import vn.com.multiplechoice.dao.model.Test;
 import vn.com.multiplechoice.dao.repository.QuestionRepository;
 
 @Service
@@ -48,12 +49,16 @@ public class QuestionServiceImpl extends AbstractService<Question, Long> impleme
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Question> criteriaQuery = cb.createQuery(Question.class);
         Root<Question> root = criteriaQuery.from(Question.class);
+        List<Predicate> predicates = new ArrayList<>();
         if (!StringUtils.isEmpty(questionCriteria.getSearchText())) {
-            cb.like(root.get("content"), questionCriteria.getSearchText().trim());
+        	Predicate searchTextPredicate = cb.like(root.get("content"), "%" + questionCriteria.getSearchText().trim() + "%");
+        	predicates.add(searchTextPredicate);
         }
         if (questionCriteria.getType() != null) {
-            cb.equal(root.get("questionType"), questionCriteria.getType());
+        	Predicate typePredicate = cb.equal(root.get("questionType"), questionCriteria.getType());
+        	predicates.add(typePredicate);
         }
+        criteriaQuery.where(cb.and(predicates.toArray(new Predicate[0])));
         TypedQuery<Question> query = em.createQuery(criteriaQuery);
         List<Question> questions = query.getResultList();
         

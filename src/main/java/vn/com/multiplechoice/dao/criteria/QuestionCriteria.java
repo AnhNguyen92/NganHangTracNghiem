@@ -1,7 +1,7 @@
 package vn.com.multiplechoice.dao.criteria;
 
 import vn.com.multiplechoice.dao.model.enums.PageSize;
-import vn.com.multiplechoice.web.enums.QuestionType;
+import vn.com.multiplechoice.dao.model.enums.QuestionType;
 
 public class QuestionCriteria {
     private String searchText;
