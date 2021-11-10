@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import vn.com.multiplechoice.business.service.QuestionService;
+import vn.com.multiplechoice.dao.criteria.QuestionCriteria;
 import vn.com.multiplechoice.dao.model.Question;
 
 @Controller
@@ -29,11 +30,11 @@ public class QuestionController {
     @GetMapping(value = { "", "/list" })
 //    public String getQuestions(@RequestParam(value = "pageNumber", required = false, defaultValue = "1") int pageNumber,
 //            @RequestParam(value = "size", required = false, defaultValue = "5") int size, Model model) {
-	public String list(Model model) {
+	public String list(QuestionCriteria questionCriteria, Model model) {
     	logger.info("start get list question");
 		int pageNumber = 1;
 		int size = 5;
-		List<Question> questions = questionService.findAll();
+		List<Question> questions = questionService.findAll(questionCriteria);
 		model.addAttribute("questions", questions);
 
 		return "bo/questions";
