@@ -109,12 +109,13 @@
                                     <div class="dataTable-dropdown my-2">
                                         <label>
                                             Hiển thị
-                                            <select class="dataTable-selector mx-2 px-2" th:field="*{size}">
+                                            <select class="custom-select custom-select form-control form-control mx-2" th:field="*{size}">
                                                 <option th:each="pageSize : ${T(vn.com.multiplechoice.dao.model.enums.PageSize).values()}"
                                                         th:value="${pageSize}"
                                                         th:text="${pageSize.size}">
                                                 </option>
-                                            </select>kết quả
+                                            </select>
+                                            kết quả
                                         </label>
                                     </div>
                                 </div>
@@ -208,9 +209,7 @@
     });
     
     $(function() {
-        console.log(moment());
-        $('input[name="dateRange.fromDate"]').val(moment().format('DD/MM/YYYY'));
-        $('input[name="dateRange.toDate"]').val(moment().format('DD/MM/YYYY'));
+        $('input[id="dateRange"]').val( $('input[name="dateRange.fromDate"]').val() + ' - ' + $('input[name="dateRange.toDate"]').val());
     });
     
     
