@@ -130,7 +130,8 @@
                                             <th id="created-date">Ngày tạo</th>
                                             <th id="status">Trạng thái</th>
                                             <th id="is-public">Công khai</th>
-                                            <th id="creator">Tác giả</th>
+                                            <th id="creator-username">Tài khoản Tác giả</th>
+                                            <th id="creator-full-name">Tên Tác giả</th>
                                             <th id="inspector">Người duyệt</th>
                                             <th id="action">Hành động</th>
                                         </tr>
@@ -148,6 +149,7 @@
                                                 <span th:if="*{test.public} == false">Không</span>
                                             </td>
                                             <td th:text="${test.creator.username}"></td>
+                                            <td th:text="${test.creator.lastname} + ' ' + ${test.creator.firstname}"></td>
                                             <td th:text="${test.inspector.username}"></td>
                                             <td>
                                                 <div class="d-flex justify-content-around">
@@ -207,12 +209,11 @@
         $('input[name="dateRange.fromDate"]').val(picker.startDate.format('DD/MM/YYYY'));
         $('input[name="dateRange.toDate"]').val(picker.endDate.format('DD/MM/YYYY'));
     });
-    
+
     $(function() {
         $('input[id="dateRange"]').val( $('input[name="dateRange.fromDate"]').val() + ' - ' + $('input[name="dateRange.toDate"]').val());
     });
-    
-    
+
 </script>
 
 </html>
