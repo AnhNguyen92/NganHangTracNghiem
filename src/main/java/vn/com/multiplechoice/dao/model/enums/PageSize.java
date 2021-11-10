@@ -1,7 +1,7 @@
 package vn.com.multiplechoice.dao.model.enums;
 
 public enum PageSize {
-	FIVE(5), TEN(10), FIFTEEN(20), TWENTY(50);
+	TEN(10), TWENTY_FIVE(25), TWENTY(50), HUNDRED(100);
 
 	private int size;
 
