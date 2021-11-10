@@ -1,5 +1,6 @@
 package vn.com.multiplechoice.business.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -38,15 +39,20 @@ public class TestServiceImpl extends AbstractService<Test, Long> implements Test
 		CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Test> criteriaQuery = cb.createQuery(Test.class);
         Root<Test> root = criteriaQuery.from(Test.class);
-        Predicate onStart = cb.greaterThanOrEqualTo(root.get("createDate"), testCriteria.getDateRange().getFromDate());
-        Predicate onEnd = cb.lessThanOrEqualTo(root.get("createDate"), testCriteria.getDateRange().getToDate());
+        List<Predicate> predicates = new ArrayList<>();
+        Predicate onStartPredicate = cb.greaterThanOrEqualTo(root.get("createDate"), testCriteria.getDateRange().getFromDate());
+        Predicate onEndPredicate = cb.lessThanOrEqualTo(root.get("createDate"), testCriteria.getDateRange().getToDate());
+        predicates.add(onStartPredicate);
+        predicates.add(onEndPredicate);
         if (!StringUtils.isEmpty(testCriteria.getSearchText())) {
-        	cb.like(root.get("content"), testCriteria.getSearchText().trim());
+        	Predicate searchTextPredicate = cb.like(root.get("content"), "%" + testCriteria.getSearchText().trim() + "%");
+        	predicates.add(searchTextPredicate);
         }
         if (testCriteria.getStatus() != null) {
-        	cb.equal(root.get("status"), testCriteria.getStatus());
+        	Predicate statusPredicate = cb.equal(root.get("status"), testCriteria.getStatus());
+        	predicates.add(statusPredicate);
         }
-        criteriaQuery.where(onStart, onEnd);
+        criteriaQuery.where(cb.and(predicates.toArray(new Predicate[0])));
         TypedQuery<Test> query = em.createQuery(criteriaQuery);
         List<Test> tests = query.getResultList();
 
