@@ -60,9 +60,8 @@ public class QuestionServiceImpl extends AbstractService<Question, Long> impleme
         }
         criteriaQuery.where(cb.and(predicates.toArray(new Predicate[0])));
         TypedQuery<Question> query = em.createQuery(criteriaQuery);
-        List<Question> questions = query.getResultList();
-        
-        return questions;
+
+        return query.getResultList();
     }
     
 }

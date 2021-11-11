@@ -60,9 +60,8 @@ public class TestServiceImpl extends AbstractService<Test, Long> implements Test
 		}
 		criteriaQuery.where(cb.and(predicates.toArray(new Predicate[0])));
 		TypedQuery<Test> query = em.createQuery(criteriaQuery);
-		List<Test> tests = query.getResultList();
 
-		return tests;
+		return query.getResultList();
 	}
 
 }
