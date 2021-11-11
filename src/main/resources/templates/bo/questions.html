@@ -183,7 +183,7 @@
                                     <div class="dataTables_paginate paging_simple_numbers" id="example_paginate">
                                         <ul class="pagination">
                                             <li id="example_previous" class="paginate_button page-item previous"
-                                                th:classappend="${!questions.paging.isPrevEnabled()? 'disabled' : ''}">
+                                                th:classappend="${!questions.paging.isPrevEnabled() ? 'disabled' : ''}">
                                                 <a
                                                     th:href="@{?(pageSize=${size},pageNumber=${questions.paging.pageNumber - 1},searchText=(${questionCriteria.searchText} ? ${questionCriteria.searchText} : ''),type=(${questionCriteria.type} ? ${questionCriteria.type} : ''))}"
                                                     aria-controls="example" data-dt-idx="0" tabindex="0"
@@ -191,7 +191,7 @@
                                             </li>
                                             <th:block th:each="item : ${questions.paging.getItems()}">
                                                 <li class="page-item"
-                                                    th:classappend="${item.index == questions.paging.pageNumber? 'active' : ''}"
+                                                    th:classappend="${item.index == questions.paging.pageNumber ? 'active' : ''}"
                                                     th:if="${item.pageItemType.name() == 'PAGE'}">
                                                     <a class="page-link"
                                                         th:href="@{?(pageSize=${size},pageNumber=${item.index},searchText=(${questionCriteria.searchText} ? ${questionCriteria.searchText} : ''),type=(${questionCriteria.type} ? ${questionCriteria.type} : ''))}"
@@ -203,7 +203,7 @@
                                                 </li>
                                             </th:block>
                                             <li id="example_next" class="paginate_button page-item next"
-                                                th:classappend="${!questions.paging.isNextEnabled()? 'disabled' : ''}">
+                                                th:classappend="${!questions.paging.isNextEnabled() ? 'disabled' : ''}">
                                                 <a class="page-link"
                                                     th:href="@{?(pageSize=${size},pageNumber=${questions.paging.pageNumber + 1},searchText=(${questionCriteria.searchText} ? ${questionCriteria.searchText} : ''),type=(${questionCriteria.type} ? ${questionCriteria.type} : ''))}">Kế</a>
                                             </li>

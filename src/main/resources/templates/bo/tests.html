@@ -154,9 +154,17 @@
                                                 <td th:text="${test.inspector.username}"></td>
                                                 <td>
                                                     <div class="d-flex justify-content-around">
+                                                        <a th:href="|javascript:approveTest(${test.id})|" class="btn btn-success mr-2" title="Duyệt"
+                                                           >
+                                                            <i class="fa fa-check" aria-hidden="true"></i>
+                                                        </a>
                                                         <a th:href="@{'/bo/tests/' + ${test.id}}"
                                                             class="btn btn-primary mr-2" title="Chi tiết">
                                                             <i class="fa fa-pencil-alt" aria-hidden="true"></i>
+                                                        </a>
+                                                        <a th:href="|javascript:deleteTest(${test.id})|" class="btn btn-danger mr-2"
+                                                            title="Xóa">
+                                                            <i class="fa fa-trash-alt" aria-hidden="true"></i>
                                                         </a>
                                                     </div>
                                                 </td>
@@ -187,7 +195,7 @@
                                     <div class="dataTables_paginate paging_simple_numbers" id="example_paginate">
                                         <ul class="pagination">
                                             <li class="paginate_button page-item previous" id="example_previous"
-                                                th:classappend="${!tests.paging.isPrevEnabled()? 'disabled' : ''}">
+                                                th:classappend="${!tests.paging.isPrevEnabled() ? 'disabled' : ''}">
                                                 <a
                                                     th:href="@{?(pageSize=${size},pageNumber=${tests.paging.pageNumber - 1},searchText=(${testCriteria.searchText} ? ${testCriteria.searchText} : ''),status=(${testCriteria.status} ? ${testCriteria.status} : ''))}"
                                                     aria-controls="example" data-dt-idx="0" tabindex="0"
@@ -195,7 +203,7 @@
                                             </li>
                                             <th:block th:each="item : ${tests.paging.getItems()}">
                                                 <li class="page-item"
-                                                    th:classappend="${item.index == tests.paging.pageNumber? 'active' : ''}"
+                                                    th:classappend="${item.index == tests.paging.pageNumber ? 'active' : ''}"
                                                     th:if="${item.pageItemType.name() == 'PAGE'}">
                                                     <a class="page-link"
                                                         th:href="@{?(pageSize=${size},pageNumber=${item.index},searchText=(${testCriteria.searchText} ? ${testCriteria.searchText} : ''),status=(${testCriteria.status} ? ${testCriteria.status} : ''))}"
@@ -207,7 +215,7 @@
                                                 </li>
                                             </th:block>
                                             <li class="page-item"
-                                                th:classappend="${!tests.paging.isNextEnabled()? 'disabled' : ''}">
+                                                th:classappend="${!tests.paging.isNextEnabled() ? 'disabled' : ''}">
                                                 <a class="page-link"
                                                     th:href="@{?(pageSize=${size},pageNumber=${tests.paging.pageNumber + 1},searchText=(${testCriteria.searchText} ? ${testCriteria.searchText} : ''),status=(${testCriteria.status} ? ${testCriteria.status} : ''))}">Kế</a>
                                             </li>
