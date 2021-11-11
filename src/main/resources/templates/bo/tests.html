@@ -155,7 +155,7 @@
                                                 <td>
                                                     <div class="d-flex justify-content-around">
                                                         <a th:href="|javascript:approveTest(${test.id})|" class="btn btn-success mr-2" title="Duyệt"
-                                                           >
+                                                           th:classappend="${#strings.equals(test.status, 'APPROVED')} ? 'disabled' ">
                                                             <i class="fa fa-check" aria-hidden="true"></i>
                                                         </a>
                                                         <a th:href="@{'/bo/tests/' + ${test.id}}"
@@ -172,8 +172,8 @@
                                         </th:block>
                                         <th:block th:if="${#lists.isEmpty(tests.page)}">
                                             <tr class="odd">
-                                                <td colspan="10" class="dataTables_empty text-center" valign="top">Không
-                                                    có dữ liệu</td>
+                                                <td colspan="10" class="dataTables_empty text-center">Không có dữ
+                                                    liệu</td>
                                             </tr>
                                         </th:block>
                                     </tbody>
