@@ -126,65 +126,86 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr th:each="question : ${questions.page}">
-                                            <td th:text="${question.id}"></td>
-                                            <td th:utext="${question.content}"></td>
-                                            <td th:if="${#strings.equals(question.questionType, 'ONE_ANSWER')}">Một
-                                                câu trả lời</td>
-                                            <td th:if="${#strings.equals(question.questionType, 'MULTIPLE_ANSWER')}">Nhiều
-                                                đáp án đúng</td>
-                                            <td th:if="${#strings.equals(question.questionType, 'MATCHING')}">Câu
-                                                hỏi nối chéo</td>
-                                            <td th:if="${#strings.equals(question.questionType, 'COMPLETION_1')}">Điền
-                                                khuyết loại 1</td>
-                                            <td th:if="${#strings.equals(question.questionType, 'COMPLETION_2')}">Điền
-                                                khuyết loại 2</td>
-                                            <td th:if="${#strings.equals(question.questionType, 'UNDERLINE')}">Câu
-                                                hỏi gạch chân</td>
-                                            <td th:if="${#strings.equals(question.questionType, 'YES_NO')}">Đúng
-                                                sai</td>
-                                            <td th:if="${#strings.equals(question.questionType, 'TRUE_FALSE')}">Đúng
-                                                sai có điểm</td>
-                                            <td th:text="${question.rightAnswer}"></td>
-                                            <td th:utext="${question.suggest}"></td>
-                                            <td th:text="*{question.user.username}"></td>
-                                            <td>
-                                                <div class="d-flex justify-content-around">
-                                                    <a th:href="@{'/bo/questions/' + ${question.id}}"
-                                                        class="btn btn-primary mr-2" title="Chi tiết">
-                                                        <i class="fa fa-pencil-alt" aria-hidden="true"></i>
-                                                    </a>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                        <th:block th:if="${not #lists.isEmpty(questions.page)}">
+                                            <tr th:each="question : ${questions.page}">
+                                                <td th:text="${question.id}"></td>
+                                                <td th:utext="${question.content}"></td>
+                                                <td th:if="${#strings.equals(question.questionType, 'ONE_ANSWER')}">Một
+                                                    câu trả lời</td>
+                                                <td th:if="${#strings.equals(question.questionType, 'MULTIPLE_ANSWER')}">Nhiều
+                                                    đáp án đúng</td>
+                                                <td th:if="${#strings.equals(question.questionType, 'MATCHING')}">Câu
+                                                    hỏi nối chéo</td>
+                                                <td th:if="${#strings.equals(question.questionType, 'COMPLETION_1')}">Điền
+                                                    khuyết loại 1</td>
+                                                <td th:if="${#strings.equals(question.questionType, 'COMPLETION_2')}">Điền
+                                                    khuyết loại 2</td>
+                                                <td th:if="${#strings.equals(question.questionType, 'UNDERLINE')}">Câu
+                                                    hỏi gạch chân</td>
+                                                <td th:if="${#strings.equals(question.questionType, 'YES_NO')}">Đúng
+                                                    sai</td>
+                                                <td th:if="${#strings.equals(question.questionType, 'TRUE_FALSE')}">Đúng
+                                                    sai có điểm</td>
+                                                <td th:text="${question.rightAnswer}"></td>
+                                                <td th:utext="${question.suggest}"></td>
+                                                <td th:text="*{question.user.username}"></td>
+                                                <td>
+                                                    <div class="d-flex justify-content-around">
+                                                        <a th:href="@{'/bo/questions/' + ${question.id}}"
+                                                            class="btn btn-primary mr-2" title="Chi tiết">
+                                                            <i class="fa fa-pencil-alt" aria-hidden="true"></i>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </th:block>
+                                        <th:block th:if="${#lists.isEmpty(questions.page)}">
+                                            <tr class="odd">
+                                                <td colspan="7" class="dataTables_empty text-center" valign="top">Không
+                                                    có dữ liệu</td>
+                                            </tr>
+                                        </th:block>
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="row">
+                            <div class="row" th:if="${not #lists.isEmpty(questions.page)}">
                                 <div class="col-sm-12 col-md-5">
-                                    <div class="dataTables_info" id="example_info" role="status" aria-live="polite">Hiển
-                                        thị <span th:text="${_START_}"></span> tới <span th:text="${_END_}"></span> của <span th:text="${_TOTAL_}"></span></div>
+                                    <div class="dataTables_info" id="example_info" role="status" aria-live="polite">
+                                        Hiển thị
+                                        <span th:text="${_START_}"></span>
+                                        tới
+                                        <span th:text="${_END_}"></span>
+                                        của
+                                        <span th:text="${_TOTAL_}"></span>
+                                    </div>
                                 </div>
                                 <div class="col-sm-12 col-md-7">
                                     <div class="dataTables_paginate paging_simple_numbers" id="example_paginate">
                                         <ul class="pagination">
-                                            <li class="paginate_button page-item previous" id="example_previous"
+                                            <li id="example_previous" class="paginate_button page-item previous"
                                                 th:classappend="${!questions.paging.isPrevEnabled()? 'disabled' : ''}">
-                                                <a th:href="@{?(pageSize=${size},pageNumber=${questions.paging.pageNumber - 1},searchText=(${questionCriteria.searchText} ? ${questionCriteria.searchText} : ''),type=(${questionCriteria.type} ? ${questionCriteria.type} : ''))}" aria-controls="example" data-dt-idx="0" tabindex="0"
+                                                <a
+                                                    th:href="@{?(pageSize=${size},pageNumber=${questions.paging.pageNumber - 1},searchText=(${questionCriteria.searchText} ? ${questionCriteria.searchText} : ''),type=(${questionCriteria.type} ? ${questionCriteria.type} : ''))}"
+                                                    aria-controls="example" data-dt-idx="0" tabindex="0"
                                                     class="page-link">Trước</a>
                                             </li>
                                             <th:block th:each="item : ${questions.paging.getItems()}">
-                                                <li class="page-item" th:classappend="${item.index == questions.paging.pageNumber? 'active' : ''}"
+                                                <li class="page-item"
+                                                    th:classappend="${item.index == questions.paging.pageNumber? 'active' : ''}"
                                                     th:if="${item.pageItemType.name() == 'PAGE'}">
-                                                    <a class="page-link" th:href="@{?(pageSize=${size},pageNumber=${item.index},searchText=(${questionCriteria.searchText} ? ${questionCriteria.searchText} : ''),type=(${questionCriteria.type} ? ${questionCriteria.type} : ''))}"
-                                                       th:text="${item.index}"></a>
+                                                    <a class="page-link"
+                                                        th:href="@{?(pageSize=${size},pageNumber=${item.index},searchText=(${questionCriteria.searchText} ? ${questionCriteria.searchText} : ''),type=(${questionCriteria.type} ? ${questionCriteria.type} : ''))}"
+                                                        th:text="${item.index}"></a>
                                                 </li>
-                                                <li class="page-item disabled" th:if="${item.pageItemType.name() == 'DOTS'}">
+                                                <li class="page-item disabled"
+                                                    th:if="${item.pageItemType.name() == 'DOTS'}">
                                                     <a class="page-link" href="#">...</a>
                                                 </li>
                                             </th:block>
-                                            <li class="page-item" th:classappend="${!questions.paging.isNextEnabled()? 'disabled' : ''}">
-                                                <a class="page-link" th:href="@{?(pageSize=${size},pageNumber=${questions.paging.pageNumber + 1},searchText=(${questionCriteria.searchText} ? ${questionCriteria.searchText} : ''),type=(${questionCriteria.type} ? ${questionCriteria.type} : ''))}">Kế</a>
+                                            <li id="example_next" class="paginate_button page-item next"
+                                                th:classappend="${!questions.paging.isNextEnabled()? 'disabled' : ''}">
+                                                <a class="page-link"
+                                                    th:href="@{?(pageSize=${size},pageNumber=${questions.paging.pageNumber + 1},searchText=(${questionCriteria.searchText} ? ${questionCriteria.searchText} : ''),type=(${questionCriteria.type} ? ${questionCriteria.type} : ''))}">Kế</a>
                                             </li>
                                         </ul>
                                     </div>

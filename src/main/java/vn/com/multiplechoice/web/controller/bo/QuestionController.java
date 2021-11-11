@@ -51,10 +51,11 @@ public class QuestionController {
 		}
 		int pageSize = pageNumber * size;
 		int start = questions.isEmpty() ? 0 : ((pageNumber - 1) * size + 1);
-		int end = (pageSize > questions.size()) ? questions.size()  : pageSize;
-		if (!questions.isEmpty()) {			
+		int end = (pageSize > questions.size()) ? questions.size() : pageSize;
+		if (!questions.isEmpty()) {
 			Pageable pageable = PageRequest.of(pageNumber - 1, size);
-			Page<Question> questionPage = new PageImpl<>(questions.subList((pageNumber - 1) * size, end), pageable, questions.size());
+			Page<Question> questionPage = new PageImpl<>(questions.subList((pageNumber - 1) * size, end), pageable,
+					questions.size());
 			paged = new Paged<>(questionPage, Paging.of(questionPage.getTotalPages(), pageNumber, size));
 		}
 
