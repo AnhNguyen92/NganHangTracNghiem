@@ -121,7 +121,7 @@
                                 </div>
                             </form>
                             <div class="table-responsive">
-                                <table id="example" class="table table-bordered table-responsive" style="width: 100%">
+                                <table id="example" class="table table-bordered table-responsive" style="width: 100%" aria-describedby="list of test">
                                     <thead>
                                         <tr>
                                             <th id="id">ID</th>
@@ -137,31 +137,83 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr th:each="test : ${tests}">
-                                            <td th:text="${test.id}"></td>
-                                            <td th:text="${test.content}"></td>
-                                            <td th:text="${test.numOfQuestions}"></td>
-                                            <td th:text="${#dates.format(test.createDate, 'dd-MM-yyyy')}"></td>
-                                            <td th:if="${#strings.equals(test.status, 'WAITING')}">Chờ</td>
-                                            <td th:if="${#strings.equals(test.status, 'APPROVED')}">Đã duyệt</td>
-                                            <td>
-                                                <span th:if="*{test.public} == true">Có</span>
-                                                <span th:if="*{test.public} == false">Không</span>
-                                            </td>
-                                            <td th:text="${test.creator.username}"></td>
-                                            <td th:text="${test.creator.lastname} + ' ' + ${test.creator.firstname}"></td>
-                                            <td th:text="${test.inspector.username}"></td>
-                                            <td>
-                                                <div class="d-flex justify-content-around">
-                                                    <a th:href="@{'/bo/tests/' + ${test.id}}"
-                                                        class="btn btn-primary mr-2" title="Chi tiết">
-                                                        <i class="fa fa-pencil-alt" aria-hidden="true"></i>
-                                                    </a>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                        <th:block th:if="${not #lists.isEmpty(tests.page)}">
+                                            <tr th:each="test : ${tests.page}">
+                                                <td th:text="${test.id}"></td>
+                                                <td th:text="${test.content}"></td>
+                                                <td th:text="${test.numOfQuestions}"></td>
+                                                <td th:text="${#dates.format(test.createDate, 'dd-MM-yyyy')}"></td>
+                                                <td th:if="${#strings.equals(test.status, 'WAITING')}">Chờ</td>
+                                                <td th:if="${#strings.equals(test.status, 'APPROVED')}">Đã duyệt</td>
+                                                <td>
+                                                    <span th:if="*{test.public} == true">Có</span>
+                                                    <span th:if="*{test.public} == false">Không</span>
+                                                </td>
+                                                <td th:text="${test.creator.username}"></td>
+                                                <td th:text="${test.creator.lastname} + ' ' + ${test.creator.firstname}"></td>
+                                                <td th:text="${test.inspector.username}"></td>
+                                                <td>
+                                                    <div class="d-flex justify-content-around">
+                                                        <a th:href="@{'/bo/tests/' + ${test.id}}"
+                                                            class="btn btn-primary mr-2" title="Chi tiết">
+                                                            <i class="fa fa-pencil-alt" aria-hidden="true"></i>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </th:block>
+                                        <th:block th:if="${#lists.isEmpty(tests.page)}">
+                                            <tr class="odd">
+                                                <td colspan="10" class="dataTables_empty text-center" valign="top">Không
+                                                    có dữ liệu</td>
+                                            </tr>
+                                        </th:block>
                                     </tbody>
                                 </table>
+                            </div>
+                            <div class="row" th:if="${not #lists.isEmpty(tests.page)}">
+                                <div class="col-sm-12 col-md-5">
+                                    <div class="dataTables_info" id="example_info" role="status" aria-live="polite">
+                                        Hiển thị
+                                        <span th:text="${_START_}"></span>
+                                        tới
+                                        <span th:text="${_END_}"></span>
+                                        của
+                                        <span th:text="${_TOTAL_}"></span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-7">
+                                
+                                    <div class="dataTables_paginate paging_simple_numbers" id="example_paginate">
+                                        <ul class="pagination">
+                                            <li class="paginate_button page-item previous" id="example_previous"
+                                                th:classappend="${!tests.paging.isPrevEnabled()? 'disabled' : ''}">
+                                                <a
+                                                    th:href="@{?(pageSize=${size},pageNumber=${tests.paging.pageNumber - 1},searchText=(${testCriteria.searchText} ? ${testCriteria.searchText} : ''),status=(${testCriteria.status} ? ${testCriteria.status} : ''))}"
+                                                    aria-controls="example" data-dt-idx="0" tabindex="0"
+                                                    class="page-link">Trước</a>
+                                            </li>
+                                            <th:block th:each="item : ${tests.paging.getItems()}">
+                                                <li class="page-item"
+                                                    th:classappend="${item.index == tests.paging.pageNumber? 'active' : ''}"
+                                                    th:if="${item.pageItemType.name() == 'PAGE'}">
+                                                    <a class="page-link"
+                                                        th:href="@{?(pageSize=${size},pageNumber=${item.index},searchText=(${testCriteria.searchText} ? ${testCriteria.searchText} : ''),status=(${testCriteria.status} ? ${testCriteria.status} : ''))}"
+                                                        th:text="${item.index}"></a>
+                                                </li>
+                                                <li class="page-item disabled"
+                                                    th:if="${item.pageItemType.name() == 'DOTS'}">
+                                                    <a class="page-link" href="#">...</a>
+                                                </li>
+                                            </th:block>
+                                            <li class="page-item"
+                                                th:classappend="${!tests.paging.isNextEnabled()? 'disabled' : ''}">
+                                                <a class="page-link"
+                                                    th:href="@{?(pageSize=${size},pageNumber=${tests.paging.pageNumber + 1},searchText=(${testCriteria.searchText} ? ${testCriteria.searchText} : ''),status=(${testCriteria.status} ? ${testCriteria.status} : ''))}">Kế</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
