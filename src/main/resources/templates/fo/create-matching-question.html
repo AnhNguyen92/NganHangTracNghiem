@@ -56,37 +56,43 @@
                         <div class="text-center p-1">
                             <label class="total-answer__value" th:text="${#lists.size(mcqDto.leftAnswerDtos)}">4</label>
                         </div>
-                        <div class="ml-auto py-2">
+                        <!-- <div class="ml-auto py-2">
                             <button class="btn-add-answer" id="btn-add-answer" type="submit" name="add-answer"
                                 onclick="return addMoreAnswer()">
-                                <i class="fa fa-plus" aria-hidden="true" title="Thêm đáp án"></i>
+                                <i class="fa fa-plus" aria-hidden="true" title="Thêm đáp án nhiễu"></i>
                             </button>
-                        </div>
+                        </div> -->
                     </div>
 
                     <div class="answer-content row">
-                        <div class="col-6">
+                        <div class="col-6 border-right">
+                            <div class="ml-auto py-2">
+                                <button class="btn-add-answer" id="btn-add-answer" type="submit" name="add-answer"
+                                        onclick="return addMoreAnswer()">
+                                    <i class="fa fa-plus" aria-hidden="true" title="Thêm đáp án nhiễu"></i>
+                                </button>
+                            </div>
                             <div th:each="leftAnswerDto, leftAnswerDtoStat : *{leftAnswerDtos}">
                                 <div class="answer-content__item d-flex flex-row mb-2">
                                     <div class="ml-2">
                                         <input th:field="*{leftAnswerDtos[__${leftAnswerDtoStat.index}__].trueAnswer}"
                                             type="checkbox" class="checkbox-answer" title="Chọn đáp án đúng">
                                     </div>
-                                    <div class="ml-4">
+                                    <div class="ml-2">
                                         <label class="answer__label"
                                             th:text="*{leftAnswerDtos[__${leftAnswerDtoStat.index}__].answerLabel}">Đáp
                                             án</label>
                                     </div>
-                                    <div class="ml-4 w-100">
+                                    <div class="ml-2 w-100">
                                         <input type="text" class="answer__value" title="Nội dung câu trả lời"
                                             th:field="*{leftAnswerDtos[__${leftAnswerDtoStat.index}__].answerContent}">
                                     </div>
-                                    <div class="ml-4">
+                                    <div class="ml-2">
                                         <button class="btn-swap-answer">
                                             <i class="fa fa-exchange" aria-hidden="true"></i>
                                         </button>
                                     </div>
-                                    <div class="ml-4">
+                                    <div class="ml-2">
                                         <button class="btn-delete-answer" type="submit" name="remove-answer"
                                             th:value="${leftAnswerDtoStat.index}" onclick="return removeAnswer()">
                                             <i class="fa fa-window-close" aria-hidden="true"></i>
@@ -97,27 +103,33 @@
                         </div>
 
                         <div class="col-6">
+                            <div class="ml-auto py-2">
+                                <button class="btn-add-answer" id="btn-add-answer" type="submit" name="add-answer"
+                                        onclick="return addMoreAnswer()">
+                                    <i class="fa fa-plus" aria-hidden="true" title="Thêm đáp án nhiễu"></i>
+                                </button>
+                            </div>
                             <div th:each="rightAnswerDto, rightAnswerDtoStat : *{rightAnswerDtos}">
                                 <div class="answer-content__item d-flex flex-row mb-2">
                                     <div class="ml-2">
                                         <input th:field="*{rightAnswerDtos[__${rightAnswerDtoStat.index}__].trueAnswer}"
                                             type="checkbox" class="checkbox-answer" title="Chọn đáp án đúng">
                                     </div>
-                                    <div class="ml-4">
+                                    <div class="ml-2">
                                         <label class="answer__label"
                                             th:text="*{rightAnswerDtos[__${rightAnswerDtoStat.index}__].answerLabel}">Đáp
                                             án</label>
                                     </div>
-                                    <div class="ml-4 w-100">
+                                    <div class="ml-2 w-100">
                                         <input type="text" class="answer__value" title="Nội dung câu trả lời"
                                             th:field="*{rightAnswerDtos[__${rightAnswerDtoStat.index}__].answerContent}">
                                     </div>
-                                    <div class="ml-4">
+                                    <div class="ml-2">
                                         <button class="btn-swap-answer">
                                             <i class="fa fa-exchange" aria-hidden="true"></i>
                                         </button>
                                     </div>
-                                    <div class="ml-4">
+                                    <div class="ml-2">
                                         <button class="btn-delete-answer" type="submit" name="remove-answer"
                                             th:value="${rightAnswerDtoStat.index}" onclick="return removeAnswer()">
                                             <i class="fa fa-window-close" aria-hidden="true"></i>
