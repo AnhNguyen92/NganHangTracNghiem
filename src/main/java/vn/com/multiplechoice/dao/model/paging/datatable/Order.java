@@ -1,6 +1,6 @@
-package vn.com.multiplechoice.dao.model.paging;
+package vn.com.multiplechoice.dao.model.paging.datatable;
 
-import vn.com.multiplechoice.dao.model.paging.enums.Direction;
+import vn.com.multiplechoice.dao.model.paging.datatable.enums.Direction;
 
 public class Order {
     private Integer column;

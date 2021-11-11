@@ -1,4 +1,4 @@
-package vn.com.multiplechoice.dao.model.paging;
+package vn.com.multiplechoice.dao.model.paging.datatable;
 
 public class Column {
     private String data;

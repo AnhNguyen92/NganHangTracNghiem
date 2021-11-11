@@ -1,4 +1,4 @@
-package vn.com.multiplechoice.dao.model.paging;
+package vn.com.multiplechoice.dao.model.paging.datatable;
 
 import java.util.List;
 

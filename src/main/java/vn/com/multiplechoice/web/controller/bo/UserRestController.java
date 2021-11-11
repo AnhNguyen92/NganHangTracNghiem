@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import vn.com.multiplechoice.business.converter.UserConverter;
 import vn.com.multiplechoice.business.service.UserService;
 import vn.com.multiplechoice.dao.model.User;
-import vn.com.multiplechoice.dao.model.paging.Page;
-import vn.com.multiplechoice.dao.model.paging.PagingRequest;
+import vn.com.multiplechoice.dao.model.paging.datatable.PagingRequest;
+import vn.com.multiplechoice.dao.model.paging.datatable.Page;
 import vn.com.multiplechoice.web.dto.UserDto;
 
 @RestController

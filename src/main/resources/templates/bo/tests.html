@@ -112,7 +112,7 @@
                                             <select class="custom-select custom-select form-control form-control mx-2" th:field="*{size}">
                                                 <option th:each="pageSize : ${T(vn.com.multiplechoice.dao.model.enums.PageSize).values()}"
                                                         th:value="${pageSize}"
-                                                        th:text="${pageSize.size}">
+                                                        th:text="${pageSize.value}">
                                                 </option>
                                             </select>
                                             kết quả

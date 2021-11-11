@@ -105,7 +105,7 @@
                                             <select class="custom-select custom-select form-control form-control mx-2" th:field="*{size}">
                                                 <option th:each="pageSize : ${T(vn.com.multiplechoice.dao.model.enums.PageSize).values()}"
                                                         th:value="${pageSize}"
-                                                        th:text="${pageSize.size}">
+                                                        th:text="${pageSize.value}">
                                                 </option>
                                             </select>kết quả
                                         </label>
@@ -126,7 +126,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr th:each="question : ${questions}">
+                                        <tr th:each="question : ${questions.page}">
                                             <td th:text="${question.id}"></td>
                                             <td th:utext="${question.content}"></td>
                                             <td th:if="${#strings.equals(question.questionType, 'ONE_ANSWER')}">Một
@@ -159,6 +159,36 @@
                                         </tr>
                                     </tbody>
                                 </table>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 col-md-5">
+                                    <div class="dataTables_info" id="example_info" role="status" aria-live="polite">Hiển
+                                        thị <span th:text="${_START_}"></span> tới <span th:text="${_END_}"></span> của <span th:text="${_TOTAL_}"></span></div>
+                                </div>
+                                <div class="col-sm-12 col-md-7">
+                                    <div class="dataTables_paginate paging_simple_numbers" id="example_paginate">
+                                        <ul class="pagination">
+                                            <li class="paginate_button page-item previous" id="example_previous"
+                                                th:classappend="${!questions.paging.isPrevEnabled()? 'disabled' : ''}">
+                                                <a th:href="@{?(pageSize=${size},pageNumber=${questions.paging.pageNumber - 1},searchText=(${questionCriteria.searchText} ? ${questionCriteria.searchText} : ''),type=(${questionCriteria.type} ? ${questionCriteria.type} : ''))}" aria-controls="example" data-dt-idx="0" tabindex="0"
+                                                    class="page-link">Trước</a>
+                                            </li>
+                                            <th:block th:each="item : ${questions.paging.getItems()}">
+                                                <li class="page-item" th:classappend="${item.index == questions.paging.pageNumber? 'active' : ''}"
+                                                    th:if="${item.pageItemType.name() == 'PAGE'}">
+                                                    <a class="page-link" th:href="@{?(pageSize=${size},pageNumber=${item.index},searchText=(${questionCriteria.searchText} ? ${questionCriteria.searchText} : ''),type=(${questionCriteria.type} ? ${questionCriteria.type} : ''))}"
+                                                       th:text="${item.index}"></a>
+                                                </li>
+                                                <li class="page-item disabled" th:if="${item.pageItemType.name() == 'DOTS'}">
+                                                    <a class="page-link" href="#">...</a>
+                                                </li>
+                                            </th:block>
+                                            <li class="page-item" th:classappend="${!questions.paging.isNextEnabled()? 'disabled' : ''}">
+                                                <a class="page-link" th:href="@{?(pageSize=${size},pageNumber=${questions.paging.pageNumber + 1},searchText=(${questionCriteria.searchText} ? ${questionCriteria.searchText} : ''),type=(${questionCriteria.type} ? ${questionCriteria.type} : ''))}">Kế</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
