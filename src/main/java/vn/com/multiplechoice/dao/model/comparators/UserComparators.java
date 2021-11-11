@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import vn.com.multiplechoice.dao.model.User;
-import vn.com.multiplechoice.dao.model.paging.enums.Direction;
+import vn.com.multiplechoice.dao.model.paging.datatable.enums.Direction;
 
 public final class UserComparators {
 

@@ -23,11 +23,11 @@ import vn.com.multiplechoice.business.service.AbstractService;
 import vn.com.multiplechoice.business.service.UserService;
 import vn.com.multiplechoice.dao.model.User;
 import vn.com.multiplechoice.dao.model.comparators.UserComparators;
-import vn.com.multiplechoice.dao.model.paging.Column;
-import vn.com.multiplechoice.dao.model.paging.Order;
-import vn.com.multiplechoice.dao.model.paging.Page;
-import vn.com.multiplechoice.dao.model.paging.PagingRequest;
-import vn.com.multiplechoice.dao.model.paging.enums.Direction;
+import vn.com.multiplechoice.dao.model.paging.datatable.Column;
+import vn.com.multiplechoice.dao.model.paging.datatable.Order;
+import vn.com.multiplechoice.dao.model.paging.datatable.PagingRequest;
+import vn.com.multiplechoice.dao.model.paging.datatable.Page;
+import vn.com.multiplechoice.dao.model.paging.datatable.enums.Direction;
 import vn.com.multiplechoice.dao.repository.UserRepository;
 
 @Service
