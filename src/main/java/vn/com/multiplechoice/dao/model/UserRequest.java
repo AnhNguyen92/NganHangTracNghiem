@@ -1,7 +1,7 @@
 package vn.com.multiplechoice.dao.model;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,7 +23,7 @@ public class UserRequest implements Serializable {
     private Long id;
 
     @Column(name = "create_date")
-    private LocalDate createDate;
+    private Date createDate;
 
     @Column(name = "content")
     private String content;
@@ -45,11 +45,11 @@ public class UserRequest implements Serializable {
         this.id = id;
     }
 
-    public LocalDate getCreateDate() {
+    public Date getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(LocalDate createDate) {
+    public void setCreateDate(Date createDate) {
         this.createDate = createDate;
     }
 

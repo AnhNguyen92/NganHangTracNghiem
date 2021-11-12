@@ -1,6 +1,6 @@
 package vn.com.multiplechoice.web.controller.fo;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,7 +40,7 @@ public class ContactController {
     public String sendRequest(Model model, @ModelAttribute("userRequest") UserRequest userRequest) {
         logger.info("START check request");
         User user = onlineUserUtil.getOnlineUser();
-        userRequest.setCreateDate(LocalDate.now());
+        userRequest.setCreateDate(new Date());
         userRequest.setCreator(user);
         userRequest.setStatus("UN_READ");
         userRequestService.save(userRequest);
