@@ -7,13 +7,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
-<link rel="shortcut icon" href="#">
+
+<link rel="shortcut icon" th:href="@{/imgs/favicon.ico}">
 <link th:href="@{/vendor/fontawesome/css/all.min.css}" rel="stylesheet" type="text/css">
 <link th:rel="stylesheet" th:href="@{/vendor/bootstrap-datepicker/css/bootstrap-datepicker.css}" />
 <link th:rel="stylesheet" th:href="@{/vendor/bootstrap-datepicker/css/bootstrap-datepicker.standalone.css}" />
 <link th:rel="stylesheet" th:href="@{/assets/datatable/datatables.css}" />
-<!-- <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} " />
- -->
 <link th:href="@{/css/sb-admin-2.min.css}" rel="stylesheet">
 
 </head>
@@ -68,7 +67,7 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Người dùng</h1>
+                    <h1 class="h3 mb-2 text-gray-800">Bình luận</h1>
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
@@ -77,6 +76,51 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
+                                <form class="d-none d-md-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0" th:action="@{/bo/comments}" method="post" th:object="${userRequestCriteria}">
+                                <div class="form-group row">
+                                    <div class="dropdown mx-2">
+                                        <select class="custom-select" th:field="*{status}">
+                                            <option value="" selected>Trạng thái</option>
+                                            <option value="WAITING">Chờ duyệt</option>
+                                            <option value="APPROVED">Đã duyệt</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3 p-0 mr-2">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" id="dateRange" autocomplete="off" />
+                                            <div class="input-group-append">
+                                                <span class="input-group-text">
+                                                    <i class="far fa-calendar-alt"></i>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div th:object="${testCriteria.dateRange}">
+                                        <input type="hidden" th:field="*{fromDate}"/>
+                                        <input type="hidden" th:field="*{toDate}"/>
+                                    </div>
+                                    <div class="input-group">
+                                        <button class="btn btn-primary" type="submit">
+                                            Tìm kiếm
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="dataTable-top float-left mt-2">
+                                    <div class="dataTable-dropdown my-2">
+                                        <label>
+                                            Hiển thị
+                                            <select class="custom-select custom-select form-control form-control mx-2" th:field="*{size}">
+                                                <option th:each="pageSize : ${T(vn.com.multiplechoice.dao.model.enums.PageSize).values()}"
+                                                        th:value="${pageSize}"
+                                                        th:text="${pageSize.value}">
+                                                </option>
+                                            </select>
+                                            kết quả
+                                        </label>
+                                    </div>
+                                </div>
+                            </form>
                                 <table id="example" class="table table-bordered table-responsive" style="width: 100%">
                                     <thead>
                                         <tr>
@@ -90,24 +134,76 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr th::each="request : ${requests.page}" role="row" class="odd">
-                                            <td class="sorting_1" th:text="${request.id}">4</td>
-                                            <td th:text="${request.createDate}">admin</td>
-                                            <td th:text="${request.creator.username}">admin</td>
-                                            <td th:text="${request.content}">administration</td>
-                                            <td th:text="${request.viewPerson.username}">admin@gmail.com</td>
-                                            <td th:text="${request.status}"></td>
-                                            <td>
-                                                <div class="d-flex justify-content-around">
-                                                    <a href="/multiple-choice-quiz/bo/user-requests/"
-                                                        class="btn btn-primary mr-2" title="Chi tiết">
-                                                        <i class="fa fa-pencil-alt" aria-hidden="true"></i>
-                                                    </a>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                        <th:block th:if="${not #lists.isEmpty(userRequests.page)}">
+                                            <tr th::each="request : ${requests.page}" role="row" class="odd">
+                                                <td class="sorting_1" th:text="${request.id}">4</td>
+                                                <td th:text="${request.createDate}">admin</td>
+                                                <td th:text="${request.creator.username}">admin</td>
+                                                <td th:text="${request.content}">administration</td>
+                                                <td th:text="${request.viewPerson.username}">admin@gmail.com</td>
+                                                <td th:text="${request.status}"></td>
+                                                <td>
+                                                    <div class="d-flex justify-content-around">
+                                                        <a href="/multiple-choice-quiz/bo/user-requests/"
+                                                            class="btn btn-primary mr-2" title="Chi tiết">
+                                                            <i class="fa fa-pencil-alt" aria-hidden="true"></i>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </th:block>
+                                        <th:block th:if="${#lists.isEmpty(userRequests.page)}">
+                                            <tr class="odd">
+                                                <td colspan="7" class="dataTables_empty text-center">Không có dữ
+                                                    liệu</td>
+                                            </tr>
+                                        </th:block>
                                     </tbody>
                                 </table>
+                            </div>
+                            <div class="row" th:if="${not #lists.isEmpty(userRequests.page)}">
+                                <div class="col-sm-12 col-md-5">
+                                    <div class="dataTables_info" id="example_info" role="status" aria-live="polite">
+                                        Hiển thị
+                                        <span th:text="${_START_}"></span>
+                                        tới
+                                        <span th:text="${_END_}"></span>
+                                        của
+                                        <span th:text="${_TOTAL_}"></span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-7">
+                                
+                                    <div class="dataTables_paginate paging_simple_numbers" id="example_paginate">
+                                        <ul class="pagination">
+                                            <li class="paginate_button page-item previous" id="example_previous"
+                                                th:classappend="${!userRequests.paging.isPrevEnabled() ? 'disabled' : ''}">
+                                                <a
+                                                    th:href="@{?(pageSize=${size},pageNumber=${userRequests.paging.pageNumber - 1},searchText=(${testCriteria.searchText} ? ${testCriteria.searchText} : ''),status=(${testCriteria.status} ? ${testCriteria.status} : ''))}"
+                                                    aria-controls="example" data-dt-idx="0" tabindex="0"
+                                                    class="page-link">Trước</a>
+                                            </li>
+                                            <th:block th:each="item : ${userRequests.paging.getItems()}">
+                                                <li class="page-item"
+                                                    th:classappend="${item.index == userRequests.paging.pageNumber ? 'active' : ''}"
+                                                    th:if="${item.pageItemType.name() == 'PAGE'}">
+                                                    <a class="page-link"
+                                                        th:href="@{?(pageSize=${size},pageNumber=${item.index},searchText=(${testCriteria.searchText} ? ${testCriteria.searchText} : ''),status=(${testCriteria.status} ? ${testCriteria.status} : ''))}"
+                                                        th:text="${item.index}"></a>
+                                                </li>
+                                                <li class="page-item disabled"
+                                                    th:if="${item.pageItemType.name() == 'DOTS'}">
+                                                    <a class="page-link" href="#">...</a>
+                                                </li>
+                                            </th:block>
+                                            <li class="page-item"
+                                                th:classappend="${!userRequests.paging.isNextEnabled() ? 'disabled' : ''}">
+                                                <a class="page-link"
+                                                    th:href="@{?(pageSize=${size},pageNumber=${userRequests.paging.pageNumber + 1},searchText=(${testCriteria.searchText} ? ${testCriteria.searchText} : ''),status=(${testCriteria.status} ? ${testCriteria.status} : ''))}">Kế</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -142,6 +238,25 @@
 
 <!-- Custom scripts for all pages-->
 <script th:src="@{/js/sb-admin-2.min.js}"></script>
+
+<script>
+    var $dateRange = $('#dateRange');
+
+    $dateRange.daterangepicker({
+        maxDate: new Date(),
+        locale: {
+            format: 'DD/MM/YYYY'
+          }
+    });
+
+    $dateRange.on('apply.daterangepicker', function (ev, picker) {
+        $('input[name="dateRange.fromDate"]').val(picker.startDate.format('DD/MM/YYYY'));
+        $('input[name="dateRange.toDate"]').val(picker.endDate.format('DD/MM/YYYY'));
+    });
+
+    $(function() {
+        $('input[id="dateRange"]').val( $('input[name="dateRange.fromDate"]').val() + ' - ' + $('input[name="dateRange.toDate"]').val());
+    });
 
 </script>
 
