@@ -18,6 +18,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -64,6 +65,9 @@ public class Test implements Serializable {
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "header_template_id")
 	private HeaderTemplate header;
+
+	@OneToMany(mappedBy = "test")
+	private List<TestFeedback> feedbacks = new ArrayList<>();
 
 	public Long getId() {
 		return id;
@@ -129,10 +133,6 @@ public class Test implements Serializable {
 		this.inspector = inspector;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
 	public List<Question> getQuestions() {
 		return questions;
 	}
@@ -147,6 +147,14 @@ public class Test implements Serializable {
 
 	public void setHeader(HeaderTemplate header) {
 		this.header = header;
+	}
+
+	public List<TestFeedback> getFeedbacks() {
+		return feedbacks;
+	}
+
+	public void setFeedbacks(List<TestFeedback> feedbacks) {
+		this.feedbacks = feedbacks;
 	}
 
 }

@@ -46,12 +46,11 @@ public class TestServiceImpl extends AbstractService<Test, Long> implements Test
 				testCriteria.getDateRange().getToDate());
 		predicates.add(onStartPredicate);
 		predicates.add(onEndPredicate);
-		if (!StringUtils.isEmpty(testCriteria.getSearchText())) {
-			Predicate searchTextPredicate = cb
-					.or(cb.like(root.get("content"), "%" + testCriteria.getSearchText().trim() + "%"),
-							cb.like(cb.concat(cb.concat(root.get("creator").get("lastname"), " "),
-									root.get("creator").get("firstname")),
-									"%" + testCriteria.getSearchText().trim() + "%"));
+		String searchText = testCriteria.getSearchText();
+		if (!StringUtils.isEmpty(searchText)) {
+			Predicate searchTextPredicate = cb.or(cb.like(root.get("content"), "%" + searchText.trim() + "%"),
+					cb.like(cb.concat(cb.concat(root.get("creator").get("lastname"), " "),
+							root.get("creator").get("firstname")), "%" + searchText.trim() + "%"));
 			predicates.add(searchTextPredicate);
 		}
 		if (testCriteria.getStatus() != null) {
