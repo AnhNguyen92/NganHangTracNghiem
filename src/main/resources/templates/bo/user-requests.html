@@ -146,7 +146,8 @@
                                                 <td th:if="${#strings.equals(userRequest.status, 'READ')}">Đã đọc</td>
                                                 <td>
                                                     <div class="d-flex justify-content-around">
-                                                        <a th:href="@{'/multiple-choice-quiz/bo/comments/' + ${userRequest.id}}"
+                                                        <a th:href="@{'/bo/comments/' + ${userRequest.id}}"
+                                                            th:classappend="${#strings.equals(userRequest.status, 'READ')} ? 'disabled' : '' "
                                                             class="btn btn-success mr-2" title="Cập nhật trạng thái">
                                                             <i class="fa fa-check" aria-hidden="true"></i>
                                                         </a>

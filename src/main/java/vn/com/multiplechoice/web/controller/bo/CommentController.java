@@ -98,8 +98,9 @@ public class CommentController {
 		User user = onlineUserUtil.getOnlineUser();
 		userRequest.setStatus(UserRequestStatus.READ);
 		userRequest.setViewPerson(user);
+		userRequestService.save(userRequest);
 
-		return "redirect:/bo/userRequest";
+		return "redirect:/bo/comments";
 	}
 
 }
