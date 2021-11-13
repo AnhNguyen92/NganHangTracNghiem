@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import vn.com.multiplechoice.business.service.UserRequestService;
 import vn.com.multiplechoice.dao.model.User;
 import vn.com.multiplechoice.dao.model.UserRequest;
+import vn.com.multiplechoice.dao.model.enums.UserRequestStatus;
 import vn.com.multiplechoice.web.utils.OnlineUserUtil;
 
 @Controller
@@ -42,7 +43,7 @@ public class ContactController {
         User user = onlineUserUtil.getOnlineUser();
         userRequest.setCreateDate(new Date());
         userRequest.setCreator(user);
-        userRequest.setStatus("UN_READ");
+        userRequest.setStatus(UserRequestStatus.UN_READ);
         userRequestService.save(userRequest);
         
         model.addAttribute("message", "Yêu cầu đã được gửi tới admin!");

@@ -21,14 +21,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 import vn.com.multiplechoice.business.service.UserRequestService;
 import vn.com.multiplechoice.dao.criteria.UserRequestCriteria;
 import vn.com.multiplechoice.dao.model.DateRange;
+import vn.com.multiplechoice.dao.model.User;
 import vn.com.multiplechoice.dao.model.UserRequest;
+import vn.com.multiplechoice.dao.model.enums.UserRequestStatus;
 import vn.com.multiplechoice.dao.model.paging.Paged;
 import vn.com.multiplechoice.dao.model.paging.Paging;
+import vn.com.multiplechoice.web.utils.OnlineUserUtil;
 
 @Controller
 @RequestMapping("/bo/comments")
 public class CommentController {
 	private static final Logger logger = LoggerFactory.getLogger(CommentController.class);
+
+	@Autowired
+    private OnlineUserUtil onlineUserUtil;
 
 	@Autowired
 	private UserRequestService userRequestService;
@@ -83,14 +89,17 @@ public class CommentController {
 	}
 
 	@GetMapping("/{id}")
-	public String detail(Model model, @PathVariable long id) {
-		logger.info("------- Start get userRequest detail by id = {} -------", id);
+	public String update(Model model, @PathVariable long id) {
+		logger.info("------- Start update userRequest detail by id = {} -------", id);
 		UserRequest userRequest = userRequestService.findOne(id);
 		if (userRequest == null) {
 			return "bo/errors/404";
 		}
-		model.addAttribute("userRequest", userRequest);
+		User user = onlineUserUtil.getOnlineUser();
+		userRequest.setStatus(UserRequestStatus.READ);
+		userRequest.setViewPerson(user);
 
-		return "bo/userRequest";
+		return "redirect:/bo/userRequest";
 	}
+
 }

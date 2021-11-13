@@ -10,8 +10,7 @@
 
 <link rel="shortcut icon" th:href="@{/imgs/favicon.ico}">
 <link th:href="@{/vendor/fontawesome/css/all.min.css}" rel="stylesheet" type="text/css">
-<link th:rel="stylesheet" th:href="@{/vendor/bootstrap-datepicker/css/bootstrap-datepicker.css}" />
-<link th:rel="stylesheet" th:href="@{/vendor/bootstrap-datepicker/css/bootstrap-datepicker.standalone.css}" />
+<link th:rel="stylesheet" th:href="@{/assets/daterangepicker/daterangepicker.css}"/>
 <link th:rel="stylesheet" th:href="@{/assets/datatable/datatables.css}" />
 <link th:href="@{/css/sb-admin-2.min.css}" rel="stylesheet">
 
@@ -75,14 +74,15 @@
                             <h6 class="m-0 font-weight-bold text-primary">Danh sách</h6>
                         </div>
                         <div class="card-body">
-                            <div class="table-responsive">
-                                <form class="d-none d-md-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0" th:action="@{/bo/comments}" method="post" th:object="${userRequestCriteria}">
+                            <form class="d-none d-md-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0" th:action="@{/bo/comments}" method="post" th:object="${userRequestCriteria}">
                                 <div class="form-group row">
+                                    <input type="text" class="form-control col-4 bg-light small" th:field="*{searchText}" style="border: 1px solid #d1d3e2;"
+                                        placeholder="Tìm theo nội dung ..." aria-label="Tìm kiếm">
                                     <div class="dropdown mx-2">
                                         <select class="custom-select" th:field="*{status}">
                                             <option value="" selected>Trạng thái</option>
-                                            <option value="WAITING">Chờ duyệt</option>
-                                            <option value="APPROVED">Đã duyệt</option>
+                                            <option value="UN_READ">Chưa đọc</option>
+                                            <option value="READ">Đã đọc</option>
                                         </select>
                                     </div>
                                     <div class="col-md-3 p-0 mr-2">
@@ -95,7 +95,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div th:object="${testCriteria.dateRange}">
+                                    <div th:object="${userRequestCriteria.dateRange}">
                                         <input type="hidden" th:field="*{fromDate}"/>
                                         <input type="hidden" th:field="*{toDate}"/>
                                     </div>
@@ -121,32 +121,34 @@
                                     </div>
                                 </div>
                             </form>
-                                <table id="example" class="table table-bordered table-responsive" style="width: 100%">
+                            <div class="table-responsive">
+                                <table id="example" class="table table-bordered table-responsive" style="width: 100%" aria-describedby="list of userRequest">
                                     <thead>
                                         <tr>
                                             <th id="id">ID</th>
-                                            <th id="last-name">Ngày tạo</th>
-                                            <th id="first-name">Người tạo</th>
-                                            <th id="username">Nội dung</th>
-                                            <th id="email">Người kiểm tra</th>
-                                            <th id="phone-number">Trạng thái</th>
+                                            <th id="create-date">Ngày tạo</th>
+                                            <th id="creator">Người tạo</th>
+                                            <th id="content">Nội dung</th>
+                                            <th id="inspector">Người kiểm tra</th>
+                                            <th id="status">Trạng thái</th>
                                             <th id="action">Hành động</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <th:block th:if="${not #lists.isEmpty(userRequests.page)}">
-                                            <tr th::each="request : ${requests.page}" role="row" class="odd">
-                                                <td class="sorting_1" th:text="${request.id}">4</td>
-                                                <td th:text="${request.createDate}">admin</td>
-                                                <td th:text="${request.creator.username}">admin</td>
-                                                <td th:text="${request.content}">administration</td>
-                                                <td th:text="${request.viewPerson.username}">admin@gmail.com</td>
-                                                <td th:text="${request.status}"></td>
+                                            <tr th:each="userRequest : ${userRequests.page}" role="row" class="odd">
+                                                <td class="sorting_1" th:text="${userRequest.id}"></td>
+                                                <td th:text="${#dates.format(userRequest.createDate, 'dd-MM-yyyy')}"></td>
+                                                <td th:text="${userRequest.creator.username}"></td>
+                                                <td th:utext="${userRequest.content}"></td>
+                                                <td th:text="${userRequest.viewPerson != null} ? ${userRequest.viewPerson.username} : '' "></td>
+                                                <td th:if="${#strings.equals(userRequest.status, 'UN_READ')}">Chưa đọc</td>
+                                                <td th:if="${#strings.equals(userRequest.status, 'READ')}">Đã đọc</td>
                                                 <td>
                                                     <div class="d-flex justify-content-around">
-                                                        <a href="/multiple-choice-quiz/bo/user-requests/"
-                                                            class="btn btn-primary mr-2" title="Chi tiết">
-                                                            <i class="fa fa-pencil-alt" aria-hidden="true"></i>
+                                                        <a th:href="@{'/multiple-choice-quiz/bo/comments/' + ${userRequest.id}}"
+                                                            class="btn btn-success mr-2" title="Cập nhật trạng thái">
+                                                            <i class="fa fa-check" aria-hidden="true"></i>
                                                         </a>
                                                     </div>
                                                 </td>
@@ -179,7 +181,7 @@
                                             <li class="paginate_button page-item previous" id="example_previous"
                                                 th:classappend="${!userRequests.paging.isPrevEnabled() ? 'disabled' : ''}">
                                                 <a
-                                                    th:href="@{?(pageSize=${size},pageNumber=${userRequests.paging.pageNumber - 1},searchText=(${testCriteria.searchText} ? ${testCriteria.searchText} : ''),status=(${testCriteria.status} ? ${testCriteria.status} : ''))}"
+                                                    th:href="@{?(pageSize=${size},pageNumber=${userRequests.paging.pageNumber - 1},searchText=(${userRequestCriteria.searchText} ? ${userRequestCriteria.searchText} : ''),status=(${userRequestCriteria.status} ? ${userRequestCriteria.status} : ''))}"
                                                     aria-controls="example" data-dt-idx="0" tabindex="0"
                                                     class="page-link">Trước</a>
                                             </li>
@@ -188,7 +190,7 @@
                                                     th:classappend="${item.index == userRequests.paging.pageNumber ? 'active' : ''}"
                                                     th:if="${item.pageItemType.name() == 'PAGE'}">
                                                     <a class="page-link"
-                                                        th:href="@{?(pageSize=${size},pageNumber=${item.index},searchText=(${testCriteria.searchText} ? ${testCriteria.searchText} : ''),status=(${testCriteria.status} ? ${testCriteria.status} : ''))}"
+                                                        th:href="@{?(pageSize=${size},pageNumber=${item.index},searchText=(${userRequestCriteria.searchText} ? ${userRequestCriteria.searchText} : ''),status=(${userRequestCriteria.status} ? ${userRequestCriteria.status} : ''))}"
                                                         th:text="${item.index}"></a>
                                                 </li>
                                                 <li class="page-item disabled"
@@ -199,7 +201,7 @@
                                             <li class="page-item"
                                                 th:classappend="${!userRequests.paging.isNextEnabled() ? 'disabled' : ''}">
                                                 <a class="page-link"
-                                                    th:href="@{?(pageSize=${size},pageNumber=${userRequests.paging.pageNumber + 1},searchText=(${testCriteria.searchText} ? ${testCriteria.searchText} : ''),status=(${testCriteria.status} ? ${testCriteria.status} : ''))}">Kế</a>
+                                                    th:href="@{?(pageSize=${size},pageNumber=${userRequests.paging.pageNumber + 1},searchText=(${userRequestCriteria.searchText} ? ${userRequestCriteria.searchText} : ''),status=(${userRequestCriteria.status} ? ${userRequestCriteria.status} : ''))}">Kế</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -234,6 +236,8 @@
 <script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}"></script>
 <script th:src="@{/webjars/popper.js/1.12.9-1/umd/popper.min.js}"></script>
 <script th:src="@{/webjars/bootstrap/4.0.0-2/js/bootstrap.min.js}"></script>
+<script th:src="@{/assets/moment/moment.min.js}"></script>
+<script th:src="@{/assets/daterangepicker/daterangepicker.js}"></script>
 <script th:src="@{/assets/datatable/datatables.js}"></script>
 
 <!-- Custom scripts for all pages-->

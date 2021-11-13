@@ -45,7 +45,7 @@ public class UserRequestServiceImpl extends AbstractService<UserRequest, Long> i
 		predicates.add(onStartPredicate);
 		predicates.add(onEndPredicate);
 		if (criteria.getStatus() != null) {
-			Predicate statusPredicate = cb.equal(root.get("status"), criteria.getStatus());
+			Predicate statusPredicate = cb.equal(root.get("status"), criteria.getStatus().toString());
 			predicates.add(statusPredicate);
 		}
 		criteriaQuery.where(cb.and(predicates.toArray(new Predicate[0])));

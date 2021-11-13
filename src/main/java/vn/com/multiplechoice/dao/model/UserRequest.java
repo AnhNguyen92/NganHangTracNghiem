@@ -3,14 +3,19 @@ package vn.com.multiplechoice.dao.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import vn.com.multiplechoice.dao.model.enums.UserRequestStatus;
 
 @Entity
 @Table(name = "user_request")
@@ -29,12 +34,15 @@ public class UserRequest implements Serializable {
     private String content;
 
     @Column(name = "status")
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private UserRequestStatus status;
 
-    @ManyToOne
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id" , referencedColumnName = "id")
     private User creator;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "view_person_id" , referencedColumnName = "id")
     private User viewPerson;
 
     public Long getId() {
@@ -61,11 +69,11 @@ public class UserRequest implements Serializable {
         this.content = content;
     }
 
-    public String getStatus() {
+    public UserRequestStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(UserRequestStatus status) {
         this.status = status;
     }
 
