@@ -2,16 +2,19 @@
 <html lang="vi" xmlns:th="http://www.thymeleaf.org">
 <head>
 <title>DANH SÁCH ĐỀ THI</title>
+
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
+
 <link rel="shortcut icon" th:href="@{/imgs/favicon.ico}">
 <link th:href="@{/vendor/fontawesome/css/all.min.css}" rel="stylesheet" type="text/css">
 <link th:href="@{/css/sb-admin-2.min.css}" rel="stylesheet">
 <link th:rel="stylesheet" th:href="@{/assets/daterangepicker/daterangepicker.css}"/>
 <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+<link th:rel="stylesheet" th:href="@{/assets/datatable/datatables.css}" />
 
 </head>
 <body id="page-top">
@@ -124,16 +127,16 @@
                                 <table id="example" class="table table-bordered table-responsive" style="width: 100%" aria-describedby="list of test">
                                     <thead>
                                         <tr>
-                                            <th id="id">ID</th>
-                                            <th id="test-name">Tên đề thi</th>
-                                            <th id="numb-of-question">Số lượng câu hỏi</th>
-                                            <th id="created-date">Ngày tạo</th>
-                                            <th id="status">Trạng thái</th>
-                                            <th id="is-public">Công khai</th>
-                                            <th id="creator-username">Tài khoản Tác giả</th>
-                                            <th id="creator-full-name">Tên Tác giả</th>
-                                            <th id="inspector">Người duyệt</th>
-                                            <th id="action">Hành động</th>
+                                            <th class="sorting" id="id">ID</th>
+                                            <th class="sorting" id="test-name">Tên đề thi</th>
+                                            <th class="sorting" id="numb-of-question">Số lượng câu hỏi</th>
+                                            <th class="sorting" id="created-date">Ngày tạo</th>
+                                            <th class="sorting" id="status">Trạng thái</th>
+                                            <th class="sorting" id="is-public">Công khai</th>
+                                            <th class="sorting" id="creator-username">Tài khoản Tác giả</th>
+                                            <th class="sorting" id="creator-full-name">Tên Tác giả</th>
+                                            <th class="sorting" id="inspector">Người duyệt</th>
+                                            <th class="sorting" id="action">Hành động</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -254,6 +257,7 @@
 <script th:src="@{/webjars/bootstrap/4.0.0-2/js/bootstrap.min.js}"></script>
 <script th:src="@{/assets/moment/moment.min.js}"></script>
 <script th:src="@{/assets/daterangepicker/daterangepicker.js}"></script>
+<script th:src="@{/assets/datatable/datatables.js}"></script>
 
 <script>
     var $dateRange = $('#dateRange');
@@ -274,6 +278,9 @@
         $('input[id="dateRange"]').val( $('input[name="dateRange.fromDate"]').val() + ' - ' + $('input[name="dateRange.toDate"]').val());
     });
 
+    $('#example')
+        .DataTable({
+            "processing": false
+    });
 </script>
-
 </html>

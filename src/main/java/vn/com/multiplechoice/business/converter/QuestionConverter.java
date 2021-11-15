@@ -24,8 +24,8 @@ import vn.com.multiplechoice.web.utils.OnlineUserUtil;
 public class QuestionConverter {
 	private static final Logger logger = LoggerFactory.getLogger(QuestionConverter.class);
 
-	private static final String[] ANSWER_LABELS = new String[] { "Đáp án A", "Đáp án B", "Đáp án C", "Đáp án D",
-			"Đáp án E", "Đáp án F", "Đáp án G", "Đáp án H" };
+	//private static final String[] ANSWER_LABELS = new String[] { "Đáp án A", "Đáp án B", "Đáp án C", "Đáp án D",
+	//		"Đáp án E", "Đáp án F", "Đáp án G", "Đáp án H" };
     private static final String[] answerLabelList = new String[] { "A", "B", "C", "D", "E", "F", "G", "H" };
 
     @Autowired
@@ -225,7 +225,7 @@ private List<QuestionAnswerDto> saveQuestionAnswer(Question question) {
 					answerDto = questionAnswerDtos.get(givenList.get(randomIndex));
 					givenList.remove(randomIndex);	
 				}
-				answerDto.setAnswerLabel(ANSWER_LABELS[i]);
+				answerDto.setAnswerLabel(answerLabelList[i]);
 				answerDto.setOrder(i);
 				result.add(answerDto);
 			}

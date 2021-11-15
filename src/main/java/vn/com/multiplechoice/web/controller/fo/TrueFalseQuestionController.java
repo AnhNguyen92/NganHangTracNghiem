@@ -30,7 +30,7 @@ public class TrueFalseQuestionController {
     
     private static final String FO_INDEX = "fo/index";
     private static final String FO_CREATE_QUESTION_TRUE_FALSE = "/fo/create-true-false-question";
-    private static final String[] ANSWER_LABELS =  new String[] {"Đáp án A", "Đáp án B", "Đáp án C", "Đáp án D", "Đáp án E", "Đáp án F", "Đáp án G", "Đáp án H"};
+    private static final String[] ANSWER_LABELS =  new String[] {"A", "B", "C", "D", "E", "F", "G", "H"};
     private static final String MCQ_DTO = "mcqDto";
     private static final String REMOVE_ANSWER = "remove-answer";
 
@@ -50,14 +50,14 @@ public class TrueFalseQuestionController {
         }
 
         QuestionAnswerDto trueAnswerDto = new QuestionAnswerDto();
-        trueAnswerDto.setAnswerLabel("Đáp án A");
+        trueAnswerDto.setAnswerLabel("A");
         trueAnswerDto.setOrder(0);
         trueAnswerDto.setTrueAnswer(true);
         trueAnswerDto.setAnswerContent("Đúng");
         questionAnswerDtos.add(trueAnswerDto);
 
         QuestionAnswerDto falseAnswerDto = new QuestionAnswerDto();
-        falseAnswerDto.setAnswerLabel("Đáp án B");
+        falseAnswerDto.setAnswerLabel("B");
         falseAnswerDto.setOrder(1);
         falseAnswerDto.setTrueAnswer(false);
         falseAnswerDto.setAnswerContent("Sai");

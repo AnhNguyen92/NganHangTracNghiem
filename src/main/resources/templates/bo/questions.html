@@ -117,13 +117,13 @@
                                 <table id="example" class="table table-bordered table-responsive" style="width: 100%" aria-describedby="list of question">
                                     <thead>
                                         <tr>
-                                            <th id="id">ID</th>
-                                            <th id="question-content">Nội dung câu hỏi</th>
-                                            <th id="question-type">Loại câu hỏi</th>
-                                            <th id="true-answer">Đáp án đúng</th>
-                                            <th id="suggest-explain">Gợi ý/Giải thích</th>
-                                            <th id="author">Tác giả</th>
-                                            <th id="action">Hành động</th>
+                                            <th class="sorting" id="id">ID</th>
+                                            <th class="sorting" id="question-content">Nội dung câu hỏi</th>
+                                            <th class="sorting" id="question-type">Loại câu hỏi</th>
+                                            <th class="sorting" id="true-answer">Đáp án đúng</th>
+                                            <th class="sorting" id="suggest-explain">Gợi ý/Giải thích</th>
+                                            <th class="sorting" id="author">Tác giả</th>
+                                            <th class="sorting" id="action">Hành động</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -245,5 +245,10 @@
 
 <!-- Custom scripts for all pages-->
 <script th:src="@{/js/sb-admin-2.min.js}"></script>
-
+<script>
+  $('#example')
+      .DataTable({
+          "processing": false
+  });
+</script>
 </html>

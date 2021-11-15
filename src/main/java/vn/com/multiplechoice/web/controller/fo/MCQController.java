@@ -36,8 +36,7 @@ public class MCQController {
     private static final String MCQ_DTO = "mcqDto";
     private static final String FO_CREATE_ONE_ANS_QUESTION = "fo/create-one-ans-question";
     private static final String FO_CREATE_MULTIPLE_ANS_QUESTION = "fo/create-multiple-ans-question";
-    private static final String[] ANSWER_LABELS = new String[] { "Đáp án A", "Đáp án B", "Đáp án C", "Đáp án D", "Đáp án E", "Đáp án F", "Đáp án G",
-            "Đáp án H" };
+    private static final String[] ANSWER_LABELS = new String[] { "A", "B", "C", "D", "E", "F", "G", "H" };
     
     @Autowired
     private QuestionService questionService;
