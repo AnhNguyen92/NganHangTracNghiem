@@ -66,28 +66,28 @@
                     <div class="answer-content"
                         th:each="questionAnswerDto, questionAnswerDtoStat : *{questionAnswerDtos}">
                         <div class="answer-content__item d-flex flex-row mb-2">
-                            <div class="ml-2">
+                            <div class="ml-2 d-flex align-items-center">
                                 <input th:field="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].trueAnswer}"
                                     type="checkbox" class="checkbox-answer" onclick="onlyOneAnswer(this)"
                                     title="Chọn đáp án đúng">
                             </div>
-                            <div class="ml-4">
+                            <div class="ml-2 d-flex align-items-center">
                                 <label class="answer__label"
                                     th:text="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].answerLabel}">Đáp
                                     án</label>
                             </div>
-                            <div class="ml-4 w-100">
+                            <div class="ml-2 w-100">
                                 <input type="text" class="answer__value" title="Nội dung câu trả lời"
                                     th:field="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].answerContent}">
                             </div>
-                            <div class="ml-4">
+                            <div class="ml-2">
                                 <button class="btn-swap-answer" title="Không hóa vị vị trí">
                                     <i class="fa fa-exchange" aria-hidden="true"></i>
                                 </button>
                                 <input type="checkbox" name="active"
                                     th:checked="${questionAnswerDtoStat.randomPosition}" />
                             </div>
-                            <div class="ml-4">
+                            <div class="ml-2">
                                 <button class="btn-delete-answer" type="submit" name="remove-answer"
                                     th:value="${questionAnswerDtoStat.index}" onclick="return removeAnswer()">
                                     <i class="fa fa-window-close" aria-hidden="true"></i>

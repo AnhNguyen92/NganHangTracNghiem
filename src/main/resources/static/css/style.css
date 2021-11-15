@@ -456,6 +456,7 @@ legend.scheduler-border {
 .answer__label {
     display: block;
     width: max-content;
+    margin-bottom: 0;
 }
 
 .answer__value {
