@@ -40,9 +40,9 @@ public class TestFeedbackServiceImpl extends AbstractService<TestFeedback, Long>
 		CriteriaQuery<TestFeedback> criteriaQuery = cb.createQuery(TestFeedback.class);
 		Root<TestFeedback> root = criteriaQuery.from(TestFeedback.class);
 		List<Predicate> predicates = new ArrayList<>();
-		Predicate onStartPredicate = cb.greaterThanOrEqualTo(root.get("createTime"),
+		Predicate onStartPredicate = cb.greaterThanOrEqualTo(root.get("createDate"),
 				testFeedbackCriteria.getDateRange().getFromDate());
-		Predicate onEndPredicate = cb.lessThanOrEqualTo(root.get("createTime"),
+		Predicate onEndPredicate = cb.lessThanOrEqualTo(root.get("createDate"),
 				testFeedbackCriteria.getDateRange().getToDate());
 		predicates.add(onStartPredicate);
 		predicates.add(onEndPredicate);
