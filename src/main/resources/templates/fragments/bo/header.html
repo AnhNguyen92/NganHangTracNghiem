@@ -27,7 +27,7 @@
     <div class="sidebar-heading">Interface</div>
 
     <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item active">
+    <li class="nav-item active" sec:authorize="hasAuthority('ADMIN')">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
             aria-controls="collapseTwo">
             <i class="fas fa-fw fa-cog"></i>
@@ -42,7 +42,7 @@
             </div>
         </div>
     </li>
-    <li class="nav-item active">
+    <li class="nav-item active" sec:authorize="hasAnyAuthority('ADMIN', 'INSPECTOR')">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true"
             aria-controls="collapseThree">
             <i class="fas fa-book-open"></i>
@@ -56,7 +56,7 @@
             </div>
         </div>
     </li>
-    <li class="nav-item active">
+    <li class="nav-item active" sec:authorize="hasAnyAuthority('ADMIN', 'INSPECTOR')">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFour" aria-expanded="true"
             aria-controls="collapseFour">
             <i class="fas fa-fw fa-question-circle"></i>
@@ -70,7 +70,7 @@
             </div>
         </div>
     </li>
-    <li class="nav-item active">
+    <li class="nav-item active" sec:authorize="hasAnyAuthority('ADMIN', 'INSPECTOR')">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFive" aria-expanded="true"
             aria-controls="collapseFive">
             <i class="fas fa-fw fa-comments"></i>
@@ -83,7 +83,7 @@
             </div>
         </div>
     </li>
-    <li class="nav-item active">
+    <li class="nav-item active" sec:authorize="hasAuthority('ADMIN')">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSix" aria-expanded="true"
             aria-controls="collapseSix">
             <i class="fas fa-fw fa-envelope"></i>
@@ -103,7 +103,7 @@
     <div class="sidebar-heading">Addons</div>
 
     <!-- Nav Item - Charts -->
-    <li class="nav-item">
+    <li class="nav-item" sec:authorize="hasAuthority('ADMIN')">
         <a class="nav-link" href="charts.html">
             <i class="fas fa-fw fa-chart-area"></i>
             <span>Charts</span>

@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import vn.com.multiplechoice.business.service.impl.UserDetailsServiceImpl;
+import vn.com.multiplechoice.dao.model.enums.UserRole;
 
 @Configuration
 @EnableWebSecurity
@@ -32,10 +33,15 @@ public class AdminSecurityConfig extends WebSecurityConfigurerAdapter {
         String loginPage = "/bo/login";
         http.antMatcher("/bo/**") //
                 .authorizeRequests() //
+                .antMatchers("/bo/users/**").hasAnyAuthority(UserRole.ADMIN.toString())
+                .antMatchers("/bo/comments/**").hasAnyAuthority(UserRole.ADMIN.toString())
+                .antMatchers("/bo/charts/**").hasAnyAuthority(UserRole.ADMIN.toString())
+                .antMatchers("/bo/tests/**").hasAnyAuthority(UserRole.ADMIN.toString(), UserRole.INSPECTOR.toString())
+                .antMatchers("/bo/questions/**").hasAnyAuthority(UserRole.ADMIN.toString(), UserRole.INSPECTOR.toString())
+                .antMatchers("/bo/test-feedbacks/**").hasAnyAuthority(UserRole.ADMIN.toString(), UserRole.INSPECTOR.toString())
+                
                 .antMatchers(loginPage, "/bo/users/ajax/list").permitAll() //
-                //.antMatchers("/bo/users", "/bo/users/**", "/bo/questions/**").permitAll() //
                 .anyRequest().authenticated() //
-//                .anyRequest().hasAnyRole("ADMIN", "INSPECTOR") //
                 .and().formLogin() //
                 .loginPage(loginPage)//
                 .loginProcessingUrl("/bo/j_spring_security_login") //
