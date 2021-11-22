@@ -33,14 +33,15 @@ public class AdminSecurityConfig extends WebSecurityConfigurerAdapter {
         String loginPage = "/bo/login";
         http.antMatcher("/bo/**") //
                 .authorizeRequests() //
-                .antMatchers("/bo/users/**").hasAnyAuthority(UserRole.ADMIN.toString())
-                .antMatchers("/bo/comments/**").hasAnyAuthority(UserRole.ADMIN.toString())
-                .antMatchers("/bo/charts/**").hasAnyAuthority(UserRole.ADMIN.toString())
-                .antMatchers("/bo/tests/**").hasAnyAuthority(UserRole.ADMIN.toString(), UserRole.INSPECTOR.toString())
-                .antMatchers("/bo/questions/**").hasAnyAuthority(UserRole.ADMIN.toString(), UserRole.INSPECTOR.toString())
-                .antMatchers("/bo/test-feedbacks/**").hasAnyAuthority(UserRole.ADMIN.toString(), UserRole.INSPECTOR.toString())
-                
                 .antMatchers(loginPage, "/bo/users/ajax/list").permitAll() //
+
+                .antMatchers("/bo/users/**").hasAnyAuthority(UserRole.ADMIN.toString()) //
+                .antMatchers("/bo/comments/**").hasAnyAuthority(UserRole.ADMIN.toString()) //
+                .antMatchers("/bo/charts/**").hasAnyAuthority(UserRole.ADMIN.toString()) //
+                .antMatchers("/bo/tests/**").hasAnyAuthority(UserRole.ADMIN.toString(), UserRole.INSPECTOR.toString()) //
+                .antMatchers("/bo/questions/**").hasAnyAuthority(UserRole.ADMIN.toString(), UserRole.INSPECTOR.toString()) //
+                .antMatchers("/bo/test-feedbacks/**").hasAnyAuthority(UserRole.ADMIN.toString(), UserRole.INSPECTOR.toString()) //
+                
                 .anyRequest().authenticated() //
                 .and().formLogin() //
                 .loginPage(loginPage)//
