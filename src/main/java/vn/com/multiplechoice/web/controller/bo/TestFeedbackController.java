@@ -24,6 +24,7 @@ import vn.com.multiplechoice.dao.model.DateRange;
 import vn.com.multiplechoice.dao.model.TestFeedback;
 import vn.com.multiplechoice.dao.model.paging.Paged;
 import vn.com.multiplechoice.dao.model.paging.Paging;
+import vn.com.multiplechoice.web.utils.DateUtil;
 
 @Controller
 @RequestMapping("/bo/test-feedbacks")
@@ -44,7 +45,7 @@ public class TestFeedbackController {
 
 		if (testFeedbackCriteria.getDateRange() == null) {
 			DateRange dateRange = new DateRange();
-			dateRange.setFromDate(new Date());
+			dateRange.setFromDate(DateUtil.getFirstDateOfMonth());
 			dateRange.setToDate(new Date());
 			testFeedbackCriteria.setDateRange(dateRange);
 		}
