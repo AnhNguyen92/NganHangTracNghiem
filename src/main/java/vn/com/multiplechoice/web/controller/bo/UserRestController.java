@@ -1,12 +1,8 @@
 package vn.com.multiplechoice.web.controller.bo;
 
-import java.io.IOException;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +18,6 @@ import vn.com.multiplechoice.web.dto.UserDto;
 @RestController
 @RequestMapping("/bo/users")
 public class UserRestController {
-
     private static final Logger log = LoggerFactory.getLogger(UserRestController.class);
 
     @Autowired
@@ -33,6 +28,7 @@ public class UserRestController {
 
     @PostMapping(value = "/ajax/list")
     public Page<User> list(@RequestBody PagingRequest pagingRequest) {
+    	log.info("start get list user by ajax");
         Page<User> pageUser = userService.searchDataTable(pagingRequest);
         Page<UserDto> pageUserDTO = new Page<>();
         if (pageUser.getData() != null) {            
@@ -44,6 +40,7 @@ public class UserRestController {
     
     @PostMapping(value = "/ajax/waiting-list")
     public Page<User> waitingList(@RequestBody PagingRequest pagingRequest) {
+    	log.info("start get waitingList user by ajax");
         Page<User> pageUser = userService.searchWaitingList(pagingRequest);
         Page<UserDto> pageUserDTO = new Page<>();
         if (pageUser.getData() != null) {            
@@ -53,13 +50,4 @@ public class UserRestController {
         return pageUser;
     }
 
-    @DeleteMapping("/{id}")
-    public void deleteById(@PathVariable("id") Long id) {
-        log.info("Delete user by id= {}", id);
-        try {
-            userService.deleteById(id);
-        } catch (IOException e) {
-            log.error(e.getMessage());
-        }
-    }
 }
