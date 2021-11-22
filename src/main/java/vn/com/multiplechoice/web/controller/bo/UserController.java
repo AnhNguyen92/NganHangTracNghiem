@@ -79,7 +79,7 @@ public class UserController {
         return "bo/user";
     }
 
-    @PostMapping("update")
+    @PostMapping("/update")
     public String update(Model model, UserDto dto) {
         if (!isAuthenticatedAdminUser()) {
             return BO_LOGIN;
