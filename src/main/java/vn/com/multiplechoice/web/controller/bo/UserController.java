@@ -63,7 +63,7 @@ public class UserController {
         return "bo/user";
     }
 
-    @PostMapping("update")
+    @PostMapping("/update")
     public String update(Model model, UserDto dto) {
         log.info("Admin update user by username : {}", dto.getUsername());
         User user = userService.findByUsername(dto.getUsername());
