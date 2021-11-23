@@ -24,260 +24,286 @@
     <!-- header -->
     <header th:replace="fragments/fo/header.html :: header"></header>
     <!-- end header -->
-
-    <div class="container mt-3">
-        <div class="search extention">
-        	<form class="d-flex form-inline ms-auto my-2 my-md-0" th:action="@{/fo/index}" method="post" th:object="${testCriteria}">
-                <div class="form-group ml-2 align-self-center">Tìm kiếm bài kiểm tra theo:</div>
-                <div class="form-group ml-2">
-                    <input type="text" placeholder="Theo tên tác giả" class="form-control">
-                </div>
-                <div class="form-group ml-2">
-                    <select class="custom-select" id="inlineFormCustomSelect">
-                        <option selected>Tất cả</option>
-                        <option value="1">Tổng hợp</option>
-                        <option value="2">Toán</option>
-                        <option value="3">Văn</option>
-                        <option value="4">Sinh học</option>
-                        <option value="5">Hoá học</option>
-                    </select>
-                </div>
-                <div class="form-group ml-2">
-                    <div class="input-group">
-                        <input type="text" class="form-control" id="dateRange" autocomplete="off" />
-                        <div class="input-group-append">
-                            <span class="input-group-text">
-                                <i class="far fa-calendar-alt"></i>
-                            </span>
+    <div class="main" style="background: #f0f3f5 !important;">
+        <div class="container pt-3" style="background: #ffffff !important;">
+            <div class="search pt-3">
+                <form class="d-flex form-inline ms-auto my-2 my-md-0" th:action="@{/fo/index}" method="post"
+                    th:object="${testCriteria}">
+                    <div class="form-group ml-2 align-self-center">Tìm kiếm bài kiểm tra theo:</div>
+                    <div class="form-group ml-2">
+                        <input type="text" placeholder="Theo tên tác giả" class="form-control" th:field="*{searchText}">
+                    </div>
+                    <div class="form-group ml-2">
+                        <select class="custom-select" id="inlineFormCustomSelect">
+                            <option selected>Tất cả</option>
+                            <option value="1">Tổng hợp</option>
+                            <option value="2">Toán</option>
+                            <option value="3">Văn</option>
+                            <option value="4">Sinh học</option>
+                            <option value="5">Hoá học</option>
+                        </select>
+                    </div>
+                    <div class="form-group ml-2">
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="dateRange" autocomplete="off" />
+                            <div class="input-group-append">
+                                <span class="input-group-text">
+                                    <i class="far fa-calendar-alt"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div th:object="${testCriteria.dateRange}">
+                            <input type="hidden" th:field="*{fromDate}" />
+                            <input type="hidden" th:field="*{toDate}" />
                         </div>
                     </div>
-                    <div th:object="${testCriteria.dateRange}">
-                    	<input type="hidden" th:field="*{fromDate}" />
-                        <input type="hidden" th:field="*{toDate}" />
+                    <div class="form-group ml-2 text-right pr-0">
+                        <input type="submit" value="Tìm kiếm" class="btn btn-primary text-center align-self-center">
                     </div>
-                </div>
-                <div class="form-group ml-2 text-right pr-0">
-                    <input type="button" value="Tìm kiếm" class="btn btn-primary text-center align-self-center">
-                </div>
-            </form>
-        </div>
-        <hr>
-        <div class="test-list">
-            <div class="row test-item">
-                <div class="col-sm-1 align-self-center">
-                    <div class="test-icon">T</div>
-                </div>
-                <div class="test-info col">
-                    <div class="font-weight-bold text-capitalize">Bài kiểm tra số 1</div>
-                    <div class="d-flex flex-row">
-                        <div>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star-half-o" aria-hidden="true"></i>
-                            <i class="fa fa-star-o" aria-hidden="true"></i>
-                            <i class="fa fa-star-o" aria-hidden="true"></i>
-                        </div>
-                        <div class="vertical-line mx-2"></div>
-                        <div>
-                            Tác giả:
-                            <span class="ml-2">
-                                <a href="#">Anh Khôi</a>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-                <div class="test-time col-2 text-center align-self-center">30 phút</div>
-                <div class="test-qtt-question col-2 text-center align-self-center">10 Câu hỏi</div>
-                <div class="align-self-center col-2 text-right">
-                    <a th:href="@{/fo/do-exam/id}"
-                        class="btn btn-primary text-capitalize col text-center align-self-center" style="width: auto;">Bắt
-                        đầu</a>
-                </div>
+                </form>
             </div>
             <hr>
-            <div class="row test-item">
-                <div class="col-sm-1 align-self-center">
-                    <div class="test-icon">T</div>
-                </div>
-                <div class="test-info col">
-                    <div class="font-weight-bold text-capitalize">Bài kiểm tra số 2</div>
-                    <div class="d-flex flex-row">
-                        <div>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star-half-o" aria-hidden="true"></i>
-                            <i class="fa fa-star-o" aria-hidden="true"></i>
-                            <i class="fa fa-star-o" aria-hidden="true"></i>
+            <th:block th:if="${not #lists.isEmpty(tests.page)}">
+                <div class="test-list">
+                    <div th:each="test : ${tests.page}">
+                        <div class="row test-item">
+                            <div class="col-sm-1 align-self-center">
+                                <div class="test-icon">T</div>
+                            </div>
+                            <div class="test-info col">
+                                <div class="font-weight-bold text-capitalize" th:text="${test.content}">Bài kiểm
+                                    tra số 1</div>
+                                <div class="d-flex flex-row">
+                                    <div>
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star-half-o" aria-hidden="true"></i>
+                                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                                    </div>
+                                    <div class="vertical-line mx-2"></div>
+                                    <div>
+                                        Tác giả:
+                                        <span class="ml-2">
+                                            <a href="#" th:text="${test.creator.firstname}">Anh Khôi</a>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="test-time col-2 text-center align-self-center" th:text="${test.executeTime}">30
+                                phút</div>
+                            <div class="test-qtt-question col-2 text-center align-self-center"
+                                th:text="${test.numOfQuestions} + ' Câu hỏi' ">10 Câu hỏi</div>
+                            <div class="align-self-center col-2 text-right">
+                                <a th:href="@{/fo/do-exam/id}"
+                                    class="btn btn-primary text-capitalize col text-center align-self-center"
+                                    style="width: auto;">Bắt đầu</a>
+                            </div>
                         </div>
-                        <div class="vertical-line mx-2"></div>
-                        <div>
-                            Tác giả:
-                            <span class="ml-2">
-                                <a href="#">Diệp Tài</a>
-                            </span>
+                        <hr>
+                    </div>
+                    <div class="row test-item">
+                        <div class="col-sm-1 align-self-center">
+                            <div class="test-icon">T</div>
+                        </div>
+                        <div class="test-info col">
+                            <div class="font-weight-bold text-capitalize">Bài kiểm tra số 1</div>
+                            <div class="d-flex flex-row">
+                                <div>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star-half-o" aria-hidden="true"></i>
+                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                </div>
+                                <div class="vertical-line mx-2"></div>
+                                <div>
+                                    Tác giả:
+                                    <span class="ml-2">
+                                        <a href="#">Anh Khôi</a>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="test-time col-2 text-center align-self-center">30 phút</div>
+                        <div class="test-qtt-question col-2 text-center align-self-center">10 Câu hỏi</div>
+                        <div class="align-self-center col-2 text-right">
+                            <a th:href="@{/fo/do-exam/id}"
+                                class="btn btn-primary text-capitalize col text-center align-self-center"
+                                style="width: auto;">Bắt đầu</a>
                         </div>
                     </div>
-                </div>
-                <div class="test-time col-2 text-center align-self-center">30 phút</div>
-                <div class="test-qtt-question col-2 text-center align-self-center">10 Câu hỏi</div>
-                <div class="align-self-center col-2 text-right">
-                    <a th:href="@{/fo/do-exam/id}"
-                        class="btn btn-primary text-capitalize col text-center align-self-center" style="width: auto;">Bắt
-                        đầu</a>
-                </div>
-            </div>
-            <hr>
-            <div class="row test-item">
-                <div class="col-sm-1 align-self-center">
-                    <div class="test-icon">T</div>
-                </div>
-                <div class="test-info col">
-                    <div class="font-weight-bold text-capitalize">Bài kiểm tra số 3</div>
-                    <div class="d-flex flex-row">
-                        <div>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star-half-o" aria-hidden="true"></i>
-                            <i class="fa fa-star-o" aria-hidden="true"></i>
-                            <i class="fa fa-star-o" aria-hidden="true"></i>
+                    <hr>
+                    <div class="row test-item">
+                        <div class="col-sm-1 align-self-center">
+                            <div class="test-icon">T</div>
                         </div>
-                        <div class="vertical-line mx-2"></div>
-                        <div>
-                            Tác giả:
-                            <span class="ml-2">
-                                <a href="#">Lợi</a>
-                            </span>
+                        <div class="test-info col">
+                            <div class="font-weight-bold text-capitalize">Bài kiểm tra số 2</div>
+                            <div class="d-flex flex-row">
+                                <div>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star-half-o" aria-hidden="true"></i>
+                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                </div>
+                                <div class="vertical-line mx-2"></div>
+                                <div>
+                                    Tác giả:
+                                    <span class="ml-2">
+                                        <a href="#">Diệp Tài</a>
+                                    </span>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="test-time col-2 text-center align-self-center">30 phút</div>
-                <div class="test-qtt-question col-2 text-center align-self-center">10 Câu hỏi</div>
-                <div class="align-self-center col-2 text-right">
-                    <a th:href="@{/fo/do-exam/id}"
-                        class="btn btn-primary text-capitalize col text-center align-self-center" style="width: auto;">Bắt
-                        đầu</a>
-                </div>
-            </div>
-            <hr>
-            <div class="row test-item">
-                <div class="col-sm-1 align-self-center">
-                    <div class="test-icon">T</div>
-                </div>
-                <div class="test-info col">
-                    <div class="font-weight-bold text-capitalize">Bài kiểm tra số 4</div>
-                    <div class="d-flex flex-row">
-                        <div>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star-half-o" aria-hidden="true"></i>
-                            <i class="fa fa-star-o" aria-hidden="true"></i>
-                            <i class="fa fa-star-o" aria-hidden="true"></i>
-                        </div>
-                        <div class="vertical-line mx-2"></div>
-                        <div>
-                            Tác giả:
-                            <span class="ml-2">
-                                <a href="#">Trí Lộc</a>
-                            </span>
+                        <div class="test-time col-2 text-center align-self-center">30 phút</div>
+                        <div class="test-qtt-question col-2 text-center align-self-center">10 Câu hỏi</div>
+                        <div class="align-self-center col-2 text-right">
+                            <a th:href="@{/fo/do-exam/id}"
+                                class="btn btn-primary text-capitalize col text-center align-self-center"
+                                style="width: auto;">Bắt đầu</a>
                         </div>
                     </div>
-                </div>
-                <div class="test-time col-2 text-center align-self-center">30 phút</div>
-                <div class="test-qtt-question col-2 text-center align-self-center">10 Câu hỏi</div>
-                <div class="align-self-center col-2 text-right">
-                    <a th:href="@{/fo/do-exam/id}"
-                        class="btn btn-primary text-capitalize col text-center align-self-center" style="width: auto;">Bắt
-                        đầu</a>
-                </div>
-            </div>
-            <hr>
-            <div class="row test-item">
-                <div class="col-sm-1 align-self-center">
-                    <div class="test-icon">T</div>
-                </div>
-                <div class="test-info col">
-                    <div class="font-weight-bold text-capitalize">Bài kiểm tra số 5</div>
-                    <div class="d-flex flex-row">
-                        <div>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star-half-o" aria-hidden="true"></i>
-                            <i class="fa fa-star-o" aria-hidden="true"></i>
-                            <i class="fa fa-star-o" aria-hidden="true"></i>
+                    <hr>
+                    <div class="row test-item">
+                        <div class="col-sm-1 align-self-center">
+                            <div class="test-icon">T</div>
                         </div>
-                        <div class="vertical-line mx-2"></div>
-                        <div>
-                            Tác giả:
-                            <span class="ml-2">
-                                <a href="#">Anh Khoa</a>
-                            </span>
+                        <div class="test-info col">
+                            <div class="font-weight-bold text-capitalize">Bài kiểm tra số 3</div>
+                            <div class="d-flex flex-row">
+                                <div>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star-half-o" aria-hidden="true"></i>
+                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                </div>
+                                <div class="vertical-line mx-2"></div>
+                                <div>
+                                    Tác giả:
+                                    <span class="ml-2">
+                                        <a href="#">Lợi</a>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="test-time col-2 text-center align-self-center">30 phút</div>
+                        <div class="test-qtt-question col-2 text-center align-self-center">10 Câu hỏi</div>
+                        <div class="align-self-center col-2 text-right">
+                            <a th:href="@{/fo/do-exam/id}"
+                                class="btn btn-primary text-capitalize col text-center align-self-center"
+                                style="width: auto;">Bắt đầu</a>
                         </div>
                     </div>
+                    <hr>
+                    <div class="row test-item">
+                        <div class="col-sm-1 align-self-center">
+                            <div class="test-icon">T</div>
+                        </div>
+                        <div class="test-info col">
+                            <div class="font-weight-bold text-capitalize">Bài kiểm tra số 4</div>
+                            <div class="d-flex flex-row">
+                                <div>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star-half-o" aria-hidden="true"></i>
+                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                </div>
+                                <div class="vertical-line mx-2"></div>
+                                <div>
+                                    Tác giả:
+                                    <span class="ml-2">
+                                        <a href="#">Trí Lộc</a>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="test-time col-2 text-center align-self-center">30 phút</div>
+                        <div class="test-qtt-question col-2 text-center align-self-center">10 Câu hỏi</div>
+                        <div class="align-self-center col-2 text-right">
+                            <a th:href="@{/fo/do-exam/id}"
+                                class="btn btn-primary text-capitalize col text-center align-self-center"
+                                style="width: auto;">Bắt đầu</a>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row test-item">
+                        <div class="col-sm-1 align-self-center">
+                            <div class="test-icon">T</div>
+                        </div>
+                        <div class="test-info col">
+                            <div class="font-weight-bold text-capitalize">Bài kiểm tra số 5</div>
+                            <div class="d-flex flex-row">
+                                <div>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star-half-o" aria-hidden="true"></i>
+                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                </div>
+                                <div class="vertical-line mx-2"></div>
+                                <div>
+                                    Tác giả:
+                                    <span class="ml-2">
+                                        <a href="#">Anh Khoa</a>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="test-time col-2 text-center align-self-center">30 phút</div>
+                        <div class="test-qtt-question col-2 text-center align-self-center">10 Câu hỏi</div>
+                        <div class="align-self-center col-2 text-right">
+                            <a th:href="@{/fo/do-exam/id}"
+                                class="btn btn-primary text-capitalize col text-center align-self-center"
+                                style="width: auto;">Bắt đầu</a>
+                        </div>
+                    </div>
+                    <hr>
                 </div>
-                <div class="test-time col-2 text-center align-self-center">30 phút</div>
-                <div class="test-qtt-question col-2 text-center align-self-center">10 Câu hỏi</div>
-                <div class="align-self-center col-2 text-right">
-                    <a th:href="@{/fo/do-exam/id}"
-                        class="btn btn-primary text-capitalize col text-center align-self-center" style="width: auto;">Bắt
-                        đầu</a>
-                </div>
-            </div>
-            <hr>
-        </div>
-    </div>
-    <!-- <nav aria-label="Page navigation example" class="my-3">
-        <ul class="pagination justify-content-center">
-            <li class="page-item">
-                <a class="page-link" href="#" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                    <span class="sr-only">Trang Trước</span>
-                </a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="#">1</a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="#">2</a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="#">3</a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                    <span class="sr-only">Trang Tiếp</span>
-                </a>
-            </li>
-        </ul>
-    </nav> -->
-    <div class="row" th:if="${not #lists.isEmpty(tests.page)}">
-        <div class="dataTables_paginate paging_simple_numbers d-flex flex-row-reverse" id="example_paginate">
-        <ul class="pagination">
-            <li class="paginate_button page-item previous" id="example_previous"
-                th:classappend="${!tests.paging.isPrevEnabled() ? 'disabled' : ''}">
-                <a
-                    th:href="@{?(pageSize=${size},pageNumber=${tests.paging.pageNumber - 1},searchText=(${testCriteria.searchText} ? ${testCriteria.searchText} : ''),status=(${testCriteria.status} ? ${testCriteria.status} : ''))}"
-                    aria-controls="example" data-dt-idx="0" tabindex="0" class="page-link">Trước</a>
-            </li>
-            <th:block th:each="item : ${tests.paging.getItems()}">
-                <li class="page-item" th:classappend="${item.index == tests.paging.pageNumber ? 'active' : ''}"
-                    th:if="${item.pageItemType.name() == 'PAGE'}">
-                    <a class="page-link"
-                        th:href="@{?(pageSize=${size},pageNumber=${item.index},searchText=(${testCriteria.searchText} ? ${testCriteria.searchText} : ''),status=(${testCriteria.status} ? ${testCriteria.status} : ''))}"
-                        th:text="${item.index}"></a>
-                </li>
-                <li class="page-item disabled" th:if="${item.pageItemType.name() == 'DOTS'}">
-                    <a class="page-link" href="#">...</a>
-                </li>
             </th:block>
-            <li class="page-item" th:classappend="${!tests.paging.isNextEnabled() ? 'disabled' : ''}">
-                <a class="page-link"
-                    th:href="@{?(pageSize=${size},pageNumber=${tests.paging.pageNumber + 1},searchText=(${testCriteria.searchText} ? ${testCriteria.searchText} : ''),status=(${testCriteria.status} ? ${testCriteria.status} : ''))}">Kế</a>
-            </li>
-        </ul>
+            <th:block th:if="${#lists.isEmpty(tests.page)}">
+                <div>
+                    <span class="text-center">Không có kết quả</span>
+                </div>
+            </th:block>
+        </div>
+        <nav aria-label="Page navigation example" class="my-3">
+            <ul class="pagination justify-content-center">
+                <div class="row" th:if="${not #lists.isEmpty(tests.page)}">
+                    <div class="dataTables_paginate paging_simple_numbers d-flex flex-row-reverse" id="example_paginate">
+                        <ul class="pagination">
+                            <li class="paginate_button page-item previous" id="example_previous"
+                                th:classappend="${!tests.paging.isPrevEnabled() ? 'disabled' : ''}">
+                                <a
+                                    th:href="@{?(pageSize=${size},pageNumber=${tests.paging.pageNumber - 1},searchText=(${testCriteria.searchText} ? ${testCriteria.searchText} : ''),status=(${testCriteria.status} ? ${testCriteria.status} : ''))}"
+                                    aria-controls="example" data-dt-idx="0" tabindex="0" class="page-link">Trước</a>
+                            </li>
+                            <th:block th:each="item : ${tests.paging.getItems()}">
+                                <li class="page-item"
+                                    th:classappend="${item.index == tests.paging.pageNumber ? 'active' : ''}"
+                                    th:if="${item.pageItemType.name() == 'PAGE'}">
+                                    <a class="page-link"
+                                        th:href="@{?(pageSize=${size},pageNumber=${item.index},searchText=(${testCriteria.searchText} ? ${testCriteria.searchText} : ''),status=(${testCriteria.status} ? ${testCriteria.status} : ''))}"
+                                        th:text="${item.index}"></a>
+                                </li>
+                                <li class="page-item disabled" th:if="${item.pageItemType.name() == 'DOTS'}">
+                                    <a class="page-link" href="#">...</a>
+                                </li>
+                            </th:block>
+                            <li class="page-item" th:classappend="${!tests.paging.isNextEnabled() ? 'disabled' : ''}">
+                                <a class="page-link"
+                                    th:href="@{?(pageSize=${size},pageNumber=${tests.paging.pageNumber + 1},searchText=(${testCriteria.searchText} ? ${testCriteria.searchText} : ''),status=(${testCriteria.status} ? ${testCriteria.status} : ''))}">Kế</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </ul>
+        </nav>
     </div>
-    </div>
-    
+
     <footer th:replace="fragments/fo/footer.html :: footer">
         <p>2021 mqconline.com</p>
     </footer>

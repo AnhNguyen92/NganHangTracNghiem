@@ -6,7 +6,6 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -27,14 +26,14 @@ import vn.com.multiplechoice.dao.model.paging.Paging;
 import vn.com.multiplechoice.web.utils.DateUtil;
 
 @Controller
-@RequestMapping("/fo")
+@RequestMapping("/fo/index")
 public class HomeController {
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
 	@Autowired
 	private TestService testService;
 
-	@GetMapping(value = {"/", "index"})
+	@GetMapping("")
 	public String index(@RequestParam(value = "pageNumber", required = false, defaultValue = "1") int pageNumber,
 			@RequestParam(value = "pageSize", required = false, defaultValue = "10") int size,
 			TestCriteria testCriteria, Model model) {
@@ -78,7 +77,7 @@ public class HomeController {
 	public String search(TestCriteria testCriteria, Model model) {
 		logger.info("------- Start search form -------");
 		int pageNumber = 1;
-		int size = testCriteria.getSize().getValue();
+		int size = 20;
 
 		return index(pageNumber, size, testCriteria, model);
 	}
