@@ -76,9 +76,11 @@
                             <h6 class="m-0 font-weight-bold text-primary">Danh sách</h6>
                         </div>
                         <div class="card-body">
-                            <form class="d-none d-md-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0" th:action="@{/bo/tests}" method="post" th:object="${testCriteria}">
+                            <form class="d-none d-md-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0"
+                                th:action="@{/bo/tests}" method="post" th:object="${testCriteria}">
                                 <div class="form-group row">
-                                    <input type="text" class="form-control col-4 bg-light small" th:field="*{searchText}" style="border: 1px solid #d1d3e2;"
+                                    <input type="text" class="form-control col-4 bg-light small"
+                                        th:field="*{searchText}" style="border: 1px solid #d1d3e2;"
                                         placeholder="Tìm theo tên đề thi, tên tác giả ..." aria-label="Tìm kiếm">
                                     <div class="dropdown mx-2">
                                         <select class="custom-select" th:field="*{status}">
@@ -98,45 +100,43 @@
                                         </div>
                                     </div>
                                     <div th:object="${testCriteria.dateRange}">
-                                        <input type="hidden" th:field="*{fromDate}"/>
-                                        <input type="hidden" th:field="*{toDate}"/>
+                                        <input type="hidden" th:field="*{fromDate}" />
+                                        <input type="hidden" th:field="*{toDate}" />
                                     </div>
                                     <div class="input-group">
-                                        <button class="btn btn-primary" type="submit">
-                                            Tìm kiếm
-                                        </button>
+                                        <button class="btn btn-primary" type="submit">Tìm kiếm</button>
                                     </div>
                                 </div>
 
                                 <div class="dataTable-top float-left mt-2">
                                     <div class="dataTable-dropdown my-2">
                                         <label>
-                                            Hiển thị
-                                            <select class="custom-select custom-select form-control form-control mx-2" th:field="*{size}">
-                                                <option th:each="pageSize : ${T(vn.com.multiplechoice.dao.model.enums.PageSize).values()}"
-                                                        th:value="${pageSize}"
-                                                        th:text="${pageSize.value}">
-                                                </option>
-                                            </select>
-                                            kết quả
+                                            Hiển thị <select
+                                                class="custom-select custom-select form-control form-control mx-2"
+                                                th:field="*{size}">
+                                                <option
+                                                    th:each="pageSize : ${T(vn.com.multiplechoice.dao.model.enums.PageSize).values()}"
+                                                    th:value="${pageSize}" th:text="${pageSize.value}"></option>
+                                            </select> kết quả
                                         </label>
                                     </div>
                                 </div>
                             </form>
                             <div class="table-responsive">
-                                <table id="example" class="table table-bordered table-responsive" style="width: 100%" aria-describedby="list of test">
+                                <table id="example" class="table table-bordered table-responsive" style="width: 100%"
+                                    aria-describedby="list of test">
                                     <thead>
                                         <tr>
-                                            <th class="sorting" id="id">ID</th>
-                                            <th class="sorting" id="test-name">Tên đề thi</th>
-                                            <th class="sorting" id="numb-of-question">Số lượng câu hỏi</th>
-                                            <th class="sorting" id="created-date">Ngày tạo</th>
-                                            <th class="sorting" id="status">Trạng thái</th>
-                                            <th class="sorting" id="is-public">Công khai</th>
-                                            <th class="sorting" id="creator-username">Tài khoản Tác giả</th>
-                                            <th class="sorting" id="creator-full-name">Tên Tác giả</th>
-                                            <th class="sorting" id="inspector">Người duyệt</th>
-                                            <th class="sorting" id="action">Hành động</th>
+                                            <th id="id">ID</th>
+                                            <th id="test-name">Tên đề thi</th>
+                                            <th id="numb-of-question">Số lượng câu hỏi</th>
+                                            <th id="created-date">Ngày tạo</th>
+                                            <th id="status">Trạng thái</th>
+                                            <th id="is-public">Công khai</th>
+                                            <th id="creator-username">Tài khoản Tác giả</th>
+                                            <th id="creator-full-name">Tên Tác giả</th>
+                                            <th id="inspector">Người duyệt</th>
+                                            <th id="action">Hành động</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -157,16 +157,17 @@
                                                 <td th:text="${test.inspector.username}"></td>
                                                 <td>
                                                     <div class="d-flex justify-content-around">
-                                                        <a th:href="|javascript:approveTest(${test.id})|" class="btn btn-success mr-2" title="Duyệt"
-                                                           th:classappend="${#strings.equals(test.status, 'APPROVED')} ? 'disabled' ">
+                                                        <a th:href="|javascript:approveTest(${test.id})|"
+                                                            class="btn btn-success mr-2" title="Duyệt"
+                                                            th:classappend="${#strings.equals(test.status, 'APPROVED')} ? 'disabled' ">
                                                             <i class="fa fa-check" aria-hidden="true"></i>
                                                         </a>
                                                         <a th:href="@{'/bo/tests/' + ${test.id}}"
                                                             class="btn btn-primary mr-2" title="Chi tiết">
                                                             <i class="fa fa-pencil-alt" aria-hidden="true"></i>
                                                         </a>
-                                                        <a th:href="|javascript:deleteTest(${test.id})|" class="btn btn-danger mr-2"
-                                                            title="Xóa">
+                                                        <a th:href="|javascript:deleteTest(${test.id})|"
+                                                            class="btn btn-danger mr-2" title="Xóa">
                                                             <i class="fa fa-trash-alt" aria-hidden="true"></i>
                                                         </a>
                                                     </div>
@@ -194,8 +195,8 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-12 col-md-7">
-                                
-                                    <div class="dataTables_paginate paging_simple_numbers d-flex flex-row-reverse" id="example_paginate">
+                                    <div class="dataTables_paginate paging_simple_numbers d-flex flex-row-reverse"
+                                        id="example_paginate">
                                         <ul class="pagination">
                                             <li class="paginate_button page-item previous" id="example_previous"
                                                 th:classappend="${!tests.paging.isPrevEnabled() ? 'disabled' : ''}">
@@ -286,5 +287,7 @@
             "ordering": false,
             "info":     false
     });
+
 </script>
+
 </html>
