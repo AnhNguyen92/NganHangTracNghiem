@@ -47,6 +47,9 @@ public class Test implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private TestStatus status;
 
+	@Column(name = "execute_time")
+	private String executeTime;
+
 	@Column(name = "is_public")
 	private boolean isPublic;
 
@@ -107,6 +110,14 @@ public class Test implements Serializable {
 
 	public void setStatus(TestStatus status) {
 		this.status = status;
+	}
+
+	public String getExecuteTime() {
+		return executeTime;
+	}
+
+	public void setExecuteTime(String executeTime) {
+		this.executeTime = executeTime;
 	}
 
 	public boolean isPublic() {

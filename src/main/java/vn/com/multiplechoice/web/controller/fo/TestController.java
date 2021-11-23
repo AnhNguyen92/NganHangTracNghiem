@@ -111,6 +111,7 @@ public class TestController {
 		test.setContent(options.getContent());
 		test.setQuestions(questions);
 		test.setPublic(options.isPublic());
+		test.setExecuteTime(options.getExecuteTime());
 		if (creator.getRole().equals(UserRole.USER)) {
 			test.setStatus(TestStatus.WAITING);
 		} else {
