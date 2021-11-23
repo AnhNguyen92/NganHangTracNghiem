@@ -181,7 +181,7 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-12 col-md-7">
-                                    <div class="dataTables_paginate paging_simple_numbers" id="example_paginate">
+                                    <div class="dataTables_paginate paging_simple_numbers d-flex flex-row-reverse" id="example_paginate">
                                         <ul class="pagination">
                                             <li id="example_previous" class="paginate_button page-item previous"
                                                 th:classappend="${!questions.paging.isPrevEnabled() ? 'disabled' : ''}">
@@ -246,9 +246,13 @@
 <!-- Custom scripts for all pages-->
 <script th:src="@{/js/sb-admin-2.min.js}"></script>
 <script>
-  $('#example')
-      .DataTable({
-          "processing": false
-  });
+$('#example')
+.DataTable({
+    "processing": false,
+    "searching": false,
+    "paging":   false,
+    "ordering": false,
+    "info":     false
+});
 </script>
 </html>

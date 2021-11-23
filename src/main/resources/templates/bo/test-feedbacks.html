@@ -168,7 +168,7 @@
                                 </div>
                                 <div class="col-sm-12 col-md-7">
                                 
-                                    <div class="dataTables_paginate paging_simple_numbers" id="example_paginate">
+                                    <div class="dataTables_paginate paging_simple_numbers d-flex flex-row-reverse" id="example_paginate">
                                         <ul class="pagination">
                                             <li class="paginate_button page-item previous" id="example_previous"
                                                 th:classappend="${!testFeedbacks.paging.isPrevEnabled() ? 'disabled' : ''}">
@@ -254,6 +254,13 @@
         $('input[id="dateRange"]').val( $('input[name="dateRange.fromDate"]').val() + ' - ' + $('input[name="dateRange.toDate"]').val());
     });
 
+    $('#example')
+    .DataTable({
+        "processing": false,
+        "searching": false,
+        "paging":   false,
+        "ordering": false,
+        "info":     false
+    });
 </script>
-
 </html>
