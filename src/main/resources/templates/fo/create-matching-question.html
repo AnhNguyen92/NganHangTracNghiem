@@ -30,25 +30,36 @@
         <form action="#" id="f-one-ans-question" th:action="@{/fo/questions/one-ans}" method="post"
             th:object="${mcqDto}">
             <div class="mcq">
-                <div class="extention d-flex flex-row mt-3">
-                    <div>Nội dung câu hỏi</div>
+                <div class="mt-3">
                     <div>
-                        <input type="button" id="btn-add-note" onchange="addQuestionNote(event)">
-                        <label class="cursor--lbl">
-                            <i class="fa fa-sticky-note px-2" aria-hidden="true"></i>
-                        </label>
-                        <input type="file" accept="image/*" name="image" id="file" onchange="loadFile(event)"
-                            style="display: none;">
-                        <label class="cursor--lbl" for="file">
-                            <i class="fa fa-paperclip" aria-hidden="true"></i>
-                        </label>
+                        <input type="hidden" th:field="*{type}">
+                    </div>
+                    <div>
+                        <label class="font-weight-bold">File nghe đính kèm:</label>
+                    </div>
+                    <div class="custom-file">
+                        <input type="file" name="file" accept=".doc, .docx" id="actual-btn" hidden />
+                        <!-- our custom upload button -->
+                        <label class="actual-lbl" for="actual-btn">Chọn File</label>
+                        <!-- name of file chosen -->
+                        <span id="file-chosen">Chưa có file</span>
                     </div>
                 </div>
-                <div>
-                    <input type="hidden" th:field="*{type}">
+                <div class="extention d-flex flex-row mt-3">
+                    <div>
+                        <label class="font-weight-bold">Nội dung câu hỏi</label>
+                    </div>
                 </div>
                 <div class="mcp-content">
                     <textarea id="content" class="question-content" th:field="*{content}"></textarea>
+                </div>
+                <div class="extention d-flex flex-row mt-3">
+                    <div>
+                        <label class="font-weight-bold">Hướng dẫn/Giải thích đáp án</label>
+                    </div>
+                </div>
+                <div class="mcp-content">
+                    <textarea id="suggest" class="question-suggest" th:field="*{answerSuggestion}"></textarea>
                 </div>
                 <div class="answer mt-2 p-2">
                     <div class="total-answer d-flex">
@@ -169,16 +180,7 @@
 
     <script type="text/javascript">
           $('#content').summernote({
-            height : 200,
-         	// keep unused variable $editable as original format of function
-            onChange: function (contents, $editable) {
-                let contentHtml = $.parseHTML(contents)[0];
-                var childrendivs = [],
-                    children = $(contentHtml).find('u');
-                if (children.length > 0) {
-                    $("u").replaceWith( "<u>______</u>" );
-                }
-            }
+            height : 200
           });
 
           $('#suggest').summernote({
@@ -204,6 +206,7 @@
               $("#f-one-ans-question").submit();
             }
           }
+
         </script>
 
 </body>
