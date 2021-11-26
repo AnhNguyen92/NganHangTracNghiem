@@ -20,11 +20,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import vn.com.multiplechoice.business.converter.QuestionConverter;
 import vn.com.multiplechoice.business.service.QuestionService;
 import vn.com.multiplechoice.dao.model.Question;
-import vn.com.multiplechoice.dao.model.User;
 import vn.com.multiplechoice.dao.model.enums.QuestionType;
 import vn.com.multiplechoice.web.model.MCQDto;
 import vn.com.multiplechoice.web.model.QuestionAnswerDto;
-import vn.com.multiplechoice.web.utils.OnlineUserUtil;
 
 @Controller
 @RequestMapping(value = "/fo/questions")
@@ -43,15 +41,10 @@ public class MCQController {
     
     @Autowired
     private QuestionConverter questionConverter;
-
-    @Autowired
-    private OnlineUserUtil onlineUserUtil;
     
     @RequestMapping("/one-ans")
     public String createOneAnswerQuestion(Model model, MCQDto mcqDto) {
         log.info("===== GET one answer question form =====");
-        User user = onlineUserUtil.getOnlineUser();
-        mcqDto.setUser(user);
         mcqDto.setType(QuestionType.ONE_ANSWER);
         List<QuestionAnswerDto> questionAnswerDtos = mcqDto.getQuestionAnswerDtos();
         if (questionAnswerDtos == null) {
@@ -132,8 +125,6 @@ public class MCQController {
     public String createMultipleAnswerQuestion(Model model, MCQDto mcqDto) {
         log.info("===== GET multiple answer question form =====");
         mcqDto.setType(QuestionType.ONE_ANSWER);
-        User user = onlineUserUtil.getOnlineUser();
-        mcqDto.setUser(user);
         List<QuestionAnswerDto> questionAnswerDtos = mcqDto.getQuestionAnswerDtos();
         if (questionAnswerDtos == null) {
             questionAnswerDtos = new ArrayList<>();
