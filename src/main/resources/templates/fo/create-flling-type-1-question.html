@@ -12,7 +12,7 @@
 <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link th:rel="stylesheet" th:href="@{/summernote/summernote-bs4.css}" />
-<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} " />
+<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
     integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -30,20 +30,38 @@
         <form action="#" id="f-one-ans-question" th:action="@{/fo/questions/filling-type-1}" method="post"
             th:object="${mcqDto}">
             <div class="mcq">
-                <div class="extention d-flex flex-row mt-3">
-                    <div>Nội dung câu hỏi</div>
-                    <div>
-                        <input type="button" id="btn-filling" value="Tạo điền khuyết"
-                            onchange="addQuestionAnswer(event)">
-                    </div>
-                </div>
                 <div>
                     <input type="hidden" th:field="*{type}">
+                </div>
+                <div class="mt-3">
+                    <div>
+                        <label class="font-weight-bold">File nghe đính kèm:</label>
+                    </div>
+                    <div class="custom-file">
+                        <input type="file" name="file" accept=".doc, .docx" id="actual-btn" hidden />
+                        <!-- our custom upload button -->
+                        <label class="actual-lbl" for="actual-btn">Chọn File</label>
+                        <!-- name of file chosen -->
+                        <span id="file-chosen">Chưa có file</span>
+                    </div>
+                </div>
+                <div class="extention d-flex flex-row mt-3">
+                    <div>
+                        <label class="font-weight-bold">Nội dung câu hỏi</label>
+                    </div>
                 </div>
                 <div class="mcp-content">
                     <textarea id="content" class="question-content" th:field="*{content}"></textarea>
                 </div>
-                <div class="answer">
+                <div class="extention d-flex flex-row mt-3">
+                    <div>
+                        <label class="font-weight-bold">Hướng dẫn/Giải thích đáp án</label>
+                    </div>
+                </div>
+                <div class="mcp-content">
+                    <textarea id="suggest" class="question-suggest" th:field="*{answerSuggestion}"></textarea>
+                </div>
+                <div class="answer mt-2 p-2">
                     <div class="total-answer d-flex">
                         <div class="text-danger p-1">Số đáp án</div>
                         <div class="text-center p-1">
@@ -85,7 +103,9 @@
                                     th:onclick="|return changePermutation(${questionAnswerDtoStat.index})|">
                                     <i class="fa fa-exchange" aria-hidden="true"></i>
                                 </button>
-                                <!-- <input type="checkbox" hidden="true" th:id=" 'swap-pos-' + ${questionAnswerDtoStat.index}" th:field="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].randomPosition}" /> -->
+                                <input type="checkbox" hidden="true"
+                                    th:id=" 'swap-pos-' + ${questionAnswerDtoStat.index}" name="active"
+                                    th:field="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].randomPosition}" />
                             </div>
                             <div class="ml-2">
                                 <button class="btn-delete-answer" type="submit" name="remove-answer"
@@ -105,7 +125,7 @@
                         <input type="reset" class="btn btn-primary" value="Làm lại">
                     </div>
                     <div class="mx-2">
-                        <a type="button" class="btn btn-danger" th:href="@{'/fo/index'}">Huỷ bỏ</a>
+                        <a class="btn btn-danger" th:href="@{'/fo/index'}">Huỷ bỏ</a>
                     </div>
                 </div>
             </div>
@@ -123,69 +143,28 @@
     <script th:src="@{/webjars/bootstrap/4.0.0-2/js/bootstrap.min.js}"></script>
     <script th:src="@{/summernote/summernote-bs4.js}"></script>
 
-    <script type="text/javascript">
+    <script>
         let alphabetLblArr = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
 
-        function getSelectionText() {
-            var text = "";
-            var activeEl = document.activeElement;
-            var activeElTagName = activeEl ? activeEl.tagName.toLowerCase() : null;
-            if (
-            (activeElTagName == "textarea") || (activeElTagName == "input" &&
-            /^(?:text|search|password|tel|url)$/i.test(activeEl.type)) &&
-            (typeof activeEl.selectionStart == "number")
-            ) {
-                text = activeEl.value.slice(activeEl.selectionStart, activeEl.selectionEnd);
-            } else if (window.getSelection) {
-                text = window.getSelection().toString();
-            }
-            return text;
-        }
-
         $('#content').summernote({
-            height: 200,
-            callbacks: {
-                // keep unused variable $editable as original format of function
-                onChange: function (contents, $editable) {
-                    let contentHtml = $.parseHTML(contents)[0];
-                    var childrendivs = [],
-                        children = $(contentHtml).find('u');
-                    if (children.length > 0) {
-                        let answerElm = $('#answer');
-                        $('#answer').find('.answer-content').remove();
-                    }
-                    for (var i = 0; i < children.length; i++) {
-                        createAnswerElm(children[i].firstChild.nodeValue, i);
-                    }
-                }
-            }
+          height : 200,
+       	// keep unused variable $editable as original format of function
+        callbacks: {  
+       		onChange: function (contents, $editable) {
+              let contentHtml = $.parseHTML(contents)[0];
+              var childrendivs = [],
+                  children = $(contentHtml).find('u');
+              if (children.length > 0) {
+                  $("u").replaceWith( "<u>______</u>" );
+              }
+          }
+        }
         });
 
-        function createAnswerElm(answerValue, index) {
-            let answerElm = $('#answer');
-            let totalAnswerLblElm = $('.total-answer__value')[0];
-            let totalAnswer = parseInt(totalAnswerLblElm.textContent);
-            answerElm.append('<div class="answer-content">' +
-                '<div>' +
-                '<input type="hidden" id="type" name="type" value="UNDERLINE">' +
-                '</div>' +
-                '<div class="answer-content__item d-flex flex-row mb-2">' +
-                '<div class="ml-2">' +
-                '<input type="checkbox" class="checkbox-answer" value="true" onchange="updateTrueAnsVal(this)" title="Chọn đáp án đúng" id="questionAnswerDtos0.trueAnswer' + index + '" name="questionAnswerDtos[' + index + '].trueAnswer"><input type="hidden" name="_questionAnswerDtos[' + index + '].trueAnswer" value="on">' +
-                '</div>' +
-                '<div class="ml-4">' +
-                '<label class="answer__label">Đáp án ' + alphabetLblArr[index] + '</label>' +
-                '</div>' +
-                '<div class="ml-4 w-100">' +
-                '<input type="text" title="Nội dung câu trả lời" class="answer__value" id="questionAnswerDtos' + index + '.answerContent" name="questionAnswerDtos[' + index + '].answerContent" value="' + answerValue + '">' +
-                '</div>' +
-                '<div>' +
-                '<input type="number" id="questionAnswerDtos' + index + '.order" name="questionAnswerDtos[' + index + '].order" value="0" hidden="true">' +
-                '</div>' +
-                '</div>' +
-                '</div>');
-            totalAnswerLblElm.innerHTML = 1 + index;
-        }
+        $('#suggest').summernote({
+          height : 200
+        });
+
         function onlyOneAnswer(checkbox) {
             let checkboxes = document.getElementsByClassName('checkbox-answer');
             for (item of checkboxes) {
