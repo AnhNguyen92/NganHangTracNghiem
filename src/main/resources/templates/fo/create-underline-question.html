@@ -46,18 +46,12 @@
                     </div>
                 </div>
                 <div class="extention d-flex flex-row mt-3">
-                    <div><label class="font-weight-bold">Nội dung câu hỏi</label></div>
                     <div>
-                        <input type="button" id="btn-add-note" onchange="addQuestionNote(event)"> <label
-                            class="cursor--lbl"> <i class="fa fa-sticky-note px-2" aria-hidden="true"></i>
-                        </label> <input type="file" accept="image/*" name="image" id="file" onchange="loadFile(event)"
-                            style="display: none;"> <label class="cursor--lbl" for="file"> <i
-                            class="fa fa-paperclip" aria-hidden="true"></i>
-                        </label>
+                        <label class="font-weight-bold">Nội dung câu hỏi</label>
                     </div>
                 </div>
                 <div class="p-2 text-danger">(Lưu ý: Thêm nội dung câu hỏi, tô phần đáp án và nhấn nút gạch chân
-                    để định dạng đáp án đúng)</div>
+                    để thêm đáp án)</div>
                 <div class="mcp-content">
                     <textarea id="content" class="question-content" th:field="*{content}"></textarea>
                 </div>
@@ -74,12 +68,6 @@
                         <div class="text-danger p-1">Số đáp án</div>
                         <div class="text-center p-1">
                             <label class="total-answer__value" th:text="${#lists.size(mcqDto.questionAnswerDtos)}">4</label>
-                        </div>
-                        <div class="ml-auto py-2">
-                            <button class="btn-add-answer" id="btn-add-answer" type="submit" name="add-answer"
-                                onclick="return addMoreAnswer()">
-                                <i class="fa fa-plus" aria-hidden="true" title="Thêm đáp án"></i>
-                            </button>
                         </div>
                     </div>
                     <div class="answer-content"
@@ -161,10 +149,14 @@
                 onChange: function (contents, $editable) {
                     let contentHtml = $.parseHTML(contents)[0];
                     var childrendivs = [],
-                        children = $(contentHtml).find('u');
+                    children = $(contentHtml).find('u');
                     if (children.length > 0) {
-                        $( "u").replaceWith( "<u>______</u>" );
-                    }
+                      let answerElm = $('#answer');
+                      $('#answer').find('.answer-content').remove();
+                  }
+                  for (var i = 0; i < children.length; i++) {
+                      createAnswerElm(children[i].firstChild.nodeValue, i);
+                  }
                 }
             }
         });
@@ -172,6 +164,32 @@
         $('#suggest').summernote({
             height: 200
         });
+
+        function createAnswerElm(answerValue, index) {
+          let answerElm = $('#answer');
+          let totalAnswerLblElm = $('.total-answer__value')[0];
+          let totalAnswer = parseInt(totalAnswerLblElm.textContent);
+          answerElm.append('<div class="answer-content">' +
+              '<div>' +
+              '<input type="hidden" id="type" name="type" value="UNDERLINE">' +
+              '</div>' +
+              '<div class="answer-content__item d-flex flex-row mb-2">' +
+              '<div class="ml-2">' +
+              '<input type="checkbox" class="checkbox-answer" value="true" onchange="updateTrueAnsVal(this)" title="Chọn đáp án đúng" id="questionAnswerDtos0.trueAnswer' + index + '" name="questionAnswerDtos[' + index + '].trueAnswer"><input type="hidden" name="_questionAnswerDtos[' + index + '].trueAnswer" value="on">' +
+              '</div>' +
+              '<div class="ml-4">' +
+              '<label class="answer__label">Đáp án ' + alphabetLblArr[index] + '</label>' +
+              '</div>' +
+              '<div class="ml-4 w-100">' +
+              '<input type="text" title="Nội dung câu trả lời" class="answer__value" id="questionAnswerDtos' + index + '.answerContent" name="questionAnswerDtos[' + index + '].answerContent" value="' + answerValue + '">' +
+              '</div>' +
+              '<div>' +
+              '<input type="number" id="questionAnswerDtos' + index + '.order" name="questionAnswerDtos[' + index + '].order" value="' + index + '" hidden="true">' +
+              '</div>' +
+              '</div>' +
+              '</div>');
+          totalAnswerLblElm.innerHTML = 1 + index;
+	    }
 
         function updateTrueAnsVal(radio) {
             let radios = document.getElementsByClassName('checkbox-answer');

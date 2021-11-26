@@ -68,8 +68,8 @@
                         <div class="col-6 border-right">
                             <div class="d-flex justify-content-end py-2">
                                 <button class="btn-add-answer" id="btn-add-answer" type="submit" name="add-answer"
-                                        onclick="return addMoreAnswer()">
-                                    <i class="fa fa-plus" aria-hidden="true" title="Thêm đáp án nhiễu"></i>
+                                    onclick="return addMoreAnswer()">
+                                    <i class="fa fa-plus" aria-hidden="true" title="Thêm mệnh đề vế trái"></i>
                                 </button>
                             </div>
                             <div th:each="leftAnswerDto, leftAnswerDtoStat : *{leftAnswerDtos}">
@@ -105,7 +105,7 @@
                         <div class="col-6">
                             <div class="d-flex justify-content-end py-2">
                                 <button class="btn-add-answer" id="btn-add-answer" type="submit" name="add-answer"
-                                        onclick="return addMoreAnswer()">
+                                    onclick="return addMoreAnswer()">
                                     <i class="fa fa-plus" aria-hidden="true" title="Thêm đáp án nhiễu"></i>
                                 </button>
                             </div>
@@ -168,30 +168,43 @@
     <script th:src="@{/summernote/summernote-bs4.js}"></script>
 
     <script type="text/javascript">
-					$('#content').summernote({
-						height : 200
-					});
+          $('#content').summernote({
+            height : 200,
+         	// keep unused variable $editable as original format of function
+            onChange: function (contents, $editable) {
+                let contentHtml = $.parseHTML(contents)[0];
+                var childrendivs = [],
+                    children = $(contentHtml).find('u');
+                if (children.length > 0) {
+                    $("u").replaceWith( "<u>______</u>" );
+                }
+            }
+          });
 
-					function addMoreAnswer() {
-						let totalAnswer = $(".answer__value").length;
-						if (totalAnswer == 8) {
-							alert("Số câu trả lời tối đa là 8");
-							return false;
-						} else {
-							$("#f-one-ans-question").submit();
-						}
-					}
+          $('#suggest').summernote({
+            height : 200
+          });
 
-					function removeAnswer() {
-						let totalAnswer = $(".answer__value").length;
-						if (totalAnswer == 4) {
-							alert("Số câu trả lời tối thiểu là 4");
-							return false;
-						} else {
-							$("#f-one-ans-question").submit();
-						}
-					}
-				</script>
+          function addMoreAnswer() {
+            let totalAnswer = $(".answer__value").length;
+            if (totalAnswer == 8) {
+              alert("Số câu trả lời tối đa là 8");
+              return false;
+            } else {
+              $("#f-one-ans-question").submit();
+            }
+          }
+
+          function removeAnswer() {
+            let totalAnswer = $(".answer__value").length;
+            if (totalAnswer == 4) {
+              alert("Số câu trả lời tối thiểu là 4");
+              return false;
+            } else {
+              $("#f-one-ans-question").submit();
+            }
+          }
+        </script>
 
 </body>
 

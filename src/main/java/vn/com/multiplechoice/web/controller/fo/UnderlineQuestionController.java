@@ -48,12 +48,6 @@ public class UnderlineQuestionController {
         if (questionAnswerDtos == null) {
             questionAnswerDtos = new ArrayList<>();
         }
-        for (int i = 0; i < 4; i++) {
-            QuestionAnswerDto questionAnswerDto = new QuestionAnswerDto();
-            questionAnswerDto.setAnswerLabel(ANSWER_LABELS[i]);
-            questionAnswerDto.setOrder(i);
-            questionAnswerDtos.add(questionAnswerDto);
-        }
         
         mcqDto.setQuestionAnswerDtos(questionAnswerDtos);
         model.addAttribute(MCQ_DTO, mcqDto);
