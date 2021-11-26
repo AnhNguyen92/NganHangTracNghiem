@@ -593,3 +593,26 @@ legend.scheduler-border {
 .dropdown .dropdown-menu {
     position:absolute;
 }
+
+/************************* CREATE TEST QUESTION *************************/
+.frm-question-content-border {
+    padding: .5rem;
+    border: 2px groove #ccc;
+    min-height: 100px;
+    border-radius: 10px;
+}
+
+.frm-question-content-legend {
+    font-weight: normal;
+    background: #fff;
+    margin-top: -11px;
+    margin-left: 20px;
+    padding: 0 8px 0 8px;
+    width: 150px;
+    height: 20px;
+    font-size: 1.2em;
+}
+
+.frm-content p {
+    font-weight: 700;
+}
