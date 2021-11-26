@@ -8,8 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.CollectionUtils;
@@ -18,9 +16,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import vn.com.multiplechoice.business.service.UserService;
+import vn.com.multiplechoice.business.converter.QuestionConverter;
+import vn.com.multiplechoice.business.service.QuestionService;
 import vn.com.multiplechoice.dao.model.Question;
-import vn.com.multiplechoice.dao.model.User;
 import vn.com.multiplechoice.dao.model.enums.QuestionType;
 import vn.com.multiplechoice.web.model.MCQDto;
 import vn.com.multiplechoice.web.model.QuestionAnswerDto;
@@ -36,7 +34,10 @@ public class UnderlineQuestionController {
     private static final String MCQ_DTO = "mcqDto";
 
     @Autowired
-    private UserService userService;
+    private QuestionService questionService;
+
+    @Autowired
+    private QuestionConverter questionConverter;
 
     @RequestMapping("/underline")
     public String createUnderlineQuestion(Model model, MCQDto mcqDto) {
@@ -47,7 +48,13 @@ public class UnderlineQuestionController {
         if (questionAnswerDtos == null) {
             questionAnswerDtos = new ArrayList<>();
         }
-
+        for (int i = 0; i < 4; i++) {
+            QuestionAnswerDto questionAnswerDto = new QuestionAnswerDto();
+            questionAnswerDto.setAnswerLabel(ANSWER_LABELS[i]);
+            questionAnswerDto.setOrder(i);
+            questionAnswerDtos.add(questionAnswerDto);
+        }
+        
         mcqDto.setQuestionAnswerDtos(questionAnswerDtos);
         model.addAttribute(MCQ_DTO, mcqDto);
 
@@ -55,7 +62,7 @@ public class UnderlineQuestionController {
     }
 
     @RequestMapping(value = "/underline", params = { "add-answer" })
-    public String addAnswer(Model model, final MCQDto mcqDto, final BindingResult result) {
+    public String addAnswer(Model model, MCQDto mcqDto, final BindingResult result) {
         List<QuestionAnswerDto> answerDtos = mcqDto.getQuestionAnswerDtos();
         if (CollectionUtils.isEmpty(mcqDto.getQuestionAnswerDtos())) {
             answerDtos = new ArrayList<>();
@@ -77,7 +84,7 @@ public class UnderlineQuestionController {
     }
 
     @RequestMapping(value = "/underline", params = { "remove-answer" })
-    public String removeAnswer(Model model, MCQDto mcqDto, final BindingResult result, final HttpServletRequest req) {
+    public String removeAnswer(Model model, MCQDto mcqDto, BindingResult result, final HttpServletRequest req) {
         List<QuestionAnswerDto> questionAnswerDtos = mcqDto.getQuestionAnswerDtos();
         String index = req.getParameter("remove-answer");
         questionAnswerDtos.remove(questionAnswerDtos.get(Integer.parseInt(index)));
@@ -92,22 +99,15 @@ public class UnderlineQuestionController {
     }
 
     @PostMapping("/underline")
-    public String saveUnderlineQuestion(Model model, final @ModelAttribute("mcqDto") MCQDto mcqDto, final BindingResult result) {
+    public String saveUnderlineQuestion(Model model, @ModelAttribute("mcqDto") MCQDto mcqDto, final BindingResult result) {
         log.info("===== START create underline question form =====");
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User user = userService.findByUsername(userDetails.getUsername());
-        mcqDto.setUser(user);
-        Question question = new Question();
-        question.setContent(mcqDto.getContent());
-        question.setSuggest(mcqDto.getAnswerSuggestion());
-        question.setQuestionType(QuestionType.TRUE_FALSE);
-        question.setUser(user);
-        question.setAnswerA(mcqDto.getQuestionAnswerDtos().get(0).getAnswerContent());
-        question.setAnswerB(mcqDto.getQuestionAnswerDtos().get(1).getAnswerContent());
-
+        
+        Question question = questionConverter.toEntity(mcqDto);
+        questionService.save(question);
+        
         log.info("===== CREATE underline question form END =====");
 
-        return "fo/index";
+        return "redirect:/fo/index";
     }
 
 }

@@ -24,56 +24,13 @@ import vn.com.multiplechoice.web.utils.OnlineUserUtil;
 public class QuestionConverter {
 	private static final Logger logger = LoggerFactory.getLogger(QuestionConverter.class);
 
-	//private static final String[] ANSWER_LABELS = new String[] { "Đáp án A", "Đáp án B", "Đáp án C", "Đáp án D",
-	//		"Đáp án E", "Đáp án F", "Đáp án G", "Đáp án H" };
-    private static final String[] answerLabelList = new String[] { "A", "B", "C", "D", "E", "F", "G", "H" };
+	// private static final String[] ANSWER_LABELS = new String[] { "Đáp án A", "Đáp
+	// án B", "Đáp án C", "Đáp án D",
+	// "Đáp án E", "Đáp án F", "Đáp án G", "Đáp án H" };
+	private static final String[] answerLabelList = new String[] { "A", "B", "C", "D", "E", "F", "G", "H" };
 
-    @Autowired
-    private OnlineUserUtil onlineUserUtil;
-    
-	public Question toEntity(MCQDto mcqDto) {
-		Question entity = new Question();
-
-		User user = onlineUserUtil.getOnlineUser();
-		entity.setUser(user);
-		if (QuestionType.ONE_ANSWER.equals(mcqDto.getType())) {
-			entity = mapOneAnswerQuestion(mcqDto);
-		} else if (QuestionType.MULTIPLE_ANSWER.equals(mcqDto.getType())) {			
-			entity.setContent(mcqDto.getContent());
-			entity.setSuggest(mcqDto.getAnswerSuggestion());
-			entity.setQuestionType(mcqDto.getType());
-			String permutationPosLst = mcqDto.getQuestionAnswerDtos().stream().filter(QuestionAnswerDto::isRandomPosition)
-					.map(answer -> answerLabelList[answer.getOrder()]).collect(Collectors.joining(","));
-			entity.setAnswerPemutation(permutationPosLst);
-			entity.setAnswerA(mcqDto.getQuestionAnswerDtos().get(0).getAnswerContent());
-			entity.setAnswerB(mcqDto.getQuestionAnswerDtos().get(1).getAnswerContent());
-			entity.setAnswerC(mcqDto.getQuestionAnswerDtos().get(2).getAnswerContent());
-			entity.setAnswerD(mcqDto.getQuestionAnswerDtos().get(3).getAnswerContent());
-		} else if (QuestionType.YES_NO.equals(mcqDto.getType())) {
-			entity.setContent(mcqDto.getContent());
-			entity.setSuggest(mcqDto.getAnswerSuggestion());
-			entity.setQuestionType(QuestionType.YES_NO);
-	        String permutationPosLst = mcqDto.getQuestionAnswerDtos().stream().filter(QuestionAnswerDto::isRandomPosition)
-					.map(answer -> answerLabelList[answer.getOrder()]).collect(Collectors.joining(","));
-			entity.setAnswerPemutation(permutationPosLst);
-	        List<QuestionAnswerDto> questionAnswerDtos = mcqDto.getQuestionAnswerDtos();
-	        entity.setAnswerA(questionAnswerDtos.get(0).getAnswerContent());
-	        entity.setAnswerB(questionAnswerDtos.get(1).getAnswerContent());
-	        Optional<QuestionAnswerDto> trueAnsPosOptinal = mcqDto.getQuestionAnswerDtos().stream().filter(QuestionAnswerDto::getTrueAnswer).findFirst();
-	        int trueAnswerPos = trueAnsPosOptinal.isPresent() ? trueAnsPosOptinal.get().getOrder() : 0;
-	        entity.setRightAnswer(answerLabelList[trueAnswerPos]);
-	        
-		} else if (QuestionType.TRUE_FALSE.equals(mcqDto.getType())) {
-			entity.setContent(mcqDto.getContent());
-			entity.setSuggest(mcqDto.getAnswerSuggestion());
-			entity.setQuestionType(QuestionType.TRUE_FALSE);
-	        String permutationPosLst = mcqDto.getQuestionAnswerDtos().stream().filter(QuestionAnswerDto::isRandomPosition)
-					.map(answer -> answerLabelList[answer.getOrder()]).collect(Collectors.joining(","));
-			entity.setAnswerPemutation(permutationPosLst);
-		}
-
-        return entity;
-	}
+	@Autowired
+	private OnlineUserUtil onlineUserUtil;
 
 	public MCQDto toDto(Question question) {
 		MCQDto dto = new MCQDto();
@@ -84,60 +41,125 @@ public class QuestionConverter {
 		QuestionType questionType = question.getQuestionType();
 		dto.setType(questionType);
 		if (QuestionType.ONE_ANSWER.equals(questionType)) {
-			dto.setQuestionAnswerDtos(saveQuestionAnswer(question));
+			dto.setQuestionAnswerDtos(convertQuestionAnswer(question));
 		}
 
 		return dto;
 	}
 
-	private Question mapOneAnswerQuestion(MCQDto mcqDto) {
-		Question question = new Question();
-		
-		question.setContent(mcqDto.getContent());
-        question.setSuggest(mcqDto.getAnswerSuggestion());
-        question.setQuestionType(QuestionType.ONE_ANSWER);
-        saveQuestionAnswer(question, mcqDto.getQuestionAnswerDtos());
-        
-        Optional<QuestionAnswerDto> trueAnsPosOptinal = mcqDto.getQuestionAnswerDtos().stream().filter(QuestionAnswerDto::getTrueAnswer).findFirst();
-        int trueAnswerPos = trueAnsPosOptinal.isPresent() ? trueAnsPosOptinal.get().getOrder() : 0;
-        question.setRightAnswer(answerLabelList[trueAnswerPos]);
-        String permutationPosLst = mcqDto.getQuestionAnswerDtos().stream().filter(QuestionAnswerDto::isRandomPosition)
-                .map(answer -> answerLabelList[answer.getOrder()]).collect(Collectors.joining(","));
-        logger.info(permutationPosLst);
-        question.setAnswerPemutation(permutationPosLst);
-        
-        return question;
+	public Question toEntity(MCQDto mcqDto) {
+		Question entity = new Question();
+
+		User user = onlineUserUtil.getOnlineUser();
+		entity.setUser(user);
+		entity.setQuestionType(mcqDto.getType());
+		entity.setContent(mcqDto.getContent());
+		entity.setSuggest(mcqDto.getAnswerSuggestion());
+		if (QuestionType.COMPLETION_1.equals(mcqDto.getType())) {
+			
+		} else if (QuestionType.COMPLETION_2.equals(mcqDto.getType())) {
+			
+		} else if (QuestionType.MATCHING.equals(mcqDto.getType())) {
+			
+		} else if (QuestionType.MULTIPLE_ANSWER.equals(mcqDto.getType())) {
+			mapMultipleAnswerQuestion(entity, mcqDto);
+		} else if (QuestionType.ONE_ANSWER.equals(mcqDto.getType())) {
+			mapOneAnswerQuestion(entity, mcqDto);
+		} else if (QuestionType.TRUE_FALSE.equals(mcqDto.getType())) {
+			mapTrueFalseQuestion(entity, mcqDto);
+		} else if (QuestionType.UNDERLINE.equals(mcqDto.getType())) {
+			mapUnderlineQuestion(entity, mcqDto);
+		} else if (QuestionType.YES_NO.equals(mcqDto.getType())) {
+			mapYesNoQuestion(entity, mcqDto);
+		}
+
+		return entity;
+	}
+
+	private void mapUnderlineQuestion(Question entity, MCQDto mcqDto) {
+		String permutationPosLst = mcqDto.getQuestionAnswerDtos().stream().filter(QuestionAnswerDto::isRandomPosition)
+				.map(answer -> answerLabelList[answer.getOrder()]).collect(Collectors.joining(","));
+		entity.setAnswerPemutation(permutationPosLst);
+		saveQuestionAnswer(entity, mcqDto.getQuestionAnswerDtos());
+		String rightAnswerStr = mcqDto.getQuestionAnswerDtos().stream().filter(QuestionAnswerDto::getTrueAnswer)
+				.map(answer -> answerLabelList[answer.getOrder()]).collect(Collectors.joining(","));
+		entity.setRightAnswer(rightAnswerStr);
+	}
+
+	private void mapTrueFalseQuestion(Question entity, MCQDto mcqDto) {
+		String permutationPosLst = mcqDto.getQuestionAnswerDtos().stream().filter(QuestionAnswerDto::isRandomPosition)
+				.map(answer -> answerLabelList[answer.getOrder()]).collect(Collectors.joining(","));
+		entity.setAnswerPemutation(permutationPosLst);
+		entity.setRightAnswer(mcqDto.getQuestionAnswerDtos().stream().filter(QuestionAnswerDto::getTrueAnswer)
+				.map(answer -> answerLabelList[answer.getOrder()]).collect(Collectors.joining(",")));
+		// map score
+	}
+
+	private void mapYesNoQuestion(Question entity, MCQDto mcqDto) {
+		String permutationPosLst = mcqDto.getQuestionAnswerDtos().stream().filter(QuestionAnswerDto::isRandomPosition)
+				.map(answer -> answerLabelList[answer.getOrder()]).collect(Collectors.joining(","));
+		entity.setAnswerPemutation(permutationPosLst);
+		List<QuestionAnswerDto> questionAnswerDtos = mcqDto.getQuestionAnswerDtos();
+		entity.setAnswerA(questionAnswerDtos.get(0).getAnswerContent());
+		entity.setAnswerB(questionAnswerDtos.get(1).getAnswerContent());
+		Optional<QuestionAnswerDto> trueAnsPosOptinal = mcqDto.getQuestionAnswerDtos().stream()
+				.filter(QuestionAnswerDto::getTrueAnswer).findFirst();
+		int trueAnswerPos = trueAnsPosOptinal.isPresent() ? trueAnsPosOptinal.get().getOrder() : 0;
+		entity.setRightAnswer(answerLabelList[trueAnswerPos]);
+	}
+
+	private void mapMultipleAnswerQuestion(Question entity, MCQDto mcqDto) {
+		String permutationPosLst = mcqDto.getQuestionAnswerDtos().stream().filter(QuestionAnswerDto::isRandomPosition)
+				.map(answer -> answerLabelList[answer.getOrder()]).collect(Collectors.joining(","));
+		entity.setAnswerPemutation(permutationPosLst);
+		saveQuestionAnswer(entity, mcqDto.getQuestionAnswerDtos());
+		// set right answer
+		entity.setRightAnswer(mcqDto.getQuestionAnswerDtos().stream().filter(QuestionAnswerDto::getTrueAnswer)
+				.map(answer -> answerLabelList[answer.getOrder()]).collect(Collectors.joining(",")));
+	}
+
+	private void mapOneAnswerQuestion(Question question, MCQDto mcqDto) {
+		saveQuestionAnswer(question, mcqDto.getQuestionAnswerDtos());
+
+		Optional<QuestionAnswerDto> trueAnsPosOptinal = mcqDto.getQuestionAnswerDtos().stream()
+				.filter(QuestionAnswerDto::getTrueAnswer).findFirst();
+		int trueAnswerPos = trueAnsPosOptinal.isPresent() ? trueAnsPosOptinal.get().getOrder() : 0;
+		question.setRightAnswer(answerLabelList[trueAnswerPos]);
+		String permutationPosLst = mcqDto.getQuestionAnswerDtos().stream().filter(QuestionAnswerDto::isRandomPosition)
+				.map(answer -> answerLabelList[answer.getOrder()]).collect(Collectors.joining(","));
+		logger.info(permutationPosLst);
+		question.setAnswerPemutation(permutationPosLst);
 	}
 
 	private void saveQuestionAnswer(Question question, List<QuestionAnswerDto> questionAnswerDtos) {
-        if (!questionAnswerDtos.isEmpty()) {
-            question.setAnswerA(questionAnswerDtos.get(0).getAnswerContent());
+		if (!questionAnswerDtos.isEmpty()) {
+			question.setAnswerA(questionAnswerDtos.get(0).getAnswerContent());
 
-            if (questionAnswerDtos.size() > 1) {
-                question.setAnswerB(questionAnswerDtos.get(1).getAnswerContent());
-            }
-            if (questionAnswerDtos.size() > 2) {
-                question.setAnswerC(questionAnswerDtos.get(2).getAnswerContent());
-            }
-            if (questionAnswerDtos.size() > 3) {
-                question.setAnswerD(questionAnswerDtos.get(3).getAnswerContent());
-            }
-            if (questionAnswerDtos.size() > 4) {
-                question.setAnswerE(questionAnswerDtos.get(4).getAnswerContent());
-            }
-            if (questionAnswerDtos.size() > 5) {
-                question.setAnswerF(questionAnswerDtos.get(5).getAnswerContent());
-            }
-            if (questionAnswerDtos.size() > 6) {
-                question.setAnswerG(questionAnswerDtos.get(6).getAnswerContent());
-            }
-            if (questionAnswerDtos.size() > 7) {
-                question.setAnswerH(questionAnswerDtos.get(7).getAnswerContent());
-            }
-        }
-    }
+			if (questionAnswerDtos.size() > 1) {
+				question.setAnswerB(questionAnswerDtos.get(1).getAnswerContent());
+			}
+			if (questionAnswerDtos.size() > 2) {
+				question.setAnswerC(questionAnswerDtos.get(2).getAnswerContent());
+			}
+			if (questionAnswerDtos.size() > 3) {
+				question.setAnswerD(questionAnswerDtos.get(3).getAnswerContent());
+			}
+			if (questionAnswerDtos.size() > 4) {
+				question.setAnswerE(questionAnswerDtos.get(4).getAnswerContent());
+			}
+			if (questionAnswerDtos.size() > 5) {
+				question.setAnswerF(questionAnswerDtos.get(5).getAnswerContent());
+			}
+			if (questionAnswerDtos.size() > 6) {
+				question.setAnswerG(questionAnswerDtos.get(6).getAnswerContent());
+			}
+			if (questionAnswerDtos.size() > 7) {
+				question.setAnswerH(questionAnswerDtos.get(7).getAnswerContent());
+			}
+		}
+	}
 
-private List<QuestionAnswerDto> saveQuestionAnswer(Question question) {
+	private List<QuestionAnswerDto> convertQuestionAnswer(Question question) {
 		List<QuestionAnswerDto> questionAnswerDtos = new ArrayList<>();
 		QuestionAnswerDto answerDto = new QuestionAnswerDto();
 
@@ -223,7 +245,7 @@ private List<QuestionAnswerDto> saveQuestionAnswer(Question question) {
 				if (answerDto.isRandomPosition()) {
 					int randomIndex = rand.nextInt(givenList.size());
 					answerDto = questionAnswerDtos.get(givenList.get(randomIndex));
-					givenList.remove(randomIndex);	
+					givenList.remove(randomIndex);
 				}
 				answerDto.setAnswerLabel(answerLabelList[i]);
 				answerDto.setOrder(i);
