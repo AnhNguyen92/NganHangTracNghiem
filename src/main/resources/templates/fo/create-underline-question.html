@@ -9,7 +9,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <link rel="shortcut icon" th:href="@{/imgs/fo-favicon.ico}">
-<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap-4.4.1/css/bootstrap.min.css}" />
 <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link th:rel="stylesheet" th:href="@{/summernote/summernote-bs4.css}"/>
@@ -153,10 +152,10 @@
                     if (children.length > 0) {
                       let answerElm = $('#answer');
                       $('#answer').find('.answer-content').remove();
-                  }
-                  for (var i = 0; i < children.length; i++) {
+                    }
+                    for (var i = 0; i < children.length; i++) {
                       createAnswerElm(children[i].firstChild.nodeValue, i);
-                  }
+                    }
                 }
             }
         });
