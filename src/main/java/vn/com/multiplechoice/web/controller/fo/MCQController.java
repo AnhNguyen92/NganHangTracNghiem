@@ -30,7 +30,7 @@ public class MCQController {
 	private static final Logger log = LoggerFactory.getLogger(MCQController.class);
 
 	private static final String REMOVE_ANSWER = "remove-answer";
-    private static final String FO_INDEX = "fo/index";
+    private static final String REDIRECT_FO_INDEX = "redirect:/fo/index";
     private static final String MCQ_DTO = "mcqDto";
     private static final String FO_CREATE_ONE_ANS_QUESTION = "fo/create-one-ans-question";
     private static final String FO_CREATE_MULTIPLE_ANS_QUESTION = "fo/create-multiple-ans-question";
@@ -101,7 +101,7 @@ public class MCQController {
 
         log.info("===== CREATE one answer question form END =====");
 
-        return FO_INDEX;
+        return REDIRECT_FO_INDEX;
     }
 
     @GetMapping("/one-ans/{id}")
@@ -181,7 +181,7 @@ public class MCQController {
         questionService.save(question);
         log.info("===== CREATE multiple answer question form END =====");
 
-        return FO_INDEX;
+        return REDIRECT_FO_INDEX;
     }
 
     
