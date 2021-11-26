@@ -65,6 +65,9 @@ public class Question implements Serializable {
 	@Column(name = "right_answer")
 	private String rightAnswer;
 
+	@Column(name = "score")
+	private String score;
+
 	@Column(name = "answer_permutation")
 	private String answerPemutation;
 
@@ -181,6 +184,14 @@ public class Question implements Serializable {
 
 	public void setRightAnswer(String rightAnswer) {
 		this.rightAnswer = rightAnswer;
+	}
+
+	public String getScore() {
+		return score;
+	}
+
+	public void setScore(String score) {
+		this.score = score;
 	}
 
 	public String getAnswerPemutation() {

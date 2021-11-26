@@ -92,7 +92,7 @@ public class QuestionConverter {
 		entity.setAnswerPemutation(permutationPosLst);
 		entity.setRightAnswer(mcqDto.getQuestionAnswerDtos().stream().filter(QuestionAnswerDto::getTrueAnswer)
 				.map(answer -> answerLabelList[answer.getOrder()]).collect(Collectors.joining(",")));
-		// map score
+		entity.setScore(mcqDto.getQuestionAnswerDtos().stream().map(QuestionAnswerDto::getScore).collect(Collectors.joining(",")));
 	}
 
 	private void mapYesNoQuestion(Question entity, MCQDto mcqDto) {
