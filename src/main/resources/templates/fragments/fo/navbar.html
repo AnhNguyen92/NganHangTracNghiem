@@ -2,10 +2,13 @@
 <html lang="vi" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org">
 
 <head>
+<meta charset="utf-8">
+
+
 </head>
 
 <body>
-    <header>
+    <header th:fragment="navbar">
         <div class="content">
             <div class="header">
                 <div class="d-flex" style="position: relative; background-color: #EEF7F2;">
@@ -54,27 +57,52 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#"
                             th:classappend="${#strings.contains(#httpServletRequest.requestURI, 'questions')} ? ' active' : '' "
-                            id="navbarDropdown-question" role="button" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false">Câu hỏi</a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown-question">
-                            <a class="dropdown-item" th:href="@{/fo/questions/one-ans}">Tạo câu hỏi đơn</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" th:href="@{/fo/questions/multiple-ans}">Tạo câu hỏi nhiều đáp
-                                án</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" th:href="@{/fo/questions/yes-no}">Tạo câu hỏi đúng sai ngắn</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" th:href="@{/fo/questions/true-false}">Tạo câu hỏi đúng sai</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" th:href="@{/fo/questions/underline}">Tạo câu hỏi gạch chân</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" th:href="@{/fo/questions/matching}">Tạo câu hỏi gạch chéo</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" th:href="@{/fo/questions/filling}">Tạo câu hỏi điền khuyết dạng đơn</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" th:href="@{/fo/questions/group-filling}">Tạo câu hỏi điền
-                                khuyết lọai dạng nhóm</a>
-                        </div>
+                            id="navbarDropdown-question" role="button" data-toggle="dropdown">Câu hỏi</a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown-question">
+                            <li>
+                                <a class="dropdown-item dropdown-toggle" href="#"> Dropdown item 2 </a>
+                                <ul class="submenu dropdown-menu">
+                                    <li>
+                                        <a class="dropdown-item" th:href="@{/fo/questions/one-ans}">Tạo câu hỏi đơn</a>
+                                    </li>
+                                    <div class="dropdown-divider"></div>
+                                    <li>
+                                        <a class="dropdown-item" th:href="@{/fo/questions/multiple-ans}">Tạo câu hỏi
+                                            nhiều đáp án</a>
+                                    </li>
+                                    <div class="dropdown-divider"></div>
+                                    <li>
+                                        <a class="dropdown-item" th:href="@{/fo/questions/yes-no}">Tạo câu hỏi đúng
+                                            sai ngắn</a>
+                                    </li>
+                                    <div class="dropdown-divider"></div>
+                                    <li>
+                                        <a class="dropdown-item" th:href="@{/fo/questions/true-false}">Tạo câu hỏi
+                                            đúng sai</a>
+                                    </li>
+                                    <div class="dropdown-divider"></div>
+                                    <li>
+                                        <a class="dropdown-item" th:href="@{/fo/questions/underline}">Tạo câu hỏi
+                                            gạch chân</a>
+                                    </li>
+                                    <div class="dropdown-divider"></div>
+                                    <li>
+                                        <a class="dropdown-item" th:href="@{/fo/questions/matching}">Tạo câu hỏi
+                                            gạch chéo</a>
+                                    </li>
+                                    <div class="dropdown-divider"></div>
+                                    <li>
+                                        <a class="dropdown-item" th:href="@{/fo/questions/filling}">Tạo câu hỏi điền
+                                            khuyết dạng đơn</a>
+                                    </li>
+                                    <div class="dropdown-divider"></div>
+                                    <li>
+                                        <a class="dropdown-item" th:href="@{/fo/questions/group-filling}">Tạo câu
+                                            hỏi điền khuyết lọai dạng nhóm</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
