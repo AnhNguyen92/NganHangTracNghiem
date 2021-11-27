@@ -29,7 +29,7 @@ import vn.com.multiplechoice.web.model.QuestionAnswerDto;
 @Controller
 public class FillingQuestionController {
 
-    private static final String FO_CREATE_FILLING_TYPE_1_QUESTION = "fo/create-flling-type-1-question";
+    private static final String FO_CREATE_FILLING_QUESTION = "fo/create-flling-question";
     private static final Logger log = LoggerFactory.getLogger(FillingQuestionController.class);
     private static final String[] ANSWER_LABELS = new String[] { "Đáp án A", "Đáp án B", "Đáp án C", "Đáp án D", "Đáp án E", "Đáp án F", "Đáp án G",
             "Đáp án H" };
@@ -38,7 +38,7 @@ public class FillingQuestionController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping("/filling-type-1")
+    @RequestMapping("/filling")
     public String createUnderlineQuestion(Model model, MCQDto mcqDto) {
         log.info("===== GET filling type 1 question form =====");
 
@@ -56,10 +56,10 @@ public class FillingQuestionController {
         mcqDto.setQuestionAnswerDtos(questionAnswerDtos);
         model.addAttribute(MCQ_DTO, mcqDto);
 
-        return FO_CREATE_FILLING_TYPE_1_QUESTION;
+        return FO_CREATE_FILLING_QUESTION;
     }
 
-    @RequestMapping(value = "/filling-type-1", params = { "add-answer" })
+    @RequestMapping(value = "/filling", params = { "add-answer" })
     public String addAnswer(Model model, final MCQDto mcqDto, final BindingResult result) {
         List<QuestionAnswerDto> answerDtos = mcqDto.getQuestionAnswerDtos();
         if (CollectionUtils.isEmpty(mcqDto.getQuestionAnswerDtos())) {
@@ -78,10 +78,10 @@ public class FillingQuestionController {
 
         model.addAttribute(MCQ_DTO, mcqDto);
 
-        return FO_CREATE_FILLING_TYPE_1_QUESTION;
+        return FO_CREATE_FILLING_QUESTION;
     }
 
-    @RequestMapping(value = "/filling-type-1", params = { "remove-answer" })
+    @RequestMapping(value = "/filling", params = { "remove-answer" })
     public String removeAnswer(Model model, MCQDto mcqDto, final BindingResult result, final HttpServletRequest req) {
         List<QuestionAnswerDto> questionAnswerDtos = mcqDto.getQuestionAnswerDtos();
         String index = req.getParameter("remove-answer");
@@ -93,7 +93,7 @@ public class FillingQuestionController {
         }
         model.addAttribute(MCQ_DTO, mcqDto);
 
-        return FO_CREATE_FILLING_TYPE_1_QUESTION;
+        return FO_CREATE_FILLING_QUESTION;
     }
 
     @PostMapping("/filling")
