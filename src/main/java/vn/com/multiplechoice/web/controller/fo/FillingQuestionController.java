@@ -8,8 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.CollectionUtils;
@@ -18,9 +16,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import vn.com.multiplechoice.business.service.UserService;
+import vn.com.multiplechoice.business.converter.QuestionConverter;
+import vn.com.multiplechoice.business.service.QuestionService;
 import vn.com.multiplechoice.dao.model.Question;
-import vn.com.multiplechoice.dao.model.User;
 import vn.com.multiplechoice.dao.model.enums.QuestionType;
 import vn.com.multiplechoice.web.model.MCQDto;
 import vn.com.multiplechoice.web.model.QuestionAnswerDto;
@@ -36,11 +34,14 @@ public class FillingQuestionController {
     private static final String MCQ_DTO = "mcqDto";
 
     @Autowired
-    private UserService userService;
+    private QuestionService questionService;
+
+    @Autowired
+    private QuestionConverter questionConverter;
 
     @RequestMapping("/filling")
-    public String createUnderlineQuestion(Model model, MCQDto mcqDto) {
-        log.info("===== GET filling type 1 question form =====");
+    public String createFillingQuestion(Model model, MCQDto mcqDto) {
+        log.info("===== GET filling  question form =====");
 
         mcqDto.setType(QuestionType.FILLING);
         List<QuestionAnswerDto> questionAnswerDtos = mcqDto.getQuestionAnswerDtos();
@@ -97,22 +98,15 @@ public class FillingQuestionController {
     }
 
     @PostMapping("/filling")
-    public String saveUnderlineQuestion(Model model, final @ModelAttribute("mcqDto") MCQDto mcqDto, final BindingResult result) {
-        log.info("===== START create filling type 1 question form =====");
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User user = userService.findByUsername(userDetails.getUsername());
-        mcqDto.setUser(user);
-        Question question = new Question();
-        question.setContent(mcqDto.getContent());
-        question.setSuggest(mcqDto.getAnswerSuggestion());
-        question.setQuestionType(QuestionType.TRUE_FALSE);
-        question.setUser(user);
-        question.setAnswerA(mcqDto.getQuestionAnswerDtos().get(0).getAnswerContent());
-        question.setAnswerB(mcqDto.getQuestionAnswerDtos().get(1).getAnswerContent());
+    public String saveFillingQuestion(Model model, final @ModelAttribute("mcqDto") MCQDto mcqDto, final BindingResult result) {
+        log.info("===== START create filling question form =====");
+        
+        Question question = questionConverter.toEntity(mcqDto);
+        questionService.save(question);
 
-        log.info("===== CREATE underline question form END =====");
+        log.info("===== CREATE Filling question form END =====");
 
-        return "fo/index";
+        return "redirect:/fo/index";
     }
 
 }
