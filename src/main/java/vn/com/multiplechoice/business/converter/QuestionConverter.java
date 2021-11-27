@@ -56,7 +56,7 @@ public class QuestionConverter {
 		entity.setContent(mcqDto.getContent());
 		entity.setSuggest(mcqDto.getAnswerSuggestion());
 		if (QuestionType.FILLING.equals(mcqDto.getType())) {
-			
+			mapFillingQuestion(entity, mcqDto);
 		} else if (QuestionType.GROUP_FILLING.equals(mcqDto.getType())) {
 			
 		} else if (QuestionType.MATCHING.equals(mcqDto.getType())) {
@@ -74,6 +74,16 @@ public class QuestionConverter {
 		}
 
 		return entity;
+	}
+
+	private void mapFillingQuestion(Question entity, MCQDto mcqDto) {
+		String permutationPosLst = mcqDto.getQuestionAnswerDtos().stream().filter(QuestionAnswerDto::isRandomPosition)
+				.map(answer -> answerLabelList[answer.getOrder()]).collect(Collectors.joining(","));
+		entity.setAnswerPemutation(permutationPosLst);
+		saveQuestionAnswer(entity, mcqDto.getQuestionAnswerDtos());
+		String rightAnswerStr = mcqDto.getQuestionAnswerDtos().stream().filter(QuestionAnswerDto::getTrueAnswer)
+				.map(answer -> answerLabelList[answer.getOrder()]).collect(Collectors.joining(","));
+		entity.setRightAnswer(rightAnswerStr);
 	}
 
 	private void mapUnderlineQuestion(Question entity, MCQDto mcqDto) {
