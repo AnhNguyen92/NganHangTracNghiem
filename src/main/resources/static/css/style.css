@@ -616,3 +616,8 @@ legend.scheduler-border {
 .frm-content p {
     font-weight: 700;
 }
+
+/* restyle line space for summernote has been override by _reboot.css of bootstrap */
+.mcp-content p {
+    margin-bottom: 0.2rem;
+}
