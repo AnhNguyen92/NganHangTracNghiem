@@ -104,9 +104,41 @@ public class FillingQuestionController {
         Question question = questionConverter.toEntity(mcqDto);
         questionService.save(question);
 
-        log.info("===== CREATE Filling question form END =====");
+        log.info("===== CREATE filling question form END =====");
 
         return "redirect:/fo/index";
     }
 
+    // request mapping for group-filling question
+    @RequestMapping("/group-filling")
+    public String createGroupFillingQuestion(Model model, MCQDto mcqDto) {
+        log.info("===== GET filling  question form =====");
+
+        mcqDto.setType(QuestionType.GROUP_FILLING);
+        List<QuestionAnswerDto> questionAnswerDtos = mcqDto.getQuestionAnswerDtos();
+        if (questionAnswerDtos == null) {
+            questionAnswerDtos = new ArrayList<>();
+        }
+        for (int i = 0; i < 4; i++) {
+            QuestionAnswerDto questionAnswerDto = new QuestionAnswerDto();
+            questionAnswerDto.setAnswerLabel(ANSWER_LABELS[i]);
+            questionAnswerDto.setOrder(i);
+            questionAnswerDtos.add(questionAnswerDto);
+        }
+        mcqDto.setQuestionAnswerDtos(questionAnswerDtos);
+        model.addAttribute(MCQ_DTO, mcqDto);
+
+        return "fo/create-group-filling-question";
+    }
+    @PostMapping("/group-filling")
+    public String saveGroupFillingQuestion(Model model, final @ModelAttribute("mcqDto") MCQDto mcqDto, final BindingResult result) {
+        log.info("===== START create group filling question form =====");
+        
+        Question question = questionConverter.toEntity(mcqDto);
+        questionService.save(question);
+
+        log.info("===== CREATE group filling question form END =====");
+
+        return "redirect:/fo/index";
+    }
 }
