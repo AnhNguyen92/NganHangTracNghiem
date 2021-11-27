@@ -55,9 +55,9 @@ public class QuestionConverter {
 		entity.setQuestionType(mcqDto.getType());
 		entity.setContent(mcqDto.getContent());
 		entity.setSuggest(mcqDto.getAnswerSuggestion());
-		if (QuestionType.COMPLETION_1.equals(mcqDto.getType())) {
+		if (QuestionType.FILLING.equals(mcqDto.getType())) {
 			
-		} else if (QuestionType.COMPLETION_2.equals(mcqDto.getType())) {
+		} else if (QuestionType.GROUP_FILLING.equals(mcqDto.getType())) {
 			
 		} else if (QuestionType.MATCHING.equals(mcqDto.getType())) {
 			

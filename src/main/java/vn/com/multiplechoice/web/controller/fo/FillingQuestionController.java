@@ -42,7 +42,7 @@ public class FillingQuestionController {
     public String createUnderlineQuestion(Model model, MCQDto mcqDto) {
         log.info("===== GET filling type 1 question form =====");
 
-        mcqDto.setType(QuestionType.COMPLETION_1);
+        mcqDto.setType(QuestionType.FILLING);
         List<QuestionAnswerDto> questionAnswerDtos = mcqDto.getQuestionAnswerDtos();
         if (questionAnswerDtos == null) {
             questionAnswerDtos = new ArrayList<>();
