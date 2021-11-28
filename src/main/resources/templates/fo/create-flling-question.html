@@ -2,63 +2,17 @@
 <html lang="vi" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org">
 
 <head>
-
 <title>Tạo câu hỏi điền khuyết dạng đơn</title>
 
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <link rel="shortcut icon" th:href="@{/imgs/fo-favicon.ico}">
-<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link th:rel="stylesheet" th:href="@{/summernote/summernote-bs4.css}" />
 <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
     integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<style type="text/css">
-.dropdown-menu .dropdown-toggle:after{
-            border-top: .3em solid transparent;
-            border-right: 0;
-            border-bottom: .3em solid transparent;
-            border-left: .3em solid;
-        }
-.dropdown-menu .dropdown-toggle:after {
-    border-top: .3em solid transparent;
-    border-right: 0;
-    border-bottom: .3em solid transparent;
-    border-left: .3em solid;
-}
 
-.dropdown-menu .dropdown-menu {
-    margin-left: 0;
-    margin-right: 0;
-}
-
-.dropdown-menu li {
-    position: relative;
-}
-
-.nav-item .submenu {
-    display: none;
-    position: absolute;
-    left: 100%;
-    top: -7px;
-}
-
-.nav-item .submenu-left {
-    right: 100%;
-    left: auto;
-}
-
-.dropdown-menu>li:hover {
-    background-color: #f1f1f1
-}
-
-.dropdown-menu>li:hover>.submenu {
-    display: block;
-}
-</style>
 </head>
 
 <body>
@@ -188,7 +142,8 @@
     <script th:src="@{/summernote/summernote-bs4.js}"></script>
 
     <script>
-        let alphabetLblArr = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
+
+    let alphabetLblArr = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
 
         $('#content').summernote({
           height : 200,
@@ -239,31 +194,5 @@
     </script>
 
 </body>
-<script type="text/javascript">
-    /// some script
-    
-    // jquery ready start
-    $(document).ready(function() {
-        // jQuery code
-    
-        //////////////////////// Prevent closing from click inside dropdown
-        $(document).on('click', '.dropdown-menu', function (e) {
-          e.stopPropagation();
-        });
-    
-        // make it as accordion for smaller screens
-        if ($(window).width() < 992) {
-            $('.dropdown-menu a').click(function(e){
-                e.preventDefault();
-                if($(this).next('.submenu').length){
-                    $(this).next('.submenu').toggle();
-                }
-                $('.dropdown').on('hide.bs.dropdown', function () {
-                   $(this).find('.submenu').hide();
-                })
-            });
-        }
-        
-    }); // jquery end
-    </script>
+
 </html>
