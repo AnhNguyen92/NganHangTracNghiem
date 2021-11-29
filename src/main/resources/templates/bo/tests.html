@@ -3,11 +3,9 @@
 <head>
 <title>DANH SÁCH ĐỀ THI</title>
 
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta  content="text/html; charset=utf-8" http-equiv="Content-Type">
+<meta content="utf-8" http-equiv="encoding">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="">
-<meta name="author" content="">
 
 <link rel="shortcut icon" th:href="@{/imgs/favicon.ico}">
 <link th:href="@{/vendor/fontawesome/css/all.min.css}" rel="stylesheet" type="text/css">
@@ -278,16 +276,16 @@
     $(function() {
         $('input[id="dateRange"]').val( $('input[name="dateRange.fromDate"]').val() + ' - ' + $('input[name="dateRange.toDate"]').val());
     });
-
-    $('#example')
-        .DataTable({
-            "processing": false,
-            "searching": false,
-            "paging":   false,
-            "ordering": false,
-            "info":     false
+    $(function () {
+      $('#example')
+          .DataTable({
+              "processing": false,
+              "searching": false,
+              "paging":   false,
+              "ordering": false,
+              "info":     false
+      });
     });
-
 </script>
 
 </html>
