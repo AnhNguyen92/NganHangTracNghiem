@@ -140,7 +140,7 @@
                                                     <th:block th:each="role : ${T(vn.com.multiplechoice.dao.model.enums.UserRole).values()}">
                                                         <option th:if="${role.name() == 'ADMIN'}"
                                                               th:value="${role}" th:text=" 'Quản trị viên' "></option>
-                                                              <option th:if="${role.name() == 'INSPECTOR'}"
+                                                              <option th:if="${role.name() == 'EDITOR'}"
                                                               th:value="${role}" th:text=" 'Kiểm duyệt viên' "></option>
                                                               <option th:if="${role.name() == 'USER'}"
                                                               th:value="${role}" th:text=" 'Người dùng' "></option>

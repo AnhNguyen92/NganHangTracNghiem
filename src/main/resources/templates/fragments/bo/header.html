@@ -53,7 +53,7 @@
         </li>
         <li class="nav-item"
             th:classappend="${#strings.contains(#httpServletRequest.requestURI, 'tests')} ? ' active' : '' "
-            sec:authorize="hasAnyAuthority('ADMIN', 'INSPECTOR')">
+            sec:authorize="hasAnyAuthority('ADMIN', 'EDITOR')">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
                 aria-expanded="true" aria-controls="collapseThree">
                 <i class="fas fa-book-open"></i>
@@ -69,7 +69,7 @@
         </li>
         <li class="nav-item"
             th:classappend="${#strings.contains(#httpServletRequest.requestURI, 'questions')} ? ' active' : '' "
-            sec:authorize="hasAnyAuthority('ADMIN', 'INSPECTOR')">
+            sec:authorize="hasAnyAuthority('ADMIN', 'EDITOR')">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFour"
                 aria-expanded="true" aria-controls="collapseFour">
                 <i class="fas fa-fw fa-question-circle"></i>
@@ -85,7 +85,7 @@
         </li>
         <li class="nav-item"
             th:classappend="${#strings.contains(#httpServletRequest.requestURI, 'test-feedbacks')} ? ' active' : '' "
-            sec:authorize="hasAnyAuthority('ADMIN', 'INSPECTOR')">
+            sec:authorize="hasAnyAuthority('ADMIN', 'EDITOR')">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFive"
                 aria-expanded="true" aria-controls="collapseFive">
                 <i class="fas fa-fw fa-comments"></i>

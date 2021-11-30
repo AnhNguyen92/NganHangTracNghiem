@@ -99,7 +99,7 @@ class MultipleChoiceApplicationTests {
         if (number == 0) {
             role = UserRole.ADMIN;
         } else if (number == 1) {
-            role = UserRole.INSPECTOR;
+            role = UserRole.EDITOR;
         } else {
             role = UserRole.USER;
         }
