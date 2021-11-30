@@ -12,7 +12,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.CollectionUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,21 +24,21 @@ import vn.com.multiplechoice.dao.model.enums.QuestionType;
 import vn.com.multiplechoice.web.model.MCQDto;
 import vn.com.multiplechoice.web.model.QuestionAnswerDto;
 
-@RequestMapping("/fo/questions")
+@RequestMapping("/fo/questions/matching")
 @Controller
 public class MatchingQuestionController {
-
-    private static final String FO_CREATE_QUESTION_UNDERLINE = "fo/create-matching-question";
     private static final Logger log = LoggerFactory.getLogger(MatchingQuestionController.class);
+
+    private static final String FO_CREATE_MATCHING_QUESTION = "fo/create-matching-question";
     private static final String[] ANSWER_LABELS = new String[] { "A", "B", "C", "D", "E", "F", "G", "H" };
     private static final String MCQ_DTO = "mcqDto";
 
     @Autowired
     private UserService userService;
 
-    @RequestMapping("/matching")
-    public String createUnderlineQuestion(Model model, MCQDto mcqDto) {
-        log.info("===== GET underline question form =====");
+    @RequestMapping("")
+    public String creatematchingQuestion(Model model, MCQDto mcqDto) {
+        log.info("===== GET matching question form =====");
 
         mcqDto.setType(QuestionType.MATCHING);
         List<QuestionAnswerDto> leftAnswerDtos = new ArrayList<>();
@@ -55,56 +54,127 @@ public class MatchingQuestionController {
             QuestionAnswerDto questionAnswerDto = new QuestionAnswerDto();
             questionAnswerDto.setAnswerLabel(ANSWER_LABELS[i]);
             questionAnswerDto.setOrder(i);
-            questionAnswerDto.setLeftSide(true);
+            questionAnswerDto.setLeftSide(false);
             rightAnswerDtos.add(questionAnswerDto);
         }
         mcqDto.setLeftAnswerDtos(leftAnswerDtos);
         mcqDto.setRightAnswerDtos(rightAnswerDtos);
         model.addAttribute(MCQ_DTO, mcqDto);
 
-        return FO_CREATE_QUESTION_UNDERLINE;
+        return FO_CREATE_MATCHING_QUESTION;
     }
 
-    @RequestMapping(value = "/matching", params = { "add-left-answer" })
-    public String addAnswer(Model model, final MCQDto mcqDto, final BindingResult result) {
-        List<QuestionAnswerDto> answerDtos = mcqDto.getQuestionAnswerDtos();
-        if (CollectionUtils.isEmpty(mcqDto.getQuestionAnswerDtos())) {
-            answerDtos = new ArrayList<>();
-        }
-        for (int i = 0; i < answerDtos.size(); i++) {
-            QuestionAnswerDto questionAnswerDto = mcqDto.getQuestionAnswerDtos().get(i);
+    @RequestMapping(value = "", params = { "add-left-answer" })
+    public String addLeftAnswer(Model model, final MCQDto mcqDto, final BindingResult result) {
+        List<QuestionAnswerDto> leftAnswerDtos = mcqDto.getLeftAnswerDtos();
+        for (int i = 0; i < leftAnswerDtos.size(); i++) {
+            QuestionAnswerDto questionAnswerDto = leftAnswerDtos.get(i);
+            questionAnswerDto.setAnswerLabel("" + (i + 1));
             questionAnswerDto.setOrder(i);
-            questionAnswerDto.setAnswerLabel(ANSWER_LABELS[i]);
         }
-
-        QuestionAnswerDto newQuestionAnswerDto = new QuestionAnswerDto();
-        newQuestionAnswerDto.setAnswerLabel(ANSWER_LABELS[answerDtos.size()]);
-        answerDtos.add(newQuestionAnswerDto);
-        mcqDto.setQuestionAnswerDtos(answerDtos);
-
+        QuestionAnswerDto newItem = new QuestionAnswerDto();
+        newItem.setAnswerLabel((leftAnswerDtos.size() + 1) + "");
+        newItem.setOrder(leftAnswerDtos.size());
+        newItem.setLeftSide(true);
+        leftAnswerDtos.add(newItem);
+        mcqDto.setLeftAnswerDtos(leftAnswerDtos);
+        
+        List<QuestionAnswerDto> rightAnswerDtos = mcqDto.getRightAnswerDtos();
+        for (int i = 0; i < rightAnswerDtos.size(); i++) {
+            QuestionAnswerDto questionAnswerDto = rightAnswerDtos.get(i);
+            questionAnswerDto.setAnswerLabel(ANSWER_LABELS[i]);
+            questionAnswerDto.setOrder(i);
+            questionAnswerDto.setLeftSide(false);
+        }
+        mcqDto.setRightAnswerDtos(rightAnswerDtos);
         model.addAttribute(MCQ_DTO, mcqDto);
 
-        return FO_CREATE_QUESTION_UNDERLINE;
+        return FO_CREATE_MATCHING_QUESTION;
     }
 
-    @RequestMapping(value = "/matching", params = { "remove-left-answer" })
-    public String removeAnswer(Model model, MCQDto mcqDto, final BindingResult result, final HttpServletRequest req) {
-        List<QuestionAnswerDto> questionAnswerDtos = mcqDto.getQuestionAnswerDtos();
-        String index = req.getParameter("remove-answer");
-        questionAnswerDtos.remove(questionAnswerDtos.get(Integer.parseInt(index)));
-        for (int i = 0; i < questionAnswerDtos.size(); i++) {
-            QuestionAnswerDto questionAnswerDto = questionAnswerDtos.get(i);
+    @RequestMapping(value = "", params = { "remove-left-answer" })
+    public String removeLeftAnswer(Model model, MCQDto mcqDto, final BindingResult result, final HttpServletRequest req) {
+        List<QuestionAnswerDto> leftAnswerDtos = mcqDto.getLeftAnswerDtos();
+        String indexStr = req.getParameter("remove-left-answer");
+        int index = Integer.parseInt(indexStr);
+        leftAnswerDtos.remove(index);
+        for (int i = 0; i < leftAnswerDtos.size(); i++) {
+            QuestionAnswerDto questionAnswerDto = leftAnswerDtos.get(i);
+            questionAnswerDto.setAnswerLabel("" + (i + 1));
             questionAnswerDto.setOrder(i);
-            questionAnswerDto.setAnswerLabel(ANSWER_LABELS[i]);
         }
+        mcqDto.setLeftAnswerDtos(leftAnswerDtos);
+        
+        List<QuestionAnswerDto> rightAnswerDtos = mcqDto.getRightAnswerDtos();
+        for (int i = 0; i < rightAnswerDtos.size(); i++) {
+            QuestionAnswerDto questionAnswerDto = rightAnswerDtos.get(i);
+            questionAnswerDto.setAnswerLabel(ANSWER_LABELS[i]);
+            questionAnswerDto.setOrder(i);
+            questionAnswerDto.setLeftSide(false);
+        }
+        mcqDto.setRightAnswerDtos(rightAnswerDtos);
         model.addAttribute(MCQ_DTO, mcqDto);
 
-        return FO_CREATE_QUESTION_UNDERLINE;
+        return FO_CREATE_MATCHING_QUESTION;
+    }
+    @RequestMapping(value = "", params = { "add-right-answer" })
+    public String addRightAnswer(Model model, final MCQDto mcqDto, final BindingResult result) {
+        List<QuestionAnswerDto> leftAnswerDtos = mcqDto.getLeftAnswerDtos();
+        for (int i = 0; i < leftAnswerDtos.size(); i++) {
+            QuestionAnswerDto questionAnswerDto = leftAnswerDtos.get(i);
+            questionAnswerDto.setAnswerLabel("" + (i + 1));
+            questionAnswerDto.setOrder(i);
+        }
+        mcqDto.setLeftAnswerDtos(leftAnswerDtos);
+        
+        List<QuestionAnswerDto> rightAnswerDtos = mcqDto.getRightAnswerDtos();
+        for (int i = 0; i < rightAnswerDtos.size(); i++) {
+            QuestionAnswerDto questionAnswerDto = rightAnswerDtos.get(i);
+            questionAnswerDto.setAnswerLabel(ANSWER_LABELS[i]);
+            questionAnswerDto.setOrder(i);
+            questionAnswerDto.setLeftSide(false);
+        }
+        QuestionAnswerDto newItem = new QuestionAnswerDto();
+        newItem.setAnswerLabel(ANSWER_LABELS[rightAnswerDtos.size()]);
+        newItem.setOrder(rightAnswerDtos.size());
+        newItem.setLeftSide(false);
+        rightAnswerDtos.add(newItem);
+        mcqDto.setRightAnswerDtos(rightAnswerDtos);
+        model.addAttribute(MCQ_DTO, mcqDto);
+
+        return FO_CREATE_MATCHING_QUESTION;
     }
 
-    @PostMapping("/matching")
-    public String saveUnderlineQuestion(Model model, final @ModelAttribute("mcqDto") MCQDto mcqDto, final BindingResult result) {
-        log.info("===== START create underline question form =====");
+    @RequestMapping(value = "", params = { "remove-right-answer" })
+    public String removeRightAnswer(Model model, MCQDto mcqDto, final BindingResult result, final HttpServletRequest req) {
+        List<QuestionAnswerDto> leftAnswerDtos = mcqDto.getLeftAnswerDtos();
+        
+        for (int i = 0; i < leftAnswerDtos.size(); i++) {
+            QuestionAnswerDto questionAnswerDto = leftAnswerDtos.get(i);
+            questionAnswerDto.setAnswerLabel("" + (i + 1));
+            questionAnswerDto.setOrder(i);
+        }
+        mcqDto.setLeftAnswerDtos(leftAnswerDtos);
+        
+        List<QuestionAnswerDto> rightAnswerDtos = mcqDto.getRightAnswerDtos();
+        String indexStr = req.getParameter("remove-right-answer");
+        int index = Integer.parseInt(indexStr);
+        rightAnswerDtos.remove(index);
+        for (int i = 0; i < rightAnswerDtos.size(); i++) {
+            QuestionAnswerDto questionAnswerDto = rightAnswerDtos.get(i);
+            questionAnswerDto.setAnswerLabel(ANSWER_LABELS[i]);
+            questionAnswerDto.setOrder(i);
+            questionAnswerDto.setLeftSide(false);
+        }
+        mcqDto.setRightAnswerDtos(rightAnswerDtos);
+        model.addAttribute(MCQ_DTO, mcqDto);
+
+        return FO_CREATE_MATCHING_QUESTION;
+    }
+
+    @PostMapping("")
+    public String saveMatchingQuestion(Model model, final @ModelAttribute("mcqDto") MCQDto mcqDto, final BindingResult result) {
+        log.info("===== START create matching question form =====");
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userService.findByUsername(userDetails.getUsername());
         mcqDto.setUser(user);
@@ -116,7 +186,7 @@ public class MatchingQuestionController {
         question.setAnswerA(mcqDto.getQuestionAnswerDtos().get(0).getAnswerContent());
         question.setAnswerB(mcqDto.getQuestionAnswerDtos().get(1).getAnswerContent());
 
-        log.info("===== CREATE underline question form END =====");
+        log.info("===== CREATE matching question form END =====");
 
         return "fo/index";
     }
