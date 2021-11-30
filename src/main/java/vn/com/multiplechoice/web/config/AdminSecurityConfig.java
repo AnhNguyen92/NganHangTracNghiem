@@ -18,7 +18,7 @@ import vn.com.multiplechoice.business.service.impl.UserDetailsServiceImpl;
 @EnableWebSecurity
 @Order(1)
 public class AdminSecurityConfig extends WebSecurityConfigurerAdapter {
-    private static final String INSPECTOR = "INSPECTOR";
+    private static final String EDITOR = "EDITOR";
 
     private static final String ADMIN = "ADMIN";
 
@@ -40,19 +40,16 @@ public class AdminSecurityConfig extends WebSecurityConfigurerAdapter {
         http.antMatcher("/bo/**") //
                 .authorizeRequests() //
                 .antMatchers(loginPage, "/bo/ajax/users/list").permitAll() //
-                .antMatchers("/bo/**").hasAnyAuthority(ADMIN, INSPECTOR)
-//                .antMatchers("/bo/users/**").hasAnyAuthority(ADMIN) //
-//                .antMatchers("/bo/comments/**").hasAnyAuthority(ADMIN) //
-//                .antMatchers("/bo/charts/**").hasAnyAuthority(ADMIN) //
-//                .antMatchers("/bo/tests/**").hasAnyAuthority(ADMIN, INSPECTOR) //
-//                .antMatchers("/bo/questions/**").hasAnyAuthority(ADMIN, INSPECTOR) //
-//                .antMatchers("/bo/test-feedbacks/**").hasAnyAuthority(ADMIN, INSPECTOR) //
+                .antMatchers("/bo/users/**").hasAnyAuthority(ADMIN) //
+                .antMatchers("/bo/comments/**").hasAnyAuthority(ADMIN) //
+                .antMatchers("/bo/charts/**").hasAnyAuthority(ADMIN) //
+                .antMatchers("/bo/tests/**").hasAnyAuthority(ADMIN, EDITOR) //
+                .antMatchers("/bo/questions/**").hasAnyAuthority(ADMIN, EDITOR) //
+                .antMatchers("/bo/test-feedbacks/**").hasAnyAuthority(ADMIN, EDITOR) //
                 .anyRequest().authenticated() //
                 .and().formLogin() //
                 .loginPage(loginPage)//
                 .loginProcessingUrl("/bo/j_spring_security_login") //
-                //.defaultSuccessUrl("/bo/users", true) //
-             // .defaultSuccessUrl("/bo/tests", true) //
                 .successHandler(successHandler())
                 .usernameParameter("username").passwordParameter("password") //
                 .and().exceptionHandling().accessDeniedPage("/403") //
