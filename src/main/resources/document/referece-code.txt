@@ -42,3 +42,5 @@
 	https://frontbackend.com/thymeleaf/spring-boot-bootstrap-thymeleaf-switch
 - Home UI
 	https://www.tcyonline.com/tests/multiple-choice-questions
+- Custorm success url after 
+	https://www.baeldung.com/spring_redirect_after_login
