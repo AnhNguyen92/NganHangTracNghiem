@@ -28,7 +28,7 @@
     <!-- content -->
     <div class="container mt-3">
         <div class="page-title">TẠO MỚI CÂU HỎI GHÉP CẶP</div>
-        <form action="#" id="f-one-ans-question" th:action="@{/fo/questions/one-ans}" method="post"
+        <form action="#" id="f-matching-question" th:action="@{/fo/questions/matching}" method="post"
             th:object="${mcqDto}">
             <div class="mcq">
                 <div class="mt-3">
@@ -79,7 +79,7 @@
                     <div class="answer-content row">
                         <div class="col-6 border-right">
                             <div class="d-flex justify-content-end py-2">
-                                <button class="btn-add-answer" id="btn-add-answer" type="submit" name="add-answer"
+                                <button class="btn-add-answer" id="btn-add-answer" type="submit" name="add-left-answer"
                                     onclick="return addMoreAnswer()">
                                     <i class="fa fa-plus" aria-hidden="true" title="Thêm mệnh đề vế trái"></i>
                                 </button>
@@ -105,7 +105,7 @@
                                         </button>
                                     </div>
                                     <div class="ml-2">
-                                        <button class="btn-delete-answer" type="submit" name="remove-answer"
+                                        <button class="btn-delete-answer" type="submit" name="remove-left-answer"
                                             th:value="${leftAnswerDtoStat.index}" onclick="return removeAnswer()">
                                             <i class="fa fa-window-close" aria-hidden="true"></i>
                                         </button>
@@ -116,7 +116,7 @@
 
                         <div class="col-6">
                             <div class="d-flex justify-content-end py-2">
-                                <button class="btn-add-answer" id="btn-add-answer" type="submit" name="add-answer"
+                                <button class="btn-add-answer" id="btn-add-answer" type="submit" name="add-right-answer"
                                     onclick="return addMoreAnswer()">
                                     <i class="fa fa-plus" aria-hidden="true" title="Thêm đáp án nhiễu"></i>
                                 </button>
@@ -142,7 +142,7 @@
                                         </button>
                                     </div>
                                     <div class="ml-2">
-                                        <button class="btn-delete-answer" type="submit" name="remove-answer"
+                                        <button class="btn-delete-answer" type="submit" name="remove-right-answer"
                                             th:value="${rightAnswerDtoStat.index}" onclick="return removeAnswer()">
                                             <i class="fa fa-window-close" aria-hidden="true"></i>
                                         </button>
@@ -194,7 +194,7 @@
               alert("Số câu trả lời tối đa là 8");
               return false;
             } else {
-              $("#f-one-ans-question").submit();
+              $("#f-matching-question").submit();
             }
           }
 
@@ -204,7 +204,7 @@
               alert("Số câu trả lời tối thiểu là 4");
               return false;
             } else {
-              $("#f-one-ans-question").submit();
+              $("#f-matching-question").submit();
             }
           }
 

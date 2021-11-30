@@ -31,8 +31,7 @@ public class MatchingQuestionController {
 
     private static final String FO_CREATE_QUESTION_UNDERLINE = "fo/create-matching-question";
     private static final Logger log = LoggerFactory.getLogger(MatchingQuestionController.class);
-    private static final String[] ANSWER_LABELS = new String[] { "Đáp án A", "Đáp án B", "Đáp án C", "Đáp án D", "Đáp án E", "Đáp án F", "Đáp án G",
-            "Đáp án H" };
+    private static final String[] ANSWER_LABELS = new String[] { "A", "B", "C", "D", "E", "F", "G", "H" };
     private static final String MCQ_DTO = "mcqDto";
 
     @Autowired
@@ -47,7 +46,7 @@ public class MatchingQuestionController {
         List<QuestionAnswerDto> rightAnswerDtos = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
             QuestionAnswerDto questionAnswerDto = new QuestionAnswerDto();
-            questionAnswerDto.setAnswerLabel( (i + 1) + "");
+            questionAnswerDto.setAnswerLabel((i + 1) + "");
             questionAnswerDto.setOrder(i);
             questionAnswerDto.setLeftSide(true);
             leftAnswerDtos.add(questionAnswerDto);
@@ -66,7 +65,7 @@ public class MatchingQuestionController {
         return FO_CREATE_QUESTION_UNDERLINE;
     }
 
-    @RequestMapping(value = "/matching", params = { "add-answer" })
+    @RequestMapping(value = "/matching", params = { "add-left-answer" })
     public String addAnswer(Model model, final MCQDto mcqDto, final BindingResult result) {
         List<QuestionAnswerDto> answerDtos = mcqDto.getQuestionAnswerDtos();
         if (CollectionUtils.isEmpty(mcqDto.getQuestionAnswerDtos())) {
@@ -88,7 +87,7 @@ public class MatchingQuestionController {
         return FO_CREATE_QUESTION_UNDERLINE;
     }
 
-    @RequestMapping(value = "/matching", params = { "remove-answer" })
+    @RequestMapping(value = "/matching", params = { "remove-left-answer" })
     public String removeAnswer(Model model, MCQDto mcqDto, final BindingResult result, final HttpServletRequest req) {
         List<QuestionAnswerDto> questionAnswerDtos = mcqDto.getQuestionAnswerDtos();
         String index = req.getParameter("remove-answer");
