@@ -8,8 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,9 +15,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import vn.com.multiplechoice.business.service.UserService;
+import vn.com.multiplechoice.business.converter.QuestionConverter;
+import vn.com.multiplechoice.business.service.QuestionService;
 import vn.com.multiplechoice.dao.model.Question;
-import vn.com.multiplechoice.dao.model.User;
 import vn.com.multiplechoice.dao.model.enums.QuestionType;
 import vn.com.multiplechoice.web.model.MCQDto;
 import vn.com.multiplechoice.web.model.QuestionAnswerDto;
@@ -34,7 +32,10 @@ public class MatchingQuestionController {
     private static final String MCQ_DTO = "mcqDto";
 
     @Autowired
-    private UserService userService;
+    private QuestionService questionService;
+    
+    @Autowired
+    private QuestionConverter questionConverter;
 
     @RequestMapping("")
     public String creatematchingQuestion(Model model, MCQDto mcqDto) {
@@ -175,20 +176,13 @@ public class MatchingQuestionController {
     @PostMapping("")
     public String saveMatchingQuestion(Model model, final @ModelAttribute("mcqDto") MCQDto mcqDto, final BindingResult result) {
         log.info("===== START create matching question form =====");
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User user = userService.findByUsername(userDetails.getUsername());
-        mcqDto.setUser(user);
-        Question question = new Question();
-        question.setContent(mcqDto.getContent());
-        question.setSuggest(mcqDto.getAnswerSuggestion());
-        question.setQuestionType(QuestionType.TRUE_FALSE);
-        question.setUser(user);
-        question.setAnswerA(mcqDto.getQuestionAnswerDtos().get(0).getAnswerContent());
-        question.setAnswerB(mcqDto.getQuestionAnswerDtos().get(1).getAnswerContent());
+        
+        Question question = questionConverter.toEntity(mcqDto);
+        questionService.save(question);
 
         log.info("===== CREATE matching question form END =====");
 
-        return "fo/index";
+        return "redirect:/fo/index";
     }
 
 }
