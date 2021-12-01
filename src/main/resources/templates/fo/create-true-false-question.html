@@ -136,13 +136,15 @@
     <script th:src="@{/summernote/summernote-bs4.js}"></script>
 
     <script type="text/javascript">
-    	$('#content').summernote({
-        	height : 200
+        $('#content').summernote({
+          height : 200
         });
-
-		$('#suggest').summernote({
-        	height : 200
+        $('#content').summernote('fontName', 'Arial');
+  
+        $('#suggest').summernote({
+          height : 200
         });
+        $('#suggest').summernote('fontName', 'Arial');
 
         function addMoreAnswer() {
         	let totalAnswer = $(".answer__value").length;

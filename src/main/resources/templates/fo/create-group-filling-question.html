@@ -162,9 +162,13 @@
         }
         });
 
+        $('#content').summernote('fontName', 'Arial');
+
         $('#suggest').summernote({
-          height : 200
+        	height : 200
         });
+
+        $('#suggest').summernote('fontName', 'Arial');
 
         function onlyOneAnswer(checkbox) {
             let checkboxes = document.getElementsByClassName('checkbox-answer');
