@@ -102,7 +102,7 @@ public class QuestionConverter {
         entity.setAnswerPemutation(permutationPosLst);
         entity.setRightAnswer(mcqDto.getQuestionAnswerDtos().stream().filter(QuestionAnswerDto::getTrueAnswer).map(answer -> answerLabelList[answer.getOrder()])
                 .collect(Collectors.joining(",")));
-        entity.setScore(mcqDto.getQuestionAnswerDtos().stream().map(QuestionAnswerDto::getScore).collect(Collectors.joining(",")));
+        entity.setScore(mcqDto.getQuestionAnswerDtos().stream().map(answerDto -> String.valueOf(answerDto.getScore())).collect(Collectors.joining(",")));
     }
 
     private void mapYesNoQuestion(Question entity, MCQDto mcqDto) {
@@ -125,7 +125,7 @@ public class QuestionConverter {
         questionAnswerDtos.addAll(mcqDto.getRightAnswerDtos());
         saveQuestionAnswer(entity, questionAnswerDtos);
         entity.setScore(questionAnswerDtos.stream().filter(answerDto -> answerDto.getOrder() < mcqDto.getLeftAnswerDtos().size())
-                .map(QuestionAnswerDto::getScore).collect(Collectors.joining(",")));
+                .map(answerDto -> String.valueOf(answerDto.getScore())).collect(Collectors.joining(",")));
         entity.setRightAnswer(questionAnswerDtos.stream().filter(answerDto -> answerDto.getOrder() < mcqDto.getLeftAnswerDtos().size())
                 .map(answer -> answerLabelList[answer.getOrder()]).collect(Collectors.joining(",")));
     }
@@ -135,9 +135,9 @@ public class QuestionConverter {
                 .map(answer -> answerLabelList[answer.getOrder()]).collect(Collectors.joining(","));
         entity.setAnswerPemutation(permutationPosLst);
         saveQuestionAnswer(entity, mcqDto.getQuestionAnswerDtos());
-        // set right answer
         entity.setRightAnswer(mcqDto.getQuestionAnswerDtos().stream().filter(QuestionAnswerDto::getTrueAnswer).map(answer -> answerLabelList[answer.getOrder()])
                 .collect(Collectors.joining(",")));
+        entity.setScore(mcqDto.getQuestionAnswerDtos().stream().map(answerDto -> String.valueOf(answerDto.getScore())).collect(Collectors.joining(",")));
     }
 
     private void mapOneAnswerQuestion(Question question, MCQDto mcqDto) {
