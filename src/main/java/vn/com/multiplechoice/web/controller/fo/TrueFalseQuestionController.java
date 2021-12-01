@@ -93,6 +93,7 @@ public class TrueFalseQuestionController {
             questionAnswerDto.setAnswerLabel(ANSWER_LABELS[i]);
             questionAnswerDto.setOrder(i);
             questionAnswerDto.setScore(0);
+            questionAnswerDto.setTrueAnswer(true);
             questionAnswerDtos.add(questionAnswerDto);
         }
         mcqDto.setQuestionAnswerDtos(questionAnswerDtos);
