@@ -92,6 +92,10 @@
                                     th:field="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].answerContent}">
                             </div>
                             <div class="ml-2">
+                                <input class="answer__score" title="Điểm số cho đáp án" type="number"
+                                    th:field="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].score}" />
+                            </div>
+                            <div class="ml-2">
                                 <button class="btn-swap-answer">
                                     <i class="fa fa-exchange" aria-hidden="true"></i>
                                 </button>
