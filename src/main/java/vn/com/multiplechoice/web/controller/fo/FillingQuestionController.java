@@ -117,21 +117,21 @@ public class FillingQuestionController {
         mcqDto.setType(QuestionType.GROUP_FILLING);
         List<QuestionAnswerDto> leftAnswerDtos = new ArrayList<>();
         List<QuestionAnswerDto> rightAnswerDtos = new ArrayList<>();
-        for (int i = 0; i < 4; i++) {
-            QuestionAnswerDto questionAnswerDto = new QuestionAnswerDto();
-            questionAnswerDto.setAnswerLabel((i + 1) + "");
-            questionAnswerDto.setOrder(i);
-            questionAnswerDto.setLeftSide(true);
-            questionAnswerDto.setScore(0);
-            leftAnswerDtos.add(questionAnswerDto);
-        }
-        for (int i = 0; i < 4; i++) {
-            QuestionAnswerDto questionAnswerDto = new QuestionAnswerDto();
-            questionAnswerDto.setAnswerLabel(ANSWER_LABELS[i]);
-            questionAnswerDto.setOrder(i);
-            questionAnswerDto.setLeftSide(false);
-            rightAnswerDtos.add(questionAnswerDto);
-        }
+//        for (int i = 0; i < 4; i++) {
+//            QuestionAnswerDto questionAnswerDto = new QuestionAnswerDto();
+//            questionAnswerDto.setAnswerLabel((i + 1) + "");
+//            questionAnswerDto.setOrder(i);
+//            questionAnswerDto.setLeftSide(true);
+//            questionAnswerDto.setScore(0);
+//            leftAnswerDtos.add(questionAnswerDto);
+//        }
+//        for (int i = 0; i < 4; i++) {
+//            QuestionAnswerDto questionAnswerDto = new QuestionAnswerDto();
+//            questionAnswerDto.setAnswerLabel(ANSWER_LABELS[i]);
+//            questionAnswerDto.setOrder(i);
+//            questionAnswerDto.setLeftSide(false);
+//            rightAnswerDtos.add(questionAnswerDto);
+//        }
         mcqDto.setLeftAnswerDtos(leftAnswerDtos);
         mcqDto.setRightAnswerDtos(rightAnswerDtos);
         model.addAttribute(MCQ_DTO, mcqDto);

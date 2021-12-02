@@ -234,6 +234,9 @@ legend.scheduler-border {
     border-bottom: 1px;
 }
 
+.answer-content {
+    min-height: 200px;
+}
 /************************* PROFILE PAGE *************************/
 .pf {
     padding-bottom: 10px;
