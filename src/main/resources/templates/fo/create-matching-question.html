@@ -3,20 +3,21 @@
 
 <head>
 
-<title>Tạo câu hỏi nối chéo</title>
+    <title>Tạo câu hỏi nối chéo</title>
 
-<meta  content="text/html; charset=utf-8" http-equiv="Content-Type">
-<meta content="utf-8" http-equiv="encoding">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<link rel="shortcut icon" th:href="@{/imgs/fo-favicon.ico}">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link th:rel="stylesheet" th:href="@{/summernote/summernote-bs4.css}" />
-<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} " />
-<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+    <link rel="shortcut icon" th:href="@{/imgs/fo-favicon.ico}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link th:rel="stylesheet" th:href="@{/summernote/summernote-bs4.css}" />
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} " />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
 
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
 
 </head>
 
@@ -63,15 +64,14 @@
                     <textarea id="suggest" class="question-suggest" th:field="*{answerSuggestion}"></textarea>
                 </div>
                 <div class="answer mt-2 p-2">
-                    
-
                     <div class="answer-content row">
-                         <div class="col-6 border-right">
+                        <div class="col-6 border-right">
                             <div class="total-answer d-flex">
-                              <div class="text-danger p-1">Số mệnh đề trái</div>
-                              <div class="text-center p-1">
-                                <label class="total-answer__value" th:text="${#lists.size(mcqDto.leftAnswerDtos)}">4</label>
-                              </div>
+                                <div class="text-danger p-1">Số mệnh đề trái</div>
+                                <div class="text-center p-1">
+                                    <label class="total-answer__value"
+                                        th:text="${#lists.size(mcqDto.leftAnswerDtos)}">4</label>
+                                </div>
                             </div>
                             <div class="d-flex justify-content-end">
                                 <button class="btn-add-answer" id="btn-add-answer" type="submit" name="add-left-answer"
@@ -110,10 +110,11 @@
 
                         <div class="col-6">
                             <div class="total-answer d-flex">
-                              <div class="text-danger p-1">Số mệnh đề phải</div>
-                              <div class="text-center p-1">
-                                <label class="total-answer__value" th:text="${#lists.size(mcqDto.rightAnswerDtos)}">4</label>
-                              </div>
+                                <div class="text-danger p-1">Số mệnh đề phải</div>
+                                <div class="text-center p-1">
+                                    <label class="total-answer__value"
+                                        th:text="${#lists.size(mcqDto.rightAnswerDtos)}">4</label>
+                                </div>
                             </div>
                             <div class="d-flex justify-content-end">
                                 <button class="btn-add-answer" id="btn-add-answer" type="submit" name="add-right-answer"
@@ -186,78 +187,78 @@
     <script th:src="@{/summernote/summernote-bs4.js}"></script>
 
     <script type="text/javascript">
-          $('#content').summernote({
-            height : 200
-          });
-          $('#content').summernote('fontName', 'Arial');
+        $('#content').summernote({
+            height: 200
+        });
+        $('#content').summernote('fontName', 'Arial');
 
-          $('#suggest').summernote({
-            height : 200
-          });
-          $('#suggest').summernote('fontName', 'Arial');
+        $('#suggest').summernote({
+            height: 200
+        });
+        $('#suggest').summernote('fontName', 'Arial');
 
-          function addMoreLeftPart() {
+        function addMoreLeftPart() {
             let totalLeftAnswer = $(".left_part").length;
             let totalRightAnswer = $(".right_part").length;
-            if ((totalLeftAnswer  + totalRightAnswer) == 8) {
-              alert("Số câu trả lời tối đa là 8");
-              return false;
-            } else if (totalLeftAnswer == totalRightAnswer) {
-            	alert("Số mệnh đề vế trái phải nhỏ hơn hoặc bằng số câu trả lời bên phải");
-                return false;
-            } else {
-              $("#f-matching-question").submit();
-            }
-          }
-
-          function removeLeftPart() {
-        	let totalLeftAnswer = $(".left_part").length;
-            if (totalLeftAnswer == 1) {
-              alert("Số mệnh đề vế trái tối thiểu là 1");
-              return false;
-            } else {
-              $("#f-matching-question").submit();
-            }
-          }
-
-          function addRightAnswer() {
-              let totalAnswer = $(".answer__value").length;
-              if (totalAnswer == 8) {
+            if ((totalLeftAnswer + totalRightAnswer) == 8) {
                 alert("Số câu trả lời tối đa là 8");
                 return false;
-              } else {
+            } else if (totalLeftAnswer == totalRightAnswer) {
+                alert("Số mệnh đề vế trái phải nhỏ hơn hoặc bằng số câu trả lời bên phải");
+                return false;
+            } else {
                 $("#f-matching-question").submit();
-              }
             }
+        }
 
-            function removeRightAnswer() {
-              let totalLeftAnswer = $(".left_part").length;
-              let totalRightAnswer = $(".right_part").length;
-              if (totalLeftAnswer == totalRightAnswer) {
+        function removeLeftPart() {
+            let totalLeftAnswer = $(".left_part").length;
+            if (totalLeftAnswer == 1) {
+                alert("Số mệnh đề vế trái tối thiểu là 1");
+                return false;
+            } else {
+                $("#f-matching-question").submit();
+            }
+        }
+
+        function addRightAnswer() {
+            let totalAnswer = $(".answer__value").length;
+            if (totalAnswer == 8) {
+                alert("Số câu trả lời tối đa là 8");
+                return false;
+            } else {
+                $("#f-matching-question").submit();
+            }
+        }
+
+        function removeRightAnswer() {
+            let totalLeftAnswer = $(".left_part").length;
+            let totalRightAnswer = $(".right_part").length;
+            if (totalLeftAnswer == totalRightAnswer) {
                 alert("Số câu trả lời bên phải không được nhỏ hơn số mệnh đề vế trái");
                 return false;
-              } else {
+            } else {
                 $("#f-matching-question").submit();
-              }
+            }
+        }
+
+        function changePermutation(inputId) {
+            let inputElm = $("#swap-pos-" + inputId);
+            if (inputElm.is(':checked')) {
+                $(inputElm).prop('checked', false);
+            } else {
+                $(inputElm).prop('checked', true);
             }
 
-            function changePermutation(inputId) {
-            	let inputElm = $("#swap-pos-" + inputId);
-            	if(inputElm.is(':checked')) {
-            	    $(inputElm).prop('checked',false);
-            	} else {
-            	    $(inputElm).prop('checked',true);
-            	}
-            	
-            	let btnSwapTitle = $("#btn-swap-pos-" + inputId).attr("title");
-            	if(btnSwapTitle == "Bỏ hoán vị vị trí") {
-            	    $("#btn-swap-pos-" + inputId).prop('title', 'Cho phép hoán vị vị trí');
-            	} else {
-            	    $("#btn-swap-pos-" + inputId).prop('title', 'Bỏ hoán vị vị trí');
-            	}
+            let btnSwapTitle = $("#btn-swap-pos-" + inputId).attr("title");
+            if (btnSwapTitle == "Bỏ hoán vị vị trí") {
+                $("#btn-swap-pos-" + inputId).prop('title', 'Cho phép hoán vị vị trí');
+            } else {
+                $("#btn-swap-pos-" + inputId).prop('title', 'Bỏ hoán vị vị trí');
             }
+        }
 
-            </script>
+    </script>
 
 </body>
 

@@ -3,20 +3,20 @@
 
 <head>
 
-<title>Tạo câu hỏi một lựa chọn</title>
+    <title>Tạo câu hỏi một lựa chọn</title>
 
-<meta  content="text/html; charset=utf-8" http-equiv="Content-Type">
-<meta content="utf-8" http-equiv="encoding">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<link rel="shortcut icon" th:href="@{/imgs/fo-favicon.ico}">
-<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap-4.4.1/css/bootstrap.min.css}" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+    <link rel="shortcut icon" th:href="@{/imgs/fo-favicon.ico}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap-4.4.1/css/bootstrap.min.css}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script type="text/javascript" th:src="@{/css/bootstrap-4.4.1/js/bootstrap.min.js}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script type="text/javascript" th:src="@{/css/bootstrap-4.4.1/js/bootstrap.min.js}"></script>
 
 </head>
 
@@ -100,7 +100,8 @@
                     </div>
                 </div>
                 <div class="mcp-content">
-                    <textarea style="width: -webkit-fill-available; width: -moz-available; min-height: 120px;"></textarea>
+                    <textarea
+                        style="width: -webkit-fill-available; width: -moz-available; min-height: 120px;"></textarea>
                 </div>
                 <div class="answer">
                     <div class="answer-title d-flex">
@@ -127,10 +128,12 @@
                                 <input type="text" style="width: 700px;">
                             </div>
                             <div class="ml-2">
-                                <i class="fa fa-exchange" aria-hidden="true" style="font-size: 30px; color: #00bfff;"></i>
+                                <i class="fa fa-exchange" aria-hidden="true"
+                                    style="font-size: 30px; color: #00bfff;"></i>
                             </div>
                             <div class="ml-2">
-                                <i class="fa fa-window-close" aria-hidden="true" style="font-size: 30px; color: #ff0000"></i>
+                                <i class="fa fa-window-close" aria-hidden="true"
+                                    style="font-size: 30px; color: #ff0000"></i>
                             </div>
                         </div>
                     </div>
@@ -146,10 +149,12 @@
                                 <input type="text" style="width: 700px;">
                             </div>
                             <div class="ml-4">
-                                <i class="fa fa-exchange" aria-hidden="true" style="font-size: 30px; color: #00bfff;"></i>
+                                <i class="fa fa-exchange" aria-hidden="true"
+                                    style="font-size: 30px; color: #00bfff;"></i>
                             </div>
                             <div class="ml-4">
-                                <i class="fa fa-window-close" aria-hidden="true" style="font-size: 30px; color: #ff0000"></i>
+                                <i class="fa fa-window-close" aria-hidden="true"
+                                    style="font-size: 30px; color: #ff0000"></i>
                             </div>
                         </div>
                     </div>
@@ -165,10 +170,12 @@
                                 <input type="text" style="width: 700px;">
                             </div>
                             <div class="ml-4">
-                                <i class="fa fa-exchange" aria-hidden="true" style="font-size: 30px; color: #00bfff;"></i>
+                                <i class="fa fa-exchange" aria-hidden="true"
+                                    style="font-size: 30px; color: #00bfff;"></i>
                             </div>
                             <div class="ml-4">
-                                <i class="fa fa-window-close" aria-hidden="true" style="font-size: 30px; color: #ff0000"></i>
+                                <i class="fa fa-window-close" aria-hidden="true"
+                                    style="font-size: 30px; color: #ff0000"></i>
                             </div>
                         </div>
                     </div>
@@ -184,10 +191,12 @@
                                 <input type="text" style="width: 700px;">
                             </div>
                             <div class="ml-4">
-                                <i class="fa fa-exchange" aria-hidden="true" style="font-size: 30px; color: #00bfff;"></i>
+                                <i class="fa fa-exchange" aria-hidden="true"
+                                    style="font-size: 30px; color: #00bfff;"></i>
                             </div>
                             <div class="ml-4">
-                                <i class="fa fa-window-close" aria-hidden="true" style="font-size: 30px; color: #ff0000"></i>
+                                <i class="fa fa-window-close" aria-hidden="true"
+                                    style="font-size: 30px; color: #ff0000"></i>
                             </div>
                         </div>
                     </div>
@@ -221,34 +230,34 @@
 <script th:src="@{/summernote/summernote-bs4.js}"></script>
 
 <script type="text/javascript">
-        
-        function onlyOneAnswer(checkbox) {
-            let checkboxes = document.getElementsByClassName('checkbox-answer');
-            for (item of checkboxes) {
-                if (item !== checkbox) item.checked = false         
-            }
-        }
 
-        function addMoreAnswer() {
-            let totalAnswer = $(".answer__value").length;
-            if (totalAnswer == 8) {
-                alert("Số câu trả lời tối đa là 8");
-                return false;
-            } else {
-                $("#f-one-ans-question").submit();
-            }
+    function onlyOneAnswer(checkbox) {
+        let checkboxes = document.getElementsByClassName('checkbox-answer');
+        for (item of checkboxes) {
+            if (item !== checkbox) item.checked = false
         }
+    }
 
-        function removeAnswer() {
-            let totalAnswer = $(".answer__value").length;
-            if (totalAnswer == 4) {
-                alert("Số câu trả lời tối thiểu là 4");
-                return false;
-            } else {
-                $("#f-one-ans-question").submit();
-            }
+    function addMoreAnswer() {
+        let totalAnswer = $(".answer__value").length;
+        if (totalAnswer == 8) {
+            alert("Số câu trả lời tối đa là 8");
+            return false;
+        } else {
+            $("#f-one-ans-question").submit();
         }
-        
-    </script>
+    }
+
+    function removeAnswer() {
+        let totalAnswer = $(".answer__value").length;
+        if (totalAnswer == 4) {
+            alert("Số câu trả lời tối thiểu là 4");
+            return false;
+        } else {
+            $("#f-one-ans-question").submit();
+        }
+    }
+
+</script>
 
 </html>

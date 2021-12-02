@@ -3,23 +3,23 @@
 
 <head>
 
-<title>Thông tin cá nhân</title>
+    <title>Thông tin cá nhân</title>
 
-<meta  content="text/html; charset=utf-8" http-equiv="Content-Type">
-<meta content="utf-8" http-equiv="encoding">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<link rel="shortcut icon" th:href="@{/imgs/fo-favicon.ico}">
-<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap-4.4.1/css/bootstrap.min.css}" />
-<link rel="stylesheet" type="js" th:href="@{/css/bootstrap-4.4.1/js/bootstrap.min.js}" />
-<link rel="stylesheet" type="text/css" th:href="@{/vendor/fontawesome/css/fontawesome.min.css}">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+    <link rel="shortcut icon" th:href="@{/imgs/fo-favicon.ico}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap-4.4.1/css/bootstrap.min.css}" />
+    <link rel="stylesheet" type="js" th:href="@{/css/bootstrap-4.4.1/js/bootstrap.min.js}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/vendor/fontawesome/css/fontawesome.min.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 </head>
 
 <body>
@@ -277,58 +277,58 @@
     </footer>
 </body>
 <script>
-	$(window).on('load', function() {
-		generateDayOfBirth();
-		generateMonthOfBirth();
-		generateYearOfBirth();
-		encodeEmail();
-	})
+    $(window).on('load', function () {
+        generateDayOfBirth();
+        generateMonthOfBirth();
+        generateYearOfBirth();
+        encodeEmail();
+    })
 
-	function generateDayOfBirth() {
-		let yearOpts = "<option value='1'>1</option>";
-		for (let i = 2; i <= 31; i++) {
-			yearOpts += "<option value='" + i + "'>" + i + "</option>";
-		}
-		document.getElementById('day').innerHTML = yearOpts;
-	}
+    function generateDayOfBirth() {
+        let yearOpts = "<option value='1'>1</option>";
+        for (let i = 2; i <= 31; i++) {
+            yearOpts += "<option value='" + i + "'>" + i + "</option>";
+        }
+        document.getElementById('day').innerHTML = yearOpts;
+    }
 
-	function generateMonthOfBirth() {
-		let yearOpts = "<option value='1'>Tháng 1</option>";
-		for (let i = 2; i <= 12; i++) {
-			yearOpts += "<option value='Tháng " + i + "'>" + i + "</option>";
-		}
-		document.getElementById('month').innerHTML = yearOpts;
-	}
+    function generateMonthOfBirth() {
+        let yearOpts = "<option value='1'>Tháng 1</option>";
+        for (let i = 2; i <= 12; i++) {
+            yearOpts += "<option value='Tháng " + i + "'>" + i + "</option>";
+        }
+        document.getElementById('month').innerHTML = yearOpts;
+    }
 
-	function generateYearOfBirth() {
-		let date = new Date();
-		let curYear = date.getFullYear();
-		let yearOpts = "<option value='" + curYear + "'>" + curYear
-				+ "</option>";
-		for (let i = curYear - 1; i > curYear - 100; i--) {
-			yearOpts += "<option value='" + i + "'>" + i + "</option>";
-		}
-		document.getElementById('year').innerHTML = yearOpts;
-	}
+    function generateYearOfBirth() {
+        let date = new Date();
+        let curYear = date.getFullYear();
+        let yearOpts = "<option value='" + curYear + "'>" + curYear
+            + "</option>";
+        for (let i = curYear - 1; i > curYear - 100; i--) {
+            yearOpts += "<option value='" + i + "'>" + i + "</option>";
+        }
+        document.getElementById('year').innerHTML = yearOpts;
+    }
 
-	function encodeEmail() {
-		let email = document.getElementById('user-email').value;
-		let a = email.split("@");
-		let b = a[0];
-		let newstr = "";
-		for ( let i in b) {
-			if (i > 2 && i < b.length - 1)
-				newstr += "*";
-			else
-				newstr += b[i];
-		}
-		document.getElementById('user-email').value = (newstr + "@" + a[1]);
-	}
+    function encodeEmail() {
+        let email = document.getElementById('user-email').value;
+        let a = email.split("@");
+        let b = a[0];
+        let newstr = "";
+        for (let i in b) {
+            if (i > 2 && i < b.length - 1)
+                newstr += "*";
+            else
+                newstr += b[i];
+        }
+        document.getElementById('user-email').value = (newstr + "@" + a[1]);
+    }
 
-	var loadFile = function(event) {
-		var image = document.getElementById('output');
-		image.src = URL.createObjectURL(event.target.files[0]);
-	};
+    var loadFile = function (event) {
+        var image = document.getElementById('output');
+        image.src = URL.createObjectURL(event.target.files[0]);
+    };
 </script>
 
 </html>

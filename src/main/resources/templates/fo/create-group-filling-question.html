@@ -3,20 +3,21 @@
 
 <head>
 
-<title>Tạo câu hỏi điền khuyết loại dạng nhóm</title>
+    <title>Tạo câu hỏi điền khuyết loại dạng nhóm</title>
 
-<meta  content="text/html; charset=utf-8" http-equiv="Content-Type">
-<meta content="utf-8" http-equiv="encoding">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<link rel="shortcut icon" th:href="@{/imgs/fo-favicon.ico}">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link th:rel="stylesheet" th:href="@{/summernote/summernote-bs4.css}" />
-<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
-<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+    <link rel="shortcut icon" th:href="@{/imgs/fo-favicon.ico}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link th:rel="stylesheet" th:href="@{/summernote/summernote-bs4.css}" />
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} " />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
 
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
 
 </head>
 
@@ -66,7 +67,8 @@
                     <div class="total-answer d-flex">
                         <div class="text-danger p-1">Số đáp án</div>
                         <div class="text-center p-1">
-                            <label class="total-answer__value" th:text="${#lists.size(mcqDto.questionAnswerDtos)}">4</label>
+                            <label class="total-answer__value"
+                                th:text="${#lists.size(mcqDto.questionAnswerDtos)}">4</label>
                         </div>
                         <div class="ml-auto py-2">
                             <button class="btn-add-answer" id="btn-add-answer" type="submit" name="add-answer"
@@ -148,24 +150,24 @@
         let alphabetLblArr = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
 
         $('#content').summernote({
-          height : 200,
-       	// keep unused variable $editable as original format of function
-        callbacks: {  
-       		onChange: function (contents, $editable) {
-              let contentHtml = $.parseHTML(contents)[0];
-              var childrendivs = [],
-                  children = $(contentHtml).find('u');
-              if (children.length > 0) {
-                  $("u").replaceWith( "<u>______</u>" );
-              }
-          }
-        }
+            height: 200,
+            // keep unused variable $editable as original format of function
+            callbacks: {
+                onChange: function (contents, $editable) {
+                    let contentHtml = $.parseHTML(contents)[0];
+                    var childrendivs = [],
+                        children = $(contentHtml).find('u');
+                    if (children.length > 0) {
+                        $("u").replaceWith("<u>______</u>");
+                    }
+                }
+            }
         });
 
         $('#content').summernote('fontName', 'Arial');
 
         $('#suggest').summernote({
-        	height : 200
+            height: 200
         });
 
         $('#suggest').summernote('fontName', 'Arial');

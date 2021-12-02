@@ -2,23 +2,23 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org">
 
 <head>
-<title>Trang Chủ</title>
+    <title>Trang Chủ</title>
 
-<meta  content="text/html; charset=utf-8" http-equiv="Content-Type">
-<meta content="utf-8" http-equiv="encoding">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<link rel="shortcut icon" th:href="@{/imgs/fo-favicon.ico}">
-<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap-4.4.1/css/bootstrap.min.css}" />
-<link href="/multiple-choice-quiz/vendor/fontawesome/css/all.min.css" rel="stylesheet" type="text/css">
-<link th:rel="stylesheet" th:href="@{/assets/daterangepicker/daterangepicker.css}"/>
-<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+    <link rel="shortcut icon" th:href="@{/imgs/fo-favicon.ico}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap-4.4.1/css/bootstrap.min.css}" />
+    <link href="/multiple-choice-quiz/vendor/fontawesome/css/all.min.css" rel="stylesheet" type="text/css">
+    <link th:rel="stylesheet" th:href="@{/assets/daterangepicker/daterangepicker.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script th:src="@{/css/bootstrap-4.4.1/js/bootstrap.min.js}"></script>
-<script th:src="@{/assets/moment/moment.min.js}"></script>
-<script th:src="@{/assets/daterangepicker/daterangepicker.js}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script th:src="@{/css/bootstrap-4.4.1/js/bootstrap.min.js}"></script>
+    <script th:src="@{/assets/moment/moment.min.js}"></script>
+    <script th:src="@{/assets/daterangepicker/daterangepicker.js}"></script>
 
 </head>
 
@@ -276,12 +276,12 @@
         <nav aria-label="Page navigation example" class="my-3">
             <ul class="pagination justify-content-center">
                 <div class="row" th:if="${not #lists.isEmpty(tests.page)}">
-                    <div class="dataTables_paginate paging_simple_numbers d-flex flex-row-reverse" id="example_paginate">
+                    <div class="dataTables_paginate paging_simple_numbers d-flex flex-row-reverse"
+                        id="example_paginate">
                         <ul class="pagination">
                             <li class="paginate_button page-item previous" id="example_previous"
                                 th:classappend="${!tests.paging.isPrevEnabled() ? 'disabled' : ''}">
-                                <a
-                                    th:href="@{?(pageSize=${size},pageNumber=${tests.paging.pageNumber - 1},searchText=(${testCriteria.searchText} ? ${testCriteria.searchText} : ''),status=(${testCriteria.status} ? ${testCriteria.status} : ''))}"
+                                <a th:href="@{?(pageSize=${size},pageNumber=${tests.paging.pageNumber - 1},searchText=(${testCriteria.searchText} ? ${testCriteria.searchText} : ''),status=(${testCriteria.status} ? ${testCriteria.status} : ''))}"
                                     aria-controls="example" data-dt-idx="0" tabindex="0" class="page-link">Trước</a>
                             </li>
                             <th:block th:each="item : ${tests.paging.getItems()}">
@@ -319,7 +319,7 @@
         maxDate: new Date(),
         locale: {
             format: 'DD/MM/YYYY'
-          }
+        }
     });
 
     $dateRange.on('apply.daterangepicker', function (ev, picker) {
@@ -327,8 +327,8 @@
         $('input[name="dateRange.toDate"]').val(picker.endDate.format('DD/MM/YYYY'));
     });
 
-    $(function() {
-        $('input[id="dateRange"]').val( $('input[name="dateRange.fromDate"]').val() + ' - ' + $('input[name="dateRange.toDate"]').val());
+    $(function () {
+        $('input[id="dateRange"]').val($('input[name="dateRange.fromDate"]').val() + ' - ' + $('input[name="dateRange.toDate"]').val());
     });
 
 </script>

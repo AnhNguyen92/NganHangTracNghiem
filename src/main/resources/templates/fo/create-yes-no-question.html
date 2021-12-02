@@ -3,20 +3,21 @@
 
 <head>
 
-<title>Tạo câu hỏi đúng sai</title>
+    <title>Tạo câu hỏi đúng sai</title>
 
-<meta  content="text/html; charset=utf-8" http-equiv="Content-Type">
-<meta content="utf-8" http-equiv="encoding">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<link rel="shortcut icon" th:href="@{/imgs/fo-favicon.ico}">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link th:rel="stylesheet" th:href="@{/summernote/summernote-bs4.css}" />
-<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} " />
-<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+    <link rel="shortcut icon" th:href="@{/imgs/fo-favicon.ico}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link th:rel="stylesheet" th:href="@{/summernote/summernote-bs4.css}" />
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} " />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
 
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
 
 </head>
 
@@ -54,17 +55,20 @@
                     <div class="total-answer d-flex">
                         <div class="text-danger p-1">Số đáp án</div>
                         <div class="text-center p-1">
-                            <label class="total-answer__value" th:text="${#lists.size(mcqDto.questionAnswerDtos)}">2</label>
+                            <label class="total-answer__value"
+                                th:text="${#lists.size(mcqDto.questionAnswerDtos)}">2</label>
                         </div>
                     </div>
                     <div class="answer-content"
                         th:each="questionAnswerDto, questionAnswerDtoStat : *{questionAnswerDtos}">
                         <div>
-                            <input type="hidden" th:field="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].order}">
+                            <input type="hidden"
+                                th:field="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].order}">
                         </div>
                         <div class="answer-content__item d-flex flex-row mb-2">
                             <div class="d-flex align-items-center">
-                                <input th:name="'questionAnswerDtos[' + ${questionAnswerDtoStat.index} + '].trueAnswer'" onchange="updateTrueAnsVal(this)"
+                                <input th:name="'questionAnswerDtos[' + ${questionAnswerDtoStat.index} + '].trueAnswer'"
+                                    onchange="updateTrueAnsVal(this)"
                                     th:checked="${mcqDto.questionAnswerDtos[__${questionAnswerDtoStat.index}__].trueAnswer}"
                                     th:value="${mcqDto.questionAnswerDtos[__${questionAnswerDtoStat.index}__].trueAnswer}"
                                     type="radio" class="radio-answer" title="Chọn đáp án đúng">
@@ -121,63 +125,63 @@
 
     <script type="text/javascript">
         $('#content').summernote({
-          height : 200
+            height: 200
         });
         $('#content').summernote('fontName', 'Arial');
-  
+
         $('#suggest').summernote({
-          height : 200
+            height: 200
         });
         $('#suggest').summernote('fontName', 'Arial');
 
-		function updateTrueAnsVal(radio) {
-        	let radios = document.getElementsByClassName('radio-answer');
-        	for (item of radios) {
-            	if (item !== radio) {
-              		item.value = false;
-              		item.checked = false;
-              	}
-          	}
-          	radio.value = true;
-          	radio.checked = true;
-      	}
+        function updateTrueAnsVal(radio) {
+            let radios = document.getElementsByClassName('radio-answer');
+            for (item of radios) {
+                if (item !== radio) {
+                    item.value = false;
+                    item.checked = false;
+                }
+            }
+            radio.value = true;
+            radio.checked = true;
+        }
 
-		function addMoreAnswer() {
-			let totalAnswer = $(".answer__value").length;
-			if (totalAnswer == 8) {
-				alert("Số câu trả lời tối đa là 8");
-				return false;
-			} else {
-				$("#f-true-false-question").submit();
-			}
-		}
+        function addMoreAnswer() {
+            let totalAnswer = $(".answer__value").length;
+            if (totalAnswer == 8) {
+                alert("Số câu trả lời tối đa là 8");
+                return false;
+            } else {
+                $("#f-true-false-question").submit();
+            }
+        }
 
-		function removeAnswer() {
-			let totalAnswer = $(".answer__value").length;
-			if (totalAnswer == 4) {
-				alert("Số câu trả lời tối thiểu là 4");
-				return false;
-			} else {
-				$("#f-true-false-question").submit();
-			}
-		}
+        function removeAnswer() {
+            let totalAnswer = $(".answer__value").length;
+            if (totalAnswer == 4) {
+                alert("Số câu trả lời tối thiểu là 4");
+                return false;
+            } else {
+                $("#f-true-false-question").submit();
+            }
+        }
 
-		function changePermutation(inputId) {
-			let inputElm = $("#swap-pos-" + inputId);
-			if (inputElm.is(':checked')) {
-				$(inputElm).prop('checked', false);
-			} else {
-				$(inputElm).prop('checked', true);
-			}
+        function changePermutation(inputId) {
+            let inputElm = $("#swap-pos-" + inputId);
+            if (inputElm.is(':checked')) {
+                $(inputElm).prop('checked', false);
+            } else {
+                $(inputElm).prop('checked', true);
+            }
 
-			let btnSwapTitle = $("#btn-swap-pos-" + inputId).attr("title");
-			if (btnSwapTitle == "Bỏ hoán vị vị trí") {
-				$("#btn-swap-pos-" + inputId).prop('title', 'Cho phép hoán vị vị trí');
-			} else {
-				$("#btn-swap-pos-" + inputId).prop('title', 'Bỏ hoán vị vị trí');
-			}
-		}
-	</script>
+            let btnSwapTitle = $("#btn-swap-pos-" + inputId).attr("title");
+            if (btnSwapTitle == "Bỏ hoán vị vị trí") {
+                $("#btn-swap-pos-" + inputId).prop('title', 'Cho phép hoán vị vị trí');
+            } else {
+                $("#btn-swap-pos-" + inputId).prop('title', 'Bỏ hoán vị vị trí');
+            }
+        }
+    </script>
 
 </body>
 
