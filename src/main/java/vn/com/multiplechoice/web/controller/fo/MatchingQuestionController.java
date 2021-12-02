@@ -119,6 +119,7 @@ public class MatchingQuestionController {
 
         return FO_CREATE_MATCHING_QUESTION;
     }
+
     @RequestMapping(value = "", params = { "add-right-answer" })
     public String addRightAnswer(Model model, final MCQDto mcqDto, final BindingResult result) {
         List<QuestionAnswerDto> leftAnswerDtos = mcqDto.getLeftAnswerDtos();
