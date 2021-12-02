@@ -41,7 +41,7 @@ public class FillingQuestionController {
 
     @RequestMapping("/filling")
     public String createFillingQuestion(Model model, MCQDto mcqDto) {
-        log.info("===== GET filling  question form =====");
+        log.info("===== GET filling question form =====");
 
         mcqDto.setType(QuestionType.FILLING);
         List<QuestionAnswerDto> questionAnswerDtos = mcqDto.getQuestionAnswerDtos();
@@ -112,20 +112,28 @@ public class FillingQuestionController {
     // request mapping for group-filling question
     @RequestMapping("/group-filling")
     public String createGroupFillingQuestion(Model model, MCQDto mcqDto) {
-        log.info("===== GET filling  question form =====");
+        log.info("===== GET group-filling question form =====");
 
         mcqDto.setType(QuestionType.GROUP_FILLING);
-        List<QuestionAnswerDto> questionAnswerDtos = mcqDto.getQuestionAnswerDtos();
-        if (questionAnswerDtos == null) {
-            questionAnswerDtos = new ArrayList<>();
+        List<QuestionAnswerDto> leftAnswerDtos = new ArrayList<>();
+        List<QuestionAnswerDto> rightAnswerDtos = new ArrayList<>();
+        for (int i = 0; i < 4; i++) {
+            QuestionAnswerDto questionAnswerDto = new QuestionAnswerDto();
+            questionAnswerDto.setAnswerLabel((i + 1) + "");
+            questionAnswerDto.setOrder(i);
+            questionAnswerDto.setLeftSide(true);
+            questionAnswerDto.setScore(0);
+            leftAnswerDtos.add(questionAnswerDto);
         }
         for (int i = 0; i < 4; i++) {
             QuestionAnswerDto questionAnswerDto = new QuestionAnswerDto();
             questionAnswerDto.setAnswerLabel(ANSWER_LABELS[i]);
             questionAnswerDto.setOrder(i);
-            questionAnswerDtos.add(questionAnswerDto);
+            questionAnswerDto.setLeftSide(false);
+            rightAnswerDtos.add(questionAnswerDto);
         }
-        mcqDto.setQuestionAnswerDtos(questionAnswerDtos);
+        mcqDto.setLeftAnswerDtos(leftAnswerDtos);
+        mcqDto.setRightAnswerDtos(rightAnswerDtos);
         model.addAttribute(MCQ_DTO, mcqDto);
 
         return "fo/create-group-filling-question";
