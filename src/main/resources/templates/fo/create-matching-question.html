@@ -3,7 +3,7 @@
 
 <head>
 
-<title>Tạo câu hỏi một lựa chọn</title>
+<title>Tạo câu hỏi nối chéo</title>
 
 <meta  content="text/html; charset=utf-8" http-equiv="Content-Type">
 <meta content="utf-8" http-equiv="encoding">
@@ -27,7 +27,7 @@
 
     <!-- content -->
     <div class="container mt-3">
-        <div class="page-title">TẠO MỚI CÂU HỎI GHÉP CẶP</div>
+        <div class="page-title">TẠO MỚI CÂU HỎI NỐI CHÉO</div>
         <form action="#" id="f-matching-question" th:action="@{/fo/questions/matching}" method="post"
             th:object="${mcqDto}">
             <div class="mcq">
@@ -63,16 +63,17 @@
                     <textarea id="suggest" class="question-suggest" th:field="*{answerSuggestion}"></textarea>
                 </div>
                 <div class="answer mt-2 p-2">
-                    <div class="total-answer d-flex">
-                        <div class="text-danger p-1">Số đáp án</div>
-                        <div class="text-center p-1">
-                            <label class="total-answer__value" th:text="${#lists.size(mcqDto.leftAnswerDtos)}">4</label>
-                        </div>
-                    </div>
+                    
 
                     <div class="answer-content row">
-                        <div class="col-6 border-right">
-                            <div class="d-flex justify-content-end py-2">
+                         <div class="col-6 border-right">
+                            <div class="total-answer d-flex">
+                              <div class="text-danger p-1">Số mệnh đề trái</div>
+                              <div class="text-center p-1">
+                                <label class="total-answer__value" th:text="${#lists.size(mcqDto.leftAnswerDtos)}">4</label>
+                              </div>
+                            </div>
+                            <div class="d-flex justify-content-end">
                                 <button class="btn-add-answer" id="btn-add-answer" type="submit" name="add-left-answer"
                                     onclick="return addMoreLeftPart()">
                                     <i class="fa fa-plus" aria-hidden="true" title="Thêm mệnh đề vế trái"></i>
@@ -94,6 +95,10 @@
                                             th:field="*{leftAnswerDtos[__${leftAnswerDtoStat.index}__].answerContent}">
                                     </div>
                                     <div class="ml-2">
+                                        <input class="answer__score" title="Điểm số cho đáp án" type="number"
+                                            th:field="*{leftAnswerDtos[__${leftAnswerDtoStat.index}__].score}" />
+                                    </div>
+                                    <div class="ml-2">
                                         <button class="btn-delete-answer" type="submit" name="remove-left-answer"
                                             th:value="${leftAnswerDtoStat.index}" onclick="return removeLeftPart()">
                                             <i class="fa fa-window-close" aria-hidden="true"></i>
@@ -104,7 +109,13 @@
                         </div>
 
                         <div class="col-6">
-                            <div class="d-flex justify-content-end py-2">
+                            <div class="total-answer d-flex">
+                              <div class="text-danger p-1">Số mệnh đề phải</div>
+                              <div class="text-center p-1">
+                                <label class="total-answer__value" th:text="${#lists.size(mcqDto.rightAnswerDtos)}">4</label>
+                              </div>
+                            </div>
+                            <div class="d-flex justify-content-end">
                                 <button class="btn-add-answer" id="btn-add-answer" type="submit" name="add-right-answer"
                                     onclick="return addRightAnswer()">
                                     <i class="fa fa-plus" aria-hidden="true" title="Thêm đáp án nhiễu"></i>

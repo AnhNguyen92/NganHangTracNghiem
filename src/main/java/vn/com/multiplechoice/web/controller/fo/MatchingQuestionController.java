@@ -49,6 +49,7 @@ public class MatchingQuestionController {
             questionAnswerDto.setAnswerLabel((i + 1) + "");
             questionAnswerDto.setOrder(i);
             questionAnswerDto.setLeftSide(true);
+            questionAnswerDto.setScore(0);
             leftAnswerDtos.add(questionAnswerDto);
         }
         for (int i = 0; i < 4; i++) {
