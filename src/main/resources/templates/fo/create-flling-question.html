@@ -148,7 +148,7 @@
     <script th:src="@{/summernote/summernote-bs4.js}"></script>
 
     <script>
-
+		let totalFillingPos = 0;
         let alphabetLblArr = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
 
         $('#content').summernote({
@@ -160,7 +160,7 @@
                     var childrendivs = [],
                         children = $(contentHtml).find('u');
                     if (children.length > 0) {
-                        $("u").replaceWith("<u>______</u>");
+                        $("u").replaceWith("<u>___(" + i+1 + ")___</u>");
                     }
                 }
             }

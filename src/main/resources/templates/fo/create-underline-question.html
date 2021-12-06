@@ -145,17 +145,15 @@
 
     <script type="text/javascript">
         let alphabetLblArr = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
-
+        
         $('#content').summernote({
             height: 200,
             callbacks: {
                 // keep unused variable $editable as original format of function
                 onChange: function (contents, $editable) {
                     let contentHtml = $.parseHTML(contents)[0];
-                    var childrendivs = [],
-                        children = $(contentHtml).find('u');
+                    var children = $(contentHtml).find('u');
                     if (children.length > 0) {
-                        let answerElm = $('#answer');
                         $('#answer').find('.answer-content').remove();
                     }
                     for (var i = 0; i < children.length; i++) {
@@ -166,9 +164,9 @@
         });
 
         $('#content').summernote('fontName', 'Arial');
-
+        
         $('#suggest').summernote({
-            height: 200
+            height: 200,
         });
 
         $('#suggest').summernote('fontName', 'Arial');
