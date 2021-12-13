@@ -108,12 +108,6 @@
                                             th:text="${#lists.size(mcqDto.leftAnswerDtos)}">4</label>
                                     </div>
                                 </div>
-                                <!-- <div class="d-flex ml-auto mb-2">
-                                    <button class="btn-add-answer" id="btn-add-answer" type="submit"
-                                        name="add-left-answer" onclick="return addMoreLeftPart()">
-                                        <i class="fa fa-plus" aria-hidden="true" title="Thêm mệnh đề vế trái"></i>
-                                    </button>
-                                </div> -->
                             </div>
                             <div th:each="leftAnswerDto, leftAnswerDtoStat : *{leftAnswerDtos}">
                                 <div class="answer-content__item d-flex flex-row mb-2">
