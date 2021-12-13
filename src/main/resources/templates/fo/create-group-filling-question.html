@@ -227,7 +227,9 @@
 	    var totalLeftAnswer = 0;
 	    var totalRightAnswer = 0;
 		var rawQuestionContent = "";
-	    let alphabetLblArr = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
+		const answerMap = new Map();
+
+		let alphabetLblArr = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
 
         $('#content').summernote({
             height: 200,
@@ -236,22 +238,22 @@
                 onChange: function (contents, $editable) {
                     let contentHtml = $.parseHTML(contents);
                     var children = $(contentHtml).find('u');
+                    totalLeftAnswer = children.length;
                     if (children.length > 0) {
-                        $('#left-answer-items').find('.answer-content__item').remove();
-                        $('#answer-list-opt').find('option').remove();
                     } else {
                       rawQuestionContent = contentHtml;
-                      console.log();
                     }
                     for (var i = 0; i < children.length; i++) {
-                    	totalLeftAnswer++;
-                        createAnswerElm(children[i].firstChild.nodeValue, i);
+                      let childItem = $(contentHtml).find('u')[i];
+                      let underlineText = childItem.firstChild.nodeValue;
+                      if (!underlineText.includes('___')) {                        
+                          createAnswerElm(underlineText, i);
+                          $('u:contains('+ underlineText +')').replaceWith('<u>___(' + (i+1) + ')___</u>');
+                      }
                     }
                 }
             }
         });
-
-        $('#content').summernote('fontName', 'Arial');
 
         function createAnswerElm(answerValue, index) {
             let answerElm = $('#left-answer-items');
@@ -289,8 +291,6 @@
         $('#suggest').summernote({
             height: 200,
         });
-
-        $('#suggest').summernote('fontName', 'Arial');
 
         function onlyOneAnswer(checkbox) {
             let checkboxes = document.getElementsByClassName('checkbox-answer');
