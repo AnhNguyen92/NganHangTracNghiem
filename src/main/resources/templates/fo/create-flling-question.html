@@ -64,62 +64,107 @@
                 <div class="mcp-content">
                     <textarea id="suggest" class="question-suggest" th:field="*{answerSuggestion}"></textarea>
                 </div>
-                <div class="answer mt-2 p-2">
-                    <div class="total-answer d-flex">
-                        <div class="text-danger p-1">Số đáp án</div>
-                        <div class="text-center p-1">
-                            <label class="total-answer__value"
-                                th:text="${#lists.size(mcqDto.questionAnswerDtos)}">4</label>
+                <div class="answer p-2">
+                    <div class="group-filling-answer-content answer-content row">
+                        <div class="col-6 border-right" id="left-answer-items" >
+                            <div class="d-flex">
+                                <div class="total-answer d-flex">
+                                    <div class="text-danger p-1">Số vị trí điền khuyết</div>
+                                    <div class="text-center p-1">
+                                        <label class="total-answer__value total-left-answer__value" id="total-filling-pos"
+                                            th:text="${#lists.size(mcqDto.leftAnswerDtos)}">4</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div th:each="leftAnswerDto, leftAnswerDtoStat : *{leftAnswerDtos}">
+                                <div class="answer-content__item d-flex flex-row mb-2">
+                                    <div class="ml-2 d-flex align-items-center">
+                                        <input th:field="*{leftAnswerDtos[__${leftAnswerDtoStat.index}__].trueAnswer}"
+                                            type="checkbox" class="checkbox-answer" title="Chọn đáp án đúng">
+                                    </div>
+                                    <div class="ml-2 d-flex align-items-center">
+                                        <label class="answer__label"
+                                            th:text="*{leftAnswerDtos[__${leftAnswerDtoStat.index}__].answerLabel}">Đáp
+                                            án</label>
+                                    </div>
+                                    <div class="ml-2 w-100">
+                                        <input type="text" class="answer__value left_part" title="Nội dung câu trả lời"
+                                            th:field="*{leftAnswerDtos[__${leftAnswerDtoStat.index}__].answerContent}">
+                                    </div>
+                                    <div class="ml-2">
+                                        <button class="btn-swap-answer"
+                                            th:id=" 'btn-swap-pos-' + ${leftAnswerDtoStat.index} " type="button"
+                                            title="Bỏ hoán vị vị trí"
+                                            th:onclick="|return changePermutation(${leftAnswerDtoStat.index})|">
+                                            <i class="fa fa-exchange" aria-hidden="true"></i>
+                                        </button>
+                                        <input type="checkbox" hidden="true"
+                                            th:id=" 'swap-pos-' + ${leftAnswerDtoStat.index}" name="active"
+                                            th:field="*{leftAnswerDtos[__${leftAnswerDtoStat.index}__].randomPosition}" />
+                                    </div>
+                                    <div class="ml-2">
+                                        <button class="btn-delete-answer" type="submit" name="remove-left-answer"
+                                            th:value="${leftAnswerDtoStat.index}" onclick="return removeLeftPart()">
+                                            <i class="fa fa-window-close" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="ml-auto py-2">
-                            <button class="btn-add-answer" id="btn-add-answer" type="submit" name="add-answer"
-                                onclick="return addMoreAnswer()">
-                                <i class="fa fa-plus" aria-hidden="true" title="Thêm đáp án"></i>
-                            </button>
+                        <div class="col-6">
+                            <div class="d-flex">
+                                <div class="total-answer d-flex">
+                                    <div class="text-danger p-1">Số đáp án gây nhiễu</div>
+                                    <div class="text-center p-1">
+                                        <label class="total-answer__value total-right-answer__value"
+                                            th:text="${#lists.size(mcqDto.rightAnswerDtos)}">4</label>
+                                    </div>
+                                </div>
+                                <div class="d-flex ml-auto mb-2">
+                                    <button class="btn-add-answer" id="btn-add-answer" type="button"
+                                        name="add-right-answer" onclick="return addRightAnswer()">
+                                        <i class="fa fa-plus" aria-hidden="true" title="Thêm đáp án nhiễu"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div id="right-answer-items">
+                              <th:block  th:each="rightAnswerDto, rightAnswerDtoStat : *{rightAnswerDtos}">
+                                  <div class="answer-content__item d-flex flex-row mb-2">
+                                      <div class="ml-2 d-flex align-items-center">
+                                          <input th:field="*{rightAnswerDtos[__${rightAnswerDtoStat.index}__].trueAnswer}"
+                                              type="checkbox" class="checkbox-answer" title="Chọn đáp án đúng">
+                                      </div>
+                                      <div class="ml-2 d-flex align-items-center">
+                                          <label class="answer__label"
+                                              th:text="*{rightAnswerDtos[__${rightAnswerDtoStat.index}__].answerLabel}">Đáp
+                                              án</label>
+                                      </div>
+                                      <div class="ml-2 w-100">
+                                          <input type="text" class="answer__value right_part" title="Nội dung câu trả lời"
+                                              th:field="*{rightAnswerDtos[__${rightAnswerDtoStat.index}__].answerContent}">
+                                      </div>
+                                      <div class="ml-2">
+                                          <button class="btn-swap-answer"
+                                              th:id=" 'btn-swap-pos-' + ${rightAnswerDtoStat.index} " type="button"
+                                              title="Bỏ hoán vị vị trí"
+                                              th:onclick="|return changePermutation(${rightAnswerDtoStat.index})|">
+                                              <i class="fa fa-exchange" aria-hidden="true"></i>
+                                          </button>
+                                          <input type="checkbox" hidden="true"
+                                              th:id=" 'swap-pos-' + ${rightAnswerDtoStat.index}" name="active"
+                                              th:field="*{rightAnswerDtos[__${rightAnswerDtoStat.index}__].randomPosition}" />
+                                      </div>
+                                      <div class="ml-2">
+                                          <button class="btn-delete-answer" type="button" name="remove-right-answer"
+                                              th:value="${rightAnswerDtoStat.index}" onclick="return removeRightAnswer()">
+                                              <i class="fa fa-window-close" aria-hidden="true"></i>
+                                          </button>
+                                      </div>
+                                  </div>
+                                </th:block>
+                            </div>
                         </div>
                     </div>
-                    <div class="answer-content"
-                        th:each="questionAnswerDto, questionAnswerDtoStat : *{questionAnswerDtos}">
-                        <div class="answer-content__item d-flex flex-row mb-2">
-                            <div class="ml-2 d-flex align-items-center">
-                                <input type="checkbox" class="checkbox-answer"
-                                    th:field="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].trueAnswer}"
-                                    th:value="${mcqDto.questionAnswerDtos[__${questionAnswerDtoStat.index}__].trueAnswer}"
-                                    onchange="updateTrueAnsVal(this)" title="Chọn đáp án đúng">
-                            </div>
-                            <div class="ml-2 d-flex align-items-center">
-                                <label class="answer__label"
-                                    th:text="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].answerLabel}">Đáp
-                                    án</label>
-                            </div>
-                            <div class="ml-2 w-100">
-                                <input type="text" title="Nội dung câu trả lời" class="answer__value"
-                                    th:field="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].answerContent}">
-                            </div>
-                            <div>
-                                <input type="number" hidden="true"
-                                    th:field="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].order}">
-                            </div>
-                            <div class="ml-2">
-                                <button class="btn-swap-answer"
-                                    th:id=" 'btn-swap-pos-' + ${questionAnswerDtoStat.index} " type="button"
-                                    title="Bỏ hoán vị vị trí"
-                                    th:onclick="|return changePermutation(${questionAnswerDtoStat.index})|">
-                                    <i class="fa fa-exchange" aria-hidden="true"></i>
-                                </button>
-                                <input type="checkbox" hidden="true"
-                                    th:id=" 'swap-pos-' + ${questionAnswerDtoStat.index}" name="active"
-                                    th:field="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].randomPosition}" />
-                            </div>
-                            <div class="ml-2">
-                                <button class="btn-delete-answer" type="submit" name="remove-answer"
-                                    th:value="${questionAnswerDtoStat.index}" onclick="return removeAnswer()">
-                                    <i class="fa fa-window-close" aria-hidden="true"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
                 <div class="mt-3 d-flex justify-content-center pb-3">
                     <div class="mx-2">
@@ -156,44 +201,110 @@
             // keep unused variable $editable as original format of function
             callbacks: {
                 onChange: function (contents, $editable) {
-                    let contentHtml = $.parseHTML(contents)[0];
-                    var childrendivs = [],
-                        children = $(contentHtml).find('u');
+                    let contentHtml = $.parseHTML(contents);
+                    var children = $(contentHtml).find('u');
+                    totalLeftAnswer = children.length;
                     if (children.length > 0) {
-                        $("u").replaceWith("<u>___(" + (i+1) + ")___</u>");
+                    } else {
+                      rawQuestionContent = contentHtml;
+                    }
+                    for (var i = 0; i < children.length; i++) {
+                      let childItem = $(contentHtml).find('u')[i];
+                      let underlineText = childItem.firstChild.nodeValue;
+                      if (!underlineText.includes('___')) {                        
+                          createAnswerElm(underlineText, i);
+                          $('u:contains('+ underlineText +')').replaceWith('<u>___(' + (i+1) + ')___</u>');
+                      }
                     }
                 }
             }
         });
 
+        function createAnswerElm(answerValue, index) {
+            let answerElm = $('#left-answer-items');
+            let totalAnswerLblElm = $('.total-left-answer__value')[0];
+            let totalAnswer = parseInt(totalAnswerLblElm.textContent);
+            answerElm.append(
+            '<div class="answer-content__item d-flex flex-row mb-2">' +
+            '<div class="ml-2 d-flex align-items-center">' +
+            '<input type="hidden" name="leftAnswerDtos[' + index + '].trueAnswer" value="true">' +
+            '</div>' +
+            '<div class="ml-2 d-flex align-items-center">' +
+            '<label class="answer__label">' + (index + 1) + '</label>' +
+            '</div>' +
+            '<div class="ml-2 w-100">' +
+            '<input type="text" class="answer__value left_part" title="Nội dung câu trả lời" ' +
+                    'name="leftAnswerDtos[' + index + '}].answerContent" value="' + answerValue + '">' +
+            '</div>' +
+            '<div class="ml-2">' +
+            '<button class="btn-swap-answer" id="btn-swap-pos-' + index + '" type="button" title="Bỏ hoán vị vị trí" onclick="return changePermutation(' + index + ')">' +
+            '<i class="fa fa-exchange" aria-hidden="true"></i>' +
+            '</button>' +
+            '<input type="checkbox" id="swap-pos-0" name="leftAnswerDtos[' + index + '].randomPosition" value="true" checked="checked" hidden="true"><input type="hidden" name="_leftAnswerDtos[' + index + '].randomPosition" value="on">' +
+            '</div>' +
+            '<div class="ml-2">' +
+            '<button class="btn-delete-answer" type="submit" name="remove-left-answer" ' +
+                    'th:value="${leftAnswerDtoStat.' + index + '}" onclick="return removeLeftPart()">' +
+            '<i class="fa fa-window-close" aria-hidden="true"></i>' +
+            '</button>' +
+            '</div>' +
+        	'</div>');
+            totalAnswerLblElm.innerHTML = index + 1;
+        }
+
         $('#suggest').summernote({
             height: 200
         });
 
-        function onlyOneAnswer(checkbox) {
-            let checkboxes = document.getElementsByClassName('checkbox-answer');
-            for (item of checkboxes) {
-                if (item !== checkbox) item.checked = false
-            }
-        }
-
-        function addMoreAnswer() {
+        function addRightAnswer() {
             let totalAnswer = $(".answer__value").length;
             if (totalAnswer == 8) {
-                alert("Số câu trả lời tối đa là 8");
-                return false;
+                alert("Số câu trả lời gây nhiễu tối đa là 7");
             } else {
-                $("#f-one-ans-question").submit();
+                // add div here
+                let answerElm = $('#right-answer-items');
+                let totalAnswerLblElm = $('.total-right-answer__value')[0];
+                let totalAnswer = parseInt(totalAnswerLblElm.textContent);
+                answerElm.append(
+            	'<div class="answer-content__item d-flex flex-row mb-2" id="right-answer-content__item' + totalAnswer + '">' +
+                '<div class="ml-2 d-flex align-items-center">' +
+                    '<label class="answer__label" ' +
+                        'th:text="*{rightAnswerDtos[__${rightAnswerDtoStat.' + totalAnswer + '}__].answerLabel}">' +
+                        alphabetLblArr[totalAnswer] + '</label>' +
+                '</div>' +
+                '<div class="ml-2 w-100">' +
+                    '<input type="text" class="answer__value right_part" title="Nội dung câu trả lời"' +
+                        'th:field="*{rightAnswerDtos[__${rightAnswerDtoStat.' + totalAnswer + '}__].answerContent}">' +
+                '</div>' +
+                '<div class="ml-2">' +
+                    '<button class="btn-swap-answer"' +
+                        'th:id="btn-swap-pos-' + totalAnswer + '" type="button"' +
+                        'title="Bỏ hoán vị vị trí"' +
+                        'th:onclick="|return changePermutation(${rightAnswerDtoStat.' + totalAnswer + '})|">' +
+                        '<i class="fa fa-exchange" aria-hidden="true"></i>' +
+                    '</button>' +
+                    '<input type="checkbox" hidden="true"' +
+                        'th:id="swap-pos- + ${rightAnswerDtoStat.' + totalAnswer + '}" name="active" ' +
+                        'th:field="*{rightAnswerDtos[__${rightAnswerDtoStat.' + totalAnswer + '}__].randomPosition}" />' +
+                '</div>' +
+                '<div class="ml-2">' +
+                    '<button class="btn-delete-answer" type="button" name="remove-right-answer" ' +
+                        'th:value="${rightAnswerDtoStat.' + totalAnswer + '}" onclick="return removeRightAnswer(' + totalAnswer + ')">' +
+                        '<i class="fa fa-window-close" aria-hidden="true"></i>' +
+                    '</button>' +
+                '</div>' +
+            '</div>');
+                totalAnswerLblElm.innerHTML = totalAnswer + 1;
             }
         }
 
-        function removeAnswer() {
+        function removeRightAnswer(index) {
             let totalAnswer = $(".answer__value").length;
-            if (totalAnswer == 4) {
-                alert("Số câu trả lời tối thiểu là 4");
-                return false;
+            if (totalAnswer == 0) {
+                alert("Số đáp án gây nhiễu tối thiểu là 1");
             } else {
-                $("#f-one-ans-question").submit();
+                // remove div here
+            	$('#right-answer-content__item' + index).remove();
             }
         }
 

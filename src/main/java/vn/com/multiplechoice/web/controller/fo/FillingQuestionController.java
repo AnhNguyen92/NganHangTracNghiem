@@ -1,4 +1,3 @@
-
 package vn.com.multiplechoice.web.controller.fo;
 
 import java.util.ArrayList;
@@ -30,8 +29,8 @@ public class FillingQuestionController {
 
     private static final String FO_CREATE_FILLING_QUESTION = "fo/create-flling-question";
     private static final Logger log = LoggerFactory.getLogger(FillingQuestionController.class);
-    private static final String[] ANSWER_LABELS = new String[] { "A", "B", "C", "D", "E", "F", "G",
-            "H" };
+    private static final String[] ANSWER_LABELS = new String[] { "Đáp án A", "Đáp án B", "Đáp án C", "Đáp án D", "Đáp án E", "Đáp án F", "Đáp án G",
+            "Đáp án H" };
     private static final String MCQ_DTO = "mcqDto";
 
     @Autowired
@@ -45,17 +44,8 @@ public class FillingQuestionController {
         log.info("===== GET filling question form =====");
 
         mcqDto.setType(QuestionType.FILLING);
-        List<QuestionAnswerDto> questionAnswerDtos = mcqDto.getQuestionAnswerDtos();
-        if (questionAnswerDtos == null) {
-            questionAnswerDtos = new ArrayList<>();
-        }
-        for (int i = 0; i < 4; i++) {
-            QuestionAnswerDto questionAnswerDto = new QuestionAnswerDto();
-            questionAnswerDto.setAnswerLabel(ANSWER_LABELS[i]);
-            questionAnswerDto.setOrder(i);
-            questionAnswerDtos.add(questionAnswerDto);
-        }
-        mcqDto.setQuestionAnswerDtos(questionAnswerDtos);
+        mcqDto.setLeftAnswerDtos(new ArrayList<>());
+        mcqDto.setRightAnswerDtos(new ArrayList<>());
         model.addAttribute(MCQ_DTO, mcqDto);
 
         return FO_CREATE_FILLING_QUESTION;
@@ -123,6 +113,7 @@ public class FillingQuestionController {
 //            questionAnswerDto.setAnswerLabel((i + 1) + "");
 //            questionAnswerDto.setOrder(i);
 //            questionAnswerDto.setLeftSide(true);
+//            questionAnswerDto.setScore(0);
 //            leftAnswerDtos.add(questionAnswerDto);
 //        }
 //        for (int i = 0; i < 4; i++) {
