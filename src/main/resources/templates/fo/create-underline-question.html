@@ -153,9 +153,7 @@
                 onChange: function (contents, $editable) {
                     let contentHtml = $.parseHTML(contents)[0];
                     var children = $(contentHtml).find('u');
-                    if (children.length > 0) {
-                        $('#answer').find('.answer-content').remove();
-                    }
+                    $('#answer').find('.answer-content').remove();
                     for (var i = 0; i < children.length; i++) {
                         createAnswerElm(children[i].firstChild.nodeValue, i);
                     }
