@@ -49,19 +49,19 @@
                 </div>
                 <div class="extention d-flex flex-row mt-3">
                     <div>
-                        <label class="font-weight-bold">Hướng dẫn/Giải thích đáp án</label>
-                    </div>
-                </div>
-                <div class="mcp-content">
-                    <textarea id="suggest" class="question-suggest" th:field="*{answerSuggestion}"></textarea>
-                </div>
-                <div class="extention d-flex flex-row mt-3">
-                    <div>
                         <label class="font-weight-bold">Nội dung câu hỏi</label>
                     </div>
                 </div>
                 <div class="mcp-content">
                     <textarea id="content" class="question-content" th:field="*{content}"></textarea>
+                </div>
+                <div class="extention d-flex flex-row mt-3">
+                    <div>
+                        <label class="font-weight-bold">Hướng dẫn/Giải thích đáp án</label>
+                    </div>
+                </div>
+                <div class="mcp-content">
+                    <textarea id="suggest" class="question-suggest" th:field="*{answerSuggestion}"></textarea>
                 </div>
                 <div class="total-filling-question my-2">
                     <div class="col-sm-7 row ml-auto">
@@ -92,7 +92,7 @@
                     </div>
                 </div>
                 <div class="answer p-2">
-                    <div class="answer-content row">
+                    <div class="group-filling-answer-content answer-content row">
                         <div class="col-6 border-right"  id="left-answer-items" >
                             <div class="d-flex">
                                 <div class="total-answer d-flex">
@@ -226,7 +226,7 @@
     <script>
 	    var totalLeftAnswer = 0;
 	    var totalRightAnswer = 0;
-
+		var rawQuestionContent = "";
 	    let alphabetLblArr = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
 
         $('#content').summernote({
@@ -239,6 +239,9 @@
                     if (children.length > 0) {
                         $('#left-answer-items').find('.answer-content__item').remove();
                         $('#answer-list-opt').find('option').remove();
+                    } else {
+                      rawQuestionContent = contentHtml;
+                      console.log();
                     }
                     for (var i = 0; i < children.length; i++) {
                     	totalLeftAnswer++;
@@ -247,6 +250,8 @@
                 }
             }
         });
+
+        $('#content').summernote('fontName', 'Arial');
 
         function createAnswerElm(answerValue, index) {
             let answerElm = $('#left-answer-items');
