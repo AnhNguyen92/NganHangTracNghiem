@@ -4,9 +4,8 @@
 <head>
     <title>Tạo câu hỏi điền khuyết dạng đơn</title>
 
-    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-    <meta content="utf-8" http-equiv="encoding">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta content="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="shortcut icon" th:href="@{/imgs/fo-favicon.ico}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -28,7 +27,7 @@
     <!-- content -->
     <div class="container mt-3">
         <div class="page-title">TẠO MỚI CÂU HỎI ĐIỀN KHUYẾT ĐƠN</div>
-        <form action="#" id="f-one-ans-question" th:action="@{/fo/questions/filling}" method="post"
+        <form action="#" id="f-filling-question" th:action="@{/fo/questions/filling}" method="post"
             th:object="${mcqDto}">
             <div class="mcq">
                 <div>
@@ -48,7 +47,7 @@
                 </div>
                 <div class="extention d-flex flex-row mt-3">
                     <div>
-                        <label class="font-weight-bold">Nội dung câu hỏi</label>
+                        <label class="font-weight-bold">Nội dung câu hỏi <span class="text-danger">*</span></label>
                     </div>
                 </div>
                 <div class="text-danger">(Lưu ý: Thêm nội dung câu hỏi, tô phần đáp án và nhấn nút gạch chân
@@ -121,7 +120,7 @@
                                     </div>
                                 </div>
                                 <div class="d-flex ml-auto mb-2">
-                                    <button class="btn-add-answer" id="btn-add-answer" type="button"
+                                    <button class="btn-add-answer" id="btn-add-answer" type="submit"
                                         name="add-right-answer" onclick="return addRightAnswer()">
                                         <i class="fa fa-plus" aria-hidden="true" title="Thêm đáp án nhiễu"></i>
                                     </button>
@@ -155,7 +154,7 @@
                                               th:field="*{rightAnswerDtos[__${rightAnswerDtoStat.index}__].randomPosition}" />
                                       </div>
                                       <div class="ml-2">
-                                          <button class="btn-delete-answer" type="button" name="remove-right-answer"
+                                          <button class="btn-delete-answer" type="submit" name="remove-right-answer"
                                               th:value="${rightAnswerDtoStat.index}" onclick="return removeRightAnswer()">
                                               <i class="fa fa-window-close" aria-hidden="true"></i>
                                           </button>
@@ -197,35 +196,35 @@
         let alphabetLblArr = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
 
         $('#content').summernote({
-            height: 200,
-            // keep unused variable $editable as original format of function
-            callbacks: {
-                onChange: function (contents, $editable) {
-                    let contentHtml = $.parseHTML(contents);
-                    var children = $(contentHtml).find('u');
-                    totalLeftAnswer = children.length;
-                    if (children.length > 0) {
-                    } else {
-                      rawQuestionContent = contentHtml;
-                    }
-                    for (var i = 0; i < children.length; i++) {
-                      let childItem = $(contentHtml).find('u')[i];
-                      let underlineText = childItem.firstChild.nodeValue;
-                      if (!underlineText.includes('___')) {                        
-                          createAnswerElm(underlineText, i);
-                          $('u:contains('+ underlineText +')').replaceWith('<u>___(' + (i+1) + ')___</u>');
-                      }
-                    }
+          height: 200,
+          // keep unused variable $editable as original format of function
+          callbacks: {
+            onChange: function (contents, $editable) {
+              let contentHtml = $.parseHTML(contents);
+              var children = $(contentHtml).find('u');
+              totalLeftAnswer = children.length;
+              if (children.length > 0) {
+              } else {
+                rawQuestionContent = contentHtml;
+              }
+              for (var i = 0; i < children.length; i++) {
+                let childItem = $(contentHtml).find('u')[i];
+                let underlineText = childItem.firstChild.nodeValue;
+                if (!underlineText.includes('___')) {
+                  createAnswerElm(underlineText, i);
+                  $('u:contains('+ underlineText +')').replaceWith('<u>___(' + (i+1) + ')___</u>');
+                  }
                 }
+              }
             }
         });
 
         function createAnswerElm(answerValue, index) {
-            let answerElm = $('#left-answer-items');
-            let totalAnswerLblElm = $('.total-left-answer__value')[0];
-            let totalAnswer = parseInt(totalAnswerLblElm.textContent);
-            answerElm.append(
-            '<div class="answer-content__item d-flex flex-row mb-2">' +
+          let answerElm = $('#left-answer-items');
+          let totalAnswerLblElm = $('.total-left-answer__value')[0];
+          let totalAnswer = parseInt(totalAnswerLblElm.textContent);
+          answerElm.append(
+            '<div class="answer-content__item left-answer-content__item d-flex flex-row mb-2" id="left-answer-content__item' + index + '">' +
             '<div class="ml-2 d-flex align-items-center">' +
             '<input type="hidden" name="leftAnswerDtos[' + index + '].trueAnswer" value="true">' +
             '</div>' +
@@ -233,8 +232,8 @@
             '<label class="answer__label">' + (index + 1) + '</label>' +
             '</div>' +
             '<div class="ml-2 w-100">' +
-            '<input type="text" class="answer__value left_part" title="Nội dung câu trả lời" ' +
-                    'name="leftAnswerDtos[' + index + '}].answerContent" value="' + answerValue + '">' +
+            '<input type="text" class="answer__value left_part left-answer-value' + index + '" title="Nội dung câu trả lời" ' +
+                    'name="leftAnswerDtos[' + index + '].answerContent" value="' + answerValue + '">' +
             '</div>' +
             '<div class="ml-2">' +
             '<button class="btn-swap-answer" id="btn-swap-pos-' + index + '" type="button" title="Bỏ hoán vị vị trí" onclick="return changePermutation(' + index + ')">' +
@@ -243,69 +242,73 @@
             '<input type="checkbox" id="swap-pos-0" name="leftAnswerDtos[' + index + '].randomPosition" value="true" checked="checked" hidden="true"><input type="hidden" name="_leftAnswerDtos[' + index + '].randomPosition" value="on">' +
             '</div>' +
             '<div class="ml-2">' +
-            '<button class="btn-delete-answer" type="submit" name="remove-left-answer" ' +
-                    'th:value="${leftAnswerDtoStat.' + index + '}" onclick="return removeLeftPart()">' +
+            '<button class="btn-delete-answer" type="button" name="remove-left-answer" onclick="return removeLeftPart(' + index + ')">' +
             '<i class="fa fa-window-close" aria-hidden="true"></i>' +
             '</button>' +
             '</div>' +
         	'</div>');
-            totalAnswerLblElm.innerHTML = index + 1;
+          totalAnswerLblElm.innerHTML = index + 1;
         }
 
         $('#suggest').summernote({
             height: 200
         });
 
+        function removeLeftPart(index) {
+          $("#f-filling-question").submit();
+          //$('.total-left-answer__value')[0].innerHTML = parseInt($('.total-left-answer__value')[0].textContent) - 1;
+          //let revertText = $('.left_part')[0].val();
+          //console.log(revertText);
+          //$('u:contains("___(1)___")').replaceWith('01');
+          //$('#left-answer-content__item' + index).remove();
+        }
+
         function addRightAnswer() {
-            let totalAnswer = $(".answer__value").length;
-            if (totalAnswer == 8) {
-                alert("Số câu trả lời gây nhiễu tối đa là 7");
-            } else {
-                // add div here
-                let answerElm = $('#right-answer-items');
-                let totalAnswerLblElm = $('.total-right-answer__value')[0];
-                let totalAnswer = parseInt(totalAnswerLblElm.textContent);
-                answerElm.append(
-            	'<div class="answer-content__item d-flex flex-row mb-2" id="right-answer-content__item' + totalAnswer + '">' +
-                '<div class="ml-2 d-flex align-items-center">' +
-                    '<label class="answer__label" ' +
-                        'th:text="*{rightAnswerDtos[__${rightAnswerDtoStat.' + totalAnswer + '}__].answerLabel}">' +
-                        alphabetLblArr[totalAnswer] + '</label>' +
-                '</div>' +
-                '<div class="ml-2 w-100">' +
-                    '<input type="text" class="answer__value right_part" title="Nội dung câu trả lời"' +
-                        'th:field="*{rightAnswerDtos[__${rightAnswerDtoStat.' + totalAnswer + '}__].answerContent}">' +
-                '</div>' +
-                '<div class="ml-2">' +
-                    '<button class="btn-swap-answer"' +
-                        'th:id="btn-swap-pos-' + totalAnswer + '" type="button"' +
-                        'title="Bỏ hoán vị vị trí"' +
-                        'th:onclick="|return changePermutation(${rightAnswerDtoStat.' + totalAnswer + '})|">' +
-                        '<i class="fa fa-exchange" aria-hidden="true"></i>' +
-                    '</button>' +
-                    '<input type="checkbox" hidden="true"' +
-                        'th:id="swap-pos- + ${rightAnswerDtoStat.' + totalAnswer + '}" name="active" ' +
-                        'th:field="*{rightAnswerDtos[__${rightAnswerDtoStat.' + totalAnswer + '}__].randomPosition}" />' +
-                '</div>' +
-                '<div class="ml-2">' +
-                    '<button class="btn-delete-answer" type="button" name="remove-right-answer" ' +
-                        'th:value="${rightAnswerDtoStat.' + totalAnswer + '}" onclick="return removeRightAnswer(' + totalAnswer + ')">' +
-                        '<i class="fa fa-window-close" aria-hidden="true"></i>' +
-                    '</button>' +
-                '</div>' +
-            '</div>');
-                totalAnswerLblElm.innerHTML = totalAnswer + 1;
+          let totalAnswer = $(".right-answer-content__item").length;
+          if (totalAnswer == 7) {
+            alert("Số câu trả lời gây nhiễu tối đa là 7");
+          } else {
+            $("#f-filling-question").submit();
+            // add div here
+            /* let answerElm = $('#right-answer-items');
+            let totalAnswerLblElm = $('.total-right-answer__value')[0];
+            let totalAnswerVal = parseInt(totalAnswerLblElm.textContent);
+            answerElm.append(
+            '<div class="answer-content__item right-answer-content__item d-flex flex-row mb-2" id="right-answer-content__item' + totalAnswer + '">'
+            + '<div class="ml-2 d-flex align-items-center">'
+            + '<label class="answer__label" >' + alphabetLblArr[totalAnswer] + '</label>'
+            + '</div>'
+            + '<div class="ml-2 w-100">'
+            + '<input type="text" class="answer__value right_part" title="Nội dung câu trả lời"'
+            + 'th:field="*{rightAnswerDtos[__${rightAnswerDtoStat.' + totalAnswer + '}__].answerContent}">'
+            + '</div>'
+            + '<div class="ml-2">'
+            + '<button class="btn-swap-answer"'
+            + 'th:id="btn-swap-pos-' + totalAnswer + '" type="button"'
+            + 'title="Bỏ hoán vị vị trí"'
+            + 'th:onclick="|return changePermutation(${rightAnswerDtoStat.' + totalAnswer + '})|">'
+            + '<i class="fa fa-exchange" aria-hidden="true"></i>'
+            + '</button>'
+            + '<input type="checkbox" hidden="true"'
+            + 'th:id="swap-pos- + ${rightAnswerDtoStat.' + totalAnswer + '}" name="active" '
+            + 'th:field="*{rightAnswerDtos[__${rightAnswerDtoStat.' + totalAnswer + '}__].randomPosition}" />'
+            + '</div>'
+            + '<div class="ml-2">'
+            + '<button class="btn-delete-answer" type="submit" name="remove-right-answer" value="' + totalAnswer + '" onclick="return removeRightAnswer()">'
+            +	'<i class="fa fa-window-close" aria-hidden="true"></i>' +
+            +'</button>'
+            + '</div>'
+            + '</div>');
+            totalAnswerLblElm.i */nnerHTML = totalAnswerVal + 1;
             }
         }
 
-        function removeRightAnswer(index) {
-            let totalAnswer = $(".answer__value").length;
-            if (totalAnswer == 0) {
-                alert("Số đáp án gây nhiễu tối thiểu là 1");
-            } else {
-                // remove div here
-            	$('#right-answer-content__item' + index).remove();
-            }
+        function removeRightAnswer() {
+          $("#f-filling-question").submit();
+          /* $('#right-answer-content__item' + index).remove();
+          let totalAnswerLblElm = $('.total-right-answer__value')[0];
+          let totalAnswer = parseInt(totalAnswerLblElm.textContent);
+          totalAnswerLblElm.innerHTML = totalAnswer - 1; */
         }
 
     </script>
