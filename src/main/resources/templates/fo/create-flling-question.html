@@ -242,7 +242,7 @@
             '<input type="checkbox" id="swap-pos-0" name="leftAnswerDtos[' + index + '].randomPosition" value="true" checked="checked" hidden="true"><input type="hidden" name="_leftAnswerDtos[' + index + '].randomPosition" value="on">' +
             '</div>' +
             '<div class="ml-2">' +
-            '<button class="btn-delete-answer" type="button" name="remove-left-answer" onclick="return removeLeftPart(' + index + ')">' +
+            '<button class="btn-delete-answer" type="submit" name="remove-left-answer" value="' + index + '" onclick="return removeLeftPart()">' +
             '<i class="fa fa-window-close" aria-hidden="true"></i>' +
             '</button>' +
             '</div>' +
@@ -299,7 +299,7 @@
             +'</button>'
             + '</div>'
             + '</div>');
-            totalAnswerLblElm.i */nnerHTML = totalAnswerVal + 1;
+            totalAnswerLblElm.i nnerHTML = totalAnswerVal + 1;*/
             }
         }
 
