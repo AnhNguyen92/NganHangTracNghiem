@@ -1,5 +1,6 @@
 package vn.com.multiplechoice.web.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import vn.com.multiplechoice.dao.model.User;
@@ -11,9 +12,9 @@ public class MCQDto {
     private String answerSuggestion;
     private String content;
     // list answer of question
-    private List<QuestionAnswerDto> questionAnswerDtos;
-    private List<QuestionAnswerDto> leftAnswerDtos;
-    private List<QuestionAnswerDto> rightAnswerDtos;
+    private List<QuestionAnswerDto> questionAnswerDtos = new ArrayList<>();
+    private List<QuestionAnswerDto> leftAnswerDtos = new ArrayList<>();
+    private List<QuestionAnswerDto> rightAnswerDtos = new ArrayList<>();
 
     public QuestionType getType() {
         return type;
