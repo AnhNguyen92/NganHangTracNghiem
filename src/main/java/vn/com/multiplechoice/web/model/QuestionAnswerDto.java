@@ -6,7 +6,7 @@ public class QuestionAnswerDto {
     private String answerLabel;
     private String answerContent;
     private boolean trueAnswer = false;
-    private int score;
+    private int score = 0;
     private boolean leftSide = true;
 
     public int getOrder() {
