@@ -78,10 +78,6 @@
                             <div th:each="leftAnswerDto, leftAnswerDtoStat : *{leftAnswerDtos}">
                                 <div class="answer-content__item d-flex flex-row mb-2">
                                     <div class="ml-2 d-flex align-items-center">
-                                        <input th:field="*{leftAnswerDtos[__${leftAnswerDtoStat.index}__].trueAnswer}"
-                                            type="checkbox" class="checkbox-answer" title="Chọn đáp án đúng">
-                                    </div>
-                                    <div class="ml-2 d-flex align-items-center">
                                         <label class="answer__label"
                                             th:text="*{leftAnswerDtos[__${leftAnswerDtoStat.index}__].answerLabel}">Đáp
                                             án</label>
@@ -89,6 +85,10 @@
                                     <div class="ml-2 w-100">
                                         <input type="text" class="answer__value left_part" title="Nội dung câu trả lời"
                                             th:field="*{leftAnswerDtos[__${leftAnswerDtoStat.index}__].answerContent}">
+                                    </div>
+                                    <div class="ml-2">
+                                        <input class="answer__score" title="Điểm số cho đáp án" type="number"
+                                            th:field="*{leftAnswerDtos[__${leftAnswerDtoStat.index}__].score}" />
                                     </div>
                                     <div class="ml-2">
                                         <button class="btn-swap-answer"
@@ -129,10 +129,6 @@
                             <div id="right-answer-items">
                               <th:block  th:each="rightAnswerDto, rightAnswerDtoStat : *{rightAnswerDtos}">
                                   <div class="answer-content__item d-flex flex-row mb-2">
-                                      <div class="ml-2 d-flex align-items-center">
-                                          <input th:field="*{rightAnswerDtos[__${rightAnswerDtoStat.index}__].trueAnswer}"
-                                              type="checkbox" class="checkbox-answer" title="Chọn đáp án đúng">
-                                      </div>
                                       <div class="ml-2 d-flex align-items-center">
                                           <label class="answer__label"
                                               th:text="*{rightAnswerDtos[__${rightAnswerDtoStat.index}__].answerLabel}">Đáp
@@ -234,6 +230,10 @@
             '<div class="ml-2 w-100">' +
             '<input type="text" class="answer__value left_part left-answer-value' + index + '" title="Nội dung câu trả lời" ' +
                     'name="leftAnswerDtos[' + index + '].answerContent" value="' + answerValue + '">' +
+            '</div>' +
+            '<div class="ml-2">' +
+                '<input class="answer__score" title="Điểm số cho đáp án" type="number" ' +
+                    'name="leftAnswerDtos[0].score"}" value="0" />' +
             '</div>' +
             '<div class="ml-2">' +
             '<button class="btn-swap-answer" id="btn-swap-pos-' + index + '" type="button" title="Bỏ hoán vị vị trí" onclick="return changePermutation(' + index + ')">' +
