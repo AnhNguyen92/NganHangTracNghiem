@@ -77,14 +77,10 @@
                             </div>
                             <div th:each="leftAnswerDto, leftAnswerDtoStat : *{leftAnswerDtos}">
                                 <div class="answer-content__item d-flex flex-row mb-2">
-                                    <div class="ml-2 d-flex align-items-center">
-                                        <input th:field="*{leftAnswerDtos[__${leftAnswerDtoStat.index}__].trueAnswer}"
-                                            type="checkbox" class="checkbox-answer" title="Chọn đáp án đúng">
-                                    </div>
+
                                     <div class="ml-2 d-flex align-items-center">
                                         <label class="answer__label"
-                                            th:text="*{leftAnswerDtos[__${leftAnswerDtoStat.index}__].answerLabel}">Đáp
-                                            án</label>
+                                            th:text="*{leftAnswerDtos[__${leftAnswerDtoStat.index}__].answerLabel}" th:name="leftAnswerDtos[0].answerLabel">1</label>
                                     </div>
                                     <div class="ml-2 w-100">
                                         <input type="text" class="answer__value left_part" title="Nội dung câu trả lời"
@@ -129,10 +125,7 @@
                             <div id="right-answer-items">
                               <th:block  th:each="rightAnswerDto, rightAnswerDtoStat : *{rightAnswerDtos}">
                                   <div class="answer-content__item d-flex flex-row mb-2">
-                                      <div class="ml-2 d-flex align-items-center">
-                                          <input th:field="*{rightAnswerDtos[__${rightAnswerDtoStat.index}__].trueAnswer}"
-                                              type="checkbox" class="checkbox-answer" title="Chọn đáp án đúng">
-                                      </div>
+
                                       <div class="ml-2 d-flex align-items-center">
                                           <label class="answer__label"
                                               th:text="*{rightAnswerDtos[__${rightAnswerDtoStat.index}__].answerLabel}">Đáp
