@@ -98,7 +98,7 @@
                             <div class="test-qtt-question col-2 text-center align-self-center"
                                 th:text="${test.numOfQuestions} + ' Câu hỏi' ">10 Câu hỏi</div>
                             <div class="align-self-center col-2 text-right">
-                                <a th:href="@{/fo/do-exam/id}"
+                                <a th:href="@{/fo/do-exam/} + ${test.id}"
                                     class="btn btn-primary text-capitalize col text-center align-self-center"
                                     style="width: auto;">Bắt đầu</a>
                             </div>
