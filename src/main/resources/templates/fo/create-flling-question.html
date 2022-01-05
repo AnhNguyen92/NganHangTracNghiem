@@ -65,26 +65,31 @@
                 </div>
                 <div class="answer p-2">
                     <div class="group-filling-answer-content answer-content row">
-                        <div class="col-6 border-right" id="left-answer-items" >
+                        <div class="col-6 border-right" id="left-answer-items">
                             <div class="d-flex">
                                 <div class="total-answer d-flex">
                                     <div class="text-danger p-1">Số vị trí điền khuyết</div>
                                     <div class="text-center p-1">
-                                        <label class="total-answer__value total-left-answer__value" id="total-filling-pos"
+                                        <label class="total-answer__value total-left-answer__value"
+                                            id="total-filling-pos"
                                             th:text="${#lists.size(mcqDto.leftAnswerDtos)}">4</label>
                                     </div>
                                 </div>
                             </div>
                             <div th:each="leftAnswerDto, leftAnswerDtoStat : *{leftAnswerDtos}">
                                 <div class="answer-content__item d-flex flex-row mb-2">
-
                                     <div class="ml-2 d-flex align-items-center">
                                         <label class="answer__label"
-                                            th:text="*{leftAnswerDtos[__${leftAnswerDtoStat.index}__].answerLabel}" th:name="leftAnswerDtos[0].answerLabel">1</label>
+                                            th:text="*{leftAnswerDtos[__${leftAnswerDtoStat.index}__].answerLabel}"
+                                            th:name="leftAnswerDtos[0].answerLabel">1</label>
                                     </div>
                                     <div class="ml-2 w-100">
                                         <input type="text" class="answer__value left_part" title="Nội dung câu trả lời"
                                             th:field="*{leftAnswerDtos[__${leftAnswerDtoStat.index}__].answerContent}">
+                                    </div>
+                                    <div class="ml-2">
+                                        <input class="answer__score" title="Điểm số cho đáp án" type="number"
+                                            th:field="*{leftAnswerDtos[__${leftAnswerDtoStat.index}__].score}" />
                                     </div>
                                     <div class="ml-2">
                                         <button class="btn-swap-answer"
@@ -123,36 +128,37 @@
                                 </div>
                             </div>
                             <div id="right-answer-items">
-                              <th:block  th:each="rightAnswerDto, rightAnswerDtoStat : *{rightAnswerDtos}">
-                                  <div class="answer-content__item d-flex flex-row mb-2">
-
-                                      <div class="ml-2 d-flex align-items-center">
-                                          <label class="answer__label"
-                                              th:text="*{rightAnswerDtos[__${rightAnswerDtoStat.index}__].answerLabel}">Đáp
-                                              án</label>
-                                      </div>
-                                      <div class="ml-2 w-100">
-                                          <input type="text" class="answer__value right_part" title="Nội dung câu trả lời"
-                                              th:field="*{rightAnswerDtos[__${rightAnswerDtoStat.index}__].answerContent}">
-                                      </div>
-                                      <div class="ml-2">
-                                          <button class="btn-swap-answer"
-                                              th:id=" 'btn-swap-pos-' + ${rightAnswerDtoStat.index} " type="button"
-                                              title="Bỏ hoán vị vị trí"
-                                              th:onclick="|return changePermutation(${rightAnswerDtoStat.index})|">
-                                              <i class="fa fa-exchange" aria-hidden="true"></i>
-                                          </button>
-                                          <input type="checkbox" hidden="true"
-                                              th:id=" 'swap-pos-' + ${rightAnswerDtoStat.index}" name="active"
-                                              th:field="*{rightAnswerDtos[__${rightAnswerDtoStat.index}__].randomPosition}" />
-                                      </div>
-                                      <div class="ml-2">
-                                          <button class="btn-delete-answer" type="submit" name="remove-right-answer"
-                                              th:value="${rightAnswerDtoStat.index}" onclick="return removeRightAnswer()">
-                                              <i class="fa fa-window-close" aria-hidden="true"></i>
-                                          </button>
-                                      </div>
-                                  </div>
+                                <th:block th:each="rightAnswerDto, rightAnswerDtoStat : *{rightAnswerDtos}">
+                                    <div class="answer-content__item d-flex flex-row mb-2">
+                                        <div class="ml-2 d-flex align-items-center">
+                                            <label class="answer__label"
+                                                th:text="*{rightAnswerDtos[__${rightAnswerDtoStat.index}__].answerLabel}">Đáp
+                                                án</label>
+                                        </div>
+                                        <div class="ml-2 w-100">
+                                            <input type="text" class="answer__value right_part"
+                                                title="Nội dung câu trả lời"
+                                                th:field="*{rightAnswerDtos[__${rightAnswerDtoStat.index}__].answerContent}">
+                                        </div>
+                                        <div class="ml-2">
+                                            <button class="btn-swap-answer"
+                                                th:id=" 'btn-swap-pos-' + ${rightAnswerDtoStat.index} " type="button"
+                                                title="Bỏ hoán vị vị trí"
+                                                th:onclick="|return changePermutation(${rightAnswerDtoStat.index})|">
+                                                <i class="fa fa-exchange" aria-hidden="true"></i>
+                                            </button>
+                                            <input type="checkbox" hidden="true"
+                                                th:id=" 'swap-pos-' + ${rightAnswerDtoStat.index}" name="active"
+                                                th:field="*{rightAnswerDtos[__${rightAnswerDtoStat.index}__].randomPosition}" />
+                                        </div>
+                                        <div class="ml-2">
+                                            <button class="btn-delete-answer" type="submit" name="remove-right-answer"
+                                                th:value="${rightAnswerDtoStat.index}"
+                                                onclick="return removeRightAnswer()">
+                                                <i class="fa fa-window-close" aria-hidden="true"></i>
+                                            </button>
+                                        </div>
+                                    </div>
                                 </th:block>
                             </div>
                         </div>
@@ -185,62 +191,66 @@
     <script th:src="@{/summernote/summernote-bs4.js}"></script>
 
     <script>
-		let totalFillingPos = 0;
+        let totalFillingPos = 0;
         let alphabetLblArr = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
 
         $('#content').summernote({
-          height: 200,
-          // keep unused variable $editable as original format of function
-          callbacks: {
-            onChange: function (contents, $editable) {
-              let contentHtml = $.parseHTML(contents);
-              var children = $(contentHtml).find('u');
-              totalLeftAnswer = children.length;
-              if (children.length > 0) {
-              } else {
-                rawQuestionContent = contentHtml;
-              }
-              for (var i = 0; i < children.length; i++) {
-                let childItem = $(contentHtml).find('u')[i];
-                let underlineText = childItem.firstChild.nodeValue;
-                if (!underlineText.includes('___')) {
-                  createAnswerElm(underlineText, i);
-                  $('u:contains('+ underlineText +')').replaceWith('<u>___(' + (i+1) + ')___</u>');
-                  }
+            height: 200,
+            // keep unused variable $editable as original format of function
+            callbacks: {
+                onChange: function (contents, $editable) {
+                    let contentHtml = $.parseHTML(contents);
+                    var children = $(contentHtml).find('u');
+                    totalLeftAnswer = children.length;
+                    if (children.length > 0) {
+                    } else {
+                        rawQuestionContent = contentHtml;
+                    }
+                    for (var i = 0; i < children.length; i++) {
+                        let childItem = $(contentHtml).find('u')[i];
+                        let underlineText = childItem.firstChild.nodeValue;
+                        if (!underlineText.includes('___')) {
+                            createAnswerElm(underlineText, i);
+                            $('u:contains(' + underlineText + ')').replaceWith('<u>___(' + (i + 1) + ')___</u>');
+                        }
+                    }
                 }
-              }
             }
         });
 
         function createAnswerElm(answerValue, index) {
-          let answerElm = $('#left-answer-items');
-          let totalAnswerLblElm = $('.total-left-answer__value')[0];
-          let totalAnswer = parseInt(totalAnswerLblElm.textContent);
-          answerElm.append(
-            '<div class="answer-content__item left-answer-content__item d-flex flex-row mb-2" id="left-answer-content__item' + index + '">' +
-            '<div class="ml-2 d-flex align-items-center">' +
-            '<input type="hidden" name="leftAnswerDtos[' + index + '].trueAnswer" value="true">' +
-            '</div>' +
-            '<div class="ml-2 d-flex align-items-center">' +
-            '<label class="answer__label">' + (index + 1) + '</label>' +
-            '</div>' +
-            '<div class="ml-2 w-100">' +
-            '<input type="text" class="answer__value left_part left-answer-value' + index + '" title="Nội dung câu trả lời" ' +
-                    'name="leftAnswerDtos[' + index + '].answerContent" value="' + answerValue + '">' +
-            '</div>' +
-            '<div class="ml-2">' +
-            '<button class="btn-swap-answer" id="btn-swap-pos-' + index + '" type="button" title="Bỏ hoán vị vị trí" onclick="return changePermutation(' + index + ')">' +
-            '<i class="fa fa-exchange" aria-hidden="true"></i>' +
-            '</button>' +
-            '<input type="checkbox" id="swap-pos-0" name="leftAnswerDtos[' + index + '].randomPosition" value="true" checked="checked" hidden="true"><input type="hidden" name="_leftAnswerDtos[' + index + '].randomPosition" value="on">' +
-            '</div>' +
-            '<div class="ml-2">' +
-            '<button class="btn-delete-answer" type="submit" name="remove-left-answer" value="' + index + '" onclick="return removeLeftPart()">' +
-            '<i class="fa fa-window-close" aria-hidden="true"></i>' +
-            '</button>' +
-            '</div>' +
-        	'</div>');
-          totalAnswerLblElm.innerHTML = index + 1;
+            let answerElm = $('#left-answer-items');
+            let totalAnswerLblElm = $('.total-left-answer__value')[0];
+            let totalAnswer = parseInt(totalAnswerLblElm.textContent);
+            answerElm.append(
+                '<div class="answer-content__item left-answer-content__item d-flex flex-row mb-2" id="left-answer-content__item' + index + '">' +
+                '<div class="ml-2 d-flex align-items-center">' +
+                '<input type="hidden" name="leftAnswerDtos[' + index + '].trueAnswer" value="true">' +
+                '</div>' +
+                '<div class="ml-2 d-flex align-items-center">' +
+                '<label class="answer__label">' + (index + 1) + '</label>' +
+                '</div>' +
+                '<div class="ml-2 w-100">' +
+                '<input type="text" class="answer__value left_part left-answer-value' + index + '" title="Nội dung câu trả lời" ' +
+                'name="leftAnswerDtos[' + index + '].answerContent" value="' + answerValue + '">' +
+                '</div>' +
+                '<div class="ml-2">' +
+                '<input class="answer__score" title="Điểm số cho đáp án" type="number" ' +
+                'name="leftAnswerDtos[0].score"}" value="0" />' +
+                '</div>' +
+                '<div class="ml-2">' +
+                '<button class="btn-swap-answer" id="btn-swap-pos-' + index + '" type="button" title="Bỏ hoán vị vị trí" onclick="return changePermutation(' + index + ')">' +
+                '<i class="fa fa-exchange" aria-hidden="true"></i>' +
+                '</button>' +
+                '<input type="checkbox" id="swap-pos-0" name="leftAnswerDtos[' + index + '].randomPosition" value="true" checked="checked" hidden="true"><input type="hidden" name="_leftAnswerDtos[' + index + '].randomPosition" value="on">' +
+                '</div>' +
+                '<div class="ml-2">' +
+                '<button class="btn-delete-answer" type="submit" name="remove-left-answer" value="' + index + '" onclick="return removeLeftPart()">' +
+                '<i class="fa fa-window-close" aria-hidden="true"></i>' +
+                '</button>' +
+                '</div>' +
+                '</div>');
+            totalAnswerLblElm.innerHTML = index + 1;
         }
 
         $('#suggest').summernote({
@@ -248,60 +258,60 @@
         });
 
         function removeLeftPart(index) {
-          $("#f-filling-question").submit();
-          //$('.total-left-answer__value')[0].innerHTML = parseInt($('.total-left-answer__value')[0].textContent) - 1;
-          //let revertText = $('.left_part')[0].val();
-          //console.log(revertText);
-          //$('u:contains("___(1)___")').replaceWith('01');
-          //$('#left-answer-content__item' + index).remove();
+            $("#f-filling-question").submit();
+            //$('.total-left-answer__value')[0].innerHTML = parseInt($('.total-left-answer__value')[0].textContent) - 1;
+            //let revertText = $('.left_part')[0].val();
+            //console.log(revertText);
+            //$('u:contains("___(1)___")').replaceWith('01');
+            //$('#left-answer-content__item' + index).remove();
         }
 
         function addRightAnswer() {
-          let totalAnswer = $(".right-answer-content__item").length;
-          if (totalAnswer == 7) {
-            alert("Số câu trả lời gây nhiễu tối đa là 7");
-          } else {
-            $("#f-filling-question").submit();
-            // add div here
-            /* let answerElm = $('#right-answer-items');
-            let totalAnswerLblElm = $('.total-right-answer__value')[0];
-            let totalAnswerVal = parseInt(totalAnswerLblElm.textContent);
-            answerElm.append(
-            '<div class="answer-content__item right-answer-content__item d-flex flex-row mb-2" id="right-answer-content__item' + totalAnswer + '">'
-            + '<div class="ml-2 d-flex align-items-center">'
-            + '<label class="answer__label" >' + alphabetLblArr[totalAnswer] + '</label>'
-            + '</div>'
-            + '<div class="ml-2 w-100">'
-            + '<input type="text" class="answer__value right_part" title="Nội dung câu trả lời"'
-            + 'th:field="*{rightAnswerDtos[__${rightAnswerDtoStat.' + totalAnswer + '}__].answerContent}">'
-            + '</div>'
-            + '<div class="ml-2">'
-            + '<button class="btn-swap-answer"'
-            + 'th:id="btn-swap-pos-' + totalAnswer + '" type="button"'
-            + 'title="Bỏ hoán vị vị trí"'
-            + 'th:onclick="|return changePermutation(${rightAnswerDtoStat.' + totalAnswer + '})|">'
-            + '<i class="fa fa-exchange" aria-hidden="true"></i>'
-            + '</button>'
-            + '<input type="checkbox" hidden="true"'
-            + 'th:id="swap-pos- + ${rightAnswerDtoStat.' + totalAnswer + '}" name="active" '
-            + 'th:field="*{rightAnswerDtos[__${rightAnswerDtoStat.' + totalAnswer + '}__].randomPosition}" />'
-            + '</div>'
-            + '<div class="ml-2">'
-            + '<button class="btn-delete-answer" type="submit" name="remove-right-answer" value="' + totalAnswer + '" onclick="return removeRightAnswer()">'
-            +	'<i class="fa fa-window-close" aria-hidden="true"></i>' +
-            +'</button>'
-            + '</div>'
-            + '</div>');
-            totalAnswerLblElm.i nnerHTML = totalAnswerVal + 1;*/
+            let totalAnswer = $(".right-answer-content__item").length;
+            if (totalAnswer == 7) {
+                alert("Số câu trả lời gây nhiễu tối đa là 7");
+            } else {
+                $("#f-filling-question").submit();
+                // add div here
+                /* let answerElm = $('#right-answer-items');
+                let totalAnswerLblElm = $('.total-right-answer__value')[0];
+                let totalAnswerVal = parseInt(totalAnswerLblElm.textContent);
+                answerElm.append(
+                '<div class="answer-content__item right-answer-content__item d-flex flex-row mb-2" id="right-answer-content__item' + totalAnswer + '">'
+                + '<div class="ml-2 d-flex align-items-center">'
+                + '<label class="answer__label" >' + alphabetLblArr[totalAnswer] + '</label>'
+                + '</div>'
+                + '<div class="ml-2 w-100">'
+                + '<input type="text" class="answer__value right_part" title="Nội dung câu trả lời"'
+                + 'th:field="*{rightAnswerDtos[__${rightAnswerDtoStat.' + totalAnswer + '}__].answerContent}">'
+                + '</div>'
+                + '<div class="ml-2">'
+                + '<button class="btn-swap-answer"'
+                + 'th:id="btn-swap-pos-' + totalAnswer + '" type="button"'
+                + 'title="Bỏ hoán vị vị trí"'
+                + 'th:onclick="|return changePermutation(${rightAnswerDtoStat.' + totalAnswer + '})|">'
+                + '<i class="fa fa-exchange" aria-hidden="true"></i>'
+                + '</button>'
+                + '<input type="checkbox" hidden="true"'
+                + 'th:id="swap-pos- + ${rightAnswerDtoStat.' + totalAnswer + '}" name="active" '
+                + 'th:field="*{rightAnswerDtos[__${rightAnswerDtoStat.' + totalAnswer + '}__].randomPosition}" />'
+                + '</div>'
+                + '<div class="ml-2">'
+                + '<button class="btn-delete-answer" type="submit" name="remove-right-answer" value="' + totalAnswer + '" onclick="return removeRightAnswer()">'
+                +	'<i class="fa fa-window-close" aria-hidden="true"></i>' +
+                +'</button>'
+                + '</div>'
+                + '</div>');
+                totalAnswerLblElm.i nnerHTML = totalAnswerVal + 1;*/
             }
         }
 
         function removeRightAnswer() {
-          $("#f-filling-question").submit();
-          /* $('#right-answer-content__item' + index).remove();
-          let totalAnswerLblElm = $('.total-right-answer__value')[0];
-          let totalAnswer = parseInt(totalAnswerLblElm.textContent);
-          totalAnswerLblElm.innerHTML = totalAnswer - 1; */
+            $("#f-filling-question").submit();
+            /* $('#right-answer-content__item' + index).remove();
+            let totalAnswerLblElm = $('.total-right-answer__value')[0];
+            let totalAnswer = parseInt(totalAnswerLblElm.textContent);
+            totalAnswerLblElm.innerHTML = totalAnswer - 1; */
         }
 
     </script>

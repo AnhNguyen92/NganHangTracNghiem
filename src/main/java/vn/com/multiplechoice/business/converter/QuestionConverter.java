@@ -77,13 +77,15 @@ public class QuestionConverter {
     }
 
     private void mapFillingQuestion(Question entity, MCQDto mcqDto) {
-        String permutationPosLst = mcqDto.getQuestionAnswerDtos().stream().filter(QuestionAnswerDto::isRandomPosition)
-                .map(answer -> answerLabelList[answer.getOrder()]).collect(Collectors.joining(","));
+        String permutationPosLst = mcqDto.getRightAnswerDtos().stream().filter(QuestionAnswerDto::isRandomPosition)
+                .map(answer -> answerLabelList[answer.getOrder() + 1]).collect(Collectors.joining(","));
         entity.setAnswerPemutation(permutationPosLst);
-        saveQuestionAnswer(entity, mcqDto.getQuestionAnswerDtos());
-        String rightAnswerStr = mcqDto.getQuestionAnswerDtos().stream().filter(QuestionAnswerDto::getTrueAnswer)
-                .map(answer -> answerLabelList[answer.getOrder()]).collect(Collectors.joining(","));
-        entity.setRightAnswer(rightAnswerStr);
+        List<QuestionAnswerDto> questionDtos = mcqDto.getLeftAnswerDtos();
+        questionDtos.addAll(mcqDto.getRightAnswerDtos());
+        saveQuestionAnswer(entity, questionDtos);
+        entity.setScore(mcqDto.getLeftAnswerDtos().get(0).getScore() + "");
+        entity.setRightAnswer("A");
+        
     }
 
     private void mapUnderlineQuestion(Question entity, MCQDto mcqDto) {

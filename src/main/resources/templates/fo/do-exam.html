@@ -1,16 +1,18 @@
 <!DOCTYPE HTML>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-<title>Làm đề thi</title>
+    <title>Làm đề thi</title>
 
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<link rel="shortcut icon" th:href="@{/imgs/fo-favicon.ico}">
-<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} " />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+    <link rel="shortcut icon" th:href="@{/imgs/fo-favicon.ico}">
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} " />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
 </head>
+
 <body>
     <!-- navbar -->
     <header th:replace="fragments/fo/navbar.html :: navbar "> </header>
@@ -127,26 +129,28 @@
     </footer>
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
     <script th:src="@{/webjars/popper.js/1.12.9-1/umd/popper.min.js}"></script>
     <script th:src="@{/webjars/bootstrap/4.0.0-2/js/bootstrap.min.js}"></script>
     <script th:src="@{/assets/jquery-countdown/jquery.countdown.min.js}"></script>
 
     <script th:inline="javascript">
-	    let executeTime = [[${executeTime}]];
-    	let timeParts = executeTime.split(':');
-    	let endDate = new Date();
-    	endDate.setHours(endDate.getHours() + parseInt(timeParts[0]));
-    	endDate.setMinutes(endDate.getMinutes() + parseInt(timeParts[1]));
+        let executeTime = [[${ executeTime }]];
+        let timeParts = executeTime.split(':');
+        let endDate = new Date();
+        endDate.setHours(endDate.getHours() + parseInt(timeParts[0]));
+        endDate.setMinutes(endDate.getMinutes() + parseInt(timeParts[1]));
         $('#clock').countdown(endDate).on('update.countdown', function (event) {
             let $this = $(this).html(event.strftime(''
                 + '<span class="h1 font-weight-bold">%H</span> Giờ'
                 + '<span class="h1 font-weight-bold">%M</span> Phút'
                 + '<span class="h1 font-weight-bold">%S</span> Giây'));
-        }).on('finish.countdown', function(event){
-          alert("need to submit form here");
+        }).on('finish.countdown', function (event) {
+            alert("need to submit form here");
         });
-</script>
+    </script>
 
 </body>
+
 </html>

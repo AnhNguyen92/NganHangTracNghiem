@@ -73,8 +73,11 @@ public class FillingQuestionController {
     @RequestMapping(value = "/filling", params = { "add-right-answer" })
     public String addRightAnswer(Model model, MCQDto mcqDto, final BindingResult result, final HttpServletRequest req) {
         List<QuestionAnswerDto> rightAnswerDtos = mcqDto.getRightAnswerDtos();
-        if (rightAnswerDtos == null) {
-        	rightAnswerDtos = new ArrayList<>();
+        List<QuestionAnswerDto> leftAnswerDtos = mcqDto.getLeftAnswerDtos();
+        for (int i = 0; i < leftAnswerDtos.size(); i++) {
+            QuestionAnswerDto questionAnswerDto = leftAnswerDtos.get(i);
+            questionAnswerDto.setOrder(i);
+            questionAnswerDto.setAnswerLabel((i + 1) + "");
         }
         for (int i = 0; i < rightAnswerDtos.size(); i++) {
             QuestionAnswerDto questionAnswerDto = rightAnswerDtos.get(i);
@@ -128,14 +131,14 @@ public class FillingQuestionController {
         mcqDto.setType(QuestionType.GROUP_FILLING);
         List<QuestionAnswerDto> leftAnswerDtos = new ArrayList<>();
         List<QuestionAnswerDto> rightAnswerDtos = new ArrayList<>();
-//        for (int i = 0; i < 4; i++) {
-//            QuestionAnswerDto questionAnswerDto = new QuestionAnswerDto();
-//            questionAnswerDto.setAnswerLabel((i + 1) + "");
-//            questionAnswerDto.setOrder(i);
-//            questionAnswerDto.setLeftSide(true);
-//            questionAnswerDto.setScore(0);
-//            leftAnswerDtos.add(questionAnswerDto);
-//        }
+        for (int i = 0; i < 4; i++) {
+            QuestionAnswerDto questionAnswerDto = new QuestionAnswerDto();
+            questionAnswerDto.setAnswerLabel((i + 1) + "");
+            questionAnswerDto.setOrder(i);
+            questionAnswerDto.setLeftSide(true);
+            questionAnswerDto.setScore(0);
+            leftAnswerDtos.add(questionAnswerDto);
+        }
 //        for (int i = 0; i < 4; i++) {
 //            QuestionAnswerDto questionAnswerDto = new QuestionAnswerDto();
 //            questionAnswerDto.setAnswerLabel(ANSWER_LABELS[i]);
