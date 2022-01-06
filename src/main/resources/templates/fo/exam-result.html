@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>Kết quả làm đề thi</title>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="shortcut icon" th:href="@{/imgs/fo-favicon.ico}">
+<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} " />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+</head>
+
+<body>
+    <!-- navbar -->
+    <header th:replace="fragments/fo/navbar.html :: navbar "> </header>
+    <!-- end navbar -->
+
+    <div class="container">
+        <div>
+            <h3>Kết quả</h3>
+        </div>
+        <div>
+        
+        </div>
+    </div>
+
+    <!-- end content -->
+    <footer th:replace="fragments/fo/footer.html :: footer">
+        <p>2021 mqconline.com</p>
+    </footer>
+
+</body>
+
+</html>
