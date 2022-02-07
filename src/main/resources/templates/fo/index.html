@@ -319,7 +319,9 @@
         maxDate: new Date(),
         locale: {
             format: 'DD/MM/YYYY'
-        }
+        },
+        startDate: moment($('input[name="dateRange.fromDate"]').val(), 'DD/MM/YYYY'),
+        endDate: moment($('input[name="dateRange.toDate"]').val(), 'DD/MM/YYYY')
     });
 
     $dateRange.on('apply.daterangepicker', function (ev, picker) {
