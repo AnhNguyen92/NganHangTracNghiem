@@ -71,7 +71,7 @@
                         </div>
                         <div class="ml-auto py-2">
                             <button class="btn-add-answer" id="btn-add-answer" type="submit" name="add-answer"
-                                onclick="return addMoreAnswer()">
+                                onclick="addMoreAnswer()">
                                 <i class="fa fa-plus" aria-hidden="true" title="Thêm đáp án"></i>
                             </button>
                         </div>
@@ -102,7 +102,7 @@
                                 <button class="btn-swap-answer"
                                     th:id=" 'btn-swap-pos-' + ${questionAnswerDtoStat.index} " type="button"
                                     title="Bỏ hoán vị vị trí"
-                                    th:onclick="|return changePermutation(${questionAnswerDtoStat.index})|">
+                                    th:onclick="|changePermutation(${questionAnswerDtoStat.index})|">
                                     <i class="fa fa-exchange" aria-hidden="true"></i>
                                 </button>
                                 <input type="checkbox" hidden="true"
@@ -112,7 +112,7 @@
                             <div class="ml-2">
                                 <button class="btn-delete-answer" type="submit" name="remove-answer"
                                     title="Xóa bỏ câu trả lời" th:value="${questionAnswerDtoStat.index}"
-                                    onclick="return removeAnswer()">
+                                    onclick="removeAnswer()">
                                     <i class="fa fa-window-close" aria-hidden="true"></i>
                                 </button>
                             </div>

@@ -81,7 +81,7 @@ public class QuestionConverter {
         saveQuestionAnswer(entity, questionDtos);
         entity.setScore(mcqDto.getLeftAnswerDtos().get(0).getScore() + "");
         entity.setRightAnswer("A");
-        
+
     }
 
     private void mapUnderlineQuestion(Question entity, MCQDto mcqDto) {
@@ -98,8 +98,8 @@ public class QuestionConverter {
         String permutationPosLst = mcqDto.getQuestionAnswerDtos().stream().filter(QuestionAnswerDto::isRandomPosition)
                 .map(answer -> ANSWER_LABEL_LIST[answer.getOrder()]).collect(Collectors.joining(","));
         entity.setAnswerPemutation(permutationPosLst);
-        entity.setRightAnswer(mcqDto.getQuestionAnswerDtos().stream().filter(QuestionAnswerDto::getTrueAnswer).map(answer -> ANSWER_LABEL_LIST[answer.getOrder()])
-                .collect(Collectors.joining(",")));
+        entity.setRightAnswer(mcqDto.getQuestionAnswerDtos().stream().filter(QuestionAnswerDto::getTrueAnswer)
+                .map(answer -> ANSWER_LABEL_LIST[answer.getOrder()]).collect(Collectors.joining(",")));
         entity.setScore(mcqDto.getQuestionAnswerDtos().stream().map(answerDto -> String.valueOf(answerDto.getScore())).collect(Collectors.joining(",")));
     }
 
@@ -116,16 +116,20 @@ public class QuestionConverter {
     }
 
     private void mapMatchingAnswerQuestion(Question entity, MCQDto mcqDto) {
-        String permutationPosLst = mcqDto.getRightAnswerDtos().stream().filter(QuestionAnswerDto::isRandomPosition)
-                .map(answer -> ANSWER_LABEL_LIST[answer.getOrder()]).collect(Collectors.joining(","));
+        // score sai
+        List<QuestionAnswerDto> rightAnswerDtos = mcqDto.getRightAnswerDtos();
+        List<QuestionAnswerDto> leftAnswerDtos = mcqDto.getLeftAnswerDtos();
+        String permutationPosLst = rightAnswerDtos.stream().filter(QuestionAnswerDto::isRandomPosition)
+                .map(answer -> ANSWER_LABEL_LIST[leftAnswerDtos.size() + answer.getOrder()]).collect(Collectors.joining(","));
         entity.setAnswerPemutation(permutationPosLst);
-        List<QuestionAnswerDto> questionAnswerDtos = mcqDto.getLeftAnswerDtos();
-        questionAnswerDtos.addAll(mcqDto.getRightAnswerDtos());
+        entity.setScore(mcqDto.getLeftAnswerDtos().stream().map(answerDto -> String.valueOf(answerDto.getScore())).collect(Collectors.joining(",")));
+        entity.setRightAnswer(rightAnswerDtos.stream().map(answer -> ANSWER_LABEL_LIST[mcqDto.getLeftAnswerDtos().size() + answer.getOrder()])
+                .collect(Collectors.joining(",")));
+        List<QuestionAnswerDto> questionAnswerDtos = new ArrayList<>();
+        questionAnswerDtos.addAll(mcqDto.getLeftAnswerDtos());
+        questionAnswerDtos.addAll(rightAnswerDtos);
         saveQuestionAnswer(entity, questionAnswerDtos);
-        entity.setScore(questionAnswerDtos.stream().filter(answerDto -> answerDto.getOrder() < mcqDto.getLeftAnswerDtos().size())
-                .map(answerDto -> String.valueOf(answerDto.getScore())).collect(Collectors.joining(",")));
-        entity.setRightAnswer(questionAnswerDtos.stream().filter(answerDto -> answerDto.getOrder() < mcqDto.getLeftAnswerDtos().size())
-                .map(answer -> ANSWER_LABEL_LIST[answer.getOrder()]).collect(Collectors.joining(",")));
+
     }
 
     private void mapMultipleAnswerQuestion(Question entity, MCQDto mcqDto) {
@@ -133,8 +137,8 @@ public class QuestionConverter {
                 .map(answer -> ANSWER_LABEL_LIST[answer.getOrder()]).collect(Collectors.joining(","));
         entity.setAnswerPemutation(permutationPosLst);
         saveQuestionAnswer(entity, mcqDto.getQuestionAnswerDtos());
-        entity.setRightAnswer(mcqDto.getQuestionAnswerDtos().stream().filter(QuestionAnswerDto::getTrueAnswer).map(answer -> ANSWER_LABEL_LIST[answer.getOrder()])
-                .collect(Collectors.joining(",")));
+        entity.setRightAnswer(mcqDto.getQuestionAnswerDtos().stream().filter(QuestionAnswerDto::getTrueAnswer)
+                .map(answer -> ANSWER_LABEL_LIST[answer.getOrder()]).collect(Collectors.joining(",")));
         entity.setScore(mcqDto.getQuestionAnswerDtos().stream().map(answerDto -> String.valueOf(answerDto.getScore())).collect(Collectors.joining(",")));
     }
 

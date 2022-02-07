@@ -124,7 +124,7 @@ public class MCQController {
     @RequestMapping("/multiple-ans")
     public String createMultipleAnswerQuestion(Model model, MCQDto mcqDto) {
         log.info("===== GET multiple answer question form =====");
-        mcqDto.setType(QuestionType.ONE_ANSWER);
+        mcqDto.setType(QuestionType.MULTIPLE_ANSWER);
         List<QuestionAnswerDto> questionAnswerDtos = mcqDto.getQuestionAnswerDtos();
         if (questionAnswerDtos == null) {
             questionAnswerDtos = new ArrayList<>();
@@ -179,7 +179,8 @@ public class MCQController {
         log.info("===== START create multiple answer question form =====");
         Question question = questionConverter.toEntity(mcqDto);
         
-        questionService.save(question);
+        //questionService.save(question);
+       log.info("{}",question);
         log.info("===== CREATE multiple answer question form END =====");
 
         return REDIRECT_FO_INDEX;

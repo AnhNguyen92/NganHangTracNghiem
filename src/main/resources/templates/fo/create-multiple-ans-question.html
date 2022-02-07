@@ -29,7 +29,7 @@
     <!-- content -->
     <div class="container mt-3">
         <div class="page-title">TẠO MỚI CÂU HỎI NHIỀU ĐÁP ÁN</div>
-        <form action="#" id="f-one-ans-question" th:action="@{/fo/questions/one-ans}" method="post"
+        <form action="#" id="f-one-ans-question" th:action="@{/fo/questions/multiple-ans}" method="post"
             th:object="${mcqDto}">
             <div class="mcq">
                 <div>
@@ -98,9 +98,15 @@
                                     th:field="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].score}" />
                             </div>
                             <div class="ml-2">
-                                <button class="btn-swap-answer">
+                                <button class="btn-swap-answer"
+                                    th:id=" 'btn-swap-pos-' + ${questionAnswerDtoStat.index} " type="button"
+                                    title="Bỏ hoán vị vị trí"
+                                    th:onclick="|changePermutation(${questionAnswerDtoStat.index})|">
                                     <i class="fa fa-exchange" aria-hidden="true"></i>
                                 </button>
+                                <input type="checkbox" hidden="true"
+                                    th:id=" 'swap-pos-' + ${questionAnswerDtoStat.index}" name="active"
+                                    th:field="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].randomPosition}" />
                             </div>
                             <div class="ml-2">
                                 <button class="btn-delete-answer" type="submit" name="remove-answer"
@@ -155,6 +161,7 @@
             } else {
                 $("#f-one-ans-question").submit();
             }
+            
         }
 
         function removeAnswer() {
@@ -164,6 +171,23 @@
                 return false;
             } else {
                 $("#f-one-ans-question").submit();
+            }
+        }
+        
+        function changePermutation(inputId) {
+        	event.preventDefault();
+            let inputElm = $("#swap-pos-" + inputId);
+            if (inputElm.is(':checked')) {
+                $(inputElm).prop('checked', false);
+            } else {
+                $(inputElm).prop('checked', true);
+            }
+
+            let btnSwapTitle = $("#btn-swap-pos-" + inputId).attr("title");
+            if (btnSwapTitle == "Bỏ hoán vị vị trí") {
+                $("#btn-swap-pos-" + inputId).prop('title', 'Cho phép hoán vị vị trí');
+            } else {
+                $("#btn-swap-pos-" + inputId).prop('title', 'Bỏ hoán vị vị trí');
             }
         }
     </script>
