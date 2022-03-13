@@ -34,7 +34,7 @@ public class QuestionConverter {
         dto.setAnswerSuggestion(question.getSuggest());
         dto.setContent(question.getContent());
         dto.setAnswerSuggestion(question.getSuggest());
-        QuestionType questionType = question.getQuestionType();
+        QuestionType questionType = question.getType();
         dto.setType(questionType);
         if (QuestionType.ONE_ANSWER.equals(questionType)) {
             dto.setQuestionAnswerDtos(convertQuestionAnswer(question));
@@ -48,7 +48,7 @@ public class QuestionConverter {
 
         User user = onlineUserUtil.getOnlineUser();
         entity.setUser(user);
-        entity.setQuestionType(mcqDto.getType());
+        entity.setType(mcqDto.getType());
         entity.setContent(mcqDto.getContent());
         entity.setSuggest(mcqDto.getAnswerSuggestion());
         if (QuestionType.FILLING.equals(mcqDto.getType())) {

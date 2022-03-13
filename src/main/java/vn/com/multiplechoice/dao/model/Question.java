@@ -73,7 +73,7 @@ public class Question implements Serializable {
 
 	@Column(name = "question_type")
 	@Enumerated(EnumType.STRING)
-	private QuestionType questionType;
+	private QuestionType type;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
@@ -202,12 +202,12 @@ public class Question implements Serializable {
 		this.answerPemutation = answerPemutation;
 	}
 
-	public QuestionType getQuestionType() {
-		return questionType;
+	public QuestionType getType() {
+		return type;
 	}
 
-	public void setQuestionType(QuestionType questionType) {
-		this.questionType = questionType;
+	public void setType(QuestionType type) {
+		this.type = type;
 	}
 
 	public User getUser() {

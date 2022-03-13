@@ -7,6 +7,9 @@
 <body>
     <th:block th:fragment="question" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
         <div id="question-detail">
+            <span th:if="${question.type == T(vn.com.multiplechoice.dao.model.enums.QuestionType).MATCHING}" th:text="${question.type}">
+                
+            </span>
             <div class="frm-content">
                 <p class="font-weight-bold" th:utext="${question.content}"></p>
             </div>
