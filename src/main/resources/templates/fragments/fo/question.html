@@ -12,137 +12,32 @@
             </div>
             <div class="question-answer">
                 <div th:if="${question.type == T(vn.com.multiplechoice.dao.model.enums.QuestionType).MATCHING}">
-                    <span th:text="${question.rightAnswer}"></span>
                     <div class="row">
                         <div class="col-6">
-                            <!-- <div class="flex-row" th:if="${question.answerA != null and !#strings.contains(question.rightAnswer, 'A')}">
-                                <div class="ml-2">
-                                    <p th:text="'1. ' + ${question.answerA}">
+                            <div class="flex-row">
+                                <div class="ml-2"
+                                    th:each="leftAnswerDto, leftAnswerDtoStat : *{question.leftAnswerDtos}">
+                                    <p th:text="*{leftAnswerDto.answerLabel} + '. ' + *{leftAnswerDto.answerContent}">
                                 </div>
                             </div>
-                            <div class="flex-row" th:if="${question.answerB != null and !#strings.contains(question.rightAnswer, 'B')}">
-                                <div class="ml-2">
-                                    <p th:text="'2. ' + ${question.answerB}">
-                                </div>
-                            </div>
-                            <div class="flex-row" th:if="${question.answerC != null and !#strings.contains(question.rightAnswer, 'C')}">
-                                <div class="ml-2">
-                                    <p th:text="'3. ' + ${question.answerC}">
-                                </div>
-                            </div>
-                            <div class="flex-row" th:if="${question.answerD != null and !#strings.contains(question.rightAnswer, 'D')}">
-                                <div class="ml-2">
-                                    <p th:text="'4. ' + ${question.answerD}">
-                                </div>
-                            </div>
-                            <div class="flex-row" th:if="${question.answerE != null and !#strings.contains(question.rightAnswer, 'E')}">
-                                <div class="ml-2">
-                                    <p th:text="'5. ' + ${question.answerE}">
-                                </div>
-                            </div>
-                            <div class="flex-row" th:if="${question.answerF != null and !#strings.contains(question.rightAnswer, 'F')}">
-                                <div class="ml-2">
-                                    <p th:text="'6. ' + ${question.answerF}">
-                                </div>
-                            </div>
-                            <div class="flex-row" th:if="${question.answerG != null and !#strings.contains(question.rightAnswer, 'G')}">
-                                <div class="ml-2">
-                                    <p th:text="'7. ' + ${question.answerG}">
-                                </div>
-                            </div>
-                            <div class="flex-row" th:if="${question.answerH != null and !#strings.contains(question.rightAnswer, 'H')}">
-                                <div class="ml-2">
-                                    <p th:text="'8. ' + ${question.answerH}">
-                                </div>
-                            </div>
-                        </div> -->
+                        </div>
                         <div class="col-6">
-                          <div class="flex-row" th:if="${question.answerA != null and #strings.contains(question.rightAnswer, 'A')}">
-                                <div class="ml-2">
-                                    <p th:text="${#strings.indexOf(question.rightAnswer, 'A')} + '. ' + ${question.answerA}">
-                                </div>
-                            </div>
-                            <div class="flex-row" th:if="${question.answerB != null and #strings.contains(question.rightAnswer, 'B')}">
-                                <div class="ml-2">
-                                    <p th:text="${#strings.indexOf(question.rightAnswer, 'B')} + '. ' + ${question.answerB}">
-                                </div>
-                            </div>
-                            <div class="flex-row" th:if="${question.answerC != null and #strings.contains(question.rightAnswer, 'C')}">
-                                <div class="ml-2">
-                                    <p th:text="${#strings.indexOf(question.rightAnswer, 'C')} + '. ' + ${question.answerC}">
-                                </div>
-                            </div>
-                            <div class="flex-row" th:if="${question.answerD != null and #strings.contains(question.rightAnswer, 'D')}">
-                                <div class="ml-2">
-                                    <p th:text="${#strings.indexOf(question.rightAnswer, 'D')} + '. ' + ${question.answerD}">
-                                </div>
-                            </div>
-                            <div class="flex-row" th:if="${question.answerE != null and #strings.contains(question.rightAnswer, 'E')}">
-                                <div class="ml-2">
-                                    <p th:text="${#strings.indexOf(question.rightAnswer, 'E')} + '. ' + ${question.answerE}">
-                                </div>
-                            </div>
-                            <div class="flex-row" th:if="${question.answerF != null and #strings.contains(question.rightAnswer, 'F')}">
-                                <div class="ml-2">
-                                    <p th:text="${#strings.indexOf(question.rightAnswer, 'F')} + '. ' + ${question.answerF}">
-                                </div>
-                            </div>
-                            <div class="flex-row" th:if="${question.answerG != null and #strings.contains(question.rightAnswer, 'G')}">
-                                <div class="ml-2">
-                                    <p th:text="${#strings.indexOf(question.rightAnswer, 'G')} + '. ' + ${question.answerG}">
-                                </div>
-                            </div>
-                            <div class="flex-row" th:if="${question.answerH != null and #strings.contains(question.rightAnswer, 'H')}">
-                                <div class="ml-2">
-                                    <p th:text=d>
+                            <div class="flex-row">
+                                <div class="ml-2"
+                                    th:each="rightAnswerDto, rightAnswerDtoStat : *{question.rightAnswerDtos}">
+                                    <p th:text="*{rightAnswerDto.answerLabel} + '. ' + *{rightAnswerDto.answerContent}">
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div th:unless="${question.type == T(vn.com.multiplechoice.dao.model.enums.QuestionType).MATCHING}">
-                    <div class="flex-row" th:if="${question.answerA} != null">
-                        <div class="ml-2">
-                            <p th:text="'A. ' + ${question.answerA}">
+                        <div class="flex-row">
+                            <div class="ml-2" th:each="answerDto, answerDtoStat : *{question.questionAnswerDtos}">
+                                <p th:text="*{answerDto.answerLabel} + '. ' + *{answerDto.answerContent}">
+                            </div>
                         </div>
                     </div>
-                    <div class="flex-row" th:if="${question.answerB} != null">
-                        <div class="ml-2">
-                            <p th:text="'B. ' + ${question.answerB}">
-                        </div>
-                    </div>
-                    <div class="flex-row" th:if="${question.answerC} != null">
-                        <div class="ml-2">
-                            <p th:text="'C. ' + ${question.answerC}">
-                        </div>
-                    </div>
-                    <div class="flex-row" th:if="${question.answerD} != null">
-                        <div class="ml-2">
-                            <p th:text="'D. ' + ${question.answerD}">
-                        </div>
-                    </div>
-                    <div class="flex-row" th:if="${question.answerE} != null">
-                        <div class="ml-2">
-                            <p th:text="'E. ' + ${question.answerE}">
-                        </div>
-                    </div>
-                    <div class="flex-row" th:if="${question.answerF} != null">
-                        <div class="ml-2">
-                            <p th:text="'F. ' + ${question.answerF}">
-                        </div>
-                    </div>
-                    <div class="flex-row" th:if="${question.answerG} != null">
-                        <div class="ml-2">
-                            <p th:text="'G. ' + ${question.answerG}">
-                        </div>
-                    </div>
-                    <div class="flex-row" th:if="${question.answerH} != null">
-                        <div class="ml-2">
-                            <p th:text="'H. ' + ${question.answerH}">
-                        </div>
-                    </div>
-                </div>
-
             </div>
         </div>
     </th:block>

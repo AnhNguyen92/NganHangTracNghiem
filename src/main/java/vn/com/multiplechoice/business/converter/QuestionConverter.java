@@ -64,7 +64,7 @@ public class QuestionConverter {
             righttAnswerDtos.add(answerDto);
         }
         // map answer B
-        if (question.getAnswerB() != null) {
+        if (question.getAnswerB() != null && question.getRightAnswer().contains("B")) {
             answerDto = new QuestionAnswerDto();
             answerDto.setOrder(order);
             answerDto.setAnswerLabel(ANSWER_LABEL_LIST[order++]);
@@ -74,7 +74,7 @@ public class QuestionConverter {
             righttAnswerDtos.add(answerDto);
         }
         // map answer C
-        if (question.getAnswerC() != null) {
+        if (question.getAnswerC() != null && question.getRightAnswer().contains("C")) {
             answerDto = new QuestionAnswerDto();
             answerDto.setOrder(order);
             answerDto.setAnswerLabel(ANSWER_LABEL_LIST[order++]);
@@ -84,7 +84,7 @@ public class QuestionConverter {
             righttAnswerDtos.add(answerDto);
         }
         // map answer D
-        if (question.getAnswerD() != null) {
+        if (question.getAnswerD() != null && question.getRightAnswer().contains("D")) {
             answerDto = new QuestionAnswerDto();
             answerDto.setOrder(order);
             answerDto.setAnswerLabel(ANSWER_LABEL_LIST[order++]);
@@ -94,7 +94,7 @@ public class QuestionConverter {
             righttAnswerDtos.add(answerDto);
         }
         // map answer E
-        if (question.getAnswerE() != null) {
+        if (question.getAnswerE() != null && question.getRightAnswer().contains("E")) {
             answerDto = new QuestionAnswerDto();
             answerDto.setOrder(order);
             answerDto.setAnswerLabel(ANSWER_LABEL_LIST[order++]);
@@ -104,7 +104,7 @@ public class QuestionConverter {
             righttAnswerDtos.add(answerDto);
         }
         // map answer F
-        if (question.getAnswerF() != null) {
+        if (question.getAnswerF() != null && question.getRightAnswer().contains("F")) {
             answerDto = new QuestionAnswerDto();
             answerDto.setOrder(order);
             answerDto.setAnswerLabel(ANSWER_LABEL_LIST[order++]);
@@ -114,7 +114,7 @@ public class QuestionConverter {
             righttAnswerDtos.add(answerDto);
         }
         // map answer G
-        if (question.getAnswerG() != null) {
+        if (question.getAnswerG() != null && question.getRightAnswer().contains("G")) {
             answerDto = new QuestionAnswerDto();
             answerDto.setOrder(order);
             answerDto.setAnswerLabel(ANSWER_LABEL_LIST[order++]);
@@ -124,7 +124,7 @@ public class QuestionConverter {
             righttAnswerDtos.add(answerDto);
         }
         // map answer H
-        if (question.getAnswerH() != null) {
+        if (question.getAnswerH() != null && question.getRightAnswer().contains("H")) {
             answerDto = new QuestionAnswerDto();
             answerDto.setOrder(order);
             answerDto.setAnswerLabel(ANSWER_LABEL_LIST[order++]);
