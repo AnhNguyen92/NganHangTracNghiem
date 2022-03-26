@@ -116,6 +116,7 @@ public class MCQController {
     @GetMapping("/fragment/{id}")
     public String questionFragmentDetail(Model model, @PathVariable long id) {
     	Question question = questionService.findOne(id);
+    	MCQDto mcqDto = questionConverter.toDto(question);
     	model.addAttribute("question", question);
     	
     	return "fragments/fo/question";
