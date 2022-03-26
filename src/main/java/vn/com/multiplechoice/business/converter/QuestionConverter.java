@@ -38,7 +38,7 @@ public class QuestionConverter {
 		dto.setType(questionType);
 		if (QuestionType.MATCHING.equals(questionType)) {
 			dto.setLeftAnswerDtos(convertLeftAnswers(question));
-			dto.setLeftAnswerDtos(convertRightAnswers(question));
+			dto.setRightAnswerDtos(convertRightAnswers(question));
 		} else {
 			dto.setQuestionAnswerDtos(convertQuestionAnswer(question));
 		}
@@ -47,14 +47,146 @@ public class QuestionConverter {
 	}
 
 	private List<QuestionAnswerDto> convertRightAnswers(Question question) {
-		List<QuestionAnswerDto> leftAnswerDtos = new ArrayList<>();
+		List<QuestionAnswerDto> righttAnswerDtos = new ArrayList<>();
+        QuestionAnswerDto answerDto;
 
-		return leftAnswerDtos;
+        int order = 0;
+        // map answer A
+        if (question.getAnswerA() != null && question.getRightAnswer().contains("A")) {
+            answerDto = new QuestionAnswerDto();
+            answerDto.setOrder(order);
+            answerDto.setAnswerLabel(ANSWER_LABEL_LIST[order++]);
+            answerDto.setLeftSide(true);
+            answerDto.setScore(100);
+            answerDto.setAnswerContent(question.getAnswerA());
+            answerDto.setTrueAnswer(question.getRightAnswer().contains("A"));
+            answerDto.setRandomPosition(question.getAnswerPemutation().contains("A"));
+            righttAnswerDtos.add(answerDto);
+        }
+        // map answer B
+        if (question.getAnswerB() != null) {
+            answerDto = new QuestionAnswerDto();
+            answerDto.setOrder(order);
+            answerDto.setAnswerLabel(ANSWER_LABEL_LIST[order++]);
+            answerDto.setAnswerContent(question.getAnswerB());
+            answerDto.setTrueAnswer(question.getRightAnswer().contains("B"));
+            answerDto.setRandomPosition(question.getAnswerPemutation().contains("B"));
+            righttAnswerDtos.add(answerDto);
+        }
+        // map answer C
+        if (question.getAnswerC() != null) {
+            answerDto = new QuestionAnswerDto();
+            answerDto.setOrder(order);
+            answerDto.setAnswerLabel(ANSWER_LABEL_LIST[order++]);
+            answerDto.setAnswerContent(question.getAnswerC());
+            answerDto.setTrueAnswer(question.getRightAnswer().contains("C"));
+            answerDto.setRandomPosition(question.getAnswerPemutation().contains("C"));
+            righttAnswerDtos.add(answerDto);
+        }
+        // map answer D
+        if (question.getAnswerD() != null) {
+            answerDto = new QuestionAnswerDto();
+            answerDto.setOrder(order);
+            answerDto.setAnswerLabel(ANSWER_LABEL_LIST[order++]);
+            answerDto.setAnswerContent(question.getAnswerD());
+            answerDto.setTrueAnswer(question.getRightAnswer().contains("D"));
+            answerDto.setRandomPosition(question.getAnswerPemutation().contains("D"));
+            righttAnswerDtos.add(answerDto);
+        }
+        // map answer E
+        if (question.getAnswerE() != null) {
+            answerDto = new QuestionAnswerDto();
+            answerDto.setOrder(order);
+            answerDto.setAnswerLabel(ANSWER_LABEL_LIST[order++]);
+            answerDto.setAnswerContent(question.getAnswerE());
+            answerDto.setTrueAnswer(question.getRightAnswer().contains("E"));
+            answerDto.setRandomPosition(question.getAnswerPemutation().contains("E"));
+            righttAnswerDtos.add(answerDto);
+        }
+        // map answer F
+        if (question.getAnswerF() != null) {
+            answerDto = new QuestionAnswerDto();
+            answerDto.setOrder(order);
+            answerDto.setAnswerLabel(ANSWER_LABEL_LIST[order++]);
+            answerDto.setAnswerContent(question.getAnswerF());
+            answerDto.setTrueAnswer(question.getRightAnswer().equals("F"));
+            answerDto.setRandomPosition(question.getAnswerPemutation().contains("F"));
+            righttAnswerDtos.add(answerDto);
+        }
+        // map answer G
+        if (question.getAnswerG() != null) {
+            answerDto = new QuestionAnswerDto();
+            answerDto.setOrder(order);
+            answerDto.setAnswerLabel(ANSWER_LABEL_LIST[order++]);
+            answerDto.setAnswerContent(question.getAnswerG());
+            answerDto.setTrueAnswer(question.getRightAnswer().equals("G"));
+            answerDto.setRandomPosition(question.getAnswerPemutation().contains("G"));
+            righttAnswerDtos.add(answerDto);
+        }
+        // map answer H
+        if (question.getAnswerH() != null) {
+            answerDto = new QuestionAnswerDto();
+            answerDto.setOrder(order);
+            answerDto.setAnswerLabel(ANSWER_LABEL_LIST[order++]);
+            answerDto.setAnswerContent(question.getAnswerH());
+            answerDto.setTrueAnswer(question.getRightAnswer().equals("H"));
+            answerDto.setRandomPosition(question.getAnswerPemutation().contains("H"));
+            righttAnswerDtos.add(answerDto);
+        }
+        
+		return righttAnswerDtos;
 	}
 
 	private List<QuestionAnswerDto> convertLeftAnswers(Question question) {
-		List<QuestionAnswerDto> rightAnswerDtos = new ArrayList<>();
-		return rightAnswerDtos;
+		List<QuestionAnswerDto> leftAnswerDtos = new ArrayList<>();
+		QuestionAnswerDto answerDto;
+
+        int order = 0;
+        // map answer A
+        if (question.getAnswerA() != null) {
+            answerDto = new QuestionAnswerDto();
+            answerDto.setOrder(order++);
+            answerDto.setAnswerLabel("" + order);
+            answerDto.setLeftSide(question.getType() == QuestionType.MATCHING && question.getRightAnswer().contains("A"));
+            answerDto.setLeftSide(question.getType() == QuestionType.MATCHING && question.getRightAnswer().contains("A"));
+            answerDto.setScore(100);
+            answerDto.setAnswerContent(question.getAnswerA());
+            answerDto.setTrueAnswer(question.getRightAnswer().contains("A"));
+            answerDto.setRandomPosition(question.getAnswerPemutation().contains("A"));
+            leftAnswerDtos.add(answerDto);
+        }
+        // map answer B
+        if (question.getAnswerB() != null) {
+            answerDto = new QuestionAnswerDto();
+            answerDto.setOrder(order++);
+            answerDto.setAnswerLabel("" + order);
+            answerDto.setAnswerContent(question.getAnswerB());
+            answerDto.setTrueAnswer(question.getRightAnswer().contains("B"));
+            answerDto.setRandomPosition(question.getAnswerPemutation().contains("B"));
+            leftAnswerDtos.add(answerDto);
+        }
+        // map answer C
+        if (question.getAnswerC() != null) {
+            answerDto = new QuestionAnswerDto();
+            answerDto.setOrder(order++);
+            answerDto.setAnswerLabel("" + order);
+            answerDto.setAnswerContent(question.getAnswerC());
+            answerDto.setTrueAnswer(question.getRightAnswer().contains("C"));
+            answerDto.setRandomPosition(question.getAnswerPemutation().contains("C"));
+            leftAnswerDtos.add(answerDto);
+        }
+        // map answer D
+        if (question.getAnswerD() != null) {
+            answerDto = new QuestionAnswerDto();
+            answerDto.setOrder(order++);
+            answerDto.setAnswerLabel("" + order);
+            answerDto.setAnswerContent(question.getAnswerD());
+            answerDto.setTrueAnswer(question.getRightAnswer().contains("D"));
+            answerDto.setRandomPosition(question.getAnswerPemutation().contains("D"));
+            leftAnswerDtos.add(answerDto);
+        }
+        
+		return leftAnswerDtos;
 	}
 
 	public Question toEntity(MCQDto mcqDto) {
@@ -68,7 +200,7 @@ public class QuestionConverter {
 		if (QuestionType.FILLING.equals(mcqDto.getType())) {
 			mapFillingQuestion(entity, mcqDto);
 		} else if (QuestionType.GROUP_FILLING.equals(mcqDto.getType())) {
-
+		    // not implement yet
 		} else if (QuestionType.MATCHING.equals(mcqDto.getType())) {
 			mapMatchingAnswerQuestion(entity, mcqDto);
 		} else if (QuestionType.MULTIPLE_ANSWER.equals(mcqDto.getType())) {
@@ -205,6 +337,7 @@ public class QuestionConverter {
 
 	private List<QuestionAnswerDto> convertQuestionAnswer(Question question) {
 		List<QuestionAnswerDto> questionAnswerDtos = new ArrayList<>();
+	    
 		QuestionAnswerDto answerDto;
 
 		int order = 0;
