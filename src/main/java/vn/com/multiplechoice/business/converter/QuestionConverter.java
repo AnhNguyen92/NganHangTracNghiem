@@ -51,18 +51,7 @@ public class QuestionConverter {
         QuestionAnswerDto answerDto;
 
         int order = 0;
-        // map answer A
-        if (question.getAnswerA() != null && question.getRightAnswer().contains("A")) {
-            answerDto = new QuestionAnswerDto();
-            answerDto.setOrder(order);
-            answerDto.setAnswerLabel(ANSWER_LABEL_LIST[order++]);
-            answerDto.setLeftSide(true);
-            answerDto.setScore(100);
-            answerDto.setAnswerContent(question.getAnswerA());
-            answerDto.setTrueAnswer(question.getRightAnswer().contains("A"));
-            answerDto.setRandomPosition(question.getAnswerPemutation().contains("A"));
-            righttAnswerDtos.add(answerDto);
-        }
+        
         // map answer B
         if (question.getAnswerB() != null && question.getRightAnswer().contains("B")) {
             answerDto = new QuestionAnswerDto();
