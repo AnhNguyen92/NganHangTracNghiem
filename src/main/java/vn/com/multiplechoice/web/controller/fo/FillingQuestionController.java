@@ -116,7 +116,7 @@ public class FillingQuestionController {
         log.info("===== START create filling question form =====");
         
         Question question = questionConverter.toEntity(mcqDto);
-        //questionService.save(question);
+        questionService.save(question);
 
         log.info("===== CREATE filling question form END =====");
 

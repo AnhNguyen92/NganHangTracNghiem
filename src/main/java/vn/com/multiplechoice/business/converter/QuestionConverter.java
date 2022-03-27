@@ -219,12 +219,13 @@ public class QuestionConverter {
 	}
 
 	private void mapFillingQuestion(Question entity, MCQDto mcqDto) {
-		String permutationPosLst = mcqDto.getRightAnswerDtos().stream().filter(QuestionAnswerDto::isRandomPosition)
-				.map(answer -> ANSWER_LABEL_LIST[answer.getOrder() + 1]).collect(Collectors.joining(","));
+		List<QuestionAnswerDto> questionAnswerDtos = new ArrayList<>();
+		questionAnswerDtos.addAll(mcqDto.getLeftAnswerDtos());
+		questionAnswerDtos.addAll(mcqDto.getRightAnswerDtos());
+		saveQuestionAnswer(entity, questionAnswerDtos);
+		String permutationPosLst = questionAnswerDtos.stream().filter(QuestionAnswerDto::isRandomPosition)
+				.map(answer -> ANSWER_LABEL_LIST[questionAnswerDtos.indexOf(answer)]).collect(Collectors.joining(","));
 		entity.setAnswerPemutation(permutationPosLst);
-		List<QuestionAnswerDto> questionDtos = mcqDto.getLeftAnswerDtos();
-		questionDtos.addAll(mcqDto.getRightAnswerDtos());
-		saveQuestionAnswer(entity, questionDtos);
 		entity.setScore(mcqDto.getLeftAnswerDtos().get(0).getScore() + "");
 		entity.setRightAnswer("A");
 
@@ -241,6 +242,7 @@ public class QuestionConverter {
 	}
 
 	private void mapTrueFalseQuestion(Question entity, MCQDto mcqDto) {
+		saveQuestionAnswer(entity, mcqDto.getQuestionAnswerDtos());
 		String permutationPosLst = mcqDto.getQuestionAnswerDtos().stream().filter(QuestionAnswerDto::isRandomPosition)
 				.map(answer -> ANSWER_LABEL_LIST[answer.getOrder()]).collect(Collectors.joining(","));
 		entity.setAnswerPemutation(permutationPosLst);
@@ -346,8 +348,6 @@ public class QuestionConverter {
 			answerDto = new QuestionAnswerDto();
 			answerDto.setOrder(order++);
 			answerDto.setAnswerLabel("A");
-			answerDto.setLeftSide(question.getType() == QuestionType.MATCHING && question.getRightAnswer().contains("A"));
-			answerDto.setLeftSide(question.getType() == QuestionType.MATCHING && question.getRightAnswer().contains("A"));
 			answerDto.setScore(100);
 			answerDto.setAnswerContent(question.getAnswerA());
 			answerDto.setTrueAnswer(question.getRightAnswer().contains("A"));
