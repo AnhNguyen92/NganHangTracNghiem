@@ -151,7 +151,7 @@
             callbacks: {
                 // keep unused variable $editable as original format of function
                 onChange: function (contents, $editable) {
-                    let contentHtml = $.parseHTML(contents)[0];
+                    let contentHtml = $.parseHTML(contents);
                     var children = $(contentHtml).find('u');
                     $('#answer').find('.answer-content').remove();
                     for (var i = 0; i < children.length; i++) {
@@ -182,7 +182,7 @@
                 '<input type="checkbox" class="checkbox-answer" value="true" onchange="updateTrueAnsVal(this)" title="Chọn đáp án đúng" id="questionAnswerDtos0.trueAnswer' + index + '" name="questionAnswerDtos[' + index + '].trueAnswer"><input type="hidden" name="_questionAnswerDtos[' + index + '].trueAnswer" value="on">' +
                 '</div>' +
                 '<div class="ml-4">' +
-                '<label class="answer__label">Đáp án ' + alphabetLblArr[index] + '</label>' +
+                '<label class="answer__label">' + alphabetLblArr[index] + '</label>' +
                 '</div>' +
                 '<div class="ml-4 w-100">' +
                 '<input type="text" title="Nội dung câu trả lời" class="answer__value" id="questionAnswerDtos' + index + '.answerContent" name="questionAnswerDtos[' + index + '].answerContent" value="' + answerValue + '">' +
