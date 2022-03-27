@@ -28,7 +28,6 @@ public class TrueFalseQuestionController {
 
     private static final Logger log = LoggerFactory.getLogger(TrueFalseQuestionController.class);
     
-    private static final String FO_INDEX = "fo/index";
     private static final String FO_CREATE_QUESTION_TRUE_FALSE = "/fo/create-true-false-question";
     private static final String[] ANSWER_LABELS =  new String[] {"A", "B", "C", "D", "E", "F", "G", "H"};
     private static final String MCQ_DTO = "mcqDto";
@@ -76,7 +75,7 @@ public class TrueFalseQuestionController {
         questionService.save(question);
         log.info("===== CREATE -yes no question form END =====");
 
-        return FO_INDEX;
+        return "redirect:/fo/index";
     }
     
     @RequestMapping("/true-false")
@@ -140,7 +139,7 @@ public class TrueFalseQuestionController {
         
         log.info("===== CREATE true false answer question form END =====");
 
-        return FO_INDEX;
+        return "redirect:/fo/index";
     }
     
 }
