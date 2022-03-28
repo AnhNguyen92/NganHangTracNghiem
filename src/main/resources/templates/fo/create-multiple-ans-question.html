@@ -93,6 +93,10 @@
                                 <input type="text" class="answer__value" title="Nội dung câu trả lời"
                                     th:field="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].answerContent}">
                             </div>
+                            <div>
+                                <input type="number" hidden="true"
+                                    th:field="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].order}">
+                            </div>
                             <div class="ml-2">
                                 <input class="answer__score" title="Điểm số cho đáp án" type="number"
                                     th:field="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].score}" />

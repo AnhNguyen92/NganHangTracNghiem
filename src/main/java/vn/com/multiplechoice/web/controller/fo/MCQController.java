@@ -153,7 +153,9 @@ public class MCQController {
         }
         QuestionAnswerDto newQuestionAnswerDto = new QuestionAnswerDto();
         newQuestionAnswerDto.setAnswerLabel(ANSWER_LABELS[mcqDto.getQuestionAnswerDtos().size()]);
+        newQuestionAnswerDto.setOrder(mcqDto.getQuestionAnswerDtos().size() - 1);
         mcqDto.getQuestionAnswerDtos().add(newQuestionAnswerDto);
+        
         model.addAttribute(MCQ_DTO, mcqDto);
 
         return FO_CREATE_MULTIPLE_ANS_QUESTION;
@@ -180,7 +182,7 @@ public class MCQController {
         log.info("===== START create multiple answer question form =====");
         Question question = questionConverter.toEntity(mcqDto);
         
-        //questionService.save(question);
+        questionService.save(question);
        log.info("{}",question);
         log.info("===== CREATE multiple answer question form END =====");
 
