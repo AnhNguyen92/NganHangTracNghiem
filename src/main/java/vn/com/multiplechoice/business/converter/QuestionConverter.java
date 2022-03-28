@@ -49,11 +49,11 @@ public class QuestionConverter {
 	private List<QuestionAnswerDto> convertRightAnswers(Question question) {
 		List<QuestionAnswerDto> righttAnswerDtos = new ArrayList<>();
         QuestionAnswerDto answerDto;
-
+        int totalLeftAnswer = question.getScore().replace(",", "").length();
         int order = 0;
         
         // map answer B
-        if (question.getAnswerB() != null && question.getRightAnswer().contains("B")) {
+        if (question.getAnswerB() != null && totalLeftAnswer < 2) {
             answerDto = new QuestionAnswerDto();
             answerDto.setOrder(order);
             answerDto.setAnswerLabel(ANSWER_LABEL_LIST[order++]);
@@ -63,7 +63,7 @@ public class QuestionConverter {
             righttAnswerDtos.add(answerDto);
         }
         // map answer C
-        if (question.getAnswerC() != null && question.getRightAnswer().contains("C")) {
+        if (question.getAnswerC() != null && totalLeftAnswer < 3) {
             answerDto = new QuestionAnswerDto();
             answerDto.setOrder(order);
             answerDto.setAnswerLabel(ANSWER_LABEL_LIST[order++]);
@@ -73,7 +73,7 @@ public class QuestionConverter {
             righttAnswerDtos.add(answerDto);
         }
         // map answer D
-        if (question.getAnswerD() != null && question.getRightAnswer().contains("D")) {
+        if (question.getAnswerD() != null && totalLeftAnswer < 4) {
             answerDto = new QuestionAnswerDto();
             answerDto.setOrder(order);
             answerDto.setAnswerLabel(ANSWER_LABEL_LIST[order++]);
@@ -83,7 +83,7 @@ public class QuestionConverter {
             righttAnswerDtos.add(answerDto);
         }
         // map answer E
-        if (question.getAnswerE() != null && question.getRightAnswer().contains("E")) {
+        if (question.getAnswerE() != null && totalLeftAnswer < 5) {
             answerDto = new QuestionAnswerDto();
             answerDto.setOrder(order);
             answerDto.setAnswerLabel(ANSWER_LABEL_LIST[order++]);
@@ -93,7 +93,7 @@ public class QuestionConverter {
             righttAnswerDtos.add(answerDto);
         }
         // map answer F
-        if (question.getAnswerF() != null && question.getRightAnswer().contains("F")) {
+        if (question.getAnswerF() != null && totalLeftAnswer < 6) {
             answerDto = new QuestionAnswerDto();
             answerDto.setOrder(order);
             answerDto.setAnswerLabel(ANSWER_LABEL_LIST[order++]);
@@ -103,7 +103,7 @@ public class QuestionConverter {
             righttAnswerDtos.add(answerDto);
         }
         // map answer G
-        if (question.getAnswerG() != null && question.getRightAnswer().contains("G")) {
+        if (question.getAnswerG() != null) {
             answerDto = new QuestionAnswerDto();
             answerDto.setOrder(order);
             answerDto.setAnswerLabel(ANSWER_LABEL_LIST[order++]);
@@ -113,7 +113,7 @@ public class QuestionConverter {
             righttAnswerDtos.add(answerDto);
         }
         // map answer H
-        if (question.getAnswerH() != null && question.getRightAnswer().contains("H")) {
+        if (question.getAnswerH() != null) {
             answerDto = new QuestionAnswerDto();
             answerDto.setOrder(order);
             answerDto.setAnswerLabel(ANSWER_LABEL_LIST[order++]);
@@ -130,22 +130,20 @@ public class QuestionConverter {
 		List<QuestionAnswerDto> leftAnswerDtos = new ArrayList<>();
 		QuestionAnswerDto answerDto;
 
+		int totalLeftAnswer = question.getScore().replace(",", "").length();
         int order = 0;
         // map answer A
         if (question.getAnswerA() != null) {
             answerDto = new QuestionAnswerDto();
             answerDto.setOrder(order++);
             answerDto.setAnswerLabel("" + order);
-            answerDto.setLeftSide(question.getType() == QuestionType.MATCHING && question.getRightAnswer().contains("A"));
-            answerDto.setLeftSide(question.getType() == QuestionType.MATCHING && question.getRightAnswer().contains("A"));
-            answerDto.setScore(100);
             answerDto.setAnswerContent(question.getAnswerA());
             answerDto.setTrueAnswer(question.getRightAnswer().contains("A"));
             answerDto.setRandomPosition(question.getAnswerPemutation().contains("A"));
             leftAnswerDtos.add(answerDto);
         }
         // map answer B
-        if (question.getAnswerB() != null) {
+        if (question.getAnswerB() != null && totalLeftAnswer > 1) {
             answerDto = new QuestionAnswerDto();
             answerDto.setOrder(order++);
             answerDto.setAnswerLabel("" + order);
@@ -155,7 +153,7 @@ public class QuestionConverter {
             leftAnswerDtos.add(answerDto);
         }
         // map answer C
-        if (question.getAnswerC() != null) {
+        if (question.getAnswerC() != null && totalLeftAnswer > 2) {
             answerDto = new QuestionAnswerDto();
             answerDto.setOrder(order++);
             answerDto.setAnswerLabel("" + order);
@@ -165,7 +163,7 @@ public class QuestionConverter {
             leftAnswerDtos.add(answerDto);
         }
         // map answer D
-        if (question.getAnswerD() != null) {
+        if (question.getAnswerD() != null && totalLeftAnswer > 3) {
             answerDto = new QuestionAnswerDto();
             answerDto.setOrder(order++);
             answerDto.setAnswerLabel("" + order);
@@ -262,13 +260,14 @@ public class QuestionConverter {
 				.map(answer -> ANSWER_LABEL_LIST[leftAnswerDtos.size() + answer.getOrder()])
 				.collect(Collectors.joining(","));
 		entity.setAnswerPemutation(permutationPosLst);
-		entity.setScore(mcqDto.getLeftAnswerDtos().stream().map(answerDto -> String.valueOf(answerDto.getScore()))
+		entity.setScore(leftAnswerDtos.stream().map(answerDto -> String.valueOf(answerDto.getScore()))
 				.collect(Collectors.joining(",")));
-		entity.setRightAnswer(rightAnswerDtos.stream()
+		List<QuestionAnswerDto> trueAnswerDtos = rightAnswerDtos.subList(0, leftAnswerDtos.size());
+		entity.setRightAnswer(trueAnswerDtos.stream()
 				.map(answer -> ANSWER_LABEL_LIST[mcqDto.getLeftAnswerDtos().size() + answer.getOrder()])
 				.collect(Collectors.joining(",")));
 		List<QuestionAnswerDto> questionAnswerDtos = new ArrayList<>();
-		questionAnswerDtos.addAll(mcqDto.getLeftAnswerDtos());
+		questionAnswerDtos.addAll(leftAnswerDtos);
 		questionAnswerDtos.addAll(rightAnswerDtos);
 		saveQuestionAnswer(entity, questionAnswerDtos);
 
