@@ -152,7 +152,7 @@
                                                 </td>
                                                 <td th:text="${test.creator.username}"></td>
                                                 <td th:text="${test.creator.lastname} + ' ' + ${test.creator.firstname}"></td>
-                                                <td th:text="${test.inspector.username}"></td>
+                                                <td th:text="${test.inspector} ? ${test.inspector.username} : '' "></td>
                                                 <td>
                                                     <div class="d-flex justify-content-around">
                                                         <a th:href="|javascript:approveTest(${test.id})|"
