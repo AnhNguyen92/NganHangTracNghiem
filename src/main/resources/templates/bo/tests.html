@@ -155,7 +155,7 @@
                                                 <td th:text="${test.inspector} ? ${test.inspector.username} : '' "></td>
                                                 <td>
                                                     <div class="d-flex justify-content-around">
-                                                        <a th:href="|javascript:approveTest(${test.id})|"
+                                                        <a th:href="@{'/bo/tests/approve/' + ${test.id}}"
                                                             class="btn btn-success mr-2" title="Duyệt"
                                                             th:classappend="${#strings.equals(test.status, 'APPROVED')} ? 'disabled' ">
                                                             <i class="fa fa-check" aria-hidden="true"></i>

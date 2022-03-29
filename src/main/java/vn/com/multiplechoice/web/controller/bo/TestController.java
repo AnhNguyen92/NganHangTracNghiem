@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,9 +23,12 @@ import vn.com.multiplechoice.business.service.TestService;
 import vn.com.multiplechoice.dao.criteria.TestCriteria;
 import vn.com.multiplechoice.dao.model.DateRange;
 import vn.com.multiplechoice.dao.model.Test;
+import vn.com.multiplechoice.dao.model.User;
+import vn.com.multiplechoice.dao.model.enums.TestStatus;
 import vn.com.multiplechoice.dao.model.paging.Paged;
 import vn.com.multiplechoice.dao.model.paging.Paging;
 import vn.com.multiplechoice.web.utils.DateUtil;
+import vn.com.multiplechoice.web.utils.OnlineUserUtil;
 
 @Controller
 @RequestMapping("/bo/tests")
@@ -33,6 +37,9 @@ public class TestController {
 
 	@Autowired
 	private TestService testService;
+	
+	@Autowired
+    private OnlineUserUtil onlineUserUtil;
 
 	@GetMapping("")
 	public String list(@RequestParam(value = "pageNumber", required = false, defaultValue = "1") int pageNumber,
@@ -82,6 +89,21 @@ public class TestController {
 		return list(pageNumber, size, testCriteria, model);
 	}
 
+	@GetMapping("/approve/{id}")
+	public String approve(Model model, @PathVariable long id) {
+	    logger.info("------- Start approve for test by id = {} -------", id);
+	    Test test = testService.findOne(id);
+        if (test == null) {
+            return "bo/errors/404";
+        }
+        test.setStatus(TestStatus.APPROVED);
+        User approver = onlineUserUtil.getOnlineUser();
+        test.setInspector(approver);
+        testService.save(test);
+        
+        return "redirect:/bo/tests";
+	}
+	
 	@GetMapping("/{id}")
 	public String detail(Model model, @PathVariable long id) {
 		logger.info("------- Start get test by id = {} -------", id);
