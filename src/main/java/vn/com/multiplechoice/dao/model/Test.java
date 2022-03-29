@@ -53,6 +53,9 @@ public class Test implements Serializable {
 	@Column(name = "is_public")
 	private boolean isPublic;
 
+	@Column(name = "approved_date")
+    private Date approvedDate;
+	
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User creator;
@@ -128,7 +131,15 @@ public class Test implements Serializable {
 		this.isPublic = isPublic;
 	}
 
-	public User getCreator() {
+	public Date getApprovedDate() {
+        return approvedDate;
+    }
+
+    public void setApprovedDate(Date approvedDate) {
+        this.approvedDate = approvedDate;
+    }
+
+    public User getCreator() {
 		return creator;
 	}
 

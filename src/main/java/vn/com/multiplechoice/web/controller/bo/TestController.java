@@ -98,6 +98,7 @@ public class TestController {
         test.setStatus(TestStatus.APPROVED);
         User approver = onlineUserUtil.getOnlineUser();
         test.setInspector(approver);
+        test.setApprovedDate(new Date());
         testService.save(test);
         
         return "redirect:/bo/tests";

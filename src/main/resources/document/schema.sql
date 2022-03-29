@@ -145,3 +145,6 @@ INSERT INTO `users` (`id`, `username`, `password`, `first_name`, `last_name`, `c
 
 INSERT INTO `header_templates` (`id`, `user_id`, `name`, `source_path`) VALUES
 (1, 4, 'bai thi mau', '/4/44dab9f6-5fea-477b-96cf-bfabdb61f6c9');
+
+ALTER TABLE `bank_question`.`test` 
+ADD COLUMN `approved_date` DATETIME NULL AFTER `execute_time`;
