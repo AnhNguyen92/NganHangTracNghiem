@@ -63,4 +63,10 @@ public class TestServiceImpl extends AbstractService<Test, Long> implements Test
 		return query.getResultList();
 	}
 
+	@Override
+	public List<Test> findByUserId(Long userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
