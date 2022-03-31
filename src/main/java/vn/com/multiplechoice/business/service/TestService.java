@@ -8,4 +8,6 @@ import vn.com.multiplechoice.dao.model.Test;
 public interface TestService extends IGenericService<Test, Long> {
 
 	List<Test> findAll(TestCriteria testCriteria);
+
+	List<Test> findByUserId(Long userId);
 }

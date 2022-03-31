@@ -74,6 +74,9 @@ public class TestController {
 	@GetMapping("/{id}")
 	public String detail(@PathVariable(name = "id") Long id, Model model) throws FileNotFoundException {
 		Test test = testService.findOne(id);
+		if (test == null) {
+			return "/fo/404";
+		}
 		model.addAttribute("test", test);
 		model.addAttribute("answerLabels", ANSWER_LABELS);
 		if (test.getHeader() != null) {
@@ -87,6 +90,13 @@ public class TestController {
 		return "/fo/test-detail";
 	}
 
+	@GetMapping("/users/{userId}")
+	public String userTestList(@PathVariable(name = "userId") Long userId, Model model) {
+		User user = onlineUserUtil.getOnlineUser();
+		List<Test> tests = testService.findByUserId(user.getId());
+		return "/user-test-list";
+	}
+	
 	@PostMapping
 	public String save(Options options, @RequestParam("file") MultipartFile multipartFile, Model model) {
 		model.addAttribute("options", options);
