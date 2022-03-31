@@ -148,3 +148,5 @@ INSERT INTO `header_templates` (`id`, `user_id`, `name`, `source_path`) VALUES
 
 ALTER TABLE `bank_question`.`test` 
 ADD COLUMN `approved_date` DATETIME NULL AFTER `execute_time`;
+
+ALTER TABLE `test` CHANGE `header_template_id` `header_template_id` BIGINT(20) NULL;
