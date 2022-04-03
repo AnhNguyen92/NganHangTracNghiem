@@ -45,7 +45,7 @@
         <tbody>
           <th:block th:if="${not #lists.isEmpty(page.content)}">
             <tr th:each="test, testStatus : ${page.content}">
-              <td scope="row" th:text="${testStatus.count}"></td>
+              <td th:text="${testStatus.count}"></td>
               <td th:text="${test.id}"></td>
               <td th:utext="${test.content}"></td>
               <td th:text="${#lists.size(test.questions)}"></td>
