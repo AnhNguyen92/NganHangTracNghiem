@@ -28,7 +28,7 @@
   <!-- end navbar -->
 
   <!-- content -->
-  <div class="container mt-3" style="width: 595.2756px;" th:object="${test}">
+  <div class="container mt-3" th:object="${test}">
     <div class="page-title">DANH SÁCH ĐỀ THI CỦA BẠN</div>
 
     <div class="test-content" id="test-content">
@@ -38,15 +38,17 @@
             <th id="index">STT</th>
             <th id="id">ID</th>
             <th id="name">Tên</th>
+            <th id="name">Số lượng câu hỏi</th>
             <th id="action">Hành động</th>
           </tr>
         </thead>
         <tbody>
           <th:block th:if="${not #lists.isEmpty(page.content)}">
             <tr th:each="test, testStatus : ${page.content}">
-              <td th:text="${test.id}"></td>
+              <td th:text="${testStatus}"></td>
               <td th:text="${test.id}"></td>
               <td th:utext="${test.content}"></td>
+              <td th:text="${#lists.size(test.questions)}"></td>
               <td>
                 <div class="d-flex justify-content-around">
                   <a th:href="@{'/fo/contests/' + ${test.id}}" class="btn btn-primary mr-2" title="Chi tiết">
@@ -57,7 +59,7 @@
               </td>
             </tr>
           </th:block>
-          <th:block th:if="${#lists.isEmpty(tests.page)}">
+          <th:block th:if="${#lists.isEmpty(page.content)}">
             <tr class="odd">
               <td colspan="7" class="dataTables_empty text-center">Không có dữ liệu</td>
             </tr>
