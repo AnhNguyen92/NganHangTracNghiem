@@ -32,20 +32,20 @@
     <div class="page-title">DANH SÁCH ĐỀ THI CỦA BẠN</div>
 
     <div class="test-content" id="test-content">
-      <table>
+      <table class="table">
         <thead>
           <tr>
-            <th id="index">STT</th>
-            <th id="id">ID</th>
-            <th id="name">Tên</th>
-            <th id="name">Số lượng câu hỏi</th>
-            <th id="action">Hành động</th>
+            <th scope="col" id="index">STT</th>
+            <th scope="col" id="id">ID</th>
+            <th scope="col" id="name">Tên</th>
+            <th scope="col" id="name">Số lượng câu hỏi</th>
+            <th scope="col" id="action">Hành động</th>
           </tr>
         </thead>
         <tbody>
           <th:block th:if="${not #lists.isEmpty(page.content)}">
             <tr th:each="test, testStatus : ${page.content}">
-              <td th:text="${testStatus}"></td>
+              <td scope="row" th:text="${testStatus.count}"></td>
               <td th:text="${test.id}"></td>
               <td th:utext="${test.content}"></td>
               <td th:text="${#lists.size(test.questions)}"></td>
