@@ -75,6 +75,8 @@
                             class="form-control">
                             <option th:each="questId : ${questIds}" th:value="${questId}"
                                 th:text="'Câu hỏi ' + ${questId}"></option>
+                            <option th:each="id : ${addedQuestIds}" th:value="${id}"
+                                th:text="'Câu hỏi ' + ${id}" selected="selected"></option>
                         </select>
                     </div>
                     

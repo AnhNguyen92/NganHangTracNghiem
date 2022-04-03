@@ -58,4 +58,9 @@ public abstract class AbstractService<D extends Serializable, K extends Object> 
         return jpaRepository.findAll(pageable);
     }
 
+    @Override
+    public List<D> findAllById(List<K> ids) {
+        return jpaRepository.findAllById(ids);
+    }
+    
 }

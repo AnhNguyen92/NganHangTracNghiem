@@ -13,4 +13,6 @@ public interface QuestionService extends IGenericService<Question, Long> {
 
     List<Question> findAll(QuestionCriteria questionCriteria);
 
+    List<Question> findAllById(List<Long> ids);
+
 }

@@ -19,4 +19,9 @@ public class OnlineUserUtil {
         return userService.findByUsername(userDetails.getUsername());
     }
 
+    public Long getOnlineUserID() {
+        User onlineUser = getOnlineUser();
+        return onlineUser.getId();
+    }
+    
 }

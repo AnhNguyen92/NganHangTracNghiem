@@ -4,7 +4,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -38,12 +37,12 @@ import vn.com.multiplechoice.dao.model.Test;
 import vn.com.multiplechoice.dao.model.User;
 import vn.com.multiplechoice.dao.model.enums.TestStatus;
 import vn.com.multiplechoice.dao.model.enums.UserRole;
-
 import vn.com.multiplechoice.web.utils.OnlineUserUtil;
 
 @Controller
 @RequestMapping("/fo/contests")
 public class TestController {
+    private static final String OPTIONS = "options";
     private static final Logger logger = LoggerFactory.getLogger(TestController.class);
 	private static final String[] ANSWER_LABELS = new String[] { "Đáp án A", "Đáp án B", "Đáp án C", "Đáp án D", "Đáp án E", "Đáp án F", "Đáp án G",
     "Đáp án H" };
@@ -70,12 +69,36 @@ public class TestController {
 		Options option = new Options();
 		List<String> questIds = questions.stream().map(question -> question.getId().toString())
 				.collect(Collectors.toList());
-		model.addAttribute("options", option);
+		model.addAttribute(OPTIONS, option);
 		model.addAttribute("questIds", questIds);
 
 		return "fo/test";
 	}
 
+	@GetMapping("/{id}/edit")
+    public String editTest(@PathVariable(name = "id") Long id, Model model) {
+        Test test = testService.findOne(id);
+        if (test == null) {
+            return "/fo/404";
+        }
+        
+        List<Question> questions = test.getQuestions();
+        Options option = new Options();
+        option.setTestId(test.getId());
+        List<Long> questIds = questions.stream().map(Question::getId)
+                .collect(Collectors.toList());
+        model.addAttribute(OPTIONS, option);
+        model.addAttribute("addedQuestIds", questIds);
+
+        List<Question> availableQuestions = questionService.findByAuthor(onlineUserUtil.getOnlineUserID());
+        List<Long> availableQuestIds = availableQuestions.stream().map(Question::getId)
+                .collect(Collectors.toList());
+        availableQuestIds.removeAll(questIds);
+        model.addAttribute("questIds", availableQuestIds);
+        
+        return "fo/test";
+    }
+	
 	@GetMapping("/{id}")
 	public String detail(@PathVariable(name = "id") Long id, Model model) throws FileNotFoundException {
 		Test test = testService.findOne(id);
@@ -111,15 +134,11 @@ public class TestController {
 	
 	@PostMapping
 	public String save(Options options, @RequestParam("file") MultipartFile multipartFile, Model model) {
-		model.addAttribute("options", options);
+		model.addAttribute(OPTIONS, options);
 		Test test = new Test();
 
-		List<String> selecteds = options.getSelected();
-		List<Question> questions = new ArrayList<>();
-		for (String idStr : selecteds) {
-			Question question = questionService.findOne(Long.parseLong(idStr));
-			questions.add(question);
-		}
+		List<Long> selecteds = options.getSelected();
+		List<Question> questions = questionService.findAllById(selecteds);
 
 		// save header
 		if (multipartFile != null) {

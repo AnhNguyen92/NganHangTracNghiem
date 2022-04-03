@@ -20,4 +20,6 @@ public interface IGenericService<D extends Serializable, K extends Object> {
     void deleteById(final K entityId) throws IOException;
 
     Page<D> findAll(Pageable pageable);
+    
+    List<D> findAllById(final List<K> ids);
 }

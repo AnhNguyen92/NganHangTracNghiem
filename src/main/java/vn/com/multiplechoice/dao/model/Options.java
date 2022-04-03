@@ -4,12 +4,22 @@ import java.util.List;
 
 public class Options {
 
+    private Long testId;
 	private String content;
 	private boolean isPublic = true;
-	private List<String> selected;
+	private List<Long> selected;
 	private String executeTime;
 
-	public String getContent() {
+	
+	public Long getTestId() {
+        return testId;
+    }
+
+    public void setTestId(Long testId) {
+        this.testId = testId;
+    }
+
+    public String getContent() {
 		return content;
 	}
 
@@ -25,11 +35,11 @@ public class Options {
 		this.isPublic = isPublic;
 	}
 
-	public List<String> getSelected() {
+	public List<Long> getSelected() {
 		return selected;
 	}
 
-	public void setSelected(List<String> selected) {
+	public void setSelected(List<Long> selected) {
 		this.selected = selected;
 	}
 
