@@ -65,8 +65,7 @@ public class TestServiceImpl extends AbstractService<Test, Long> implements Test
 
 	@Override
 	public List<Test> findByUserId(Long userId) {
-		// TODO Auto-generated method stub
-		return null;
+		return testRepository.findByUserId(userId);
 	}
 
 }

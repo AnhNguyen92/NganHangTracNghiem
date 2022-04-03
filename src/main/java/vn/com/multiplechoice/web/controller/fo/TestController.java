@@ -94,7 +94,8 @@ public class TestController {
 	public String userTestList(@PathVariable(name = "userId") Long userId, Model model) {
 		User user = onlineUserUtil.getOnlineUser();
 		List<Test> tests = testService.findByUserId(user.getId());
-		return "/user-test-list";
+		model.addAttribute("test", tests);
+		return "fo/user-test-list";
 	}
 	
 	@PostMapping
