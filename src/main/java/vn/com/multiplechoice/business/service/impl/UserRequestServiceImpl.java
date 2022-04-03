@@ -53,4 +53,5 @@ public class UserRequestServiceImpl extends AbstractService<UserRequest, Long> i
 
 		return query.getResultList();
 	}
+	
 }

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org">
+
+<head>
+
+<title>Danh sách đề thi cá nhân</title>
+
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+<meta content="utf-8" http-equiv="encoding">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<link rel="shortcut icon" href="#">
+<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap-4.4.1/css/bootstrap.min.css}" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script th:src="@{/css/bootstrap-4.4.1/js/bootstrap.min.js}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
+
+</head>
+
+<body>
+  <!-- navbar -->
+  <header th:replace="fragments/fo/navbar.html :: navbar "> </header>
+  <!-- end navbar -->
+
+  <!-- content -->
+  <div class="container mt-3" style="width: 595.2756px;" th:object="${test}">
+    <div class="page-title">DANH SÁCH ĐỀ THI CỦA BẠN</div>
+
+    <div class="test-content" id="test-content">
+      <table>
+        <thead>
+          <tr>
+            <th id="index">STT</th>
+            <th id="id">ID</th>
+            <th id="name">Tên</th>
+            <th id="action">Hành động</th>
+          </tr>
+        </thead>
+        <tbody>
+          <th:block th:if="${not #lists.isEmpty(page.content)}">
+            <tr th:each="test, testStatus : ${page.content}">
+              <td th:text="${test.id}"></td>
+              <td th:text="${test.id}"></td>
+              <td th:utext="${test.content}"></td>
+              <td>
+                <div class="d-flex justify-content-around">
+                  <a th:href="@{'/fo/contests/' + ${test.id}}" class="btn btn-primary mr-2" title="Chi tiết">
+                    <i class="fa fa-pencil-alt" aria-hidden="true"></i>
+                    Chi tiết
+                  </a>
+                </div>
+              </td>
+            </tr>
+          </th:block>
+          <th:block th:if="${#lists.isEmpty(tests.page)}">
+            <tr class="odd">
+              <td colspan="7" class="dataTables_empty text-center">Không có dữ liệu</td>
+            </tr>
+          </th:block>
+        </tbody>
+      </table>
+
+    </div>
+
+    <div class="mt-3 d-flex justify-content-center pb-3">
+      <div class="mx-2">
+        <input id="generateDocx" type="button" onclick="ExportToDoc();" class="btn btn-primary" value="Tải file word">
+      </div>
+      <div class="mx-2">
+        <input id="generatePdf" type="button" onclick="getPDF()" class="btn btn-warning" value="Tải file pdf">
+      </div>
+      <div class="mx-2">
+        <input type="button" class="btn btn-danger" value="Huỷ bỏ">
+      </div>
+    </div>
+  </div>
+  <!-- end content -->
+
+  <!-- footer -->
+  <footer th:replace="fragments/fo/footer.html :: footer">
+    <p>2021 mqconline.com</p>
+  </footer>
+  <!-- end footer -->
+
+  <script type="text/javascript">
+			
+		</script>
+</body>
+
+</html>

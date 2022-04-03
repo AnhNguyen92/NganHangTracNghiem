@@ -116,7 +116,7 @@ public class QuestionConverter {
         if (question.getAnswerH() != null) {
             answerDto = new QuestionAnswerDto();
             answerDto.setOrder(order);
-            answerDto.setAnswerLabel(ANSWER_LABEL_LIST[order++]);
+            answerDto.setAnswerLabel(ANSWER_LABEL_LIST[order]);
             answerDto.setAnswerContent(question.getAnswerH());
             answerDto.setTrueAnswer(question.getRightAnswer().equals("H"));
             answerDto.setRandomPosition(question.getAnswerPemutation().contains("H"));
@@ -405,7 +405,7 @@ public class QuestionConverter {
 		// map answer H
 		if (question.getAnswerH() != null) {
 			answerDto = new QuestionAnswerDto();
-			answerDto.setOrder(order++);
+			answerDto.setOrder(order);
 			
 			answerDto.setAnswerContent(question.getAnswerH());
 			answerDto.setTrueAnswer(question.getRightAnswer().equals("H"));

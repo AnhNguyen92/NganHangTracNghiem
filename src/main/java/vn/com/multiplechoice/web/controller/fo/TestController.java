@@ -12,6 +12,10 @@ import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,6 +38,7 @@ import vn.com.multiplechoice.dao.model.Test;
 import vn.com.multiplechoice.dao.model.User;
 import vn.com.multiplechoice.dao.model.enums.TestStatus;
 import vn.com.multiplechoice.dao.model.enums.UserRole;
+
 import vn.com.multiplechoice.web.utils.OnlineUserUtil;
 
 @Controller
@@ -90,12 +95,18 @@ public class TestController {
 		return "/fo/test-detail";
 	}
 
-	@GetMapping("/users/{userId}")
-	public String userTestList(@PathVariable(name = "userId") Long userId, Model model) {
+	@GetMapping("/user")
+	public String userTestList(Model model) {
 		User user = onlineUserUtil.getOnlineUser();
 		List<Test> tests = testService.findByUserId(user.getId());
-		model.addAttribute("test", tests);
-		return "fo/user-test-list";
+
+		Pageable pageable = PageRequest.of(0, 10);
+		Page<Test> page = new PageImpl<>(tests, pageable, tests.size());
+		
+		model.addAttribute("page", page);
+		model.addAttribute("size", page.getSize());
+		
+		return "/fo/user-test-list";
 	}
 	
 	@PostMapping

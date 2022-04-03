@@ -110,7 +110,7 @@
                             th:classappend="${#strings.contains(#httpServletRequest.requestURI, 'contests')} ? ' active' : '' "
                             role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Đề thi</a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Đề thi của tôi</a>
+                            <a class="dropdown-item"  th:href="@{/fo/contests/user}">Đề thi của tôi</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" th:href="@{/fo/contests}">Tạo mới</a>
                         </div>
