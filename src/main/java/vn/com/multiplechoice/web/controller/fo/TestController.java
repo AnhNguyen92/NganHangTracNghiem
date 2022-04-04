@@ -42,11 +42,11 @@ import vn.com.multiplechoice.web.utils.OnlineUserUtil;
 @Controller
 @RequestMapping("/fo/contests")
 public class TestController {
-    private static final String OPTIONS = "options";
-    private static final Logger logger = LoggerFactory.getLogger(TestController.class);
-	private static final String[] ANSWER_LABELS = new String[] { "Đáp án A", "Đáp án B", "Đáp án C", "Đáp án D", "Đáp án E", "Đáp án F", "Đáp án G",
-    "Đáp án H" };
-	
+	private static final String OPTIONS = "options";
+	private static final Logger logger = LoggerFactory.getLogger(TestController.class);
+	private static final String[] ANSWER_LABELS = new String[] { "Đáp án A", "Đáp án B", "Đáp án C", "Đáp án D",
+			"Đáp án E", "Đáp án F", "Đáp án G", "Đáp án H" };
+
 	@Autowired
 	private QuestionService questionService;
 
@@ -61,7 +61,7 @@ public class TestController {
 
 	@Autowired
 	private ApplicationConfig applicationConfig;
-	
+
 	@GetMapping("")
 	public String createTest(Model model) {
 		User user = onlineUserUtil.getOnlineUser();
@@ -76,34 +76,32 @@ public class TestController {
 	}
 
 	@GetMapping("/{id}/edit")
-    public String editTest(@PathVariable(name = "id") Long id, Model model) {
-        Test test = testService.findOne(id);
-        if (test == null) {
-            return "/fo/404";
-        }
-        
-        List<Question> questions = test.getQuestions();
-        
-        List<Long> questIds = questions.stream().map(Question::getId)
-                .collect(Collectors.toList());
-        Options option = new Options();
-        option.setTestId(test.getId());
-        option.setContent(test.getContent());
-        option.setExecuteTime(test.getExecuteTime());
-        option.setPublic(test.isPublic());
-        option.setSelected(questIds);
-        model.addAttribute(OPTIONS, option);
-        model.addAttribute("addedQuestIds", questIds);
+	public String editTest(@PathVariable(name = "id") Long id, Model model) {
+		Test test = testService.findOne(id);
+		if (test == null) {
+			return "/fo/404";
+		}
 
-        List<Question> availableQuestions = questionService.findByAuthor(onlineUserUtil.getOnlineUserID());
-        List<Long> availableQuestIds = availableQuestions.stream().map(Question::getId)
-                .collect(Collectors.toList());
-        availableQuestIds.removeAll(questIds);
-        model.addAttribute("questIds", availableQuestIds);
-        
-        return "fo/test";
-    }
-	
+		List<Question> questions = test.getQuestions();
+
+		List<Long> questIds = questions.stream().map(Question::getId).collect(Collectors.toList());
+		Options option = new Options();
+		option.setTestId(test.getId());
+		option.setContent(test.getContent());
+		option.setExecuteTime(test.getExecuteTime());
+		option.setPublic(test.isPublic());
+		option.setSelected(questIds);
+		model.addAttribute(OPTIONS, option);
+		model.addAttribute("addedQuestIds", questIds);
+
+		List<Question> availableQuestions = questionService.findByAuthor(onlineUserUtil.getOnlineUserID());
+		List<Long> availableQuestIds = availableQuestions.stream().map(Question::getId).collect(Collectors.toList());
+		availableQuestIds.removeAll(questIds);
+		model.addAttribute("questIds", availableQuestIds);
+
+		return "fo/test";
+	}
+
 	@GetMapping("/{id}")
 	public String detail(@PathVariable(name = "id") Long id, Model model) throws FileNotFoundException {
 		Test test = testService.findOne(id);
@@ -119,7 +117,7 @@ public class TestController {
 			String header = parseHeaderTemplateToHtml(templateFile);
 			model.addAttribute("header", header);
 		}
-		
+
 		return "/fo/test-detail";
 	}
 
@@ -130,41 +128,49 @@ public class TestController {
 
 		Pageable pageable = PageRequest.of(0, 10);
 		Page<Test> page = new PageImpl<>(tests, pageable, tests.size());
-		
+
 		model.addAttribute("page", page);
 		model.addAttribute("size", page.getSize());
-		
+
 		return "/fo/user-test-list";
 	}
-	
+
 	@PostMapping
-	public String save(Options options, @RequestParam("file") MultipartFile multipartFile, Model model) {
+	public String saveOrUpdate(Options options, @RequestParam("file") MultipartFile multipartFile, Model model) {
 		model.addAttribute(OPTIONS, options);
 		Test test = new Test();
+		if (options.getTestId() != null) {
+			test = testService.findOne(options.getTestId());
+		} else {
+			User creator = onlineUserUtil.getOnlineUser();
+			test.setCreator(creator);
+			test.setCreateDate(new Date());
+			if (creator.getRole().equals(UserRole.USER)) {
+				test.setStatus(TestStatus.WAITING);
+			} else {
+				test.setStatus(TestStatus.APPROVED);
+				test.setInspector(creator);
+			}
+		}
 
 		List<Long> selecteds = options.getSelected();
+		List<Long> existedQuestion = test.getQuestions().stream().map(Question::getId).collect(Collectors.toList());
+		selecteds.removeAll(existedQuestion);
 		List<Question> questions = questionService.findAllById(selecteds);
+		
 
 		// save header
 		if (multipartFile != null) {
-			fileStorageService.upload(applicationConfig.getTemplateUploadPath(), multipartFile.getOriginalFilename(), multipartFile);
+			fileStorageService.upload(applicationConfig.getTemplateUploadPath(), multipartFile.getOriginalFilename(),
+					multipartFile);
 		}
-		
+
 		test.setNumOfQuestions(selecteds.size());
-		User creator = onlineUserUtil.getOnlineUser();
-		test.setCreateDate(new Date());
-		test.setCreator(creator);
 		test.setContent(options.getContent());
-		test.setQuestions(questions);
+		test.getQuestions().addAll(questions);
 		test.setPublic(options.isPublic());
 		test.setExecuteTime(options.getExecuteTime());
-		if (creator.getRole().equals(UserRole.USER)) {
-			test.setStatus(TestStatus.WAITING);
-		} else {
-			test.setStatus(TestStatus.APPROVED);
-			test.setInspector(creator);
-		}
-		
+
 		testService.save(test);
 
 		return "fo/saved";
