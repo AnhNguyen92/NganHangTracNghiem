@@ -83,10 +83,15 @@ public class TestController {
         }
         
         List<Question> questions = test.getQuestions();
-        Options option = new Options();
-        option.setTestId(test.getId());
+        
         List<Long> questIds = questions.stream().map(Question::getId)
                 .collect(Collectors.toList());
+        Options option = new Options();
+        option.setTestId(test.getId());
+        option.setContent(test.getContent());
+        option.setExecuteTime(test.getExecuteTime());
+        option.setPublic(test.isPublic());
+        option.setSelected(questIds);
         model.addAttribute(OPTIONS, option);
         model.addAttribute("addedQuestIds", questIds);
 
