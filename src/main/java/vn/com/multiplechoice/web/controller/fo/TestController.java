@@ -164,7 +164,7 @@ public class TestController {
 					multipartFile);
 		}
 
-		test.setNumOfQuestions(selecteds.size());
+		test.setNumOfQuestions(options.getSelected().size());
 		test.setContent(options.getContent());
 		test.getQuestions().addAll(questions);
 		test.setPublic(options.isPublic());
