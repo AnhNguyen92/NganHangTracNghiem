@@ -137,7 +137,6 @@ public class TestController {
 
 	@PostMapping
 	public String saveOrUpdate(Options options, @RequestParam("file") MultipartFile multipartFile, Model model) {
-		model.addAttribute(OPTIONS, options);
 		Test test = new Test();
 		if (options.getTestId() != null) {
 			test = testService.findOne(options.getTestId());
@@ -160,7 +159,7 @@ public class TestController {
 		
 
 		// save header
-		if (multipartFile != null) {
+		if (multipartFile != null && !multipartFile.isEmpty()) {
 			fileStorageService.upload(applicationConfig.getTemplateUploadPath(), multipartFile.getOriginalFilename(),
 					multipartFile);
 		}
@@ -173,6 +172,7 @@ public class TestController {
 
 		testService.save(test);
 
+		model.addAttribute(OPTIONS, options);
 		return "fo/saved";
 	}
 
