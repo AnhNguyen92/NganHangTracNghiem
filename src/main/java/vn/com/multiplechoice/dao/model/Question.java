@@ -2,7 +2,6 @@ package vn.com.multiplechoice.dao.model;
 
 import java.io.Serializable;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -219,11 +218,11 @@ public class Question implements Serializable {
 		this.user = user;
 	}
 
-	public List<Test> getTests() {
+	public Set<Test> getTests() {
 		return tests;
 	}
 
-	public void setTests(List<Test> tests) {
+	public void setTests(Set<Test> tests) {
 		this.tests = tests;
 	}
 
