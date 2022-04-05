@@ -3,7 +3,9 @@ package vn.com.multiplechoice.dao.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -66,7 +68,7 @@ public class Test implements Serializable {
 
 	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinTable(name = "test_question", joinColumns = @JoinColumn(name = "test_id"), inverseJoinColumns = @JoinColumn(name = "question_id"))
-	private List<Question> questions = new ArrayList<>();
+	private Set<Question> questions = new HashSet<>();
 
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "header_template_id")
