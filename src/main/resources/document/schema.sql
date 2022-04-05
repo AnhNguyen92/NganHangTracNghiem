@@ -150,3 +150,9 @@ ALTER TABLE `bank_question`.`test`
 ADD COLUMN `approved_date` DATETIME NULL AFTER `execute_time`;
 
 ALTER TABLE `test` CHANGE `header_template_id` `header_template_id` BIGINT(20) NULL;
+
+ALTER TABLE `test_question` DROP PRIMARY KEY, ADD PRIMARY KEY(`question_id`, `test_id`);
+
+ALTER TABLE `test_question` ADD INDEX(`question_id`);
+
+
