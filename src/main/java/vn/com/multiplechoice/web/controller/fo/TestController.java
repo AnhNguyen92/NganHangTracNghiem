@@ -5,7 +5,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
@@ -82,7 +84,7 @@ public class TestController {
 			return "/fo/404";
 		}
 
-		List<Question> questions = test.getQuestions();
+		Set<Question> questions = test.getQuestions();
 
 		List<Long> questIds = questions.stream().map(Question::getId).collect(Collectors.toList());
 		Options option = new Options();
@@ -153,10 +155,18 @@ public class TestController {
 		}
 
 		List<Long> selecteds = options.getSelected();
-		List<Long> existedQuestion = test.getQuestions().stream().map(Question::getId).collect(Collectors.toList());
-		selecteds.removeAll(existedQuestion);
-		List<Question> questions = questionService.findAllById(selecteds);
-		
+		//Set<Question> selectedQuestions = new HashSet<>(questionService.findAllById(selecteds));
+		Set<Question> existedQuestion = test.getQuestions();
+		List<Long> deletedQuestionIds = existedQuestion.stream().map(Question::getId)
+				.collect(Collectors.toList());
+		for (Long id : selecteds) {
+			if () {
+				
+			}
+		}
+		Set<Question> removedQuestions = new HashSet<>(existedQuestion);
+		Set<Question> newQuestTions = new HashSet<>();
+		removedQuestions.removeAll(existedQuestion);
 
 		// save header
 		if (multipartFile != null && !multipartFile.isEmpty()) {
@@ -166,13 +176,14 @@ public class TestController {
 
 		test.setNumOfQuestions(options.getSelected().size());
 		test.setContent(options.getContent());
-		test.getQuestions().addAll(questions);
+		test.getQuestions().addAll(selectedQuestions);
+		test.getQuestions().removeAll(removedQuestions);
 		test.setPublic(options.isPublic());
 		test.setExecuteTime(options.getExecuteTime());
 
 		testService.save(test);
-
 		model.addAttribute(OPTIONS, options);
+
 		return "fo/saved";
 	}
 
