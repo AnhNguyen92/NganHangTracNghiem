@@ -91,7 +91,7 @@ public class CommentController {
 	@GetMapping("/{id}")
 	public String update(Model model, @PathVariable long id) {
 		logger.info("------- Start update userRequest detail by id = {} -------", id);
-		UserRequest userRequest = userRequestService.findOne(id);
+		UserRequest userRequest = userRequestService.findById(id);
 		if (userRequest == null) {
 			return "bo/errors/404";
 		}

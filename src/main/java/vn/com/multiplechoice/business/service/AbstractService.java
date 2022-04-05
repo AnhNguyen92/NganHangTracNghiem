@@ -24,7 +24,7 @@ public abstract class AbstractService<D extends Serializable, K extends Object> 
     }
 
     @Override
-    public D findOne(K id) {
+    public D findById(K id) {
         Optional<D> item = jpaRepository.findById(id);
         if (item.isPresent()) {
             return item.get();

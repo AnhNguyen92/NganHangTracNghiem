@@ -47,7 +47,7 @@ public class UserController {
 
     @GetMapping("/{id}")
     public String findById(Model model, @PathVariable Long id) {
-        User user = userService.findOne(id);
+        User user = userService.findById(id);
         if (user == null) {
             return "bo/error/404";
         }

@@ -24,7 +24,7 @@ public class ExamController {
 	@GetMapping("/{id}")
 	public String exam(Model model, @PathVariable("id") Long id) {
 		log.info("===  Start do exam with test has id = {}  ===", id);
-		Test test = testService.findOne(id);
+		Test test = testService.findById(id);
 		String executeTime = test.getExecuteTime();
 		
 		model.addAttribute("executeTime", executeTime);

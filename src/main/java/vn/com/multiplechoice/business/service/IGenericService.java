@@ -9,7 +9,7 @@ import org.springframework.data.domain.Pageable;
 
 public interface IGenericService<D extends Serializable, K extends Object> {
 
-    D findOne(final K id);
+    D findById(final K id);
 
     List<D> findAll();
 

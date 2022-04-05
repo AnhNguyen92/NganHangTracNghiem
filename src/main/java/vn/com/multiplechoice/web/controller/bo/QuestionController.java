@@ -79,7 +79,7 @@ public class QuestionController {
 	@GetMapping("/{id}")
 	public String detail(Model model, @PathVariable long id) {
 		logger.info("start get question detail");
-		Question question = questionService.findOne(id);
+		Question question = questionService.findById(id);
 		if (question == null) {
 			return "bo/error/404";
 		}

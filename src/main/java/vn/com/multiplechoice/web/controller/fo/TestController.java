@@ -77,7 +77,7 @@ public class TestController {
 
 	@GetMapping("/{id}/edit")
 	public String editTest(@PathVariable(name = "id") Long id, Model model) {
-		Test test = testService.findOne(id);
+		Test test = testService.findById(id);
 		if (test == null) {
 			return "/fo/404";
 		}
@@ -104,7 +104,7 @@ public class TestController {
 
 	@GetMapping("/{id}")
 	public String detail(@PathVariable(name = "id") Long id, Model model) throws FileNotFoundException {
-		Test test = testService.findOne(id);
+		Test test = testService.findById(id);
 		if (test == null) {
 			return "/fo/404";
 		}
@@ -139,7 +139,7 @@ public class TestController {
 	public String saveOrUpdate(Options options, @RequestParam("file") MultipartFile multipartFile, Model model) {
 		Test test = new Test();
 		if (options.getTestId() != null) {
-			test = testService.findOne(options.getTestId());
+			test = testService.findById(options.getTestId());
 		} else {
 			User creator = onlineUserUtil.getOnlineUser();
 			test.setCreator(creator);

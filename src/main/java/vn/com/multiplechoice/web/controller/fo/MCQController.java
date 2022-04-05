@@ -106,7 +106,7 @@ public class MCQController {
 
     @GetMapping("/one-ans/{id}")
     public String oneAnswerDetail(Model model, @PathVariable long id) {
-    	Question question = questionService.findOne(id);
+    	Question question = questionService.findById(id);
     	MCQDto mcqDto = questionConverter.toDto(question);
     	model.addAttribute(MCQ_DTO, mcqDto);
     	
@@ -115,7 +115,7 @@ public class MCQController {
     
     @GetMapping("/fragment/{id}")
     public String questionFragmentDetail(Model model, @PathVariable long id) {
-    	Question question = questionService.findOne(id);
+    	Question question = questionService.findById(id);
     	MCQDto mcqDto = questionConverter.toDto(question);
     	model.addAttribute("question", mcqDto);
     	

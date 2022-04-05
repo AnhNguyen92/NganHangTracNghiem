@@ -91,7 +91,7 @@ public class TestController {
 	@GetMapping("/approve/{id}")
 	public String approve(Model model, @PathVariable long id) {
 	    logger.info("------- Start approve for test by id = {} -------", id);
-	    Test test = testService.findOne(id);
+	    Test test = testService.findById(id);
         if (test == null) {
             return "bo/errors/404";
         }
@@ -107,7 +107,7 @@ public class TestController {
 	@GetMapping("/{id}")
 	public String detail(Model model, @PathVariable long id) {
 		logger.info("------- Start get test by id = {} -------", id);
-		Test test = testService.findOne(id);
+		Test test = testService.findById(id);
 		if (test == null) {
 			return "bo/errors/404";
 		}

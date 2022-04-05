@@ -86,7 +86,7 @@ public class TestFeedbackController {
 	@GetMapping("/{id}")
 	public String update(Model model, @PathVariable long id) {
 		logger.info("------- Start update testFeedback detail by id = {} -------", id);
-		TestFeedback testFeedback = feedbackService.findOne(id);
+		TestFeedback testFeedback = feedbackService.findById(id);
 		if (testFeedback == null) {
 			return "bo/errors/404";
 		}

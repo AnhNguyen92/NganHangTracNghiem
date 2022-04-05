@@ -50,7 +50,7 @@ public class UserRequestController {
     @GetMapping("/{id}")
     public String findById(Model model, @PathVariable Long id) {
         log.info("Enter UserRequest detail");
-        UserRequest userRequest = userRequestService.findOne(id);
+        UserRequest userRequest = userRequestService.findById(id);
         model.addAttribute("userRequest", userRequest);
 
         return "bo/user-request" ;
