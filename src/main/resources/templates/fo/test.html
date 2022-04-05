@@ -92,7 +92,7 @@
                         </div>
                     </div>
                     <div>
-                        <button class="btn btn-primary mt-3" type="submit">Tạo mới</button>
+                        <button class="btn btn-primary mt-3" type="submit" th:text="${options.testId}? 'Cập nhật' : 'Tạo mới' ">Tạo mới</button>
                     </div>
                 </form>
             </div>
