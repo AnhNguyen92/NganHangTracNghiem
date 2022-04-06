@@ -19,7 +19,6 @@ import vn.com.multiplechoice.business.service.impl.UserDetailsServiceImpl;
 @Order(1)
 public class AdminSecurityConfig extends WebSecurityConfigurerAdapter {
     private static final String EDITOR = "EDITOR";
-
     private static final String ADMIN = "ADMIN";
 
     @Autowired
