@@ -35,11 +35,6 @@ public class QuestionServiceImpl extends AbstractService<Question, Long> impleme
     }
 
 	@Override
-	public Object getPage(int pageNumber, int size) {
-		return null;
-	}
-
-	@Override
 	public List<Question> findByAuthor(Long userId) {
 		return questionRepository.findByAuthor(userId);
 	}
