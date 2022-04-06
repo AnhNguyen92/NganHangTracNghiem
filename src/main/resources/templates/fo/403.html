@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <title>Lỗi 500</title>
+
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="shortcut icon" th:href="@{/imgs/fo-favicon.ico}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap-4.4.1/css/bootstrap.min.css}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script type="text/javascript" th:src="@{/css/bootstrap-4.4.1/js/bootstrap.min.js}"></script>
+
+</head>
+
+<body>
+    <!-- navbar -->
+    <header th:replace="fragments/fo/navbar.html :: navbar "> </header>
+    <!-- end navbar -->
+
+    <!-- content -->
+    <div class="container mt-3">
+        <div class="page-title">KHÔNG ĐỦ QUYỀN TRUY CẬP</div>
+        <p>Bạn không đủ quyền để truy cập tài nguyên hoặc sử dụng chức năng này!</p>
+        <p>Vui lòng chọn trang khác trên menu để tiếp tục sử dụng chức năng khác của website</p>
+    </div>
+    <!-- end content -->
+
+    <!-- footer -->
+    <footer th:replace="fragments/fo/footer.html :: footer">
+        <p>2021 mqconline.com</p>
+    </footer>
+    <!-- end footer -->
+
+</body>
+
+</html>
