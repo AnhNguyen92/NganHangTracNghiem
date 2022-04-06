@@ -94,7 +94,7 @@ h1, h2, h3 {
 }
 
 /* set default height when website has no data to force footer on bottom of website*/
-.container {
+.main-container {
 	min-height: 300px;
 }
 
