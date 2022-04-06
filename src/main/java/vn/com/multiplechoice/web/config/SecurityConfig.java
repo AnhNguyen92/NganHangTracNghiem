@@ -54,7 +54,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().rememberMe() //
                 .tokenValiditySeconds(7 * 24 * 60 * 60) // expiration time: 7 days
                 .key("Y0mOMevGvbMvUoehtbqF")   // cookies will survive if restarted
-                .tokenRepository(persistentTokenRepository()) //
+                .tokenRepository(persistentTokenRepository(dataSource)) //
                 .and().exceptionHandling() //
                 .accessDeniedPage("/access-denied");
     }
@@ -70,7 +70,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public PersistentTokenRepository persistentTokenRepository() {
+    public PersistentTokenRepository persistentTokenRepository(DataSource dataSource) {
         JdbcTokenRepositoryImpl tokenRepo = new JdbcTokenRepositoryImpl();
         tokenRepo.setDataSource(dataSource);
         return tokenRepo;
