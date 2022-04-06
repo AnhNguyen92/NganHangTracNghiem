@@ -1,7 +1,6 @@
 package vn.com.multiplechoice.dao.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -74,8 +73,8 @@ public class Test implements Serializable {
 	@JoinColumn(name = "header_template_id")
 	private HeaderTemplate header;
 
-	@OneToMany(mappedBy = "test")
-	private List<TestFeedback> feedbacks = new ArrayList<>();
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "test")
+	private List<TestFeedback> feedbacks;
 
 	public void addQuestion(Question question) {
 		questions.add(question);

@@ -139,11 +139,11 @@ public class TestController {
 
 	@PostMapping
 	public String saveOrUpdate(Options options, @RequestParam("file") MultipartFile multipartFile, Model model) {
+		User creator = onlineUserUtil.getOnlineUser();
 		Test test = new Test();
 		if (options.getTestId() != null) {
 			test = testService.findById(options.getTestId());
 		} else {
-			User creator = onlineUserUtil.getOnlineUser();
 			test.setCreator(creator);
 			test.setCreateDate(new Date());
 			if (creator.getRole().equals(UserRole.USER)) {
@@ -155,29 +155,24 @@ public class TestController {
 		}
 
 		List<Long> selecteds = options.getSelected();
-		//Set<Question> selectedQuestions = new HashSet<>(questionService.findAllById(selecteds));
-		Set<Question> existedQuestion = test.getQuestions();
-		List<Long> deletedQuestionIds = existedQuestion.stream().map(Question::getId)
-				.collect(Collectors.toList());
-		for (Long id : selecteds) {
-			if () {
-				
-			}
-		}
-		Set<Question> removedQuestions = new HashSet<>(existedQuestion);
-		Set<Question> newQuestTions = new HashSet<>();
-		removedQuestions.removeAll(existedQuestion);
+		Set<Question> selectedQuestions = new HashSet<>(questionService.findAllById(selecteds));
+		test.setQuestions(selectedQuestions);
 
 		// save header
 		if (multipartFile != null && !multipartFile.isEmpty()) {
 			fileStorageService.upload(applicationConfig.getTemplateUploadPath(), multipartFile.getOriginalFilename(),
 					multipartFile);
+			HeaderTemplate headerTemplate = new HeaderTemplate();
+			headerTemplate.setCreateDate(new Date());
+			headerTemplate.setTest(test);
+			headerTemplate.setUser(creator);
+			headerTemplate.setSourcePath(null);
+			headerTemplate.setName(null);
+			test.setHeader(headerTemplate);
 		}
 
 		test.setNumOfQuestions(options.getSelected().size());
 		test.setContent(options.getContent());
-		test.getQuestions().addAll(selectedQuestions);
-		test.getQuestions().removeAll(removedQuestions);
 		test.setPublic(options.isPublic());
 		test.setExecuteTime(options.getExecuteTime());
 
