@@ -34,7 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
-
+    
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         String loginPage = "/fo/login";
@@ -43,11 +43,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests() //
                 .antMatchers(loginPage, "/fo/signup", "/fo/forgot-password", "/fo/reset-password", "/fo/verify", "/fo/questions/fragment/*").permitAll() //
                 .anyRequest().authenticated() //
-                .and().formLogin().loginPage(loginPage) //
+                .and().formLogin() //
                 .loginProcessingUrl("/fo/j_spring_security_login") //
+                .loginPage(loginPage) //
+                .usernameParameter("username") //
+                .passwordParameter("password") //
                 .failureUrl("/fo/login?error=true") //
                 .defaultSuccessUrl("/fo/questions/filling", true) //
-                .usernameParameter("username").passwordParameter("password") //
                 .and() //
                 .logout().logoutRequestMatcher(new AntPathRequestMatcher("/fo/logout")) //
                 .logoutSuccessUrl(loginPage) //
