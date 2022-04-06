@@ -77,6 +77,16 @@ public class Test implements Serializable {
 	@OneToMany(mappedBy = "test")
 	private List<TestFeedback> feedbacks = new ArrayList<>();
 
+	public void addQuestion(Question question) {
+		questions.add(question);
+		question.getTests().add(this);
+    }
+ 
+    public void removeQuestion(Question question) {
+    	questions.remove(question);
+        question.getTests().remove(this);
+    }
+    
 	public Long getId() {
 		return id;
 	}
