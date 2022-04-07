@@ -32,13 +32,16 @@
     <div class="page-title">DANH SÁCH ĐỀ THI CỦA BẠN</div>
 
     <div class="test-content" id="test-content">
-      <table class="table">
+      <table class="table" >
         <thead>
           <tr>
             <th scope="col" id="index">STT</th>
             <th scope="col" id="id">ID</th>
             <th scope="col" id="name">Tên</th>
             <th scope="col" id="name">Số lượng câu hỏi</th>
+            <th scope="col" id="name">Thời gian làm bài (HH:mm)</th>
+            <th scope="col" id="name">Công khai</th>
+            <th scope="col" id="name">Trạng thái</th>
             <th scope="col" id="action">Hành động</th>
           </tr>
         </thead>
@@ -49,6 +52,10 @@
               <td th:text="${test.id}"></td>
               <td th:utext="${test.content}"></td>
               <td th:text="${#lists.size(test.questions)}"></td>
+              <td th:utext="${test.executeTime}"></td>
+              <td th:text="${test.public} ? 'Có' : 'Không' "></td>
+              <td th:text="${test.creator} ? 'Đã duyệt' : 'Chưa duyệt' "></td>
+              
               <td>
                 <div class="d-flex justify-content-around">
                   <a th:href="@{'/fo/contests/' + ${test.id}}" class="btn btn-primary mr-2" title="Chi tiết">
