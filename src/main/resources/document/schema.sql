@@ -1,4 +1,4 @@
-#create database
+-- create database
 create database `bank_question`;
 
 use `bank_question`;
@@ -155,4 +155,5 @@ ALTER TABLE `test_question` DROP PRIMARY KEY, ADD PRIMARY KEY(`question_id`, `te
 
 ALTER TABLE `test_question` ADD INDEX(`question_id`);
 
-
+-- remove constraint foreign key to table test-question
+ALTER TABLE `test_feedbacks` DROP CONSTRAINT `FKd12iily7getg25bm0eg15vjj9`;
