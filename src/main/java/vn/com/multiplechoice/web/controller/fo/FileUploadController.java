@@ -25,7 +25,6 @@ import vn.com.multiplechoice.dao.model.User;
 @Controller
 @RequestMapping("/fo/file-upload")
 public class FileUploadController {
-    
     private static final Logger log = LoggerFactory.getLogger(FileUploadController.class);
 
     @Autowired

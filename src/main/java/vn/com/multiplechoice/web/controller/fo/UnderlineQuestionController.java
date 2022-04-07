@@ -26,9 +26,9 @@ import vn.com.multiplechoice.web.model.QuestionAnswerDto;
 @RequestMapping("/fo/questions")
 @Controller
 public class UnderlineQuestionController {
+	private static final Logger log = LoggerFactory.getLogger(UnderlineQuestionController.class);
 
     private static final String FO_CREATE_QUESTION_UNDERLINE = "fo/create-underline-question";
-    private static final Logger log = LoggerFactory.getLogger(UnderlineQuestionController.class);
     private static final String[] ANSWER_LABELS = new String[] { "A", "B", "C", "D", "E", "F", "G",
             "H" };
     private static final String MCQ_DTO = "mcqDto";

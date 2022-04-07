@@ -28,12 +28,8 @@ import vn.com.multiplechoice.dao.model.paging.Paging;
 public class QuestionController {
 	private static final Logger logger = LoggerFactory.getLogger(QuestionController.class);
 
-	private QuestionService questionService;
-
 	@Autowired
-	public QuestionController(QuestionService questionService) {
-		this.questionService = questionService;
-	}
+	private QuestionService questionService;
 
 	@GetMapping("")
 	public String list(@RequestParam(value = "pageNumber", required = false, defaultValue = "1") int pageNumber,

@@ -25,7 +25,6 @@ import vn.com.multiplechoice.web.model.QuestionAnswerDto;
 @RequestMapping("/fo/questions")
 @Controller
 public class TrueFalseQuestionController {
-
     private static final Logger log = LoggerFactory.getLogger(TrueFalseQuestionController.class);
     
     private static final String FO_CREATE_QUESTION_TRUE_FALSE = "/fo/create-true-false-question";

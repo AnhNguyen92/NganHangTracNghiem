@@ -19,7 +19,6 @@ import vn.com.multiplechoice.web.utils.OnlineUserUtil;
 @Controller
 @RequestMapping("/bo/user-requests")
 public class UserRequestController {
-
     private static final Logger log = LoggerFactory.getLogger(UserRequestController.class);
 
     @Autowired

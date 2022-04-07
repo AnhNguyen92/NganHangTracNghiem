@@ -25,9 +25,9 @@ import vn.com.multiplechoice.web.model.QuestionAnswerDto;
 @RequestMapping("/fo/questions")
 @Controller
 public class FillingQuestionController {
+	private static final Logger log = LoggerFactory.getLogger(FillingQuestionController.class);
 
     private static final String FO_CREATE_FILLING_QUESTION = "fo/create-flling-question";
-    private static final Logger log = LoggerFactory.getLogger(FillingQuestionController.class);
     private static final String[] ANSWER_LABELS = new String[] { "A", "B", "C", "D", "E", "F", "G", "H" };
     private static final String MCQ_DTO = "mcqDto";
 

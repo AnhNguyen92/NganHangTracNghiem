@@ -44,8 +44,9 @@ import vn.com.multiplechoice.web.utils.OnlineUserUtil;
 @Controller
 @RequestMapping("/fo/contests")
 public class TestController {
-	private static final String OPTIONS = "options";
 	private static final Logger logger = LoggerFactory.getLogger(TestController.class);
+
+	private static final String OPTIONS = "options";
 	private static final String[] ANSWER_LABELS = new String[] { "Đáp án A", "Đáp án B", "Đáp án C", "Đáp án D",
 			"Đáp án E", "Đáp án F", "Đáp án G", "Đáp án H" };
 
