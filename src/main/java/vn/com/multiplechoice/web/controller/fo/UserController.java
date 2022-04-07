@@ -12,7 +12,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,6 +25,7 @@ import vn.com.multiplechoice.dao.model.User;
 import vn.com.multiplechoice.dao.model.VerificationCode;
 import vn.com.multiplechoice.dao.model.enums.VerificationType;
 import vn.com.multiplechoice.web.dto.UserDto;
+import vn.com.multiplechoice.web.utils.OnlineUserUtil;
 import vn.com.multiplechoice.web.utils.RequestUtil;
 
 @Controller
@@ -51,10 +51,12 @@ public class UserController {
     @Autowired
     private MailService mailservice;
 
+    @Autowired
+    private OnlineUserUtil onlineUserUtil;
+    
     @GetMapping("/fo/user/profile")
     public String profile(Model model) {
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User user = userService.findByUsername(userDetails.getUsername());
+        User user = onlineUserUtil.getOnlineUser();
         model.addAttribute("user", userConverter.toDto(user));
 
         return "fo/user-profile";
@@ -62,8 +64,7 @@ public class UserController {
 
     @PostMapping("/fo/user/save")
     public String updateProfile(Model model, UserDto userDto) {
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User user = userService.findByUsername(userDetails.getUsername());
+        User user = onlineUserUtil.getOnlineUser();
         userConverter.updateUser(user, userDto);
         userService.save(user);
         if (userDto.getPassword() != null && userDto.getPassword().length() >= 6) {
