@@ -115,7 +115,7 @@ public class TestController {
 		model.addAttribute("answerLabels", ANSWER_LABELS);
 		if (test.getHeader() != null) {
 			HeaderTemplate headerTemplate = test.getHeader();
-			String sourcePath = applicationConfig.getTemplateUploadPath() + headerTemplate.getSourcePath();
+			String sourcePath = applicationConfig.getTemplateUploadPath() + "/" + test.getId() + "/" + headerTemplate.getSourcePath();
 			FileInputStream templateFile = new FileInputStream(sourcePath);
 			String header = parseHeaderTemplateToHtml(templateFile);
 			model.addAttribute("header", header);
@@ -159,7 +159,21 @@ public class TestController {
 		Set<Question> selectedQuestions = new HashSet<>(questionService.findAllById(selecteds));
 		test.setQuestions(selectedQuestions);
 
-		// save header
+		test.setNumOfQuestions(options.getSelected().size());
+		test.setContent(options.getContent());
+		test.setPublic(options.isPublic());
+		test.setExecuteTime(options.getExecuteTime());
+
+		testService.save(test);
+		model.addAttribute(OPTIONS, options);
+		
+		updateHeader(multipartFile, creator, test);
+
+		return "fo/saved";
+	}
+
+	private void updateHeader(MultipartFile multipartFile, User creator, Test test) {
+		// save/update header
 		if (multipartFile != null && !multipartFile.isEmpty()) {
 			fileStorageService.upload(applicationConfig.getTemplateUploadPath(), multipartFile.getOriginalFilename(),
 					multipartFile);
@@ -171,18 +185,10 @@ public class TestController {
 			headerTemplate.setName(null);
 			test.setHeader(headerTemplate);
 		}
-
-		test.setNumOfQuestions(options.getSelected().size());
-		test.setContent(options.getContent());
-		test.setPublic(options.isPublic());
-		test.setExecuteTime(options.getExecuteTime());
-
-		testService.save(test);
-		model.addAttribute(OPTIONS, options);
-
-		return "fo/saved";
 	}
 
+	
+	
 	private String parseHeaderTemplateToHtml(InputStream inputStream) {
 		// header docx
 		DocumentConverter converter = new DocumentConverter();
