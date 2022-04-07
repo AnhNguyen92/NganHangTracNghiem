@@ -136,7 +136,7 @@
     <script th:src="@{/assets/jquery-countdown/jquery.countdown.min.js}"></script>
 
     <script th:inline="javascript">
-        let executeTime = [[${ executeTime }]];
+        let executeTime = /*[[${executeTime}]]*/ '00:05';
         let timeParts = executeTime.split(':');
         let endDate = new Date();
         endDate.setHours(endDate.getHours() + parseInt(timeParts[0]));
@@ -147,6 +147,10 @@
                 + '<span class="h1 font-weight-bold">%M</span> Phút'
                 + '<span class="h1 font-weight-bold">%S</span> Giây'));
         }).on('finish.countdown', function (event) {
+        	let $this = $(this).html(event.strftime(''
+                    + '<span class="h1 font-weight-bold">%H</span> Giờ'
+                    + '<span class="h1 font-weight-bold">%M</span> Phút'
+                    + '<span class="h1 font-weight-bold">%S</span> Giây'));
             alert("need to submit form here");
             
         });
