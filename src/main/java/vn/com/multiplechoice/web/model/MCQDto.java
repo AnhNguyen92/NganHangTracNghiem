@@ -7,69 +7,78 @@ import vn.com.multiplechoice.dao.model.User;
 import vn.com.multiplechoice.dao.model.enums.QuestionType;
 
 public class MCQDto {
-    private QuestionType type;
-    private User user;
-    private String answerSuggestion;
-    private String content;
-    // list answer of question
-    private List<QuestionAnswerDto> questionAnswerDtos = new ArrayList<>();
-    private List<QuestionAnswerDto> leftAnswerDtos = new ArrayList<>();
-    private List<QuestionAnswerDto> rightAnswerDtos = new ArrayList<>();
+	private Long id;
+	private QuestionType type;
+	private User user;
+	private String answerSuggestion;
+	private String content;
+	// list answer of question
+	private List<QuestionAnswerDto> questionAnswerDtos = new ArrayList<>();
+	private List<QuestionAnswerDto> leftAnswerDtos = new ArrayList<>();
+	private List<QuestionAnswerDto> rightAnswerDtos = new ArrayList<>();
 
-    public QuestionType getType() {
-        return type;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public void setType(QuestionType type) {
-        this.type = type;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public User getUser() {
-        return user;
-    }
+	public QuestionType getType() {
+		return type;
+	}
 
-    public void setUser(User user) {
-        this.user = user;
-    }
+	public void setType(QuestionType type) {
+		this.type = type;
+	}
 
-    public String getAnswerSuggestion() {
-        return answerSuggestion;
-    }
+	public User getUser() {
+		return user;
+	}
 
-    public void setAnswerSuggestion(String answerSuggestion) {
-        this.answerSuggestion = answerSuggestion;
-    }
+	public void setUser(User user) {
+		this.user = user;
+	}
 
-    public String getContent() {
-        return content;
-    }
+	public String getAnswerSuggestion() {
+		return answerSuggestion;
+	}
 
-    public void setContent(String content) {
-        this.content = content;
-    }
+	public void setAnswerSuggestion(String answerSuggestion) {
+		this.answerSuggestion = answerSuggestion;
+	}
 
-    public List<QuestionAnswerDto> getQuestionAnswerDtos() {
-        return questionAnswerDtos;
-    }
+	public String getContent() {
+		return content;
+	}
 
-    public void setQuestionAnswerDtos(List<QuestionAnswerDto> questionAnswerDtos) {
-        this.questionAnswerDtos = questionAnswerDtos;
-    }
+	public void setContent(String content) {
+		this.content = content;
+	}
 
-    public List<QuestionAnswerDto> getLeftAnswerDtos() {
-        return leftAnswerDtos;
-    }
+	public List<QuestionAnswerDto> getQuestionAnswerDtos() {
+		return questionAnswerDtos;
+	}
 
-    public void setLeftAnswerDtos(List<QuestionAnswerDto> leftAnswerDtos) {
-        this.leftAnswerDtos = leftAnswerDtos;
-    }
+	public void setQuestionAnswerDtos(List<QuestionAnswerDto> questionAnswerDtos) {
+		this.questionAnswerDtos = questionAnswerDtos;
+	}
 
-    public List<QuestionAnswerDto> getRightAnswerDtos() {
-        return rightAnswerDtos;
-    }
+	public List<QuestionAnswerDto> getLeftAnswerDtos() {
+		return leftAnswerDtos;
+	}
 
-    public void setRightAnswerDtos(List<QuestionAnswerDto> rightAnswerDtos) {
-        this.rightAnswerDtos = rightAnswerDtos;
-    }
+	public void setLeftAnswerDtos(List<QuestionAnswerDto> leftAnswerDtos) {
+		this.leftAnswerDtos = leftAnswerDtos;
+	}
+
+	public List<QuestionAnswerDto> getRightAnswerDtos() {
+		return rightAnswerDtos;
+	}
+
+	public void setRightAnswerDtos(List<QuestionAnswerDto> rightAnswerDtos) {
+		this.rightAnswerDtos = rightAnswerDtos;
+	}
 
 }

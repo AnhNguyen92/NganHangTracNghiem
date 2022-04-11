@@ -1,19 +1,28 @@
 package vn.com.multiplechoice.web.dto;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import vn.com.multiplechoice.dao.model.HeaderTemplate;
 import vn.com.multiplechoice.dao.model.User;
 import vn.com.multiplechoice.web.model.MCQDto;
 
 public class ExamDto {
+	private Long id;
 	private String title;
 	private int numOfQuestions;
 	private String executeTime;
 	private User creator;
 	private HeaderTemplate header;
-	private Set<MCQDto> questions = new HashSet<>();
+	private List<MCQDto> questions = new ArrayList<>();
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getTitle() {
 		return title;
@@ -55,11 +64,11 @@ public class ExamDto {
 		this.header = header;
 	}
 
-	public Set<MCQDto> getQuestions() {
+	public List<MCQDto> getQuestions() {
 		return questions;
 	}
 
-	public void setQuestions(Set<MCQDto> questions) {
+	public void setQuestions(List<MCQDto> questions) {
 		this.questions = questions;
 	}
 

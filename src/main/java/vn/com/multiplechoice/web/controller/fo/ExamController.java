@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import vn.com.multiplechoice.business.converter.TestConverter;
 import vn.com.multiplechoice.business.service.TestService;
 import vn.com.multiplechoice.dao.model.Test;
+import vn.com.multiplechoice.web.dto.ExamDto;
 
 @Controller
 @RequestMapping(value = "/fo/do-exam")
@@ -32,12 +33,13 @@ public class ExamController {
 		String executeTime = test.getExecuteTime();
 		
 		model.addAttribute("executeTime", executeTime);
-		model.addAttribute("test", test);
+		model.addAttribute("test", testConverter.toExam(test));
+		// model.addAttribute("test", test);
 		return "/fo/do-exam";
 	}
 	
 	@PostMapping("")
-	public String doExam(Model model, Test test) {
+	public String doExam(Model model, ExamDto test) {
 		System.out.println(test);
 		return "redirect:/fo/index";
 	}

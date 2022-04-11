@@ -1,7 +1,7 @@
 package vn.com.multiplechoice.business.converter;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -22,7 +22,7 @@ public class TestConverter {
 		exam.setHeader(test.getHeader());
 		exam.setNumOfQuestions(test.getNumOfQuestions());
 		exam.setTitle(test.getContent());
-		Set<MCQDto> questions = new HashSet<>();
+		List<MCQDto> questions = new ArrayList<>();
 		for (Question question : test.getQuestions()) {
 			MCQDto mcqDto = questionConverter.toDto(question);
 			questions.add(mcqDto);
