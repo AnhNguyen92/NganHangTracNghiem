@@ -1,5 +1,6 @@
 package vn.com.multiplechoice.web.controller.fo;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -8,6 +9,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
@@ -30,6 +32,7 @@ import org.zwobble.mammoth.Result;
 
 import vn.com.multiplechoice.business.config.ApplicationConfig;
 import vn.com.multiplechoice.business.service.FileStorageService;
+import vn.com.multiplechoice.business.service.HeaderTemplateService;
 import vn.com.multiplechoice.business.service.QuestionService;
 import vn.com.multiplechoice.business.service.TestService;
 import vn.com.multiplechoice.dao.model.HeaderTemplate;
@@ -64,6 +67,9 @@ public class TestController {
 
 	@Autowired
 	private ApplicationConfig applicationConfig;
+
+	@Autowired
+	private HeaderTemplateService headerTemplateService;
 
 	@GetMapping("")
 	public String createTest(Model model) {
@@ -115,7 +121,7 @@ public class TestController {
 		model.addAttribute("answerLabels", ANSWER_LABELS);
 		if (test.getHeader() != null) {
 			HeaderTemplate headerTemplate = test.getHeader();
-			String sourcePath = applicationConfig.getTemplateUploadPath() + "/" + test.getId() + "/" + headerTemplate.getSourcePath();
+			String sourcePath = applicationConfig.getTemplateUploadPath() + File.separatorChar + headerTemplate.getSourcePath();
 			FileInputStream templateFile = new FileInputStream(sourcePath);
 			String header = parseHeaderTemplateToHtml(templateFile);
 			model.addAttribute("header", header);
@@ -166,7 +172,7 @@ public class TestController {
 
 		testService.save(test);
 		model.addAttribute(OPTIONS, options);
-		
+
 		updateHeader(multipartFile, creator, test);
 
 		return "fo/saved";
@@ -175,20 +181,27 @@ public class TestController {
 	private void updateHeader(MultipartFile multipartFile, User creator, Test test) {
 		// save/update header
 		if (multipartFile != null && !multipartFile.isEmpty()) {
-			fileStorageService.upload(applicationConfig.getTemplateUploadPath(), multipartFile.getOriginalFilename(),
-					multipartFile);
 			HeaderTemplate headerTemplate = new HeaderTemplate();
 			headerTemplate.setCreateDate(new Date());
-			headerTemplate.setTest(test);
 			headerTemplate.setUser(creator);
-			headerTemplate.setSourcePath(null);
-			headerTemplate.setName(null);
+			headerTemplate.setOriginalName(multipartFile.getOriginalFilename());
+			headerTemplate.setGeneratedName(UUID.randomUUID().toString());
+			String sourcePath = applicationConfig.getTemplateUploadPath() + File.separatorChar + headerTemplate.getGeneratedName();
+			headerTemplate.setSourcePath(sourcePath);
+			boolean uploadSuccessfull = fileStorageService.upload(applicationConfig.getTemplateUploadPath()+ File.separatorChar + test.getId(),
+					multipartFile.getOriginalFilename(), multipartFile);
+			if (uploadSuccessfull) {
+				headerTemplateService.save(headerTemplate);
+			}
+			// remove old header template
+			if (test.getHeader() != null) {
+				HeaderTemplate oldHeaderTemplate = test.getHeader();
+				fileStorageService.delete(oldHeaderTemplate.getSourcePath());
+			}
 			test.setHeader(headerTemplate);
 		}
 	}
 
-	
-	
 	private String parseHeaderTemplateToHtml(InputStream inputStream) {
 		// header docx
 		DocumentConverter converter = new DocumentConverter();

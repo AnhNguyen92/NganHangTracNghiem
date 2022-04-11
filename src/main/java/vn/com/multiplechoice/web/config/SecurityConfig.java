@@ -49,7 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .usernameParameter("username") //
                 .passwordParameter("password") //
                 .failureUrl("/fo/login?error=true") //
-                .defaultSuccessUrl("/fo/questions/filling", true) //
+                .defaultSuccessUrl("/fo/index", true) //
                 .and() //
                 .logout().logoutRequestMatcher(new AntPathRequestMatcher("/fo/logout")) //
                 .logoutSuccessUrl(loginPage) //

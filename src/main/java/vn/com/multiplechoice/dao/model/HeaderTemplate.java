@@ -3,16 +3,13 @@ package vn.com.multiplechoice.dao.model;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -25,7 +22,10 @@ public class HeaderTemplate implements Serializable {
 	private Long id;
 
 	@Column
-	private String name;
+	private String generatedName;
+
+	@Column
+	private String originalName;
 
 	@Column
 	private String sourcePath;
@@ -37,9 +37,6 @@ public class HeaderTemplate implements Serializable {
 	@JoinColumn(name = "user_id")
 	private User user;
 
-	@OneToOne(mappedBy = "header", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
-	private Test test;
-
 	public Long getId() {
 		return id;
 	}
@@ -48,12 +45,20 @@ public class HeaderTemplate implements Serializable {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getGeneratedName() {
+		return generatedName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setGeneratedName(String generatedName) {
+		this.generatedName = generatedName;
+	}
+
+	public String getOriginalName() {
+		return originalName;
+	}
+
+	public void setOriginalName(String originalName) {
+		this.originalName = originalName;
 	}
 
 	public String getSourcePath() {
@@ -78,14 +83,6 @@ public class HeaderTemplate implements Serializable {
 
 	public void setUser(User user) {
 		this.user = user;
-	}
-
-	public Test getTest() {
-		return test;
-	}
-
-	public void setTest(Test test) {
-		this.test = test;
 	}
 
 }

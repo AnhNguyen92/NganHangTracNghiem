@@ -69,7 +69,7 @@ public class Test implements Serializable {
 	@JoinTable(name = "test_question", joinColumns = @JoinColumn(name = "test_id"), inverseJoinColumns = @JoinColumn(name = "question_id"))
 	private Set<Question> questions = new HashSet<>();
 
-	@OneToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "header_template_id")
 	private HeaderTemplate header;
 

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import vn.com.multiplechoice.business.converter.TestConverter;
 import vn.com.multiplechoice.business.service.TestService;
 import vn.com.multiplechoice.dao.model.Test;
 
@@ -21,6 +22,9 @@ public class ExamController {
 	@Autowired
 	TestService testService;
 
+	@Autowired
+	TestConverter testConverter;
+	
 	@GetMapping("/{id}")
 	public String exam(Model model, @PathVariable("id") Long id) {
 		log.info("===  Start do exam with test has id = {}  ===", id);
@@ -33,7 +37,8 @@ public class ExamController {
 	}
 	
 	@PostMapping("")
-	public String doExam() {
+	public String doExam(Model model, Test test) {
+		System.out.println(test);
 		return "redirect:/fo/index";
 	}
 

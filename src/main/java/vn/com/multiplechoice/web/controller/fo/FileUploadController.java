@@ -58,7 +58,8 @@ public class FileUploadController {
             
             // save template
             HeaderTemplate template = new HeaderTemplate();
-            template.setName(fileName);
+            template.setGeneratedName(fileName);
+            template.setOriginalName(originalFilename);
             template.setUser(user);
             template.setSourcePath("/" + user.getId() + "/" +uuidfileName);
             headerTemplateService.save(template);
