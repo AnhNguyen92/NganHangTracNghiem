@@ -31,15 +31,15 @@
 				</div>
 			</div>
 		</div>
-		<form th:action="@{/fo/do-exam}" method="post" th:object="${test}">
+		<form th:action="@{/fo/do-exam}" method="post" th:object="${examDto}">
 			<div class="test-content" id="test-content">
 				<div>
 					<input type="hidden" th:field="*{id}">
 				</div>
 				<div>
-					<h3 class="text-center my-3 font-" th:text="${test.title}"></h3>
+					<h3 class="text-center my-3 font-" th:text="${examDto.title}"></h3>
 				</div>
-				<div class="detail" th:each="question,iterStat : *{questions}">
+				<div class="detail" th:each="question,iterStat : ${examDto.questions}">
 					<div id="question-detail">
 						<div class="frm-content">
 							<p class="font-weight-bold"
@@ -74,7 +74,7 @@
 								th:unless="${question.type == T(vn.com.multiplechoice.dao.model.enums.QuestionType).MATCHING}">
 								<div class="d-flex flex-row">
 									<div class="align-items-center">
-										<input type="radio" th:name="'answer' + ${iterStat.index}"
+										<input type="radio"  th:field="*{answerDto.isSelected}" 
 											class="radio-answer" title="Chọn đáp án đúng">
 									</div>
 									<div class="ml-2">
