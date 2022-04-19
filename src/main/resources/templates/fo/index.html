@@ -1,24 +1,31 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org">
 
 <head>
-    <title>Trang Chủ</title>
+<title>Trang Chủ</title>
 
-    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-    <meta content="utf-8" http-equiv="encoding">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+<meta content="utf-8" http-equiv="encoding">
+<meta name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link rel="shortcut icon" th:href="@{/imgs/fo-favicon.ico}">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap-4.4.1/css/bootstrap.min.css}" />
-    <link href="/multiple-choice-quiz/vendor/fontawesome/css/all.min.css" rel="stylesheet" type="text/css">
-    <link th:rel="stylesheet" th:href="@{/assets/daterangepicker/daterangepicker.css}" />
-    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+<link rel="shortcut icon" th:href="@{/imgs/fo-favicon.ico}">
+<link rel="stylesheet" type="text/css"
+    th:href="@{/css/bootstrap-4.4.1/css/bootstrap.min.css}" />
+<link href="/multiple-choice-quiz/vendor/fontawesome/css/all.min.css"
+    rel="stylesheet" type="text/css">
+<link th:rel="stylesheet"
+    th:href="@{/assets/daterangepicker/daterangepicker.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script th:src="@{/css/bootstrap-4.4.1/js/bootstrap.min.js}"></script>
-    <script th:src="@{/assets/moment/moment.min.js}"></script>
-    <script th:src="@{/assets/daterangepicker/daterangepicker.js}"></script>
+<script
+    src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script th:src="@{/css/bootstrap-4.4.1/js/bootstrap.min.js}"></script>
+<script th:src="@{/assets/moment/moment.min.js}"></script>
+<script th:src="@{/assets/daterangepicker/daterangepicker.js}"></script>
 
 </head>
 
@@ -28,16 +35,23 @@
     <!-- end navbar -->
 
     <div class="main" style="background: #f0f3f5 !important;">
-        <div class="main-container container pt-3" style="background: #ffffff !important;">
+        <div class="main-container container pt-3"
+            style="background: #ffffff !important;">
             <div class="search pt-3">
-                <form class="d-flex form-inline ms-auto my-2 my-md-0" th:action="@{/fo/index}" method="post"
+                <form class="d-flex form-inline ms-auto my-2 my-md-0"
+                    th:action="@{/fo/index}" method="post"
                     th:object="${testCriteria}">
-                    <div class="form-group ml-2 align-self-center">Tìm kiếm bài kiểm tra theo:</div>
+                    <div class="form-group ml-2 align-self-center">Tìm
+                        kiếm bài kiểm tra theo:</div>
                     <div class="form-group ml-2">
-                        <input type="text" placeholder="Theo tên tác giả" class="form-control" th:field="*{searchText}">
+                        <input type="text"
+                            placeholder="Theo tên tác giả"
+                            class="form-control"
+                            th:field="*{searchText}">
                     </div>
                     <div class="form-group ml-2">
-                        <select class="custom-select" id="inlineFormCustomSelect">
+                        <select class="custom-select"
+                            id="inlineFormCustomSelect">
                             <option selected>Tất cả</option>
                             <option value="1">Tổng hợp</option>
                             <option value="2">Toán</option>
@@ -48,10 +62,11 @@
                     </div>
                     <div class="form-group ml-2">
                         <div class="input-group">
-                            <input type="text" class="form-control" id="dateRange" autocomplete="off" />
+                            <input type="text" class="form-control"
+                                id="dateRange" autocomplete="off" />
                             <div class="input-group-append">
-                                <span class="input-group-text">
-                                    <i class="far fa-calendar-alt"></i>
+                                <span class="input-group-text"> <i
+                                    class="far fa-calendar-alt"></i>
                                 </span>
                             </div>
                         </div>
@@ -61,7 +76,8 @@
                         </div>
                     </div>
                     <div class="form-group ml-2 text-right pr-0">
-                        <input type="submit" value="Tìm kiếm" class="btn btn-primary text-center align-self-center">
+                        <input type="submit" value="Tìm kiếm"
+                            class="btn btn-primary text-center align-self-center">
                     </div>
                 </form>
             </div>
@@ -74,45 +90,66 @@
                                 <div class="test-icon">T</div>
                             </div>
                             <div class="test-info col">
-                                <div class="font-weight-bold text-capitalize" th:text="${test.content}">Bài kiểm
-                                    tra số 1</div>
+                                <div
+                                    class="font-weight-bold text-capitalize"
+                                    th:text="${test.content}">Bài
+                                    kiểm tra số 1</div>
                                 <div class="d-flex flex-row">
                                     <div>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star-half-o" aria-hidden="true"></i>
-                                        <i class="fa fa-star-o" aria-hidden="true"></i>
-                                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                                        <i class="fa fa-star"
+                                            aria-hidden="true"></i> <i
+                                            class="fa fa-star"
+                                            aria-hidden="true"></i> <i
+                                            class="fa fa-star-half-o"
+                                            aria-hidden="true"></i> <i
+                                            class="fa fa-star-o"
+                                            aria-hidden="true"></i> <i
+                                            class="fa fa-star-o"
+                                            aria-hidden="true"></i>
                                     </div>
                                     <div class="vertical-line mx-2"></div>
                                     <div>
-                                        Tác giả:
-                                        <span class="ml-2">
-                                            <a href="#" th:text="${test.creator.firstname}">Anh Khôi</a>
+                                        Tác giả: <span class="ml-2">
+                                            <a href="#"
+                                            th:text="${test.creator.firstname}">Anh
+                                                Khôi</a>
                                         </span>
                                     </div>
                                 </div>
                             </div>
-							<div class="test-time col-2 text-center align-self-center" id="test-executeTime" th:text="${test.executeTime}">30
+                            <div
+                                class="test-time col-2 text-center align-self-center"
+                                id="test-executeTime"
+                                th:text="${test.executeTime}">30
                                 phút</div>
                             <script th:inline="javascript">
-							/*<![CDATA[*/
-								let executeTime = /*[[${test.executeTime}]]*/ '00:05';
-								let timeParts = executeTime.split(':');
-								let displayText = '';
-								if (parseInt(timeParts[0]) > 0) {
-									displayText = parseInt(timeParts[0]) + ' giờ';
-								}
-								if (parseInt(timeParts[1]) > 0) {
-									displayText += ' ' + parseInt(timeParts[1]) + ' phút';
-								}
-								document.getElementById('test-executeTime').innerHTML = displayText.trim();
-							/*]]>*/
-							</script>
-                            <div class="test-qtt-question col-2 text-center align-self-center"
-                                th:text="${test.numOfQuestions} + ' Câu hỏi' ">10 Câu hỏi</div>
-                            <div class="align-self-center col-2 text-right">
-                                <a th:href="@{/fo/do-exam/} + ${test.id}"
+														    /*<![CDATA[*/
+														    let executeTime = /*[[${test.executeTime}]]*/'00:05';
+														    let timeParts = executeTime
+															    .split(':');
+														    let displayText = '';
+														    if (parseInt(timeParts[0]) > 0) {
+															displayText = parseInt(timeParts[0])
+																+ ' giờ';
+														    }
+														    if (parseInt(timeParts[1]) > 0) {
+															displayText += ' '
+																+ parseInt(timeParts[1])
+																+ ' phút';
+														    }
+														    document
+															    .getElementById('test-executeTime').innerHTML = displayText
+															    .trim();
+														    /*]]>*/
+														</script>
+                            <div
+                                class="test-qtt-question col-2 text-center align-self-center"
+                                th:text="${test.numOfQuestions} + ' Câu hỏi' ">10
+                                Câu hỏi</div>
+                            <div
+                                class="align-self-center col-2 text-right">
+                                <a
+                                    th:href="@{/fo/do-exam/} + ${test.id}"
                                     class="btn btn-primary text-capitalize col text-center align-self-center"
                                     style="width: auto;">Bắt đầu</a>
                             </div>
@@ -124,26 +161,36 @@
                             <div class="test-icon">T</div>
                         </div>
                         <div class="test-info col">
-                            <div class="font-weight-bold text-capitalize">Bài kiểm tra số 1</div>
+                            <div
+                                class="font-weight-bold text-capitalize">Bài
+                                kiểm tra số 1</div>
                             <div class="d-flex flex-row">
                                 <div>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star-half-o" aria-hidden="true"></i>
-                                    <i class="fa fa-star-o" aria-hidden="true"></i>
-                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                    <i class="fa fa-star"
+                                        aria-hidden="true"></i> <i
+                                        class="fa fa-star"
+                                        aria-hidden="true"></i> <i
+                                        class="fa fa-star-half-o"
+                                        aria-hidden="true"></i> <i
+                                        class="fa fa-star-o"
+                                        aria-hidden="true"></i> <i
+                                        class="fa fa-star-o"
+                                        aria-hidden="true"></i>
                                 </div>
                                 <div class="vertical-line mx-2"></div>
                                 <div>
-                                    Tác giả:
-                                    <span class="ml-2">
+                                    Tác giả: <span class="ml-2">
                                         <a href="#">Anh Khôi</a>
                                     </span>
                                 </div>
                             </div>
                         </div>
-                        <div class="test-time col-2 text-center align-self-center">30 phút</div>
-                        <div class="test-qtt-question col-2 text-center align-self-center">10 Câu hỏi</div>
+                        <div
+                            class="test-time col-2 text-center align-self-center">30
+                            phút</div>
+                        <div
+                            class="test-qtt-question col-2 text-center align-self-center">10
+                            Câu hỏi</div>
                         <div class="align-self-center col-2 text-right">
                             <a th:href="@{/fo/do-exam/id}"
                                 class="btn btn-primary text-capitalize col text-center align-self-center"
@@ -156,26 +203,36 @@
                             <div class="test-icon">T</div>
                         </div>
                         <div class="test-info col">
-                            <div class="font-weight-bold text-capitalize">Bài kiểm tra số 2</div>
+                            <div
+                                class="font-weight-bold text-capitalize">Bài
+                                kiểm tra số 2</div>
                             <div class="d-flex flex-row">
                                 <div>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star-half-o" aria-hidden="true"></i>
-                                    <i class="fa fa-star-o" aria-hidden="true"></i>
-                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                    <i class="fa fa-star"
+                                        aria-hidden="true"></i> <i
+                                        class="fa fa-star"
+                                        aria-hidden="true"></i> <i
+                                        class="fa fa-star-half-o"
+                                        aria-hidden="true"></i> <i
+                                        class="fa fa-star-o"
+                                        aria-hidden="true"></i> <i
+                                        class="fa fa-star-o"
+                                        aria-hidden="true"></i>
                                 </div>
                                 <div class="vertical-line mx-2"></div>
                                 <div>
-                                    Tác giả:
-                                    <span class="ml-2">
+                                    Tác giả: <span class="ml-2">
                                         <a href="#">Diệp Tài</a>
                                     </span>
                                 </div>
                             </div>
                         </div>
-                        <div class="test-time col-2 text-center align-self-center">30 phút</div>
-                        <div class="test-qtt-question col-2 text-center align-self-center">10 Câu hỏi</div>
+                        <div
+                            class="test-time col-2 text-center align-self-center">30
+                            phút</div>
+                        <div
+                            class="test-qtt-question col-2 text-center align-self-center">10
+                            Câu hỏi</div>
                         <div class="align-self-center col-2 text-right">
                             <a th:href="@{/fo/do-exam/id}"
                                 class="btn btn-primary text-capitalize col text-center align-self-center"
@@ -188,26 +245,36 @@
                             <div class="test-icon">T</div>
                         </div>
                         <div class="test-info col">
-                            <div class="font-weight-bold text-capitalize">Bài kiểm tra số 3</div>
+                            <div
+                                class="font-weight-bold text-capitalize">Bài
+                                kiểm tra số 3</div>
                             <div class="d-flex flex-row">
                                 <div>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star-half-o" aria-hidden="true"></i>
-                                    <i class="fa fa-star-o" aria-hidden="true"></i>
-                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                    <i class="fa fa-star"
+                                        aria-hidden="true"></i> <i
+                                        class="fa fa-star"
+                                        aria-hidden="true"></i> <i
+                                        class="fa fa-star-half-o"
+                                        aria-hidden="true"></i> <i
+                                        class="fa fa-star-o"
+                                        aria-hidden="true"></i> <i
+                                        class="fa fa-star-o"
+                                        aria-hidden="true"></i>
                                 </div>
                                 <div class="vertical-line mx-2"></div>
                                 <div>
-                                    Tác giả:
-                                    <span class="ml-2">
+                                    Tác giả: <span class="ml-2">
                                         <a href="#">Lợi</a>
                                     </span>
                                 </div>
                             </div>
                         </div>
-                        <div class="test-time col-2 text-center align-self-center">30 phút</div>
-                        <div class="test-qtt-question col-2 text-center align-self-center">10 Câu hỏi</div>
+                        <div
+                            class="test-time col-2 text-center align-self-center">30
+                            phút</div>
+                        <div
+                            class="test-qtt-question col-2 text-center align-self-center">10
+                            Câu hỏi</div>
                         <div class="align-self-center col-2 text-right">
                             <a th:href="@{/fo/do-exam/id}"
                                 class="btn btn-primary text-capitalize col text-center align-self-center"
@@ -220,26 +287,36 @@
                             <div class="test-icon">T</div>
                         </div>
                         <div class="test-info col">
-                            <div class="font-weight-bold text-capitalize">Bài kiểm tra số 4</div>
+                            <div
+                                class="font-weight-bold text-capitalize">Bài
+                                kiểm tra số 4</div>
                             <div class="d-flex flex-row">
                                 <div>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star-half-o" aria-hidden="true"></i>
-                                    <i class="fa fa-star-o" aria-hidden="true"></i>
-                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                    <i class="fa fa-star"
+                                        aria-hidden="true"></i> <i
+                                        class="fa fa-star"
+                                        aria-hidden="true"></i> <i
+                                        class="fa fa-star-half-o"
+                                        aria-hidden="true"></i> <i
+                                        class="fa fa-star-o"
+                                        aria-hidden="true"></i> <i
+                                        class="fa fa-star-o"
+                                        aria-hidden="true"></i>
                                 </div>
                                 <div class="vertical-line mx-2"></div>
                                 <div>
-                                    Tác giả:
-                                    <span class="ml-2">
+                                    Tác giả: <span class="ml-2">
                                         <a href="#">Trí Lộc</a>
                                     </span>
                                 </div>
                             </div>
                         </div>
-                        <div class="test-time col-2 text-center align-self-center">30 phút</div>
-                        <div class="test-qtt-question col-2 text-center align-self-center">10 Câu hỏi</div>
+                        <div
+                            class="test-time col-2 text-center align-self-center">30
+                            phút</div>
+                        <div
+                            class="test-qtt-question col-2 text-center align-self-center">10
+                            Câu hỏi</div>
                         <div class="align-self-center col-2 text-right">
                             <a th:href="@{/fo/do-exam/id}"
                                 class="btn btn-primary text-capitalize col text-center align-self-center"
@@ -252,26 +329,36 @@
                             <div class="test-icon">T</div>
                         </div>
                         <div class="test-info col">
-                            <div class="font-weight-bold text-capitalize">Bài kiểm tra số 5</div>
+                            <div
+                                class="font-weight-bold text-capitalize">Bài
+                                kiểm tra số 5</div>
                             <div class="d-flex flex-row">
                                 <div>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star-half-o" aria-hidden="true"></i>
-                                    <i class="fa fa-star-o" aria-hidden="true"></i>
-                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                    <i class="fa fa-star"
+                                        aria-hidden="true"></i> <i
+                                        class="fa fa-star"
+                                        aria-hidden="true"></i> <i
+                                        class="fa fa-star-half-o"
+                                        aria-hidden="true"></i> <i
+                                        class="fa fa-star-o"
+                                        aria-hidden="true"></i> <i
+                                        class="fa fa-star-o"
+                                        aria-hidden="true"></i>
                                 </div>
                                 <div class="vertical-line mx-2"></div>
                                 <div>
-                                    Tác giả:
-                                    <span class="ml-2">
+                                    Tác giả: <span class="ml-2">
                                         <a href="#">Anh Khoa</a>
                                     </span>
                                 </div>
                             </div>
                         </div>
-                        <div class="test-time col-2 text-center align-self-center">30 phút</div>
-                        <div class="test-qtt-question col-2 text-center align-self-center">10 Câu hỏi</div>
+                        <div
+                            class="test-time col-2 text-center align-self-center">30
+                            phút</div>
+                        <div
+                            class="test-qtt-question col-2 text-center align-self-center">10
+                            Câu hỏi</div>
                         <div class="align-self-center col-2 text-right">
                             <a th:href="@{/fo/do-exam/id}"
                                 class="btn btn-primary text-capitalize col text-center align-self-center"
@@ -289,30 +376,39 @@
         </div>
         <nav aria-label="Page navigation example" class="my-3">
             <ul class="pagination justify-content-center">
-                <div class="row" th:if="${not #lists.isEmpty(tests.page)}">
-                    <div class="dataTables_paginate paging_simple_numbers d-flex flex-row-reverse"
+                <div class="row"
+                    th:if="${not #lists.isEmpty(tests.page)}">
+                    <div
+                        class="dataTables_paginate paging_simple_numbers d-flex flex-row-reverse"
                         id="example_paginate">
                         <ul class="pagination">
-                            <li class="paginate_button page-item previous" id="example_previous"
+                            <li
+                                class="paginate_button page-item previous"
+                                id="example_previous"
                                 th:classappend="${!tests.paging.isPrevEnabled() ? 'disabled' : ''}">
-                                <a th:href="@{?(pageSize=${size},pageNumber=${tests.paging.pageNumber - 1},searchText=(${testCriteria.searchText} ? ${testCriteria.searchText} : ''),status=(${testCriteria.status} ? ${testCriteria.status} : ''))}"
-                                    aria-controls="example" data-dt-idx="0" tabindex="0" class="page-link">Trước</a>
+                                <a
+                                th:href="@{?(pageSize=${size},pageNumber=${tests.paging.pageNumber - 1},searchText=(${testCriteria.searchText} ? ${testCriteria.searchText} : ''),status=(${testCriteria.status} ? ${testCriteria.status} : ''))}"
+                                aria-controls="example" data-dt-idx="0"
+                                tabindex="0" class="page-link">Trước</a>
                             </li>
-                            <th:block th:each="item : ${tests.paging.getItems()}">
+                            <th:block
+                                th:each="item : ${tests.paging.getItems()}">
                                 <li class="page-item"
                                     th:classappend="${item.index == tests.paging.pageNumber ? 'active' : ''}"
                                     th:if="${item.pageItemType.name() == 'PAGE'}">
                                     <a class="page-link"
-                                        th:href="@{?(pageSize=${size},pageNumber=${item.index},searchText=(${testCriteria.searchText} ? ${testCriteria.searchText} : ''),status=(${testCriteria.status} ? ${testCriteria.status} : ''))}"
-                                        th:text="${item.index}"></a>
+                                    th:href="@{?(pageSize=${size},pageNumber=${item.index},searchText=(${testCriteria.searchText} ? ${testCriteria.searchText} : ''),status=(${testCriteria.status} ? ${testCriteria.status} : ''))}"
+                                    th:text="${item.index}"></a>
                                 </li>
-                                <li class="page-item disabled" th:if="${item.pageItemType.name() == 'DOTS'}">
+                                <li class="page-item disabled"
+                                    th:if="${item.pageItemType.name() == 'DOTS'}">
                                     <a class="page-link" href="#">...</a>
                                 </li>
                             </th:block>
-                            <li class="page-item" th:classappend="${!tests.paging.isNextEnabled() ? 'disabled' : ''}">
+                            <li class="page-item"
+                                th:classappend="${!tests.paging.isNextEnabled() ? 'disabled' : ''}">
                                 <a class="page-link"
-                                    th:href="@{?(pageSize=${size},pageNumber=${tests.paging.pageNumber + 1},searchText=(${testCriteria.searchText} ? ${testCriteria.searchText} : ''),status=(${testCriteria.status} ? ${testCriteria.status} : ''))}">Kế</a>
+                                th:href="@{?(pageSize=${size},pageNumber=${tests.paging.pageNumber + 1},searchText=(${testCriteria.searchText} ? ${testCriteria.searchText} : ''),status=(${testCriteria.status} ? ${testCriteria.status} : ''))}">Kế</a>
                             </li>
                         </ul>
                     </div>
@@ -343,20 +439,6 @@
     	  $('input[name="dateRange.fromDate"]').val(start.format('DD/MM/YYYY'));
           $('input[name="dateRange.toDate"]').val(end.format('DD/MM/YYYY'));
     });
-
-    /* $dateRange.on('apply.daterangepicker', function (ev, picker) {
-        $('input[name="dateRange.fromDate"]').val(picker.startDate.format('DD/MM/YYYY'));
-        $('input[name="dateRange.toDate"]').val(picker.endDate.format('DD/MM/YYYY'));
-    });
-
-    $dateRange.on('cancel.daterangepicker', function (ev, picker) {
-        $('input[name="dateRange.fromDate"]').val(picker.startDate.format('DD/MM/YYYY'));
-        $('input[name="dateRange.toDate"]').val(picker.endDate.format('DD/MM/YYYY'));
-    }); */
-    
-    /* $(function () {
-        $('input[name="dateRange.toDate"]').val(picker.endDate.format('DD/MM/YYYY'));
-    }); */
 
 </script>
 
