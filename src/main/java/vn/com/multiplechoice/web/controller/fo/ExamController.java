@@ -33,14 +33,14 @@ public class ExamController {
 		String executeTime = test.getExecuteTime();
 		
 		model.addAttribute("executeTime", executeTime);
-		model.addAttribute("test", testConverter.toExam(test));
+		model.addAttribute("examDto", testConverter.toExam(test));
 		// model.addAttribute("test", test);
 		return "/fo/do-exam";
 	}
 	
 	@PostMapping("")
-	public String doExam(Model model, ExamDto test) {
-		System.out.println(test);
+	public String doExam(Model model, ExamDto examDto) {
+		System.out.println(examDto);
 		return "redirect:/fo/index";
 	}
 
