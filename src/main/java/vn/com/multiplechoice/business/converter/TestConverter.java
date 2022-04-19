@@ -17,6 +17,7 @@ public class TestConverter {
 
 	public ExamDto toExam(Test test) {
 		ExamDto exam = new ExamDto();
+		exam.setId(test.getId());
 		exam.setCreator(test.getCreator());
 		exam.setExecuteTime(test.getExecuteTime());
 		exam.setHeader(test.getHeader());

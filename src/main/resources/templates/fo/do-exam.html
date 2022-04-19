@@ -9,218 +9,153 @@
 
 <link rel="shortcut icon" th:href="@{/imgs/fo-favicon.ico}">
 <link th:rel="stylesheet"
-	th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} " />
+    th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} " />
 <link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
 </head>
 
 <body>
-	<!-- navbar -->
-	<header th:replace="fragments/fo/navbar.html :: navbar "> </header>
-	<!-- end navbar -->
+    <!-- navbar -->
+    <header th:replace="fragments/fo/navbar.html :: navbar "> </header>
+    <!-- end navbar -->
 
-	<div class="container">
-		<div class="row">
-			<div class="mx-auto col-lg-8 mt-5">
-				<div
-					class="rounded bg-gradient text-white shadow p-5 text-center mb-5">
-					<p class="mb-0 font-weight-bold text-uppercase">Thời gian làm
-						bài kết thúc sau</p>
-					<div id="clock" class="countdown pt-4"></div>
-				</div>
-			</div>
-		</div>
-		<form th:action="@{/fo/do-exam}" method="post" th:object="${examDto}">
-			<div class="test-content" id="test-content">
-				<div>
-					<input type="hidden" th:field="*{id}">
-				</div>
-				<div>
-					<h3 class="text-center my-3 font-" th:text="${examDto.title}"></h3>
-				</div>
-				<div class="detail" th:each="question,iterStat : ${examDto.questions}">
-					<div id="question-detail">
-						<div class="frm-content">
-							<p class="font-weight-bold"
-								th:utext="'Câu ' + (${iterStat.index} + 1) + '. ' + ${question.content}"></p>
-						</div>
-						<div class="question-answer"
-							th:each="answerDto, answerDtoStat : ${question.questionAnswerDtos}">
-							<th:block
-								th:if="${question.type == T(vn.com.multiplechoice.dao.model.enums.QuestionType).MATCHING}">
-								<div class="row">
-									<div class="col-6">
-										<div class="flex-row">
-											<div class="ml-2"
-												th:each="leftAnswerDto, leftAnswerDtoStat : *{question.leftAnswerDtos}">
-												<p
-													th:text="*{leftAnswerDto.answerLabel} + '. ' + *{leftAnswerDto.answerContent}">
-											</div>
-										</div>
-									</div>
-									<div class="col-6">
-										<div class="flex-row">
-											<div class="ml-2"
-												th:each="rightAnswerDto, rightAnswerDtoStat : *{question.rightAnswerDtos}">
-												<p
-													th:text="*{rightAnswerDto.answerLabel} + '. ' + *{rightAnswerDto.answerContent}">
-											</div>
-										</div>
-									</div>
-								</div>
-							</th:block>
-							<th:block
-								th:unless="${question.type == T(vn.com.multiplechoice.dao.model.enums.QuestionType).MATCHING}">
-								<div class="d-flex flex-row">
-									<div class="align-items-center">
-										<input type="radio"  th:field="*{answerDto.isSelected}" 
-											class="radio-answer" title="Chọn đáp án đúng">
-									</div>
-									<div class="ml-2">
-										<p style="width: 700px"
-											th:text="${answerDto.answerLabel} + '. ' + ${answerDto.answerContent}">
-									</div>
-								</div>
-							</th:block>
-						</div>
-					</div>
-					<!-- <div>
-                        <p class="font-weight-bold"
-                            th:utext="'Câu ' + (${iterStat.index} + 1) + '. ' + ${question.content}"></p>
-                    </div> -->
-					<!-- <div class="question-answer">
-                        <div class="d-flex" th:if="${question.answerA} != null">
-                            <div class="align-items-center">
-                                <input type="radio" th:name="'answer' + ${iterStat.index}" class="radio-answer"
-                                    title="Chọn đáp án đúng">
-                            </div>
-                            <div class="ml-2">
-                                <p th:text="'A. ' + ${question.answerA}" style="width: 700px;">
-                            </div>
+    <div class="container">
+        <div class="row">
+            <div class="mx-auto col-lg-8 mt-5">
+                <div
+                    class="rounded bg-gradient text-white shadow p-5 text-center mb-5">
+                    <p class="mb-0 font-weight-bold text-uppercase">Thời
+                        gian làm bài kết thúc sau</p>
+                    <div id="clock" class="countdown pt-4"></div>
+                </div>
+            </div>
+        </div>
+        <form th:action="@{/fo/do-exam}" method="post"
+            th:object="${examDto}">
+            <div class="test-content" id="test-content">
+                <div>
+                    <input type="hidden" th:field="*{id}">
+                </div>
+                <div>
+                    <h3 class="text-center my-3 font-"
+                        th:text="${examDto.title}"></h3>
+                </div>
+                <div class="detail"
+                    th:each="question,iterStat : *{questions}">
+                    <div id="question-detail">
+                        <div class="d-none">
+                        <input type="hidden" th:field="${question[_${iterStat.index}_]}.id}">
+                        <input type="hidden" th:value="${question.type}" th:name="${question.type}">
                         </div>
-                        <div class="d-flex" th:if="${question.answerB} != null">
-                            <div class="align-items-center">
-                                <input type="radio" th:name="'answer' + ${iterStat.index}" class="radio-answer"
-                                    title="Chọn đáp án đúng">
-                            </div>
-                            <div class="ml-2">
-                                <p th:text="'B. ' + ${question.answerB}" style="width: 700px;">
-                            </div>
+                        <div class="frm-content">
+                            <p class="font-weight-bold"
+                                th:utext="'Câu ' + (${iterStat.index} + 1) + '. ' + ${question.content}"></p>
                         </div>
-                        <div class="d-flex" th:if="${question.answerC} != null">
-                            <div class="align-items-center">
-                                <input type="radio" th:name="'answer' + ${iterStat.index}" class="radio-answer"
-                                    title="Chọn đáp án đúng">
-                            </div>
-                            <div class="ml-2">
-                                <p th:text="'C. ' + ${question.answerC}" style="width: 700px;">
-                            </div>
+                        <div class="question-answer"
+                            th:each="questionAnswerDto, questionAnswerDtoStat : ${question.questionAnswerDtos}">
+                            <th:block
+                                th:if="${question.type == T(vn.com.multiplechoice.dao.model.enums.QuestionType).MATCHING}">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="flex-row">
+                                            <div class="ml-2"
+                                                th:each="leftAnswerDto, leftAnswerDtoStat : ${question.leftAnswerDtos}">
+                                                <p
+                                                    th:text="*{leftAnswerDto.answerLabel} + '. ' + ${leftAnswerDto.answerContent}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="flex-row">
+                                            <div class="ml-2"
+                                                th:each="rightAnswerDto, rightAnswerDtoStat : ${question.rightAnswerDtos}">
+                                                <p
+                                                    th:text="*{rightAnswerDto.answerLabel} + '. ' + ${rightAnswerDto.answerContent}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </th:block>
+                            <th:block
+                                th:unless="${question.type == T(vn.com.multiplechoice.dao.model.enums.QuestionType).MATCHING}">
+                                <div class="d-flex flex-row">
+                                    <div class="align-items-center">
+                                        <input type="radio"
+                                            th:value="${questionAnswerDto.selected}"
+                                            th:name="${questionAnswerDto.selected}"
+                                            class="radio-answer"
+                                            title="Chọn đáp án đúng">
+                                    </div>
+                                    <div class="ml-2">
+                                        <p style="width: 700px"
+                                            th:text="${questionAnswerDto.answerLabel} + '. ' + ${questionAnswerDto.answerContent}">
+                                    </div>
+                                </div>
+                            </th:block>
                         </div>
-                        <div class="d-flex" th:if="${question.answerD} != null">
-                            <div class="align-items-center">
-                                <input type="radio" th:name="'answer' + ${iterStat.index}" class="radio-answer"
-                                    title="Chọn đáp án đúng">
-                            </div>
-                            <div class="ml-2">
-                                <p th:text="'D. ' + ${question.answerD}" style="width: 700px;">
-                            </div>
-                        </div>
-                        <div class="d-flex" th:if="${question.answerE} != null">
-                            <div class="align-items-center">
-                                <input type="radio" th:name="'answer' + ${iterStat.index}" class="radio-answer"
-                                    title="Chọn đáp án đúng">
-                            </div>
-                            <div class="ml-2">
-                                <p th:text="'E. ' + ${question.answerE}" style="width: 700px;">
-                            </div>
-                        </div>
-                        <div class="d-flex" th:if="${question.answerF} != null">
-                            <div class="align-items-center">
-                                <input type="radio" th:name="'answer' + ${iterStat.index}" class="radio-answer"
-                                    title="Chọn đáp án đúng">
-                            </div>
-                            <div class="ml-2">
-                                <p th:text="'F. ' + ${question.answerF}" style="width: 700px;">
-                            </div>
-                        </div>
-                        <div class="d-flex" th:if="${question.answerG} != null">
-                            <div class="align-items-center">
-                                <input type="radio" th:name="'answer' + ${iterStat.index}" class="radio-answer"
-                                    title="Chọn đáp án đúng">
-                            </div>
-                            <div class="ml-2">
-                                <p th:text="'G. ' + ${question.answerG}" style="width: 700px;">
-                            </div>
-                        </div>
-                        <div class="d-flex" th:if="${question.answerH} != null">
-                            <div class="align-items-center">
-                                <input type="radio" th:name="'answer' + ${iterStat.index}" class="radio-answer"
-                                    title="Chọn đáp án đúng">
-                            </div>
-                            <div class="ml-2">
-                                <p th:text="'H. ' + ${question.answerH}" style="width: 700px;">
-                            </div>
-                        </div>
-                    </div> -->
+                    </div>
+                </div>
+            </div>
 
-				</div>
-			</div>
+            <div class="mt-3 d-flex justify-content-center pb-3">
+                <div class="mx-2">
+                    <input type="submit" class="btn btn-primary"
+                        value="Hoàn thành">
+                </div>
+            </div>
+        </form>
+    </div>
 
-			<div class="mt-3 d-flex justify-content-center pb-3">
-				<div class="mx-2">
-					<input type="submit" class="btn btn-primary" value="Hoàn thành">
-				</div>
-			</div>
-		</form>
-	</div>
+    <!-- end content -->
+    <footer th:replace="fragments/fo/footer.html :: footer">
+        <p>2021 mqconline.com</p>
+    </footer>
 
-	<!-- end content -->
-	<footer th:replace="fragments/fo/footer.html :: footer">
-		<p>2021 mqconline.com</p>
-	</footer>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script th:src="@{/webjars/popper.js/1.12.9-1/umd/popper.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/4.0.0-2/js/bootstrap.min.js}"></script>
+    <script th:src="@{/assets/jquery-countdown/jquery.countdown.min.js}"></script>
 
-	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-		crossorigin="anonymous"></script>
-	<script th:src="@{/webjars/popper.js/1.12.9-1/umd/popper.min.js}"></script>
-	<script th:src="@{/webjars/bootstrap/4.0.0-2/js/bootstrap.min.js}"></script>
-	<script th:src="@{/assets/jquery-countdown/jquery.countdown.min.js}"></script>
+    <script th:inline="javascript">
+		    let executeTime = /*[[${executeTime}]]*/'00:05';
+		    let timeParts = executeTime.split(':');
+		    let endDate = new Date();
+		    endDate.setHours(endDate.getHours()
+			    + parseInt(timeParts[0]));
+		    endDate.setMinutes(endDate.getMinutes()
+			    + parseInt(timeParts[1]));
 
-	<script th:inline="javascript">
-		let executeTime = /*[[${executeTime}]]*/'00:05';
-		let timeParts = executeTime.split(':');
-		let endDate = new Date();
-		endDate.setHours(endDate.getHours() + parseInt(timeParts[0]));
-		endDate.setMinutes(endDate.getMinutes() + parseInt(timeParts[1]));
-		$('#clock')
-				.countdown(endDate)
-				.on(
-						'update.countdown',
-						function(event) {
-							let $this = $(this)
-									.html(
-											event
-													.strftime(''
-															+ '<span class="h1 font-weight-bold">%H</span> Giờ'
-															+ '<span class="h1 font-weight-bold">%M</span> Phút'
-															+ '<span class="h1 font-weight-bold">%S</span> Giây'));
-						})
-				.on(
-						'finish.countdown',
-						function(event) {
-							let $this = $(this)
-									.html(
-											event
-													.strftime(''
-															+ '<span class="h1 font-weight-bold">%H</span> Giờ'
-															+ '<span class="h1 font-weight-bold">%M</span> Phút'
-															+ '<span class="h1 font-weight-bold">%S</span> Giây'));
-							alert("need to submit form here");
-							// submit form here
+		    $('#clock')
+			    .countdown(endDate)
+			    .on(
+				    'update.countdown',
+				    function(event) {
+					let $this = $(this)
+						.html(
+							event
+								.strftime(''
+									+ '<span class="h1 font-weight-bold">%H</span> Giờ'
+									+ '<span class="h1 font-weight-bold">%M</span> Phút'
+									+ '<span class="h1 font-weight-bold">%S</span> Giây'));
+				    })
+			    .on(
+				    'finish.countdown',
+				    function(event) {
+					let $this = $(this)
+						.html(
+							event
+								.strftime(''
+									+ '<span class="h1 font-weight-bold">%H</span> Giờ'
+									+ '<span class="h1 font-weight-bold">%M</span> Phút'
+									+ '<span class="h1 font-weight-bold">%S</span> Giây'));
+					alert("need to submit form here");
+					// submit form here
 
-						});
-	</script>
+				    });
+		</script>
 
 </body>
 

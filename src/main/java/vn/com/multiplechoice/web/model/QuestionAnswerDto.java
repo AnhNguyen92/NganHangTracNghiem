@@ -74,4 +74,11 @@ public class QuestionAnswerDto {
 		this.isSelected = isSelected;
 	}
 
+	@Override
+	public String toString() {
+		return "QuestionAnswerDto [order=" + order + ", randomPosition=" + randomPosition + ", answerLabel="
+				+ answerLabel + ", answerContent=" + answerContent + ", trueAnswer=" + trueAnswer + ", score=" + score
+				+ ", leftSide=" + leftSide + ", isSelected=" + isSelected + "]";
+	}
+
 }

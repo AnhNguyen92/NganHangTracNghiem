@@ -81,4 +81,11 @@ public class MCQDto {
 		this.rightAnswerDtos = rightAnswerDtos;
 	}
 
+	@Override
+	public String toString() {
+		return "MCQDto [id=" + id + ", type=" + type + ", user=" + user + ", answerSuggestion=" + answerSuggestion
+				+ ", content=" + content + ", questionAnswerDtos=" + questionAnswerDtos + ", leftAnswerDtos="
+				+ leftAnswerDtos + ", rightAnswerDtos=" + rightAnswerDtos + "]";
+	}
+
 }

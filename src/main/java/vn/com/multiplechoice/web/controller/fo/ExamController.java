@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,13 +34,13 @@ public class ExamController {
 		String executeTime = test.getExecuteTime();
 		
 		model.addAttribute("executeTime", executeTime);
-		model.addAttribute("examDto", testConverter.toExam(test));
-		// model.addAttribute("test", test);
+		ExamDto examDto = testConverter.toExam(test);
+		model.addAttribute("examDto", examDto);
 		return "/fo/do-exam";
 	}
 	
 	@PostMapping("")
-	public String doExam(Model model, ExamDto examDto) {
+	public String doExam(Model model,@ModelAttribute ExamDto examDto) {
 		System.out.println(examDto);
 		return "redirect:/fo/index";
 	}
