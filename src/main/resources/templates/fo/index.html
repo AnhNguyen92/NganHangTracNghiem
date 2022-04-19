@@ -330,22 +330,33 @@
     var $dateRange = $('#dateRange');
 
     $dateRange.daterangepicker({
+    	"autoApply": true,
         maxDate: new Date(),
         locale: {
             format: 'DD/MM/YYYY'
         },
         startDate: moment($('input[name="dateRange.fromDate"]').val(), 'DD/MM/YYYY'),
-        endDate: moment($('input[name="dateRange.toDate"]').val(), 'DD/MM/YYYY')
+        endDate: moment($('input[name="dateRange.toDate"]').val(), 'DD/MM/YYYY'),
+    }, function(start, end) {
+    	  startDate = start;
+    	  endDate = end;
+    	  $('input[name="dateRange.fromDate"]').val(start.format('DD/MM/YYYY'));
+          $('input[name="dateRange.toDate"]').val(end.format('DD/MM/YYYY'));
     });
 
-    $dateRange.on('apply.daterangepicker', function (ev, picker) {
+    /* $dateRange.on('apply.daterangepicker', function (ev, picker) {
         $('input[name="dateRange.fromDate"]').val(picker.startDate.format('DD/MM/YYYY'));
         $('input[name="dateRange.toDate"]').val(picker.endDate.format('DD/MM/YYYY'));
     });
 
-    $(function () {
-        $('input[id="dateRange"]').val($('input[name="dateRange.fromDate"]').val() + ' - ' + $('input[name="dateRange.toDate"]').val());
-    });
+    $dateRange.on('cancel.daterangepicker', function (ev, picker) {
+        $('input[name="dateRange.fromDate"]').val(picker.startDate.format('DD/MM/YYYY'));
+        $('input[name="dateRange.toDate"]').val(picker.endDate.format('DD/MM/YYYY'));
+    }); */
+    
+    /* $(function () {
+        $('input[name="dateRange.toDate"]').val(picker.endDate.format('DD/MM/YYYY'));
+    }); */
 
 </script>
 
