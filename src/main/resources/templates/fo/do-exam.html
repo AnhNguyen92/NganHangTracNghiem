@@ -45,8 +45,10 @@
                     th:each="question,questionStat : *{questions}">
                     <div id="question-detail">
                         <div class="d-none">
-                            <input type="hidden" th:field="*{questions[__${questionStat.index}__].id}">
-                            <input type="hidden" th:field="*{questions[__${questionStat.index}__].type}">
+                            <input type="hidden"
+                                th:field="*{questions[__${questionStat.index}__].id}">
+                            <input type="hidden"
+                                th:field="*{questions[__${questionStat.index}__].type}">
                         </div>
                         <div class="frm-content">
                             <p class="font-weight-bold"
@@ -54,41 +56,38 @@
                         </div>
                         <th:block
                             th:if="${question.type == T(vn.com.multiplechoice.dao.model.enums.QuestionType).MATCHING}">
-                            <div class="question-answer"
-                                th:each="questionAnswerDto, questionAnswerDtoStat : ${question.questionAnswerDtos}">
-
-                                <div class="row">
-                                    <div class="col-6">
-                                        <div class="flex-row">
-                                            <div class="ml-2"
-                                                th:each="leftAnswerDto, leftAnswerDtoStat : ${question.leftAnswerDtos}">
-                                                <p
-                                                    th:text="*{leftAnswerDto.answerLabel} + '. ' + ${leftAnswerDto.answerContent}">
-                                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="flex-row">
+                                        <div class="ml-2"
+                                            th:each="leftAnswerDto, leftAnswerDtoStat : ${question.leftAnswerDtos}">
+                                            <p
+                                                th:text="${examDto.questions[__${questionStat.index}__].leftAnswerDtos[__${leftAnswerDtoStat.index}__].answerLabel} + '. ' + ${examDto.questions[__${questionStat.index}__].leftAnswerDtos[__${leftAnswerDtoStat.index}__].answerContent}">
                                         </div>
                                     </div>
-                                    <div class="col-6">
-                                        <div class="flex-row">
-                                            <div class="ml-2"
-                                                th:each="rightAnswerDto, rightAnswerDtoStat : ${question.rightAnswerDtos}">
-                                                <p
-                                                    th:text="*{rightAnswerDto.answerLabel} + '. ' + ${rightAnswerDto.answerContent}">
-                                            </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="flex-row">
+                                        <div class="ml-2"
+                                            th:each="rightAnswerDto, rightAnswerDtoStat : ${question.rightAnswerDtos}">
+                                            <p
+                                                th:text="${examDto.questions[__${questionStat.index}__].rightAnswerDtos[__${rightAnswerDtoStat.index}__].answerLabel} + '. ' + ${examDto.questions[__${questionStat.index}__].rightAnswerDtos[__${rightAnswerDtoStat.index}__].answerContent}">
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </th:block>
                         <th:block
-                            th:unless="${question.type == T(vn.com.multiplechoice.dao.model.enums.QuestionType).MATCHING}">
+                            th:if="${question.type == T(vn.com.multiplechoice.dao.model.enums.QuestionType).YES_NO} 
+                                     or ${question.type == T(vn.com.multiplechoice.dao.model.enums.QuestionType).ONE_ANSWER}">
                             <div class="question-answer"
                                 th:each="questionAnswerDto, questionAnswerDtoStat : ${question.questionAnswerDtos}">
                                 <div class="d-flex flex-row">
                                     <div class="align-items-center">
                                         <input type="radio"
-                                            th:field="*{questions[__${questionStat.index}__].questionAnswerDtos[__${questionAnswerDtoStat.index}__].selected}"
-                                            th:value="${questionAnswerDto.selected}"
-                                            th:checked="${questionAnswerDto.selected} ? 'checked' : ''"
+                                            th:name="'examDto.questions[' +  ${questionStat.index} + '].questionAnswerDtos.selected'"
+                                            th:value="${examDto.questions[__${questionStat.index}__].questionAnswerDtos[__${questionAnswerDtoStat.index}__].selected}"
+                                            th:checked="${examDto.questions[__${questionStat.index}__].questionAnswerDtos[__${questionAnswerDtoStat.index}__].selected}"
                                             class="radio-answer"
                                             title="Chọn đáp án đúng">
                                     </div>
@@ -99,7 +98,30 @@
                                 </div>
                             </div>
                         </th:block>
-
+                        <th:block
+                            th:if="${question.type == T(vn.com.multiplechoice.dao.model.enums.QuestionType).MULTIPLE_ANSWER} 
+                            or ${question.type == T(vn.com.multiplechoice.dao.model.enums.QuestionType).FILLING} 
+                            or ${question.type == T(vn.com.multiplechoice.dao.model.enums.QuestionType).GROUP_FILLING}
+                            or ${question.type == T(vn.com.multiplechoice.dao.model.enums.QuestionType).UNDERLINE}
+                            or ${question.type == T(vn.com.multiplechoice.dao.model.enums.QuestionType).TRUE_FALSE} ">
+                            <div class="question-answer"
+                                th:each="questionAnswerDto, questionAnswerDtoStat : ${question.questionAnswerDtos}">
+                                <div class="d-flex flex-row">
+                                    <div class="align-items-center">
+                                        <input type="radio"
+                                            th:name="'examDto.questions[' +  ${questionStat.index} + '].questionAnswerDtos.selected'"
+                                            th:value="${examDto.questions[__${questionStat.index}__].questionAnswerDtos[__${questionAnswerDtoStat.index}__].selected}"
+                                            th:checked="${examDto.questions[__${questionStat.index}__].questionAnswerDtos[__${questionAnswerDtoStat.index}__].selected}"
+                                            class="radio-answer"
+                                            title="Chọn đáp án đúng">
+                                    </div>
+                                    <div class="ml-2">
+                                        <p style="width: 700px"
+                                            th:text="${questionAnswerDto.answerLabel} + '. ' + ${questionAnswerDto.answerContent}">
+                                    </div>
+                                </div>
+                            </div>
+                        </th:block>
                     </div>
                 </div>
             </div>
