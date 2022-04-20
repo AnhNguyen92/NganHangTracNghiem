@@ -76,6 +76,28 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="row">
+                                <label>Chọn đáp án:</label>
+                            </div>
+                            <div class="row">
+                                <div class="flex-row">
+                                    <div class="ml-2"
+                                        th:each="leftAnswerDto, leftAnswerDtoStat : ${question.leftAnswerDtos}">
+                                        <p
+                                            th:text="${examDto.questions[__${questionStat.index}__].leftAnswerDtos[__${leftAnswerDtoStat.index}__].answerLabel} + '. '"></p>
+                                    </div>
+                                    <div class="col">
+                                        <select class="form-control"
+                                            id="exampleFormControlSelect1">
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                            <option>5</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
                         </th:block>
                         <th:block
                             th:if="${question.type == T(vn.com.multiplechoice.dao.model.enums.QuestionType).YES_NO} 
