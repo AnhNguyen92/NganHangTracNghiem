@@ -675,6 +675,11 @@ legend.scheduler-border {
 }
 
 /* do exam */
+
+.frm-content p {
+    display: inline;
+}
+
 .countdown {
 	text-transform: uppercase;
 	font-weight: bold;
