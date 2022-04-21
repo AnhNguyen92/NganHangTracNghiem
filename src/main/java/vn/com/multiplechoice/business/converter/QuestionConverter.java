@@ -30,6 +30,7 @@ public class QuestionConverter {
 
 	public MCQDto toDto(Question question) {
 		MCQDto dto = new MCQDto();
+		dto.setId(question.getId());
 		dto.setUser(question.getUser());
 		dto.setAnswerSuggestion(question.getSuggest());
 		dto.setContent(question.getContent());

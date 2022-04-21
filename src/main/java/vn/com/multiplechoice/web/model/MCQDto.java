@@ -12,6 +12,7 @@ public class MCQDto {
 	private User user;
 	private String answerSuggestion;
 	private String content;
+	private List<String> selectedAnswers = new ArrayList<>();
 	// list answer of question
 	private List<QuestionAnswerDto> questionAnswerDtos = new ArrayList<>();
 	private List<QuestionAnswerDto> leftAnswerDtos = new ArrayList<>();
@@ -57,6 +58,14 @@ public class MCQDto {
 		this.content = content;
 	}
 
+	public List<String> getSelectedAnswers() {
+		return selectedAnswers;
+	}
+
+	public void setSelectedAnswers(List<String> selectedAnswers) {
+		this.selectedAnswers = selectedAnswers;
+	}
+
 	public List<QuestionAnswerDto> getQuestionAnswerDtos() {
 		return questionAnswerDtos;
 	}
@@ -84,8 +93,9 @@ public class MCQDto {
 	@Override
 	public String toString() {
 		return "MCQDto [id=" + id + ", type=" + type + ", user=" + user + ", answerSuggestion=" + answerSuggestion
-				+ ", content=" + content + ", questionAnswerDtos=" + questionAnswerDtos + ", leftAnswerDtos="
-				+ leftAnswerDtos + ", rightAnswerDtos=" + rightAnswerDtos + "]";
+				+ ", content=" + content + ", selectedAnswers=" + selectedAnswers + ", questionAnswerDtos="
+				+ questionAnswerDtos + ", leftAnswerDtos=" + leftAnswerDtos + ", rightAnswerDtos=" + rightAnswerDtos
+				+ "]";
 	}
 
 }

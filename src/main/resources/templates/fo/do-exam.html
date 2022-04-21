@@ -45,10 +45,8 @@
                     th:each="question,questionStat : *{questions}">
                     <div id="question-detail">
                         <div class="d-none">
-                            <input type="hidden"
-                                th:field="*{questions[__${questionStat.index}__].id}">
-                            <input type="hidden"
-                                th:field="*{questions[__${questionStat.index}__].type}">
+                            <input type="hidden" th:field="*{questions[__${questionStat.index}__].id}">
+                            <input type="hidden" th:field="*{questions[__${questionStat.index}__].type}">
                         </div>
                         <div class="frm-content">
                             <p class="font-weight-bold"
@@ -81,21 +79,21 @@
                             </div>
                             <div class="row">
                                 <div class="flex-row">
-                                    <div class="ml-2"
+                                    <div class="d-flex my-2"
                                         th:each="leftAnswerDto, leftAnswerDtoStat : ${question.leftAnswerDtos}">
-                                        <p
-                                            th:text="${examDto.questions[__${questionStat.index}__].leftAnswerDtos[__${leftAnswerDtoStat.index}__].answerLabel} + '. '"></p>
+                                        <div class="px-2">
+                                            <p style="margin-top: 50%;"
+                                                th:text="${examDto.questions[__${questionStat.index}__].leftAnswerDtos[__${leftAnswerDtoStat.index}__].answerLabel} + '. '"></p>
+                                        </div>
+                                        <div>
+                                            <select class="form-control" th:field="*{questions[__${questionStat.index}__].selectedAnswers}">
+                                                <option th:each="rightAnswerDto, rightAnswerDtoStat : ${question.rightAnswerDtos}" 
+                                                    th:value="${examDto.questions[__${questionStat.index}__].rightAnswerDtos[__${rightAnswerDtoStat.index}__].answerLabel}"
+                                                    th:text="${examDto.questions[__${questionStat.index}__].rightAnswerDtos[__${rightAnswerDtoStat.index}__].answerContent}"></option>
+                                            </select>
+                                        </div>
                                     </div>
-                                    <div class="col">
-                                        <select class="form-control"
-                                            id="exampleFormControlSelect1">
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                            <option>5</option>
-                                        </select>
-                                    </div>
+
                                 </div>
                             </div>
                         </th:block>
@@ -107,7 +105,7 @@
                                 <div class="d-flex flex-row">
                                     <div class="align-items-center">
                                         <input type="radio"
-                                            th:name="'examDto.questions[' +  ${questionStat.index} + '].questionAnswerDtos.selected'"
+                                            th:name="'questionAnswerDtos[' +  ${questionStat.index} + '].questionAnswerDtos' + ${questionAnswerDtoStat.index} + '.selected'"
                                             th:value="${examDto.questions[__${questionStat.index}__].questionAnswerDtos[__${questionAnswerDtoStat.index}__].selected}"
                                             th:checked="${examDto.questions[__${questionStat.index}__].questionAnswerDtos[__${questionAnswerDtoStat.index}__].selected}"
                                             class="radio-answer"
