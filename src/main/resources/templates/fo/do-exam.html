@@ -38,7 +38,7 @@
                     <input type="hidden" th:field="*{id}">
                 </div>
                 <div>
-                    <h3 class="text-center my-3 font-"
+                    <h3 class="text-center my-3"
                         th:text="${examDto.title}"></h3>
                 </div>
                 <div class="detail"
@@ -104,9 +104,8 @@
                                 th:each="questionAnswerDto, questionAnswerDtoStat : ${question.questionAnswerDtos}">
                                 <div class="d-flex flex-row">
                                     <div class="align-items-center">
-                                        <input type="radio"
-                                            th:name="'questionAnswerDtos[' +  ${questionStat.index} + '].questionAnswerDtos' + ${questionAnswerDtoStat.index} + '.selected'"
-                                            th:value="${examDto.questions[__${questionStat.index}__].questionAnswerDtos[__${questionAnswerDtoStat.index}__].selected}"
+                                        <input type="radio" th:name="'questions[' + ${questionStat.index} + '].selectedAnswers'"
+                                            th:value="${examDto.questions[__${questionStat.index}__].questionAnswerDtos[__${questionAnswerDtoStat.index}__].answerLabel}"
                                             th:checked="${examDto.questions[__${questionStat.index}__].questionAnswerDtos[__${questionAnswerDtoStat.index}__].selected}"
                                             class="radio-answer"
                                             title="Chọn đáp án đúng">
