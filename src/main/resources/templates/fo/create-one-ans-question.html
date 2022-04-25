@@ -80,9 +80,10 @@
                         th:each="questionAnswerDto, questionAnswerDtoStat : *{questionAnswerDtos}">
                         <div class="answer-content__item d-flex flex-row mb-2">
                             <div class="ml-2 d-flex align-items-center">
-                                <input type="checkbox" class="checkbox-answer"
-                                    th:field="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].trueAnswer}"
+                                <input type="radio" class="radio-answer"
+                                    th:name="'questionAnswerDtos[' + ${questionAnswerDtoStat.index} + '].trueAnswer'"
                                     th:value="${mcqDto.questionAnswerDtos[__${questionAnswerDtoStat.index}__].trueAnswer}"
+                                    th:checked="${mcqDto.questionAnswerDtos[__${questionAnswerDtoStat.index}__].trueAnswer}"
                                     onchange="updateTrueAnsVal(this)" title="Chọn đáp án đúng">
                             </div>
                             <div class="ml-2 d-flex align-items-center">
@@ -156,7 +157,7 @@
         });
 
         function updateTrueAnsVal(radio) {
-            let radios = document.getElementsByClassName('checkbox-answer');
+            let radios = document.getElementsByClassName('radio-answer');
             for (item of radios) {
                 if (item !== radio) {
                     item.value = false;
