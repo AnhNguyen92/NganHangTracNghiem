@@ -20,6 +20,7 @@ public class TestConverter {
 		exam.setId(test.getId());
 		exam.setCreator(test.getCreator());
 		exam.setExecuteTime(test.getExecuteTime());
+		exam.setCreateDate(test.getCreateDate());
 		exam.setHeader(test.getHeader());
 		exam.setNumOfQuestions(test.getNumOfQuestions());
 		exam.setTitle(test.getContent());

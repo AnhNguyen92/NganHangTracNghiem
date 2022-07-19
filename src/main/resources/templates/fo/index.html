@@ -114,6 +114,9 @@
                                 </div>
                             </div>
                             <div
+                                class="test-qtt-question col-2 text-center align-self-center"
+                                th:text="${#calendars.format(test.createDate,'dd-MM-yyyy')}"></div>
+                            <div
                                 class="test-time col-2 text-center align-self-center"
                                 th:id="'test-executeTime' + ${testStat.index}"
                                 th:text="${test.executeTime}">30 phút</div>
