@@ -21,6 +21,7 @@ import vn.com.multiplechoice.business.service.TestService;
 import vn.com.multiplechoice.dao.criteria.TestCriteria;
 import vn.com.multiplechoice.dao.model.DateRange;
 import vn.com.multiplechoice.dao.model.Test;
+import vn.com.multiplechoice.dao.model.enums.TestStatus;
 import vn.com.multiplechoice.dao.model.paging.Paged;
 import vn.com.multiplechoice.dao.model.paging.Paging;
 import vn.com.multiplechoice.web.utils.DateUtil;
@@ -48,7 +49,7 @@ public class HomeController {
 			dateRange.setToDate(new Date());
 			testCriteria.setDateRange(dateRange);
 		}
-
+		testCriteria.setStatus(TestStatus.APPROVED);
 		Paged<Test> paged = new Paged<>();
 		List<Test> tests = testService.findAll(testCriteria);
 		if (testCriteria.getSize() != null) {
