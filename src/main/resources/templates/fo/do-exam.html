@@ -88,7 +88,8 @@
                                         <div>
                                             <select class="form-control" th:field="*{questions[__${questionStat.index}__].selectedAnswers}">
                                                 <option th:each="rightAnswerDto, rightAnswerDtoStat : ${question.rightAnswerDtos}" 
-                                                    th:value="${examDto.questions[__${questionStat.index}__].rightAnswerDtos[__${rightAnswerDtoStat.index}__].answerLabel}"
+                                                    th:value="${examDto.questions[__${questionStat.index}__].rightAnswerDtos[__${rightAnswerDtoStat.index}__].answerContent}"
+                                                    th:name="${examDto.questions[__${questionStat.index}__].rightAnswerDtos[__${rightAnswerDtoStat.index}__].answerContent}"
                                                     th:text="${examDto.questions[__${questionStat.index}__].rightAnswerDtos[__${rightAnswerDtoStat.index}__].answerContent}"></option>
                                             </select>
                                         </div>
@@ -105,7 +106,7 @@
                                 <div class="d-flex flex-row">
                                     <div class="align-items-center">
                                         <input type="radio" th:name="'questions[' + ${questionStat.index} + '].selectedAnswers'"
-                                            th:value="${examDto.questions[__${questionStat.index}__].questionAnswerDtos[__${questionAnswerDtoStat.index}__].answerLabel}"
+                                            th:value="${examDto.questions[__${questionStat.index}__].questionAnswerDtos[__${questionAnswerDtoStat.index}__].answerContent}"
                                             th:checked="${examDto.questions[__${questionStat.index}__].questionAnswerDtos[__${questionAnswerDtoStat.index}__].selected}"
                                             class="radio-answer"
                                             title="Chọn đáp án đúng">
@@ -128,8 +129,8 @@
                                 <div class="d-flex flex-row">
                                     <div class="align-items-center">
                                         <input type="radio"
-                                            th:name="'examDto.questions[' +  ${questionStat.index} + '].questionAnswerDtos.selected'"
-                                            th:value="${examDto.questions[__${questionStat.index}__].questionAnswerDtos[__${questionAnswerDtoStat.index}__].selected}"
+                                            th:name="'examDto.questions[' +  ${questionStat.index} + '].questionAnswerDtos.answerContent'"
+                                            th:value="${examDto.questions[__${questionStat.index}__].questionAnswerDtos[__${questionAnswerDtoStat.index}__].answerContent}"
                                             th:checked="${examDto.questions[__${questionStat.index}__].questionAnswerDtos[__${questionAnswerDtoStat.index}__].selected}"
                                             class="radio-answer"
                                             title="Chọn đáp án đúng">

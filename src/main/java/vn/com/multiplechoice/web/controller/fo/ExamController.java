@@ -1,6 +1,8 @@
 package vn.com.multiplechoice.web.controller.fo;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -19,8 +21,10 @@ import vn.com.multiplechoice.business.converter.TestConverter;
 import vn.com.multiplechoice.business.service.TestService;
 import vn.com.multiplechoice.dao.model.Question;
 import vn.com.multiplechoice.dao.model.Test;
+import vn.com.multiplechoice.dao.model.enums.QuestionType;
 import vn.com.multiplechoice.web.dto.ExamDto;
 import vn.com.multiplechoice.web.model.MCQDto;
+import vn.com.multiplechoice.web.model.QuestionAnswerDto;
 
 @Controller
 @RequestMapping(value = "/fo/do-exam")
@@ -32,24 +36,24 @@ public class ExamController {
 
 	@Autowired
 	TestConverter testConverter;
-	
+
 	@GetMapping("/{id}")
 	public String exam(Model model, @PathVariable("id") Long id) {
 		log.info("===  Start do exam with test has id = {}  ===", id);
 		Test test = testService.findById(id);
 		String executeTime = test.getExecuteTime();
-		
+
 		model.addAttribute("executeTime", executeTime);
 		ExamDto examDto = testConverter.toExam(test);
 		model.addAttribute("examDto", examDto);
 		return "/fo/do-exam";
 	}
-	
+
 	@PostMapping("")
-	public String doExam(Model model,@ModelAttribute ExamDto examDto) {
+	public String doExam(Model model, @ModelAttribute ExamDto examDto) {
 		log.info("{}", examDto);
 		markExam(examDto);
-		
+
 		return "redirect:/fo/index";
 	}
 
@@ -60,21 +64,59 @@ public class ExamController {
 		Set<Question> questions = test.getQuestions();
 		double pointPerQuestion = 10.0 / questions.size();
 		for (MCQDto mcqDto : examDto.getQuestions()) {
-			Question question = questions.stream().filter(q-> q.getId().equals(mcqDto.getId())).findFirst().orElseThrow();
-			List<String> rightAnswerLst = Arrays.asList(question.getRightAnswer().split(",")) ;
-			if (rightAnswerLst.equals(mcqDto.getSelectedAnswers())) {
+			Question question = questions.stream().filter(q -> q.getId().equals(mcqDto.getId())).findFirst()
+					.orElseThrow();
+
+			List<String> rightAnswerLst = getRightAnswerLst(question);			
+			List<String> selectedAnswerLst = mcqDto.getSelectedAnswers();
+			if (rightAnswerLst.equals(selectedAnswerLst)) {
 				log.info("found true question");
 				totalRightAnswer++;
 				if (question.getScore() == null) {
 					totalScore += pointPerQuestion;
 				} else {
 					rightAnswerLst.retainAll(mcqDto.getSelectedAnswers());
-					totalScore +=  pointPerQuestion * rightAnswerLst.size();
+					totalScore += pointPerQuestion * rightAnswerLst.size();
 				}
 //				totalScore +=  question.getScore();
 			}
 		}
-		
+		// save to database here
+	}
+	
+	private List<String> getRightAnswerLst(Question question) {
+		List<String> rightAnswerLst = new ArrayList<>();
+		String[] labels = question.getRightAnswer().split(",");
+		for (String label : labels) {
+			switch (label) {
+			case "A":
+				rightAnswerLst.add(question.getAnswerA());
+				break;
+			case "B":
+				rightAnswerLst.add(question.getAnswerB());
+				break;
+			case "C":
+				rightAnswerLst.add(question.getAnswerC());
+				break;
+			case "D":
+				rightAnswerLst.add(question.getAnswerD());
+				break;
+			case "E":
+				rightAnswerLst.add(question.getAnswerE());
+				break;
+			case "F":
+				rightAnswerLst.add(question.getAnswerF());
+				break;
+			case "G":
+				rightAnswerLst.add(question.getAnswerG());
+				break;
+			default:
+				rightAnswerLst.add(question.getAnswerH());
+				break;
+			}
+
+		}
+		return rightAnswerLst;
 	}
 
 }
