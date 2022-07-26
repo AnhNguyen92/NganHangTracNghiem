@@ -31,7 +31,7 @@
                 </div>
             </div>
         </div>
-        <form th:action="@{/fo/do-exam}" method="post"
+        <form id="frm-exam" th:action="@{/fo/do-exam}" method="post"
             th:object="${examDto}">
             <div class="test-content" id="test-content">
                 <div>
@@ -199,9 +199,9 @@
 									+ '<span class="h1 font-weight-bold">%H</span> Giờ'
 									+ '<span class="h1 font-weight-bold">%M</span> Phút'
 									+ '<span class="h1 font-weight-bold">%S</span> Giây'));
-					alert("need to submit form here");
+					alert("Hết thời gian làm bài!");
 					// submit form here
-
+					document.getElementById("frm-exam").submit(); 
 				    });
 		</script>
 
