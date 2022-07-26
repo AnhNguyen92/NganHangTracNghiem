@@ -333,14 +333,15 @@ public class QuestionConverter {
 
 		int order = 0;
 		// map answer A
-		if (question.getAnswerA() != null) {
+		String answerPemutation = question.getAnswerPemutation();
+        if (question.getAnswerA() != null) {
 			answerDto = new QuestionAnswerDto();
 			answerDto.setOrder(order++);
 			answerDto.setAnswerLabel("A");
 			answerDto.setScore(100);
 			answerDto.setAnswerContent(question.getAnswerA());
 			answerDto.setTrueAnswer(question.getRightAnswer().contains("A"));
-			answerDto.setRandomPosition(question.getAnswerPemutation().contains("A"));
+			answerDto.setRandomPosition(answerPemutation != null && answerPemutation.contains("A"));
 			questionAnswerDtos.add(answerDto);
 		}
 		// map answer B
@@ -350,7 +351,7 @@ public class QuestionConverter {
 			
 			answerDto.setAnswerContent(question.getAnswerB());
 			answerDto.setTrueAnswer(question.getRightAnswer().contains("B"));
-			answerDto.setRandomPosition(question.getAnswerPemutation().contains("B"));
+			answerDto.setRandomPosition(answerPemutation != null && answerPemutation.contains("B"));
 			questionAnswerDtos.add(answerDto);
 		}
 		// map answer C
@@ -360,7 +361,7 @@ public class QuestionConverter {
 			
 			answerDto.setAnswerContent(question.getAnswerC());
 			answerDto.setTrueAnswer(question.getRightAnswer().contains("C"));
-			answerDto.setRandomPosition(question.getAnswerPemutation().contains("C"));
+			answerDto.setRandomPosition(answerPemutation != null && answerPemutation.contains("C"));
 			questionAnswerDtos.add(answerDto);
 		}
 		// map answer D
@@ -370,7 +371,7 @@ public class QuestionConverter {
 			
 			answerDto.setAnswerContent(question.getAnswerD());
 			answerDto.setTrueAnswer(question.getRightAnswer().contains("D"));
-			answerDto.setRandomPosition(question.getAnswerPemutation().contains("D"));
+			answerDto.setRandomPosition(answerPemutation != null && answerPemutation.contains("D"));
 			questionAnswerDtos.add(answerDto);
 		}
 		// map answer E
@@ -380,7 +381,7 @@ public class QuestionConverter {
 			
 			answerDto.setAnswerContent(question.getAnswerE());
 			answerDto.setTrueAnswer(question.getRightAnswer().contains("E"));
-			answerDto.setRandomPosition(question.getAnswerPemutation().contains("E"));
+			answerDto.setRandomPosition(answerPemutation != null && answerPemutation.contains("E"));
 			questionAnswerDtos.add(answerDto);
 		}
 		// map answer F
@@ -390,7 +391,7 @@ public class QuestionConverter {
 			
 			answerDto.setAnswerContent(question.getAnswerF());
 			answerDto.setTrueAnswer(question.getRightAnswer().equals("F"));
-			answerDto.setRandomPosition(question.getAnswerPemutation().contains("F"));
+			answerDto.setRandomPosition(answerPemutation != null && answerPemutation.contains("F"));
 			questionAnswerDtos.add(answerDto);
 		}
 		// map answer G
@@ -400,7 +401,7 @@ public class QuestionConverter {
 			
 			answerDto.setAnswerContent(question.getAnswerG());
 			answerDto.setTrueAnswer(question.getRightAnswer().equals("G"));
-			answerDto.setRandomPosition(question.getAnswerPemutation().contains("G"));
+			answerDto.setRandomPosition(answerPemutation != null && answerPemutation.contains("G"));
 			questionAnswerDtos.add(answerDto);
 		}
 		// map answer H
@@ -410,7 +411,7 @@ public class QuestionConverter {
 			
 			answerDto.setAnswerContent(question.getAnswerH());
 			answerDto.setTrueAnswer(question.getRightAnswer().equals("H"));
-			answerDto.setRandomPosition(question.getAnswerPemutation().contains("H"));
+			answerDto.setRandomPosition(answerPemutation != null && answerPemutation.contains("H"));
 			questionAnswerDtos.add(answerDto);
 		}
 

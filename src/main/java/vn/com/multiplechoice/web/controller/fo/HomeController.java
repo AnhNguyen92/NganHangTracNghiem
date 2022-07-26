@@ -1,5 +1,6 @@
 package vn.com.multiplechoice.web.controller.fo;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -21,6 +22,7 @@ import vn.com.multiplechoice.business.service.TestService;
 import vn.com.multiplechoice.dao.criteria.TestCriteria;
 import vn.com.multiplechoice.dao.model.DateRange;
 import vn.com.multiplechoice.dao.model.Test;
+import vn.com.multiplechoice.dao.model.enums.TestStatus;
 import vn.com.multiplechoice.dao.model.paging.Paged;
 import vn.com.multiplechoice.dao.model.paging.Paging;
 import vn.com.multiplechoice.web.utils.DateUtil;
@@ -41,14 +43,23 @@ public class HomeController {
 		logger.info("{}", testCriteria);
 		logger.info("pageNumber = {}", pageNumber);
 		logger.info("pageSize = {}", size);
-
-		if (testCriteria.getDateRange() == null) {
-			DateRange dateRange = new DateRange();
+		DateRange dateRange = testCriteria.getDateRange();
+		if (dateRange == null) {
+			dateRange = new DateRange();
 			dateRange.setFromDate(DateUtil.getFirstDateOfMonth());
 			dateRange.setToDate(new Date());
 			testCriteria.setDateRange(dateRange);
+		} else {
+		    Date toDate = dateRange.getToDate();
+		    Calendar cal = Calendar.getInstance();
+		    cal.setTime(toDate);
+		    cal.set(Calendar.HOUR, 23);
+		    cal.set(Calendar.MINUTE, 59);
+		    cal.set(Calendar.SECOND, 59);
+		    toDate = cal.getTime();
+		    dateRange.setToDate(toDate);
 		}
-
+		testCriteria.setStatus(TestStatus.APPROVED);
 		Paged<Test> paged = new Paged<>();
 		List<Test> tests = testService.findAll(testCriteria);
 		if (testCriteria.getSize() != null) {

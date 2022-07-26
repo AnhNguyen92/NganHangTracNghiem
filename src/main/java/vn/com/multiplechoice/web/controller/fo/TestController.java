@@ -76,8 +76,7 @@ public class TestController {
 		User user = onlineUserUtil.getOnlineUser();
 		List<Question> questions = questionService.findByAuthor(user.getId());
 		Options option = new Options();
-		List<String> questIds = questions.stream().map(question -> question.getId().toString())
-				.collect(Collectors.toList());
+		List<String> questIds = questions.stream().map(q -> String.valueOf(q.getId())).collect(Collectors.toList());
 		model.addAttribute(OPTIONS, option);
 		model.addAttribute("questIds", questIds);
 
