@@ -2,6 +2,7 @@ package vn.com.multiplechoice.web.controller.fo;
 
 import java.io.UnsupportedEncodingException;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
@@ -10,17 +11,23 @@ import org.modelmapper.internal.bytebuddy.utility.RandomString;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import vn.com.multiplechoice.business.converter.UserConverter;
 import vn.com.multiplechoice.business.service.MailService;
+import vn.com.multiplechoice.business.service.QuestionService;
 import vn.com.multiplechoice.business.service.UserService;
 import vn.com.multiplechoice.business.service.VerificationCodeService;
+import vn.com.multiplechoice.dao.model.Question;
 import vn.com.multiplechoice.dao.model.User;
 import vn.com.multiplechoice.dao.model.VerificationCode;
 import vn.com.multiplechoice.dao.model.enums.VerificationType;
@@ -53,6 +60,9 @@ public class UserController {
 
     @Autowired
     private OnlineUserUtil onlineUserUtil;
+    
+    @Autowired
+    private QuestionService questionService;
     
     @GetMapping("/fo/user/profile")
     public String profile(Model model) {
@@ -139,4 +149,20 @@ public class UserController {
         return FO_RESET_PASSWORD;
     }
 
+    @GetMapping("/fo/user/questions")
+    public String listQuesstion(Model model, @RequestParam(defaultValue = "0") int pageNo) {
+        User user = onlineUserUtil.getOnlineUser();
+        questionService.findByAuthor(user.getId());
+        Pageable pageable = PageRequest.of(pageNo, 10);
+        Page<Question> page = questionService.findAllByUserId(user.getId(), pageable);
+        List<Question> questions = page.getContent();
+        
+        model.addAttribute("page", page);
+        model.addAttribute("currentPage", pageNo);
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("totalItems", page.getTotalElements());
+        model.addAttribute("questions", questions);
+        
+        return "fo/user-question-list";
+    }
 }

@@ -12,6 +12,8 @@ import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -57,6 +59,11 @@ public class QuestionServiceImpl extends AbstractService<Question, Long> impleme
         TypedQuery<Question> query = em.createQuery(criteriaQuery);
 
         return query.getResultList();
+    }
+
+    @Override
+    public Page<Question> findAllByUserId(Long userId, Pageable pageable) {
+        return questionRepository.findAllByUserId(userId, pageable);
     }
     
 }
