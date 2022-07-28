@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.query.Param;
@@ -31,6 +32,8 @@ import vn.com.multiplechoice.dao.model.Question;
 import vn.com.multiplechoice.dao.model.User;
 import vn.com.multiplechoice.dao.model.VerificationCode;
 import vn.com.multiplechoice.dao.model.enums.VerificationType;
+import vn.com.multiplechoice.dao.model.paging.Paged;
+import vn.com.multiplechoice.dao.model.paging.Paging;
 import vn.com.multiplechoice.web.dto.UserDto;
 import vn.com.multiplechoice.web.utils.OnlineUserUtil;
 import vn.com.multiplechoice.web.utils.RequestUtil;
@@ -150,18 +153,26 @@ public class UserController {
     }
 
     @GetMapping("/fo/user/questions")
-    public String listQuesstion(Model model, @RequestParam(defaultValue = "0") int pageNo) {
+    public String listQuesstion(Model model, @RequestParam(defaultValue = "1") int pageNumber) {
         User user = onlineUserUtil.getOnlineUser();
-        questionService.findByAuthor(user.getId());
-        Pageable pageable = PageRequest.of(pageNo, 10);
-        Page<Question> page = questionService.findAllByUserId(user.getId(), pageable);
-        List<Question> questions = page.getContent();
+        List<Question> questions = questionService.findByAuthor(user.getId());
+        int size = 10;
+        int pageSize = pageNumber * size;
+        int start = (!questions.isEmpty() ) ? ( (pageNumber - 1) * size ) : 0;
+        int end = (pageSize > questions.size()) ? questions.size() : pageSize;
+        Paged<Question> paged = new Paged<>();
+        if (!questions.isEmpty()) {
+			Pageable pageable = PageRequest.of(pageNumber - 1, size);
+			Page<Question> questionPage = new PageImpl<>(questions.subList((pageNumber - 1) * size, end), pageable,
+					questions.size());
+			paged = new Paged<>(questionPage, Paging.of(questionPage.getTotalPages(), pageNumber, size));
+		}
         
-        model.addAttribute("page", page);
-        model.addAttribute("currentPage", pageNo);
-        model.addAttribute("totalPages", page.getTotalPages());
-        model.addAttribute("totalItems", page.getTotalElements());
-        model.addAttribute("questions", questions);
+        model.addAttribute("questions", paged);
+		model.addAttribute("size", size);
+		model.addAttribute("_START_", start);
+		model.addAttribute("_END_", end);
+		model.addAttribute("_TOTAL_", questions.size());
         
         return "fo/user-question-list";
     }
