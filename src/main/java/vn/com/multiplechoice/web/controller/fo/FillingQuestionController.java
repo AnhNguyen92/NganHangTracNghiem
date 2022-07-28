@@ -55,16 +55,16 @@ public class FillingQuestionController {
         String index = req.getParameter("remove-left-answer");
         QuestionAnswerDto removedAnswer = leftAnswerDtos.get(Integer.parseInt(index));
         String content = mcqDto.getContent();
-        content = content.replace("<u>___(1)___</u>", removedAnswer.getAnswerContent());
+        content = content.replace("<u>___(" + (Integer.parseInt(index) + 1) + ")___</u>", removedAnswer.getAnswerContent());
         mcqDto.setContent(content);
         leftAnswerDtos.remove(removedAnswer);
         for (int i = 0; i < leftAnswerDtos.size(); i++) {
-            QuestionAnswerDto questionAnswerDto = mcqDto.getQuestionAnswerDtos().get(i);
+            QuestionAnswerDto questionAnswerDto = leftAnswerDtos.get(i);
             questionAnswerDto.setOrder(i);
             questionAnswerDto.setAnswerLabel((i + 1) + "");
         }
         mcqDto.setLeftAnswerDtos(leftAnswerDtos);
-        mcqDto.setRightAnswerDtos(new ArrayList<>());
+//        mcqDto.setRightAnswerDtos(new ArrayList<>());
         model.addAttribute(MCQ_DTO, mcqDto);
 
         return FO_CREATE_FILLING_QUESTION;
