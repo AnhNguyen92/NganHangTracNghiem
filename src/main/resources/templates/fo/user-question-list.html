@@ -40,20 +40,19 @@
             <th scope="col" id="type">Loại</th>
             <th scope="col" id="content">Nội dung</th>
             <th scope="col" id="testSize">Đề thi sử dụng</th>
-            <th scope="col" id="detail">Hành động</th>
-            <th scope="col" id="action"></th>
+            <th scope="col" id="action">Hành động</th>
           </tr>
         </thead>
         <tbody>
-          <th:block th:if="${not #lists.isEmpty(page.content)}">
-            <tr th:each="question, questionStatus : ${page.content}">
+          <th:block th:if="${not #lists.isEmpty(questions.page)}">
+            <tr th:each="question, questionStatus : ${questions.page}">
               <td th:text="${questionStatus.count}"></td>
               <td th:text="${question.id}"></td>
               <td th:if="${#strings.equals(question.type, 'ONE_ANSWER')}">Một đáp án</td>
               <td th:if="${#strings.equals(question.type, 'MULTIPLE_ANSWER')}">Nhiều đáp án</td>
               <td th:if="${#strings.equals(question.type, 'MATCHING')}">Nối chéo</td>
-              <td th:if="${#strings.equals(question.type, 'COMPLETION_1')}">Điền khuyết loại 1</td>
-              <td th:if="${#strings.equals(question.type, 'COMPLETION_2')}">Điền khuyết loại 2</td>
+              <td th:if="${#strings.equals(question.type, 'FILLING')}">Điền khuyết loại 1</td>
+              <td th:if="${#strings.equals(question.type, 'GROUP_FILLING')}">Điền khuyết loại 2</td>
               <td th:if="${#strings.equals(question.type, 'UNDERLINE')}">Câu hỏi gạch chân</td>
               <td th:if="${#strings.equals(question.type, 'YES_NO')}">Đúng sai</td>
               <td th:if="${#strings.equals(question.type, 'TRUE_FALSE')}">Đúng sai có điểm</td>
@@ -61,23 +60,22 @@
               <td th:text="${#lists.size(question.tests)}"></td>
               <td>
                 <div class="d-flex justify-content-around">
-                  <a th:href="@{'/fo/questions/' + ${#strings.toLowerCase(question.type)} + '/' + ${question.id}}" class="btn btn-primary mr-2" title="Sửa">
+                  <a th:href="@{'/fo/questions/' + ${#strings.toLowerCase(question.type)} + '/' + ${question.id}}" class="btn btn-sm btn-primary mr-1" title="Sửa">
                     <i class="fa fa-pencil-alt" aria-hidden="true"></i>
                     Sửa
                   </a>
-                </div>
-              </td>
-              <td>
-                <div class="d-flex justify-content-around">
-                  <a th:href="@{'/fo/questions/' + ${question.id}}" class="btn btn-primary mr-2" title="Xóa">
+                  <a th:href="@{'/fo/questions/' + ${question.id}}" class="btn btn-sm btn-primary mr-1" title="Xóa">
                     <i class="fa fa-pencil-alt" aria-hidden="true"></i>
                     Xóa 
                   </a>
                 </div>
+                <div class="d-flex justify-content-around">
+                  
+                </div>
               </td>
             </tr>
           </th:block>
-          <th:block th:if="${#lists.isEmpty(page.content)}">
+          <th:block th:if="${#lists.isEmpty(questions.page)}">
             <tr class="odd">
               <td colspan="7" class="dataTables_empty text-center">Không có dữ liệu</td>
             </tr>
@@ -91,7 +89,7 @@
   <nav aria-label="Page navigation example" class="my-3">
             <ul class="pagination justify-content-center">
                 <div class="row"
-                    th:if="${not #lists.isEmpty(tests.page)}">
+                    th:if="${not #lists.isEmpty(questions.page)}">
                     <div
                         class="dataTables_paginate paging_simple_numbers d-flex flex-row-reverse"
                         id="example_paginate">
@@ -99,19 +97,19 @@
                             <li
                                 class="paginate_button page-item previous"
                                 id="example_previous"
-                                th:classappend="${!tests.paging.isPrevEnabled() ? 'disabled' : ''}">
+                                th:classappend="${!questions.paging.isPrevEnabled() ? 'disabled' : ''}">
                                 <a
-                                th:href="@{?(pageSize=${size},pageNumber=${tests.paging.pageNumber - 1},searchText=(${testCriteria.searchText} ? ${testCriteria.searchText} : ''),status=(${testCriteria.status} ? ${testCriteria.status} : ''))}"
+                                th:href="@{?(pageSize=${size},pageNumber=${questions.paging.pageNumber - 1})}"
                                 aria-controls="example" data-dt-idx="0"
                                 tabindex="0" class="page-link">Trước</a>
                             </li>
                             <th:block
-                                th:each="item : ${tests.paging.getItems()}">
+                                th:each="item : ${questions.paging.getItems()}">
                                 <li class="page-item"
-                                    th:classappend="${item.index == tests.paging.pageNumber ? 'active' : ''}"
+                                    th:classappend="${item.index == questions.paging.pageNumber ? 'active' : ''}"
                                     th:if="${item.pageItemType.name() == 'PAGE'}">
                                     <a class="page-link"
-                                    th:href="@{?(pageSize=${size},pageNumber=${item.index},searchText=(${testCriteria.searchText} ? ${testCriteria.searchText} : ''),status=(${testCriteria.status} ? ${testCriteria.status} : ''))}"
+                                    th:href="@{?(pageSize=${size},pageNumber=${item.index})}"
                                     th:text="${item.index}"></a>
                                 </li>
                                 <li class="page-item disabled"
@@ -120,9 +118,9 @@
                                 </li>
                             </th:block>
                             <li class="page-item"
-                                th:classappend="${!tests.paging.isNextEnabled() ? 'disabled' : ''}">
+                                th:classappend="${!questions.paging.isNextEnabled() ? 'disabled' : ''}">
                                 <a class="page-link"
-                                th:href="@{?(pageSize=${size},pageNumber=${tests.paging.pageNumber + 1},searchText=(${testCriteria.searchText} ? ${testCriteria.searchText} : ''),status=(${testCriteria.status} ? ${testCriteria.status} : ''))}">Kế</a>
+                                th:href="@{?(pageSize=${size},pageNumber=${questions.paging.pageNumber + 1})}">Kế</a>
                             </li>
                         </ul>
                     </div>
