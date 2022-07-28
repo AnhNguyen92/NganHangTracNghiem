@@ -36,6 +36,13 @@
             <div class="test-content" id="test-content">
                 <div>
                     <input type="hidden" th:field="*{id}">
+                    <input type="hidden" th:field="*{title}">
+                    <input type="hidden" th:field="*{numOfQuestions}">
+                    <input type="hidden" th:field="*{executeTime}">
+                    <input type="hidden" th:field="*{creator}">
+                    <input type="hidden" th:field="*{header}">
+                    <input type="hidden" th:field="*{totalScore}">
+                    <input type="hidden" th:field="*{totalRightAnswer}">
                 </div>
                 <div>
                     <h3 class="text-center my-3"
@@ -47,6 +54,8 @@
                         <div class="d-none">
                             <input type="hidden" th:field="*{questions[__${questionStat.index}__].id}">
                             <input type="hidden" th:field="*{questions[__${questionStat.index}__].type}">
+                            <input type="hidden" th:field="*{questions[__${questionStat.index}__].answerSuggestion}">
+                            <input type="hidden" th:field="*{questions[__${questionStat.index}__].content}">
                         </div>
                         <div class="frm-content">
                             <p class="font-weight-bold"
@@ -118,12 +127,32 @@
                                 </div>
                             </div>
                         </th:block>
+                        <th:block th:if="${question.type == T(vn.com.multiplechoice.dao.model.enums.QuestionType).MULTIPLE_ANSWER}
+                                  or ${question.type == T(vn.com.multiplechoice.dao.model.enums.QuestionType).TRUE_FALSE} ">
+                        <div>
+                          <div class="question-answer"
+                                th:each="questionAnswerDto, questionAnswerDtoStat : ${question.questionAnswerDtos}">
+                                <div class="d-flex flex-row">
+                                    <div class="align-items-center">
+                                        <input type="checkbox"
+                                            th:name="'examDto.questions[' +  ${questionStat.index} + '].questionAnswerDtos.selectedAnswers'"
+                                            th:value="${examDto.questions[__${questionStat.index}__].questionAnswerDtos[__${questionAnswerDtoStat.index}__].answerContent}"
+                                              th:field="*{questions[__${questionStat.index}__].selectedAnswers}"
+                                            class="radio-answer"
+                                            title="Chọn đáp án đúng">
+                                    </div>
+                                    <div class="ml-2">
+                                        <p style="width: 700px"
+                                            th:text="${questionAnswerDto.answerLabel} + '. ' + ${questionAnswerDto.answerContent}">
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        </th:block>
                         <th:block
-                            th:if="${question.type == T(vn.com.multiplechoice.dao.model.enums.QuestionType).MULTIPLE_ANSWER} 
-                            or ${question.type == T(vn.com.multiplechoice.dao.model.enums.QuestionType).FILLING} 
+                            th:if="${question.type == T(vn.com.multiplechoice.dao.model.enums.QuestionType).FILLING} 
                             or ${question.type == T(vn.com.multiplechoice.dao.model.enums.QuestionType).GROUP_FILLING}
-                            or ${question.type == T(vn.com.multiplechoice.dao.model.enums.QuestionType).UNDERLINE}
-                            or ${question.type == T(vn.com.multiplechoice.dao.model.enums.QuestionType).TRUE_FALSE} ">
+                            or ${question.type == T(vn.com.multiplechoice.dao.model.enums.QuestionType).UNDERLINE} ">
                             <div class="question-answer"
                                 th:each="questionAnswerDto, questionAnswerDtoStat : ${question.questionAnswerDtos}">
                                 <div class="d-flex flex-row">
