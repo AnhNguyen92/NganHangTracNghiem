@@ -120,7 +120,7 @@ public class FillingQuestionController {
 
         log.info("===== CREATE filling question form END =====");
 
-        return "redirect:/fo/index";
+        return "redirect:/fo/user/questions";
     }
 
     // request mapping for group-filling question
@@ -162,7 +162,7 @@ public class FillingQuestionController {
 
         log.info("===== CREATE group filling question form END =====");
 
-        return "redirect:/fo/index";
+        return "redirect:/fo/user/questions";
     }
 
 }

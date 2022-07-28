@@ -101,7 +101,7 @@ public class UnderlineQuestionController {
         
         log.info("===== CREATE underline question form END =====");
 
-        return "redirect:/fo/index";
+        return "redirect:/fo/user/questions";
     }
 
 }

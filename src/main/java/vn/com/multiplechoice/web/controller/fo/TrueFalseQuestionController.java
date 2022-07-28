@@ -74,7 +74,7 @@ public class TrueFalseQuestionController {
         questionService.save(question);
         log.info("===== CREATE -yes no question form END =====");
 
-        return "redirect:/fo/index";
+        return "redirect:/fo/user/questions";
     }
     
     @RequestMapping("/true-false")
@@ -138,7 +138,7 @@ public class TrueFalseQuestionController {
         
         log.info("===== CREATE true false answer question form END =====");
 
-        return "redirect:/fo/index";
+        return "redirect:/fo/user/questions";
     }
     
 }

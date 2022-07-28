@@ -184,7 +184,7 @@ public class MatchingQuestionController {
 
         log.info("===== CREATE matching question form END =====");
 
-        return "redirect:/fo/index";
+        return "redirect:/fo/user/questions";
     }
 
 }
