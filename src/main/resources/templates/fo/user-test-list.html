@@ -54,8 +54,8 @@
               <td th:text="${#lists.size(test.questions)}"></td>
               <td th:utext="${test.executeTime}"></td>
               <td th:text="${test.public} ? 'Có' : 'Không' "></td>
-              <td th:text="${test.creator} ? 'Đã duyệt' : 'Chưa duyệt' "></td>
-              
+              <td th:if="${#strings.equals(test.status, 'APPROVED')}">Đã duyệt</td>
+              <td th:if="${#strings.equals(test.status, 'WAITING')}">Chưa duyệt</td>
               <td>
                 <div class="d-flex justify-content-around">
                   <a th:href="@{'/fo/contests/' + ${test.id}}" class="btn btn-primary mr-2" title="Chi tiết">
