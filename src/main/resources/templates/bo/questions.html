@@ -87,8 +87,8 @@
                                             <option value="MULTIPLE_ANSWER">Nhiều đáp án</option>
                                             <option value="MATCHING">Ghép cặp</option>
                                             <option value="UNDERLINE">Gạch chân</option>
-                                            <option value="COMPLETION_1">Điền khuyết loại 1</option>
-                                            <option value="COMPLETION_2">Điền khuyết loại 2</option>
+                                            <option value="FILLING">Điền khuyết loại 1</option>
+                                            <option value="GROUP_FILLING">Điền khuyết loại 2</option>
                                         </select>
                                     </div>
                                     <div class="input-group">
@@ -133,8 +133,8 @@
                                                 <td th:if="${#strings.equals(question.type, 'ONE_ANSWER')}">Một đáp án</td>
                                                 <td th:if="${#strings.equals(question.type, 'MULTIPLE_ANSWER')}">Nhiều đáp án</td>
                                                 <td th:if="${#strings.equals(question.type, 'MATCHING')}">Nối chéo</td>
-                                                <td th:if="${#strings.equals(question.type, 'COMPLETION_1')}">Điền khuyết loại 1</td>
-                                                <td th:if="${#strings.equals(question.type, 'COMPLETION_2')}">Điền khuyết loại 2</td>
+                                                <td th:if="${#strings.equals(question.type, 'FILLING')}">Điền khuyết loại 1</td>
+                                                <td th:if="${#strings.equals(question.type, 'GROUP_FILLING')}">Điền khuyết loại 2</td>
                                                 <td th:if="${#strings.equals(question.type, 'UNDERLINE')}">Gạch chân</td>
                                                 <td th:if="${#strings.equals(question.type, 'YES_NO')}">Đúng sai</td>
                                                 <td th:if="${#strings.equals(question.type, 'TRUE_FALSE')}">Đúng sai có điểm</td>
