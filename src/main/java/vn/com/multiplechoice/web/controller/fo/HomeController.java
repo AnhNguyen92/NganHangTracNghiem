@@ -60,6 +60,7 @@ public class HomeController {
 		    dateRange.setToDate(toDate);
 		}
 		testCriteria.setStatus(TestStatus.APPROVED);
+		testCriteria.setPublic(true);
 		Paged<Test> paged = new Paged<>();
 		List<Test> tests = testService.findAll(testCriteria);
 		if (testCriteria.getSize() != null) {

@@ -9,6 +9,7 @@ public class TestCriteria {
 	private TestStatus status;
 	private PageSize size;
 	private DateRange dateRange;
+	private Boolean isPublic;
 
 	public String getSearchText() {
 		return searchText;
@@ -42,10 +43,12 @@ public class TestCriteria {
 		this.dateRange = dateRange;
 	}
 
-	@Override
-	public String toString() {
-		return "TestCriteria [searchText=" + searchText + ", status=" + status + ", size=" + size + ", dateRange="
-				+ dateRange + "]";
+	public Boolean isPublic() {
+		return isPublic;
+	}
+
+	public void setPublic(Boolean isPublic) {
+		this.isPublic = isPublic;
 	}
 
 }

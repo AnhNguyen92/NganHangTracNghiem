@@ -57,6 +57,10 @@ public class TestServiceImpl extends AbstractService<Test, Long> implements Test
 			Predicate statusPredicate = cb.equal(root.get("status"), testCriteria.getStatus());
 			predicates.add(statusPredicate);
 		}
+		if (testCriteria.isPublic() != null) {			
+			Predicate publicPredicate = cb.equal(root.get("isPublic"), testCriteria.isPublic());
+			predicates.add(publicPredicate);
+		}
 		criteriaQuery.where(cb.and(predicates.toArray(new Predicate[0])));
 		TypedQuery<Test> query = em.createQuery(criteriaQuery);
 
