@@ -60,11 +60,11 @@
               <td th:text="${#lists.size(question.tests)}"></td>
               <td>
                 <div class="d-flex justify-content-around">
-                  <a th:href="@{'/fo/questions/' + ${#strings.toLowerCase(question.type)} + '/' + ${question.id}}" class="btn btn-sm btn-primary mr-1" title="Sửa">
+                  <a th:href="@{'/fo/questions/edit/' + ${question.id}}" class="btn btn-sm btn-primary mr-1" title="Sửa">
                     <i class="fa fa-pencil-alt" aria-hidden="true"></i>
                     Sửa
                   </a>
-                  <a th:href="@{'/fo/questions/' + ${question.id}}" class="btn btn-sm btn-primary mr-1" title="Xóa">
+                  <a th:href="@{'/fo/questions/delete/' + ${question.id}}" class="btn btn-sm btn-primary mr-1" title="Xóa">
                     <i class="fa fa-pencil-alt" aria-hidden="true"></i>
                     Xóa 
                   </a>
