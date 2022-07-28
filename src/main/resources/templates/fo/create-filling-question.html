@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org">
 
 <head>
-    <title>Táº¡o cĂ¢u há»�i Ä‘iá»�n khuyáº¿t dáº¡ng Ä‘Æ¡n</title>
+    <title>Câu hỏi điền khuyết</title>
 
     <meta content="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -26,7 +26,7 @@
 
     <!-- content -->
     <div class="container mt-3">
-        <div class="page-title">Táº O Má»�I CĂ‚U Há»�I Ä�Iá»€N KHUYáº¾T Ä�Æ N</div>
+        <div class="page-title">CÂU HỎI ĐIỀN KHUYẾT</div>
         <form action="#" id="f-filling-question" th:action="@{/fo/questions/filling}" method="post"
             th:object="${mcqDto}">
             <div class="mcq">
@@ -36,14 +36,14 @@
                 </div>
                 <div class="mt-3">
                     <div>
-                        <label class="font-weight-bold">File nghe Ä‘Ă­nh kĂ¨m:</label>
+                        <label class="font-weight-bold">File đính kèm:</label>
                     </div>
                     <div class="custom-file">
                         <input type="file" name="file" accept=".doc, .docx" id="actual-btn" hidden />
                         <!-- our custom upload button -->
-                        <label class="actual-lbl" for="actual-btn">Chá»�n File</label>
+                        <label class="actual-lbl" for="actual-btn">Chọn file</label>
                         <!-- name of file chosen -->
-                        <span id="file-chosen">ChÆ°a cĂ³ file</span>
+                        <span id="file-chosen">Chưa có file</span>
                     </div>
                 </div>
                 <div class="extention d-flex flex-row mt-3">
