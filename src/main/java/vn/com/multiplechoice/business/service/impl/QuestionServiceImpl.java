@@ -52,7 +52,7 @@ public class QuestionServiceImpl extends AbstractService<Question, Long> impleme
         	predicates.add(searchTextPredicate);
         }
         if (questionCriteria.getType() != null) {
-        	Predicate typePredicate = cb.equal(root.get("questionType"), questionCriteria.getType());
+        	Predicate typePredicate = cb.equal(root.get("type"), questionCriteria.getType());
         	predicates.add(typePredicate);
         }
         criteriaQuery.where(cb.and(predicates.toArray(new Predicate[0])));
