@@ -198,6 +198,7 @@ public class TestController {
 				fileStorageService.delete(oldHeaderTemplate.getSourcePath());
 			}
 			test.setHeader(headerTemplate);
+			testService.save(test);
 		}
 	}
 
