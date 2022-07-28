@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org">
 
 <head>
-    <title>Tạo câu hỏi điền khuyết dạng đơn</title>
+    <title>Táº¡o cĂ¢u há»�i Ä‘iá»�n khuyáº¿t dáº¡ng Ä‘Æ¡n</title>
 
     <meta content="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -26,38 +26,39 @@
 
     <!-- content -->
     <div class="container mt-3">
-        <div class="page-title">TẠO MỚI CÂU HỎI ĐIỀN KHUYẾT ĐƠN</div>
+        <div class="page-title">Táº O Má»�I CĂ‚U Há»�I Ä�Iá»€N KHUYáº¾T Ä�Æ N</div>
         <form action="#" id="f-filling-question" th:action="@{/fo/questions/filling}" method="post"
             th:object="${mcqDto}">
             <div class="mcq">
                 <div>
+                    <input type="hidden" th:field="*{id}">
                     <input type="hidden" th:field="*{type}">
                 </div>
                 <div class="mt-3">
                     <div>
-                        <label class="font-weight-bold">File nghe đính kèm:</label>
+                        <label class="font-weight-bold">File nghe Ä‘Ă­nh kĂ¨m:</label>
                     </div>
                     <div class="custom-file">
                         <input type="file" name="file" accept=".doc, .docx" id="actual-btn" hidden />
                         <!-- our custom upload button -->
-                        <label class="actual-lbl" for="actual-btn">Chọn File</label>
+                        <label class="actual-lbl" for="actual-btn">Chá»�n File</label>
                         <!-- name of file chosen -->
-                        <span id="file-chosen">Chưa có file</span>
+                        <span id="file-chosen">ChÆ°a cĂ³ file</span>
                     </div>
                 </div>
                 <div class="extention d-flex flex-row mt-3">
                     <div>
-                        <label class="font-weight-bold">Nội dung câu hỏi <span class="text-danger">*</span></label>
+                        <label class="font-weight-bold">Ná»™i dung cĂ¢u há»�i <span class="text-danger">*</span></label>
                     </div>
                 </div>
-                <div class="text-danger">(Lưu ý: Thêm nội dung câu hỏi, tô phần đáp án và nhấn nút gạch chân
-                    để định dạng phần đáp án)</div>
+                <div class="text-danger">(LÆ°u Ă½: ThĂªm ná»™i dung cĂ¢u há»�i, tĂ´ pháº§n Ä‘Ă¡p Ă¡n vĂ  nháº¥n nĂºt gáº¡ch chĂ¢n
+                    Ä‘á»ƒ Ä‘á»‹nh dáº¡ng pháº§n Ä‘Ă¡p Ă¡n)</div>
                 <div class="mcp-content">
                     <textarea id="content" class="question-content" th:field="*{content}"></textarea>
                 </div>
                 <div class="extention d-flex flex-row mt-3">
                     <div>
-                        <label class="font-weight-bold">Hướng dẫn/Giải thích đáp án</label>
+                        <label class="font-weight-bold">HÆ°á»›ng dáº«n/Giáº£i thĂ­ch Ä‘Ă¡p Ă¡n</label>
                     </div>
                 </div>
                 <div class="mcp-content">
@@ -68,7 +69,7 @@
                         <div class="col-6 border-right" id="left-answer-items">
                             <div class="d-flex">
                                 <div class="total-answer d-flex">
-                                    <div class="text-danger p-1">Số vị trí điền khuyết</div>
+                                    <div class="text-danger p-1">Sá»‘ vá»‹ trĂ­ Ä‘iá»�n khuyáº¿t</div>
                                     <div class="text-center p-1">
                                         <label class="total-answer__value total-left-answer__value"
                                             id="total-filling-pos"
@@ -84,17 +85,17 @@
                                             th:name="leftAnswerDtos[0].answerLabel">1</label>
                                     </div>
                                     <div class="ml-2 w-100">
-                                        <input type="text" class="answer__value left_part" title="Nội dung câu trả lời"
+                                        <input type="text" class="answer__value left_part" title="Ná»™i dung cĂ¢u tráº£ lá»�i"
                                             th:field="*{leftAnswerDtos[__${leftAnswerDtoStat.index}__].answerContent}">
                                     </div>
                                     <div class="ml-2">
-                                        <input class="answer__score" title="Điểm số cho đáp án" type="number"
+                                        <input class="answer__score" title="Ä�iá»ƒm sá»‘ cho Ä‘Ă¡p Ă¡n" type="number"
                                             th:field="*{leftAnswerDtos[__${leftAnswerDtoStat.index}__].score}" />
                                     </div>
                                     <div class="ml-2">
                                         <button class="btn-swap-answer"
                                             th:id=" 'btn-swap-pos-' + ${leftAnswerDtoStat.index} " type="button"
-                                            title="Bỏ hoán vị vị trí"
+                                            title="Bá»� hoĂ¡n vá»‹ vá»‹ trĂ­"
                                             th:onclick="|return changePermutation(${leftAnswerDtoStat.index})|">
                                             <i class="fa fa-exchange" aria-hidden="true"></i>
                                         </button>
@@ -114,7 +115,7 @@
                         <div class="col-6">
                             <div class="d-flex">
                                 <div class="total-answer d-flex">
-                                    <div class="text-danger p-1">Số đáp án gây nhiễu</div>
+                                    <div class="text-danger p-1">Sá»‘ Ä‘Ă¡p Ă¡n gĂ¢y nhiá»…u</div>
                                     <div class="text-center p-1">
                                         <label class="total-answer__value total-right-answer__value"
                                             th:text="${#lists.size(mcqDto.rightAnswerDtos)}">4</label>
@@ -123,7 +124,7 @@
                                 <div class="d-flex ml-auto mb-2">
                                     <button class="btn-add-answer" id="btn-add-answer" type="submit"
                                         name="add-right-answer" onclick="return addRightAnswer()">
-                                        <i class="fa fa-plus" aria-hidden="true" title="Thêm đáp án nhiễu"></i>
+                                        <i class="fa fa-plus" aria-hidden="true" title="ThĂªm Ä‘Ă¡p Ă¡n nhiá»…u"></i>
                                     </button>
                                 </div>
                             </div>
@@ -132,18 +133,18 @@
                                     <div class="answer-content__item d-flex flex-row mb-2">
                                         <div class="ml-2 d-flex align-items-center">
                                             <label class="answer__label"
-                                                th:text="*{rightAnswerDtos[__${rightAnswerDtoStat.index}__].answerLabel}">Đáp
-                                                án</label>
+                                                th:text="*{rightAnswerDtos[__${rightAnswerDtoStat.index}__].answerLabel}">Ä�Ă¡p
+                                                Ă¡n</label>
                                         </div>
                                         <div class="ml-2 w-100">
                                             <input type="text" class="answer__value right_part"
-                                                title="Nội dung câu trả lời"
+                                                title="Ná»™i dung cĂ¢u tráº£ lá»�i"
                                                 th:field="*{rightAnswerDtos[__${rightAnswerDtoStat.index}__].answerContent}">
                                         </div>
                                         <div class="ml-2">
                                             <button class="btn-swap-answer"
                                                 th:id=" 'btn-swap-pos-' + ${rightAnswerDtoStat.index} " type="button"
-                                                title="Bỏ hoán vị vị trí"
+                                                title="Bá»� hoĂ¡n vá»‹ vá»‹ trĂ­"
                                                 th:onclick="|return changePermutation(${rightAnswerDtoStat.index})|">
                                                 <i class="fa fa-exchange" aria-hidden="true"></i>
                                             </button>
@@ -166,13 +167,13 @@
                 </div>
                 <div class="mt-3 d-flex justify-content-center pb-3">
                     <div class="mx-2">
-                        <input type="submit" class="btn btn-success" value="Hoàn thành">
+                        <input type="submit" class="btn btn-success" value="HoĂ n thĂ nh">
                     </div>
                     <div class="mx-2">
-                        <input type="reset" class="btn btn-primary" value="Làm lại">
+                        <input type="reset" class="btn btn-primary" value="LĂ m láº¡i">
                     </div>
                     <div class="mx-2">
-                        <a class="btn btn-danger" th:href="@{'/fo/index'}">Huỷ bỏ</a>
+                        <a class="btn btn-danger" th:href="@{'/fo/index'}">Huá»· bá»�</a>
                     </div>
                 </div>
             </div>
@@ -231,15 +232,15 @@
                 '<label class="answer__label">' + (index + 1) + '</label>' +
                 '</div>' +
                 '<div class="ml-2 w-100">' +
-                '<input type="text" class="answer__value left_part left-answer-value' + index + '" title="Nội dung câu trả lời" ' +
+                '<input type="text" class="answer__value left_part left-answer-value' + index + '" title="Ná»™i dung cĂ¢u tráº£ lá»�i" ' +
                 'name="leftAnswerDtos[' + index + '].answerContent" value="' + answerValue + '">' +
                 '</div>' +
                 '<div class="ml-2">' +
-                '<input class="answer__score" title="Điểm số cho đáp án" type="number" ' +
+                '<input class="answer__score" title="Ä�iá»ƒm sá»‘ cho Ä‘Ă¡p Ă¡n" type="number" ' +
                 'name="leftAnswerDtos[0].score"}" value="0" />' +
                 '</div>' +
                 '<div class="ml-2">' +
-                '<button class="btn-swap-answer" id="btn-swap-pos-' + index + '" type="button" title="Bỏ hoán vị vị trí" onclick="return changePermutation(' + index + ')">' +
+                '<button class="btn-swap-answer" id="btn-swap-pos-' + index + '" type="button" title="Bá»� hoĂ¡n vá»‹ vá»‹ trĂ­" onclick="return changePermutation(' + index + ')">' +
                 '<i class="fa fa-exchange" aria-hidden="true"></i>' +
                 '</button>' +
                 '<input type="checkbox" id="swap-pos-0" name="leftAnswerDtos[' + index + '].randomPosition" value="true" checked="checked" hidden="true"><input type="hidden" name="_leftAnswerDtos[' + index + '].randomPosition" value="on">' +
@@ -269,7 +270,7 @@
         function addRightAnswer() {
             let totalAnswer = $(".right-answer-content__item").length;
             if (totalAnswer == 7) {
-                alert("Số câu trả lời gây nhiễu tối đa là 7");
+                alert("Sá»‘ cĂ¢u tráº£ lá»�i gĂ¢y nhiá»…u tá»‘i Ä‘a lĂ  7");
             } else {
                 $("#f-filling-question").submit();
                 // add div here
@@ -282,13 +283,13 @@
                 + '<label class="answer__label" >' + alphabetLblArr[totalAnswer] + '</label>'
                 + '</div>'
                 + '<div class="ml-2 w-100">'
-                + '<input type="text" class="answer__value right_part" title="Nội dung câu trả lời"'
+                + '<input type="text" class="answer__value right_part" title="Ná»™i dung cĂ¢u tráº£ lá»�i"'
                 + 'th:field="*{rightAnswerDtos[__${rightAnswerDtoStat.' + totalAnswer + '}__].answerContent}">'
                 + '</div>'
                 + '<div class="ml-2">'
                 + '<button class="btn-swap-answer"'
                 + 'th:id="btn-swap-pos-' + totalAnswer + '" type="button"'
-                + 'title="Bỏ hoán vị vị trí"'
+                + 'title="Bá»� hoĂ¡n vá»‹ vá»‹ trĂ­"'
                 + 'th:onclick="|return changePermutation(${rightAnswerDtoStat.' + totalAnswer + '})|">'
                 + '<i class="fa fa-exchange" aria-hidden="true"></i>'
                 + '</button>'
