@@ -107,9 +107,10 @@
                                 </div>
                             </div>
                         </th:block>
-                        <th:block
-                            th:if="${question.type == T(vn.com.multiplechoice.dao.model.enums.QuestionType).YES_NO} 
-                                     or ${question.type == T(vn.com.multiplechoice.dao.model.enums.QuestionType).ONE_ANSWER}">
+                        <th:block th:if="${question.type == T(vn.com.multiplechoice.dao.model.enums.QuestionType).YES_NO} 
+                                  or ${question.type == T(vn.com.multiplechoice.dao.model.enums.QuestionType).ONE_ANSWER}
+                                  or ${question.type == T(vn.com.multiplechoice.dao.model.enums.QuestionType).UNDERLINE}
+                                  or ${question.type == T(vn.com.multiplechoice.dao.model.enums.QuestionType).FILLING} ">
                             <div class="question-answer"
                                 th:each="questionAnswerDto, questionAnswerDtoStat : ${question.questionAnswerDtos}">
                                 <div class="d-flex flex-row">
@@ -150,15 +151,13 @@
                             </div>
                         </th:block>
                         <th:block
-                            th:if="${question.type == T(vn.com.multiplechoice.dao.model.enums.QuestionType).FILLING} 
-                            or ${question.type == T(vn.com.multiplechoice.dao.model.enums.QuestionType).GROUP_FILLING}
-                            or ${question.type == T(vn.com.multiplechoice.dao.model.enums.QuestionType).UNDERLINE} ">
+                            th:if="${question.type == T(vn.com.multiplechoice.dao.model.enums.QuestionType).GROUP_FILLING} ">
                             <div class="question-answer"
                                 th:each="questionAnswerDto, questionAnswerDtoStat : ${question.questionAnswerDtos}">
                                 <div class="d-flex flex-row">
                                     <div class="align-items-center">
                                         <input type="radio"
-                                            th:name="'examDto.questions[' +  ${questionStat.index} + '].questionAnswerDtos.answerContent'"
+                                            th:name="'examDto.questions[' +  ${questionStat.index} + '].questionAnswerDtos.selectedAnswers'"
                                             th:value="${examDto.questions[__${questionStat.index}__].questionAnswerDtos[__${questionAnswerDtoStat.index}__].answerContent}"
                                             th:checked="${examDto.questions[__${questionStat.index}__].questionAnswerDtos[__${questionAnswerDtoStat.index}__].selected}"
                                             class="radio-answer"
