@@ -76,11 +76,13 @@ public class Test implements Serializable {
 	private List<TestFeedback> feedbacks;
 
 	public void addQuestion(Question question) {
+	    this.numOfQuestions++;
 		questions.add(question);
 		question.getTests().add(this);
     }
  
     public void removeQuestion(Question question) {
+        this.numOfQuestions--;
     	questions.remove(question);
         question.getTests().remove(this);
     }
