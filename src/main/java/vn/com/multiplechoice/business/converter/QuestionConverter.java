@@ -181,6 +181,7 @@ public class QuestionConverter {
 		Question entity = new Question();
 
 		User user = onlineUserUtil.getOnlineUser();
+		entity.setId(mcqDto.getId());
 		entity.setUser(user);
 		entity.setType(mcqDto.getType());
 		entity.setContent(mcqDto.getContent());
