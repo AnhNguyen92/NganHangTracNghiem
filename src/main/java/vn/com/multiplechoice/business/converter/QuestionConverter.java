@@ -57,6 +57,7 @@ public class QuestionConverter {
         if (question.getAnswerB() != null && totalLeftAnswer < 2) {
             answerDto = new QuestionAnswerDto();
             answerDto.setOrder(order);
+            answerDto.setOriginalLabel("B");
             answerDto.setAnswerLabel(ANSWER_LABEL_LIST[order++]);
             answerDto.setAnswerContent(question.getAnswerB());
             answerDto.setTrueAnswer(question.getRightAnswer().contains("B"));
@@ -67,6 +68,7 @@ public class QuestionConverter {
         if (question.getAnswerC() != null && totalLeftAnswer < 3) {
             answerDto = new QuestionAnswerDto();
             answerDto.setOrder(order);
+            answerDto.setOriginalLabel("C");
             answerDto.setAnswerLabel(ANSWER_LABEL_LIST[order++]);
             answerDto.setAnswerContent(question.getAnswerC());
             answerDto.setTrueAnswer(question.getRightAnswer().contains("C"));
@@ -77,6 +79,7 @@ public class QuestionConverter {
         if (question.getAnswerD() != null && totalLeftAnswer < 4) {
             answerDto = new QuestionAnswerDto();
             answerDto.setOrder(order);
+            answerDto.setOriginalLabel("D");
             answerDto.setAnswerLabel(ANSWER_LABEL_LIST[order++]);
             answerDto.setAnswerContent(question.getAnswerD());
             answerDto.setTrueAnswer(question.getRightAnswer().contains("D"));
@@ -87,6 +90,7 @@ public class QuestionConverter {
         if (question.getAnswerE() != null && totalLeftAnswer < 5) {
             answerDto = new QuestionAnswerDto();
             answerDto.setOrder(order);
+            answerDto.setOriginalLabel("E");
             answerDto.setAnswerLabel(ANSWER_LABEL_LIST[order++]);
             answerDto.setAnswerContent(question.getAnswerE());
             answerDto.setTrueAnswer(question.getRightAnswer().contains("E"));
@@ -97,6 +101,7 @@ public class QuestionConverter {
         if (question.getAnswerF() != null && totalLeftAnswer < 6) {
             answerDto = new QuestionAnswerDto();
             answerDto.setOrder(order);
+            answerDto.setOriginalLabel("F");
             answerDto.setAnswerLabel(ANSWER_LABEL_LIST[order++]);
             answerDto.setAnswerContent(question.getAnswerF());
             answerDto.setTrueAnswer(question.getRightAnswer().equals("F"));
@@ -107,6 +112,7 @@ public class QuestionConverter {
         if (question.getAnswerG() != null) {
             answerDto = new QuestionAnswerDto();
             answerDto.setOrder(order);
+            answerDto.setOriginalLabel("G");
             answerDto.setAnswerLabel(ANSWER_LABEL_LIST[order++]);
             answerDto.setAnswerContent(question.getAnswerG());
             answerDto.setTrueAnswer(question.getRightAnswer().equals("G"));
@@ -117,6 +123,7 @@ public class QuestionConverter {
         if (question.getAnswerH() != null) {
             answerDto = new QuestionAnswerDto();
             answerDto.setOrder(order);
+            answerDto.setOriginalLabel("G");
             answerDto.setAnswerLabel(ANSWER_LABEL_LIST[order]);
             answerDto.setAnswerContent(question.getAnswerH());
             answerDto.setTrueAnswer(question.getRightAnswer().equals("H"));
@@ -124,7 +131,7 @@ public class QuestionConverter {
             righttAnswerDtos.add(answerDto);
         }
         
-		return righttAnswerDtos;
+		return randomAnswerPosition(righttAnswerDtos);
 	}
 
 	private List<QuestionAnswerDto> convertLeftAnswers(Question question) {
@@ -338,7 +345,7 @@ public class QuestionConverter {
         if (question.getAnswerA() != null) {
 			answerDto = new QuestionAnswerDto();
 			answerDto.setOrder(order++);
-			answerDto.setAnswerLabel("A");
+			answerDto.setOriginalLabel("A");
 			answerDto.setScore(100);
 			answerDto.setAnswerContent(question.getAnswerA());
 			answerDto.setTrueAnswer(question.getRightAnswer().contains("A"));
@@ -349,7 +356,7 @@ public class QuestionConverter {
 		if (question.getAnswerB() != null) {
 			answerDto = new QuestionAnswerDto();
 			answerDto.setOrder(order++);
-			
+            answerDto.setOriginalLabel("B");
 			answerDto.setAnswerContent(question.getAnswerB());
 			answerDto.setTrueAnswer(question.getRightAnswer().contains("B"));
 			answerDto.setRandomPosition(answerPemutation != null && answerPemutation.contains("B"));
@@ -359,7 +366,7 @@ public class QuestionConverter {
 		if (question.getAnswerC() != null) {
 			answerDto = new QuestionAnswerDto();
 			answerDto.setOrder(order++);
-			
+            answerDto.setOriginalLabel("C");
 			answerDto.setAnswerContent(question.getAnswerC());
 			answerDto.setTrueAnswer(question.getRightAnswer().contains("C"));
 			answerDto.setRandomPosition(answerPemutation != null && answerPemutation.contains("C"));
@@ -369,7 +376,7 @@ public class QuestionConverter {
 		if (question.getAnswerD() != null) {
 			answerDto = new QuestionAnswerDto();
 			answerDto.setOrder(order++);
-			
+            answerDto.setOriginalLabel("D");
 			answerDto.setAnswerContent(question.getAnswerD());
 			answerDto.setTrueAnswer(question.getRightAnswer().contains("D"));
 			answerDto.setRandomPosition(answerPemutation != null && answerPemutation.contains("D"));
@@ -379,7 +386,7 @@ public class QuestionConverter {
 		if (question.getAnswerE() != null) {
 			answerDto = new QuestionAnswerDto();
 			answerDto.setOrder(order++);
-			
+            answerDto.setOriginalLabel("E");
 			answerDto.setAnswerContent(question.getAnswerE());
 			answerDto.setTrueAnswer(question.getRightAnswer().contains("E"));
 			answerDto.setRandomPosition(answerPemutation != null && answerPemutation.contains("E"));
@@ -389,7 +396,7 @@ public class QuestionConverter {
 		if (question.getAnswerF() != null) {
 			answerDto = new QuestionAnswerDto();
 			answerDto.setOrder(order++);
-			
+            answerDto.setOriginalLabel("F");
 			answerDto.setAnswerContent(question.getAnswerF());
 			answerDto.setTrueAnswer(question.getRightAnswer().equals("F"));
 			answerDto.setRandomPosition(answerPemutation != null && answerPemutation.contains("F"));
@@ -399,7 +406,7 @@ public class QuestionConverter {
 		if (question.getAnswerG() != null) {
 			answerDto = new QuestionAnswerDto();
 			answerDto.setOrder(order++);
-			
+            answerDto.setOriginalLabel("G");
 			answerDto.setAnswerContent(question.getAnswerG());
 			answerDto.setTrueAnswer(question.getRightAnswer().equals("G"));
 			answerDto.setRandomPosition(answerPemutation != null && answerPemutation.contains("G"));
@@ -409,7 +416,7 @@ public class QuestionConverter {
 		if (question.getAnswerH() != null) {
 			answerDto = new QuestionAnswerDto();
 			answerDto.setOrder(order);
-			
+            answerDto.setOriginalLabel("H");
 			answerDto.setAnswerContent(question.getAnswerH());
 			answerDto.setTrueAnswer(question.getRightAnswer().equals("H"));
 			answerDto.setRandomPosition(answerPemutation != null && answerPemutation.contains("H"));

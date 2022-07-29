@@ -1,8 +1,11 @@
 package vn.com.multiplechoice.web.controller.fo;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +22,7 @@ import vn.com.multiplechoice.business.converter.TestConverter;
 import vn.com.multiplechoice.business.service.TestService;
 import vn.com.multiplechoice.dao.model.Question;
 import vn.com.multiplechoice.dao.model.Test;
+import vn.com.multiplechoice.dao.model.enums.QuestionType;
 import vn.com.multiplechoice.web.dto.ExamDto;
 import vn.com.multiplechoice.web.model.MCQDto;
 
@@ -63,6 +67,9 @@ public class ExamController {
 			Question question = questions.stream().filter(q -> q.getId().equals(mcqDto.getId())).findFirst().get();
 			List<String> rightAnswerLst = getRightAnswerLst(question);
 			List<String> selectedAnswerLst = mcqDto.getSelectedAnswers();
+			if (mcqDto.getType() != QuestionType.MATCHING) {
+			    Collections.sort(selectedAnswerLst);
+			}
 			if (rightAnswerLst.equals(selectedAnswerLst)) {
 				log.info("found true question");
 				totalRightAnswer++;
@@ -83,36 +90,38 @@ public class ExamController {
 	private List<String> getRightAnswerLst(Question question) {
 		List<String> rightAnswerLst = new ArrayList<>();
 		String[] labels = question.getRightAnswer().split(",");
-		for (String label : labels) {
-			switch (label) {
-			case "A":
-				rightAnswerLst.add(question.getAnswerA());
-				break;
-			case "B":
-				rightAnswerLst.add(question.getAnswerB());
-				break;
-			case "C":
-				rightAnswerLst.add(question.getAnswerC());
-				break;
-			case "D":
-				rightAnswerLst.add(question.getAnswerD());
-				break;
-			case "E":
-				rightAnswerLst.add(question.getAnswerE());
-				break;
-			case "F":
-				rightAnswerLst.add(question.getAnswerF());
-				break;
-			case "G":
-				rightAnswerLst.add(question.getAnswerG());
-				break;
-			default:
-				rightAnswerLst.add(question.getAnswerH());
-				break;
-			}
-
-		}
+		Collections.addAll(rightAnswerLst, labels);
 		return rightAnswerLst;
+//		for (String label : labels) {
+//			switch (label) {
+//			case "A":
+//				rightAnswerLst.add(question.getAnswerA());
+//				break;
+//			case "B":
+//				rightAnswerLst.add(question.getAnswerB());
+//				break;
+//			case "C":
+//				rightAnswerLst.add(question.getAnswerC());
+//				break;
+//			case "D":
+//				rightAnswerLst.add(question.getAnswerD());
+//				break;
+//			case "E":
+//				rightAnswerLst.add(question.getAnswerE());
+//				break;
+//			case "F":
+//				rightAnswerLst.add(question.getAnswerF());
+//				break;
+//			case "G":
+//				rightAnswerLst.add(question.getAnswerG());
+//				break;
+//			default:
+//				rightAnswerLst.add(question.getAnswerH());
+//				break;
+//			}
+//
+//		}
+//		return Arrays.stream(labels).collect(Collectors.toList());
 	}
 
 }

@@ -4,6 +4,7 @@ public class QuestionAnswerDto {
 	private int order;
 	private boolean randomPosition = true;
 	private String answerLabel;
+	private String originalLabel;
 	private String answerContent;
 	private boolean trueAnswer = false;
 	private int score = 0;
@@ -34,7 +35,15 @@ public class QuestionAnswerDto {
 		this.answerLabel = answerLabel;
 	}
 
-	public String getAnswerContent() {
+	public String getOriginalLabel() {
+        return originalLabel;
+    }
+
+    public void setOriginalLabel(String originalLabel) {
+        this.originalLabel = originalLabel;
+    }
+
+    public String getAnswerContent() {
 		return answerContent;
 	}
 
