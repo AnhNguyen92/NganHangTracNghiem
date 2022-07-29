@@ -40,12 +40,9 @@ import vn.com.multiplechoice.web.utils.RequestUtil;
 
 @Controller
 public class UserController {
-    private static final String ERROR = "error";
-
-    private static final String MESSAGE = "message";
-
     private static final Logger log = LoggerFactory.getLogger(UserController.class);
-
+    private static final String ERROR = "error";
+    private static final String MESSAGE = "message";
     private static final String FO_FORGOT_PASSWORD = "fo/forgot-password";
     private static final String FO_RESET_PASSWORD = "fo/reset-password";
 
