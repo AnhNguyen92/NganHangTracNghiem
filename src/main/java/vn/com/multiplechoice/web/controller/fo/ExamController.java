@@ -1,11 +1,9 @@
 package vn.com.multiplechoice.web.controller.fo;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +22,8 @@ import vn.com.multiplechoice.dao.model.Question;
 import vn.com.multiplechoice.dao.model.Test;
 import vn.com.multiplechoice.dao.model.enums.QuestionType;
 import vn.com.multiplechoice.web.dto.ExamDto;
+import vn.com.multiplechoice.web.dto.ExamResultDTO;
+import vn.com.multiplechoice.web.dto.ExamResultItemDTO;
 import vn.com.multiplechoice.web.model.MCQDto;
 
 @Controller
@@ -52,39 +52,59 @@ public class ExamController {
 	@PostMapping("")
 	public String doExam(Model model, @ModelAttribute ExamDto examDto) {
 		log.info("{}", examDto);
-		markExam(examDto);
-
-		return "redirect:/fo/index";
-	}
-
-	private void markExam(ExamDto examDto) {
+//		return markExam(examDto);
+//
+//		//return "redirect:/fo/index";
+//	}
+//
+//	private String markExam(ExamDto examDto) {
 		double totalScore = 0.0;
 		int totalRightAnswer = 0;
 		Test test = testService.findById(examDto.getId());
 		Set<Question> questions = test.getQuestions();
 		double pointPerQuestion = 10.0 / questions.size();
+		ExamResultDTO examResultDTO  = new ExamResultDTO();
 		for (MCQDto mcqDto : examDto.getQuestions()) {
 			Question question = questions.stream().filter(q -> q.getId().equals(mcqDto.getId())).findFirst().get();
 			List<String> rightAnswerLst = getRightAnswerLst(question);
 			List<String> selectedAnswerLst = mcqDto.getSelectedAnswers();
+			ExamResultItemDTO examResultItemDTO = new ExamResultItemDTO();
+			examResultItemDTO.setQuestionContent(question.getContent());
+			examResultItemDTO.setRightAnswer(rightAnswerLst);
+			examResultItemDTO.setSelectAnswer(selectedAnswerLst);
+			
 			if (mcqDto.getType() != QuestionType.MATCHING) {
 			    Collections.sort(selectedAnswerLst);
 			}
 			if (rightAnswerLst.equals(selectedAnswerLst)) {
 				log.info("found true question");
+				examResultItemDTO.setCount(1);
+				examResultDTO.increaseTotalTrueAnswer();
 				totalRightAnswer++;
 				if (question.getScore() == null) {
+				    examResultItemDTO.setScore(100);
 					totalScore += pointPerQuestion;
 				} else {
+				    String[] scores = question.getScore().split(",");
+				    for (int i = 0; i < rightAnswerLst.size(); i++) {
+				        if (rightAnswerLst.get(i).equals(selectedAnswerLst.get(i))) {
+				            examResultItemDTO.setScore(examResultItemDTO.getScore() + Integer.parseInt(scores[i]));
+				        }
+				    }
+				    
 					rightAnswerLst.retainAll(mcqDto.getSelectedAnswers());
 					totalScore += pointPerQuestion * rightAnswerLst.size();
 				}
 //				totalScore +=  question.getScore();
 			}
+			examResultDTO.getExamResultItemDTOs().add(examResultItemDTO);
 		}
+		model.addAttribute("examResultDTO", examResultDTO);
 		System.out.println(totalRightAnswer);
 		System.out.println(totalScore);
 		// save to database here
+		
+		return "/fo/exam-result";
 	}
 
 	private List<String> getRightAnswerLst(Question question) {
@@ -92,36 +112,6 @@ public class ExamController {
 		String[] labels = question.getRightAnswer().split(",");
 		Collections.addAll(rightAnswerLst, labels);
 		return rightAnswerLst;
-//		for (String label : labels) {
-//			switch (label) {
-//			case "A":
-//				rightAnswerLst.add(question.getAnswerA());
-//				break;
-//			case "B":
-//				rightAnswerLst.add(question.getAnswerB());
-//				break;
-//			case "C":
-//				rightAnswerLst.add(question.getAnswerC());
-//				break;
-//			case "D":
-//				rightAnswerLst.add(question.getAnswerD());
-//				break;
-//			case "E":
-//				rightAnswerLst.add(question.getAnswerE());
-//				break;
-//			case "F":
-//				rightAnswerLst.add(question.getAnswerF());
-//				break;
-//			case "G":
-//				rightAnswerLst.add(question.getAnswerG());
-//				break;
-//			default:
-//				rightAnswerLst.add(question.getAnswerH());
-//				break;
-//			}
-//
-//		}
-//		return Arrays.stream(labels).collect(Collectors.toList());
 	}
 
 }

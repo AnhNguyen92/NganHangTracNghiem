@@ -56,6 +56,9 @@ public class Test implements Serializable {
 	@Column(name = "approved_date")
     private Date approvedDate;
 	
+	@Column(name = "num_of_exam")
+    private int numOfExams;
+	
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User creator;
@@ -75,6 +78,9 @@ public class Test implements Serializable {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "test")
 	private List<TestFeedback> feedbacks;
 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "test")
+    private List<ExamResult> examResults;
+	
 	public void addQuestion(Question question) {
 	    this.numOfQuestions++;
 		questions.add(question);
@@ -150,6 +156,14 @@ public class Test implements Serializable {
     public void setApprovedDate(Date approvedDate) {
         this.approvedDate = approvedDate;
     }
+    
+    public int getNumOfExams() {
+        return numOfExams;
+    }
+
+    public void setNumOfExams(int numOfExams) {
+        this.numOfExams = numOfExams;
+    }
 
     public User getCreator() {
 		return creator;
@@ -190,5 +204,13 @@ public class Test implements Serializable {
 	public void setFeedbacks(List<TestFeedback> feedbacks) {
 		this.feedbacks = feedbacks;
 	}
+
+    public List<ExamResult> getExamResults() {
+        return examResults;
+    }
+
+    public void setExamResults(List<ExamResult> examResults) {
+        this.examResults = examResults;
+    }
 
 }

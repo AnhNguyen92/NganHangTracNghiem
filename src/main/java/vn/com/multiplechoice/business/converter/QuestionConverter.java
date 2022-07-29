@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 
 import vn.com.multiplechoice.dao.model.Question;
 import vn.com.multiplechoice.dao.model.User;
+import vn.com.multiplechoice.dao.model.enums.QuestionStatus;
 import vn.com.multiplechoice.dao.model.enums.QuestionType;
 import vn.com.multiplechoice.web.model.MCQDto;
 import vn.com.multiplechoice.web.model.QuestionAnswerDto;
@@ -189,6 +190,7 @@ public class QuestionConverter {
 
 		User user = onlineUserUtil.getOnlineUser();
 		entity.setId(mcqDto.getId());
+		entity.setStatus(QuestionStatus.ACTIVE);
 		entity.setUser(user);
 		entity.setType(mcqDto.getType());
 		entity.setContent(mcqDto.getContent());

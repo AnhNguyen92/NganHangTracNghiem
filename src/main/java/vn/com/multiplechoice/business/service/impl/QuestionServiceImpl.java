@@ -65,5 +65,11 @@ public class QuestionServiceImpl extends AbstractService<Question, Long> impleme
     public Page<Question> findAllByUserId(Long userId, Pageable pageable) {
         return questionRepository.findAllByUserId(userId, pageable);
     }
+
+    @Override
+    public void deleteQuestion(Long id) {
+        questionRepository.deleteQuestion(id);
+        
+    }
     
 }

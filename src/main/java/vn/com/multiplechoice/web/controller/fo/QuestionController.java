@@ -1,6 +1,5 @@
 package vn.com.multiplechoice.web.controller.fo;
 
-import java.io.IOException;
 import java.util.Set;
 
 import org.slf4j.Logger;
@@ -62,11 +61,8 @@ public class QuestionController {
 		for (Test test : tests) {
 			test.removeQuestion(question);
 		}
-		try {
-			questionService.delete(question);
-		} catch (IOException e) {
-			log.error("Can not delete quetion with id = {} of user has id = {}", id, user.getId());
-		}
+		questionService.deleteQuestion(question.getId());
+		
 		log.info("END of delete question by id = {}", id);
 		
 		

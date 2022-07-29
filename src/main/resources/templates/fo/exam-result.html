@@ -23,7 +23,34 @@
             <h3>Kết quả</h3>
         </div>
         <div>
-        
+        <table class="table" >
+        <thead>
+          <tr>
+            <th scope="col" id="index">STT</th>
+            <th scope="col" id="id">Nội dung</th>
+            <th scope="col" id="type">Câu trả lời</th>
+            <th scope="col" id="content">Đáp án đúng</th>
+            <th scope="col" id="testSize">Kết quả</th>
+            <th scope="col" id="action">Điểm (trên thang 100)</th>
+          </tr>
+        </thead>
+        <tbody>
+        <tr  th:each="examResultItem, examResultItemStat : ${examResultDTO.examResultItemDTOs}">
+              <td th:text="${examResultItemStat.count}"></td>
+              <td th:utext="${examResultItem.questionContent}"></td>
+              <td th:text="${examResultItem.rightAnswer}"></td>
+              <td th:text="${examResultItem.selectAnswer}"></td>
+              <td th:text="${examResultItem.count}"></td>
+              <td th:text="${examResultItem.score}"></td>
+       </tr>
+       </tbody>
+      </table>       
+        <div>
+        <p>Tong so cau tra loi dung: <span th:text="${examResultDTO.totalTrueAnswer}"></span></p>
+        </div>
+        </div>
+        <div>
+          <a th:href="@{/index}">Tro ve trang chu</a>
         </div>
     </div>
 

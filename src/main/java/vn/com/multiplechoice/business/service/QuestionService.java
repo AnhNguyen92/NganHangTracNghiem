@@ -18,4 +18,6 @@ public interface QuestionService extends IGenericService<Question, Long> {
 
     Page<Question> findAllByUserId(Long userId, Pageable pageable);
 
+    void deleteQuestion(Long id);
+
 }
