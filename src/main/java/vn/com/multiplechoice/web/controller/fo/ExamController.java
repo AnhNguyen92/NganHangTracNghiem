@@ -52,12 +52,6 @@ public class ExamController {
 	@PostMapping("")
 	public String doExam(Model model, @ModelAttribute ExamDto examDto) {
 		log.info("{}", examDto);
-//		return markExam(examDto);
-//
-//		//return "redirect:/fo/index";
-//	}
-//
-//	private String markExam(ExamDto examDto) {
 		double totalScore = 0.0;
 		int totalRightAnswer = 0;
 		Test test = testService.findById(examDto.getId());
