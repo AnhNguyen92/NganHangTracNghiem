@@ -105,7 +105,7 @@ public class QuestionConverter {
             answerDto.setOriginalLabel("F");
             answerDto.setAnswerLabel(ANSWER_LABEL_LIST[order++]);
             answerDto.setAnswerContent(question.getAnswerF());
-            answerDto.setTrueAnswer(question.getRightAnswer().equals("F"));
+            answerDto.setTrueAnswer(question.getRightAnswer().contains("F"));
             answerDto.setRandomPosition(question.getAnswerPemutation().contains("F"));
             righttAnswerDtos.add(answerDto);
         }
@@ -116,7 +116,7 @@ public class QuestionConverter {
             answerDto.setOriginalLabel("G");
             answerDto.setAnswerLabel(ANSWER_LABEL_LIST[order++]);
             answerDto.setAnswerContent(question.getAnswerG());
-            answerDto.setTrueAnswer(question.getRightAnswer().equals("G"));
+            answerDto.setTrueAnswer(question.getRightAnswer().contains("G"));
             answerDto.setRandomPosition(question.getAnswerPemutation().contains("G"));
             righttAnswerDtos.add(answerDto);
         }
@@ -127,7 +127,7 @@ public class QuestionConverter {
             answerDto.setOriginalLabel("G");
             answerDto.setAnswerLabel(ANSWER_LABEL_LIST[order]);
             answerDto.setAnswerContent(question.getAnswerH());
-            answerDto.setTrueAnswer(question.getRightAnswer().equals("H"));
+            answerDto.setTrueAnswer(question.getRightAnswer().contains("H"));
             answerDto.setRandomPosition(question.getAnswerPemutation().contains("H"));
             righttAnswerDtos.add(answerDto);
         }
