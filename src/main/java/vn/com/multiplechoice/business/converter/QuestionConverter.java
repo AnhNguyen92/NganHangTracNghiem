@@ -124,7 +124,7 @@ public class QuestionConverter {
         if (question.getAnswerH() != null) {
             answerDto = new QuestionAnswerDto();
             answerDto.setOrder(order);
-            answerDto.setOriginalLabel("G");
+            answerDto.setOriginalLabel("H");
             answerDto.setAnswerLabel(ANSWER_LABEL_LIST[order]);
             answerDto.setAnswerContent(question.getAnswerH());
             answerDto.setTrueAnswer(question.getRightAnswer().contains("H"));
