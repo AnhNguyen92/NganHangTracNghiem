@@ -66,7 +66,7 @@ public class TestController {
 	private FileStorageService fileStorageService;
 
 	@Autowired
-	private ApplicationConfig applicationConfig;
+	private ApplicationConfig appconfig;
 
 	@Autowired
 	private HeaderTemplateService headerTemplateService;
@@ -120,7 +120,8 @@ public class TestController {
 		model.addAttribute("answerLabels", ANSWER_LABELS);
 		if (test.getHeader() != null) {
 			HeaderTemplate headerTemplate = test.getHeader();
-			String sourcePath = applicationConfig.getTemplateUploadPath() + File.separatorChar + headerTemplate.getSourcePath();
+			String sourcePath = appconfig.getTemplateUploadPath() + File.separatorChar
+					+ headerTemplate.getSourcePath();
 			FileInputStream templateFile = new FileInputStream(sourcePath);
 			String header = parseHeaderTemplateToHtml(templateFile);
 			model.addAttribute("header", header);
@@ -180,23 +181,34 @@ public class TestController {
 	private void updateHeader(MultipartFile multipartFile, User creator, Test test) {
 		// save/update header
 		if (multipartFile != null && !multipartFile.isEmpty()) {
+			// remove old header template
+			if (test.getHeader() != null) {
+				HeaderTemplate oldHeaderTemplate = headerTemplateService.findById(test.getHeader().getId());
+				fileStorageService.delete(appconfig.getTemplateUploadPath() + oldHeaderTemplate.getSourcePath());
+				try {
+					test.setHeader(null);
+					headerTemplateService.delete(oldHeaderTemplate);
+				} catch (IOException e) {
+					logger.error("{}", e.getMessage());
+				}
+			}
 			HeaderTemplate headerTemplate = new HeaderTemplate();
 			headerTemplate.setCreateDate(new Date());
 			headerTemplate.setUser(creator);
-			headerTemplate.setOriginalName(multipartFile.getOriginalFilename());
-			headerTemplate.setGeneratedName(UUID.randomUUID().toString());
-			String sourcePath = applicationConfig.getTemplateUploadPath() + File.separatorChar + headerTemplate.getGeneratedName();
+			String originalFilename = multipartFile.getOriginalFilename();
+			headerTemplate.setOriginalName(originalFilename);
+			headerTemplate.setGeneratedName(
+					UUID.randomUUID().toString() + originalFilename.substring(originalFilename.indexOf(".")));
+			char separatorchar = File.separatorChar;
+			String sourcePath = String.format("%s%s%s%s", separatorchar, test.getId(), separatorchar, headerTemplate.getGeneratedName());
 			headerTemplate.setSourcePath(sourcePath);
-			boolean uploadSuccessfull = fileStorageService.upload(applicationConfig.getTemplateUploadPath()+ File.separatorChar + test.getId(),
-					multipartFile.getOriginalFilename(), multipartFile);
+			boolean uploadSuccessfull = fileStorageService.upload(
+					appconfig.getTemplateUploadPath() + separatorchar + test.getId(),
+					headerTemplate.getGeneratedName(), multipartFile);
 			if (uploadSuccessfull) {
 				headerTemplateService.save(headerTemplate);
 			}
-			// remove old header template
-			if (test.getHeader() != null) {
-				HeaderTemplate oldHeaderTemplate = test.getHeader();
-				fileStorageService.delete(oldHeaderTemplate.getSourcePath());
-			}
+
 			test.setHeader(headerTemplate);
 			testService.save(test);
 		}
