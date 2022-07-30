@@ -38,7 +38,7 @@ public class QuestionConverter {
 		dto.setAnswerSuggestion(question.getSuggest());
 		QuestionType questionType = question.getType();
 		dto.setType(questionType);
-		if (QuestionType.MATCHING.equals(questionType)) {
+		if (QuestionType.MATCHING == questionType || QuestionType.FILLING == questionType) {
 			dto.setLeftAnswerDtos(convertLeftAnswers(question));
 			dto.setRightAnswerDtos(convertRightAnswers(question));
 		} else {
