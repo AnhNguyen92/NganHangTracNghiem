@@ -145,7 +145,7 @@ public class TestController {
 	}
 
 	@PostMapping
-	public String saveOrUpdate(Options options, @RequestParam("file") MultipartFile multipartFile, Model model) {
+	public String saveOrUpdate(Options options, @RequestParam("file") MultipartFile multipartFile, Model model) throws FileNotFoundException {
 		User creator = onlineUserUtil.getOnlineUser();
 		Test test = new Test();
 		if (options.getTestId() != null) {
@@ -175,7 +175,7 @@ public class TestController {
 
 		updateHeader(multipartFile, creator, test);
 
-		return "fo/saved";
+		return detail(test.getId(), model);
 	}
 
 	private void updateHeader(MultipartFile multipartFile, User creator, Test test) {
