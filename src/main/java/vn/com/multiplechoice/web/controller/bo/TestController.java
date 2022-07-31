@@ -113,7 +113,7 @@ public class TestController {
 		}
 		model.addAttribute("test", test);
 
-		return "bo/test";
+		return "bo/test-detail";
 	}
 
 	public String create(Model model) {
