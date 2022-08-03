@@ -59,12 +59,14 @@
               <td th:utext="${question.content}"></td>
               <td th:text="${#lists.size(question.tests)}"></td>
               <td>
-                <div class="d-flex justify-content-around">
-                  <a th:href="@{'/fo/questions/edit/' + ${question.id}}" class="btn btn-sm btn-primary mr-1" title="Sửa">
+                <div class="d-flex justify-content-around" >
+                  <a th:href="@{'/fo/questions/edit/' + ${question.id}}" class="btn btn-sm btn-primary mr-1" title="Sửa"
+                  th:classappend="${#lists.size(question.tests)} > 0 ? 'disabled' : ''">
                     <i class="fa fa-pencil-alt" aria-hidden="true"></i>
                     Sửa
                   </a>
-                  <a th:href="@{'/fo/questions/delete/' + ${question.id}}" class="btn btn-sm btn-danger mr-1" title="Xóa">
+                  <a th:href="@{'/fo/questions/delete/' + ${question.id}}" class="btn btn-sm btn-danger mr-1" title="Xóa"
+                  th:classappend="${#lists.size(question.tests)} > 0 ? 'disabled' : ''">
                     <i class="fa fa-pencil-alt" aria-hidden="true"></i>
                     Xóa 
                   </a>
