@@ -66,42 +66,42 @@ public class UserServiceImpl extends AbstractService<User, Long> implements User
 
     @Override
     public Page<User> searchDataTable(PagingRequest pagingRequest) {
-        searchPagination(pagingRequest);
+        //searchPagination(pagingRequest);
         List<User> users = userRepository.findAll();
 
         return getPage(users, pagingRequest);
     }
 
-    private void searchPagination(PagingRequest pagingRequest) {
-        CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<User> cq = cb.createQuery(User.class);
-
-        Root<User> user = cq.from(User.class);
-        if (pagingRequest.getSearch() != null && !StringUtils.isEmpty(pagingRequest.getSearch().getValue())) {
-            String value = pagingRequest.getSearch().getValue();
-            javax.persistence.criteria.Predicate usernamePredicate = cb.like(cb.lower(user.get("username")), "%" + value.toLowerCase() + "%");
-            javax.persistence.criteria.Predicate emailPredicate = cb.like(cb.lower(user.get("email")), "%" + value.toLowerCase() + "%");
-            cq.where(cb.or(usernamePredicate, emailPredicate));
-        }
-        if (pagingRequest.getOrder() != null) {
-            Order order = pagingRequest.getOrder().get(0);
-
-            int columnIndex = order.getColumn();
-            Column column = pagingRequest.getColumns().get(columnIndex);
-            if (Direction.asc.equals(order.getDir())) {
-                cq.orderBy(cb.asc(user.get(column.getData())));
-            } else if (Direction.desc.equals(order.getDir())) {
-                cq.orderBy(cb.desc(user.get(column.getData())));
-            }
-        }
-
-        TypedQuery<User> query = em.createQuery(cq);
-        query.setFirstResult(pagingRequest.getStart());
-        query.setMaxResults(pagingRequest.getLength());
-
-        List<User> users = query.getResultList();
-        users.forEach(item -> log.info("{}", item.getId()));
-    }
+//    private void searchPagination(PagingRequest pagingRequest) {
+//        CriteriaBuilder cb = em.getCriteriaBuilder();
+//        CriteriaQuery<User> cq = cb.createQuery(User.class);
+//
+//        Root<User> user = cq.from(User.class);
+//        if (pagingRequest.getSearch() != null && !StringUtils.isEmpty(pagingRequest.getSearch().getValue())) {
+//            String value = pagingRequest.getSearch().getValue();
+//            javax.persistence.criteria.Predicate usernamePredicate = cb.like(cb.lower(user.get("username")), "%" + value.toLowerCase() + "%");
+//            javax.persistence.criteria.Predicate emailPredicate = cb.like(cb.lower(user.get("email")), "%" + value.toLowerCase() + "%");
+//            cq.where(cb.or(usernamePredicate, emailPredicate));
+//        }
+//        if (pagingRequest.getOrder() != null) {
+//            Order order = pagingRequest.getOrder().get(0);
+//
+//            int columnIndex = order.getColumn();
+//            Column column = pagingRequest.getColumns().get(columnIndex);
+//            if (Direction.asc.equals(order.getDir())) {
+//                cq.orderBy(cb.asc(user.get(column.getData())));
+//            } else if (Direction.desc.equals(order.getDir())) {
+//                cq.orderBy(cb.desc(user.get(column.getData())));
+//            }
+//        }
+//
+//        TypedQuery<User> query = em.createQuery(cq);
+//        query.setFirstResult(pagingRequest.getStart());
+//        query.setMaxResults(pagingRequest.getLength());
+//
+//        List<User> users = query.getResultList();
+//        users.forEach(item -> log.info("{}", item.getId()));
+//    }
 
     private Page<User> getPage(List<User> users, PagingRequest pagingRequest) {
         List<User> filtered = users.stream().sorted(sortUsers(pagingRequest)).filter(filterUsers(pagingRequest)).skip(pagingRequest.getStart())
