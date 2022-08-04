@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org">
+
+<head>
+
+    <title>Câu hỏi nhiều lựa chọn</title>
+
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="shortcut icon" th:href="@{/imgs/fo-favicon.ico}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link th:rel="stylesheet" th:href="@{/summernote/summernote-bs4.css}" />
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} " />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+    <!-- navbar -->
+    <header th:replace="fragments/fo/navbar.html :: navbar "> </header>
+    <!-- end navbar -->
+
+    <!-- content -->
+    <div class="container mt-3">
+        <div class="page-title">CÂU HỎI NHIỀU ĐÁP ÁN</div>
+        <form action="#" id="f-one-ans-question" th:action="@{/bo/questions/multiple-ans}" method="post"
+            th:object="${mcqDto}">
+            <div class="mcq">
+                <div>
+                    <input type="hidden" th:field="*{id}">
+                    <input type="hidden" th:field="*{type}">
+                </div>
+                <div class="mt-3">
+                    <div>
+                        <label class="font-weight-bold">File nghe đính kèm:</label>
+                    </div>
+                    <div class="custom-file">
+                        <input type="file" name="file" accept=".doc, .docx" id="actual-btn" hidden />
+                        <!-- our custom upload button -->
+                        <label class="actual-lbl" for="actual-btn">Chọn File</label>
+                        <!-- name of file chosen -->
+                        <span id="file-chosen">Chưa có file</span>
+                    </div>
+                </div>
+                <div class="extention d-flex flex-row mt-3">
+                    <div>
+                        <label class="font-weight-bold">Nội dung câu hỏi <span class="text-danger">*</label>
+                    </div>
+                </div>
+                <div class="mcp-content">
+                    <textarea id="content" class="question-content" th:field="*{content}"></textarea>
+                </div>
+                <div class="extention d-flex flex-row mt-3">
+                    <div>
+                        <label class="font-weight-bold">Hướng dẫn/Giải thích đáp án</label>
+                    </div>
+                </div>
+                <div class="mcp-content">
+                    <textarea id="suggest" class="question-suggest" th:field="*{answerSuggestion}"></textarea>
+                </div>
+                <div class="answer mt-2 p-2">
+                    <div class="total-answer d-flex">
+                        <div class="text-danger p-1">Số đáp án</div>
+                        <div class="text-center p-1">
+                            <label class="total-answer__value"
+                                th:text="${#lists.size(mcqDto.questionAnswerDtos)}">4</label>
+                        </div>
+                        <div class="ml-auto py-2">
+                            <button class="btn-add-answer" id="btn-add-answer" type="submit" name="add-answer"
+                                onclick="return addMoreAnswer()">
+                                <i class="fa fa-plus" aria-hidden="true" title="Thêm đáp án"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="answer-content"
+                        th:each="questionAnswerDto, questionAnswerDtoStat : *{questionAnswerDtos}">
+                        <div class="answer-content__item d-flex flex-row mb-2">
+                            <div class="ml-2 d-flex align-items-center">
+                                <input th:field="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].trueAnswer}"
+                                    type="checkbox" class="checkbox-answer" title="Chọn đáp án đúng">
+                            </div>
+                            <div class="ml-2 d-flex align-items-center">
+                                <label class="answer__label"
+                                    th:text="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].answerLabel}">Đáp
+                                    án</label>
+                            </div>
+                            <div class="ml-2 w-100">
+                                <input type="text" class="answer__value" title="Nội dung câu trả lời"
+                                    th:field="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].answerContent}">
+                            </div>
+                            <div>
+                                <input type="number" hidden="true"
+                                    th:field="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].order}">
+                            </div>
+                            <div class="ml-2">
+                                <input class="answer__score" title="Điểm số cho đáp án" type="number"
+                                    th:field="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].score}" />
+                            </div>
+                            <div class="ml-2">
+                                <button class="btn-swap-answer"
+                                    th:id=" 'btn-swap-pos-' + ${questionAnswerDtoStat.index} " type="button"
+                                    title="Bỏ hoán vị vị trí"
+                                    th:onclick="|changePermutation(${questionAnswerDtoStat.index})|">
+                                    <i class="fa fa-exchange" aria-hidden="true"></i>
+                                </button>
+                                <input type="checkbox" hidden="true"
+                                    th:id=" 'swap-pos-' + ${questionAnswerDtoStat.index}" name="active"
+                                    th:field="*{questionAnswerDtos[__${questionAnswerDtoStat.index}__].randomPosition}" />
+                            </div>
+                            <div class="ml-2">
+                                <button class="btn-delete-answer" type="submit" name="remove-answer"
+                                    th:value="${questionAnswerDtoStat.index}" onclick="return removeAnswer()">
+                                    <i class="fa fa-window-close" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="mt-3 d-flex justify-content-center pb-3">
+                    <div class="mx-2">
+                        <input type="submit" class="btn btn-success" value="Hoàn thành">
+                    </div>
+                    <div class="mx-2">
+                        <input type="reset" class="btn btn-primary" value="Làm lại">
+                    </div>
+                    <div class="mx-2">
+                        <a type="button" class="btn btn-danger" th:href="@{'/fo/index'}">Huỷ bỏ</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!-- end content -->
+
+    <!-- footer -->
+    <footer th:replace="fragments/fo/footer.html :: footer">
+        <p>2021 mqconline.com</p>
+    </footer>
+    <!-- end footer -->
+
+    <script th:src="@{/webjars/popper.js/1.12.9-1/umd/popper.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/4.0.0-2/js/bootstrap.min.js}"></script>
+    <script th:src="@{/summernote/summernote-bs4.js}"></script>
+
+    <script type="text/javascript">
+        $('#content').summernote({
+            height: 200
+        });
+
+        $('#suggest').summernote({
+            height: 200
+        });
+
+        function addMoreAnswer() {
+            let totalAnswer = $(".answer__value").length;
+            if (totalAnswer == 8) {
+                alert("Số câu trả lời tối đa là 8");
+                return false;
+            } else {
+                $("#f-one-ans-question").submit();
+            }
+            
+        }
+
+        function removeAnswer() {
+            let totalAnswer = $(".answer__value").length;
+            if (totalAnswer == 4) {
+                alert("Số câu trả lời tối thiểu là 4");
+                return false;
+            } else {
+                $("#f-one-ans-question").submit();
+            }
+        }
+        
+        function changePermutation(inputId) {
+        	event.preventDefault();
+            let inputElm = $("#swap-pos-" + inputId);
+            if (inputElm.is(':checked')) {
+                $(inputElm).prop('checked', false);
+            } else {
+                $(inputElm).prop('checked', true);
+            }
+
+            let btnSwapTitle = $("#btn-swap-pos-" + inputId).attr("title");
+            if (btnSwapTitle == "Bỏ hoán vị vị trí") {
+                $("#btn-swap-pos-" + inputId).prop('title', 'Cho phép hoán vị vị trí');
+            } else {
+                $("#btn-swap-pos-" + inputId).prop('title', 'Bỏ hoán vị vị trí');
+            }
+        }
+    </script>
+
+</body>
+
+</html>

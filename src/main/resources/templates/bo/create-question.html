@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <title>Tạo câu hỏi một lựa chọn</title>
+
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="shortcut icon" th:href="@{/imgs/fo-favicon.ico}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap-4.4.1/css/bootstrap.min.css}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script type="text/javascript" th:src="@{/css/bootstrap-4.4.1/js/bootstrap.min.js}"></script>
+
+</head>
+
+<body>
+    <!-- navbar -->
+    <header th:replace="fragments/fo/navbar.html :: navbar "> </header>
+    <!-- end navbar -->
+
+    <!-- content -->
+    <div class="container mt-3">
+        <div class="page-title">TẠO CÂU HỎI MỚI</div>
+        <form th:action="@{/fo/questions/save}" method="post" th:object="${question}">
+            <div class="create-options">
+                <div class="mb-2">
+                    <label style="width: 105px;">Loại câu hỏi</label>
+                    <select class="custom-select mr-sm-2" id="question-type" style="width: 140px;">
+                        <option selected>Chọn...</option>
+                        <option value="1">Một đáp án</option>
+                        <option value="2">Nhiều đáp án</option>
+                        <option value="3">Đúng sai</option>
+                        <option value="4">Điền khuyết</option>
+                        <option value="5">Ghép cặp</option>
+                    </select>
+                </div>
+                <div class="mb-2">
+                    <label style="width: 105px;">Loại kiến thức</label>
+                    <select class="custom-select mr-sm-2" id="question-knowledge" style="width: 140px;">
+                        <option selected>Chọn...</option>
+                        <option value="1">Tổng hợp</option>
+                        <option value="2">Toán</option>
+                        <option value="3">Văn</option>
+                        <option value="4">Sinh học</option>
+                        <option value="5">Hoá học</option>
+                    </select>
+                </div>
+                <div>
+                    <fieldset class="border p-2" id="question-level">
+                        <legend class="w-auto">Mức độ câu hỏi</legend>
+                        <input type="radio" name="level" id="knowledge" value="knowledge" checked>
+                        <label for="knowledge">Nhận biết</label>
+                        <input type="radio" name="level" id="understandingsv" value="understanding">
+                        <label for="understandingsv">Thông hiểu</label>
+                        <input type="radio" name="level" id="manipulate" value="manipulate">
+                        <label for="manipulate">Vận dụng</label>
+                        <input type="radio" name="level" id="high-application" value="high application">
+                        <label for="high-application">Vận dụng cao</label>
+                    </fieldset>
+                </div>
+                <div>
+                    <fieldset class="border p-2" id="question-type">
+                        <legend class="w-auto">Dạng câu hỏi</legend>
+                        <input type="radio" name="type" id="txt" value="txt" checked>
+                        <label for="txt">Dạng đơn</label>
+                        <input type="radio" name="type" id="csv" value="csv">
+                        <label for="csv">Dạng chùm</label>
+                    </fieldset>
+                </div>
+            </div>
+            <div class="mcq">
+                <div class="extention d-flex flex-row mt-3" style="height: 30px;">
+                    <div>Nội dung câu hỏi</div>
+                    <div>
+                        <input type="button" id="add-note" onchange="addQuestionNote(event)" style="display: none;">
+                        <label style="cursor: pointer; margin: 0 auto;">
+                            <i class="fa fa-sticky-note px-2" aria-hidden="true"></i>
+                        </label>
+                        <input type="file" accept="image/*" name="image" id="file" onchange="loadFile(event)"
+                            style="display: none;">
+                        <label for="file" style="cursor: pointer; margin: 0 auto;">
+                            <i class="fa fa-paperclip" aria-hidden="true"></i>
+                        </label>
+                    </div>
+                    <div class="ml-auto p-2">
+                        <i class="fa fa-align-right" aria-hidden="true"></i>
+                        <i class="fa fa-align-center" aria-hidden="true"></i>
+                        <i class="fa fa-align-left" aria-hidden="true"></i>
+                        <i class="fa fa-align-justify" aria-hidden="true"></i>
+                        <i class="fa fa-bold" aria-hidden="true"></i>
+                        <i class="fa fa-italic" aria-hidden="true"></i>
+                        <i class="fa fa-underline" aria-hidden="true"></i>
+                    </div>
+                </div>
+                <div class="mcp-content">
+                    <textarea
+                        style="width: -webkit-fill-available; width: -moz-available; min-height: 120px;"></textarea>
+                </div>
+                <div class="answer">
+                    <div class="answer-title d-flex">
+                        <div class="text-danger p-1">Số đáp án</div>
+                        <div class="text-center p-1">
+                            <label style="width: 3em; border: 1px solid black;">4</label>
+                        </div>
+                        <div class="ml-auto p-2">
+                            <button type="button" style="border: 0; outline: 0;">
+                                <i class="fa fa-plus" aria-hidden="true" title="Thêm câu hỏi"
+                                    style="font-size: 30px; color: #28a745"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="answer-content">
+                        <div class="anwer-item d-flex flex-row mb-2">
+                            <div class="ml-2 d-flex align-items-center">
+                                <input type="checkbox">
+                            </div>
+                            <div class="ml-2 d-flex align-items-center">
+                                <label>Đáp án A</label>
+                            </div>
+                            <div class="ml-2">
+                                <input type="text" style="width: 700px;">
+                            </div>
+                            <div class="ml-2">
+                                <i class="fa fa-exchange" aria-hidden="true"
+                                    style="font-size: 30px; color: #00bfff;"></i>
+                            </div>
+                            <div class="ml-2">
+                                <i class="fa fa-window-close" aria-hidden="true"
+                                    style="font-size: 30px; color: #ff0000"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="answer-content">
+                        <div class="anwer-item d-flex flex-row mb-2">
+                            <div class="ml-2">
+                                <input type="checkbox">
+                            </div>
+                            <div class="ml-4">
+                                <label>Đáp án B</label>
+                            </div>
+                            <div class="ml-4">
+                                <input type="text" style="width: 700px;">
+                            </div>
+                            <div class="ml-4">
+                                <i class="fa fa-exchange" aria-hidden="true"
+                                    style="font-size: 30px; color: #00bfff;"></i>
+                            </div>
+                            <div class="ml-4">
+                                <i class="fa fa-window-close" aria-hidden="true"
+                                    style="font-size: 30px; color: #ff0000"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="answer-content">
+                        <div class="anwer-item d-flex flex-row mb-2">
+                            <div class="ml-2">
+                                <input type="checkbox">
+                            </div>
+                            <div class="ml-4">
+                                <label>Đáp án C</label>
+                            </div>
+                            <div class="ml-4">
+                                <input type="text" style="width: 700px;">
+                            </div>
+                            <div class="ml-4">
+                                <i class="fa fa-exchange" aria-hidden="true"
+                                    style="font-size: 30px; color: #00bfff;"></i>
+                            </div>
+                            <div class="ml-4">
+                                <i class="fa fa-window-close" aria-hidden="true"
+                                    style="font-size: 30px; color: #ff0000"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="answer-content">
+                        <div class="anwer-item d-flex flex-row mb-2">
+                            <div class="ml-2">
+                                <input type="checkbox">
+                            </div>
+                            <div class="ml-4">
+                                <label>Đáp án D</label>
+                            </div>
+                            <div class="ml-4">
+                                <input type="text" style="width: 700px;">
+                            </div>
+                            <div class="ml-4">
+                                <i class="fa fa-exchange" aria-hidden="true"
+                                    style="font-size: 30px; color: #00bfff;"></i>
+                            </div>
+                            <div class="ml-4">
+                                <i class="fa fa-window-close" aria-hidden="true"
+                                    style="font-size: 30px; color: #ff0000"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-3 d-flex justify-content-center pb-3">
+                    <div class="mx-2">
+                        <input type="button" class="btn btn-success" value="Hoàn thành">
+                    </div>
+                    <div class="mx-2">
+                        <input type="button" class="btn btn-primary" value="Làm lại">
+                    </div>
+                    <div class="mx-2">
+                        <input type="button" class="btn btn-danger" value="Huỷ bỏ">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!-- end content -->
+
+    <!-- footer -->
+    <footer th:replace="fragments/fo/footer.html :: footer">
+        <p>2021 mqconline.com</p>
+    </footer>
+    <!-- end footer -->
+
+</body>
+
+<script th:src="@{/webjars/popper.js/1.12.9-1/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/4.0.0-2/js/bootstrap.min.js}"></script>
+<script th:src="@{/summernote/summernote-bs4.js}"></script>
+
+<script type="text/javascript">
+
+    function onlyOneAnswer(checkbox) {
+        let checkboxes = document.getElementsByClassName('checkbox-answer');
+        for (item of checkboxes) {
+            if (item !== checkbox) item.checked = false
+        }
+    }
+
+    function addMoreAnswer() {
+        let totalAnswer = $(".answer__value").length;
+        if (totalAnswer == 8) {
+            alert("Số câu trả lời tối đa là 8");
+            return false;
+        } else {
+            $("#f-one-ans-question").submit();
+        }
+    }
+
+    function removeAnswer() {
+        let totalAnswer = $(".answer__value").length;
+        if (totalAnswer == 4) {
+            alert("Số câu trả lời tối thiểu là 4");
+            return false;
+        } else {
+            $("#f-one-ans-question").submit();
+        }
+    }
+
+</script>
+
+</html>

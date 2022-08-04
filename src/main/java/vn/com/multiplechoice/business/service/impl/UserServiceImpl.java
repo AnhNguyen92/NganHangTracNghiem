@@ -5,11 +5,6 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 
 import org.slf4j.Logger;
@@ -25,9 +20,8 @@ import vn.com.multiplechoice.dao.model.User;
 import vn.com.multiplechoice.dao.model.comparators.UserComparators;
 import vn.com.multiplechoice.dao.model.paging.datatable.Column;
 import vn.com.multiplechoice.dao.model.paging.datatable.Order;
-import vn.com.multiplechoice.dao.model.paging.datatable.PagingRequest;
 import vn.com.multiplechoice.dao.model.paging.datatable.Page;
-import vn.com.multiplechoice.dao.model.paging.datatable.enums.Direction;
+import vn.com.multiplechoice.dao.model.paging.datatable.PagingRequest;
 import vn.com.multiplechoice.dao.repository.UserRepository;
 
 @Service
@@ -37,8 +31,9 @@ public class UserServiceImpl extends AbstractService<User, Long> implements User
 
     private static final Comparator<User> EMPTY_COMPARATOR = (e1, e2) -> 0;
 
-    @Autowired
-    private EntityManager em;
+//    @Autowired
+//    private EntityManager em;
+    
     private UserRepository userRepository;
 
     @Autowired
@@ -66,7 +61,6 @@ public class UserServiceImpl extends AbstractService<User, Long> implements User
 
     @Override
     public Page<User> searchDataTable(PagingRequest pagingRequest) {
-        //searchPagination(pagingRequest);
         List<User> users = userRepository.findAll();
 
         return getPage(users, pagingRequest);

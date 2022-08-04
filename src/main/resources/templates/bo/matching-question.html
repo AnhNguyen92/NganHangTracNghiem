@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org">
+
+<head>
+
+<title>Câu hỏi nối chéo</title>
+
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+<meta content="utf-8" http-equiv="encoding">
+<meta name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<link rel="shortcut icon" th:href="@{/imgs/favicon.ico}">
+<link th:href="@{/vendor/fontawesome/css/all.min.css}" rel="stylesheet" type="text/css">
+<link th:href="@{/css/sb-admin-2.min.css}" rel="stylesheet">
+<link th:rel="stylesheet" th:href="@{/vendor/bootstrap-datepicker/css/bootstrap-datepicker.css}" />
+<link th:rel="stylesheet" th:href="@{/vendor/bootstrap-datepicker/css/bootstrap-datepicker.standalone.css}" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link th:rel="stylesheet" th:href="@{/summernote/summernote-bs4.css}" />
+<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} " />
+<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+
+<script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script th:src="@{/vendor/bootstrap/js/bootstrap.min.js}"></script>
+<script
+    th:src="@{/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js}"></script>
+
+<!-- Custom scripts for all pages-->
+<script th:src="@{/js/sb-admin-2.min.js}"></script>
+
+  <script th:src="@{/webjars/popper.js/1.12.9-1/umd/popper.min.js}"></script>
+  <script th:src="@{/webjars/bootstrap/4.0.0-2/js/bootstrap.min.js}"></script>
+  <script th:src="@{/summernote/summernote-bs4.js}"></script>
+  
+<!-- Custom styles for this template-->
+</head>
+<body id="page-top">
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+        <!-- header -->
+        <header th:replace="fragments/bo/header.html :: header ">
+        </header>
+        <!-- end header -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+                <!-- Topbar -->
+                <nav
+                    class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop"
+                        class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+
+                        <div class="topbar-divider d-none d-sm-block"></div>
+
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item dropdown no-arrow"><a
+                            class="nav-link dropdown-toggle" href="#"
+                            id="userDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false"> <span
+                                class="mr-2 d-none d-lg-inline text-gray-600 small"
+                                th:text="${#authentication.getPrincipal().getUsername()}">Chào
+                                    Admin</span> <img
+                                class="img-profile rounded-circle"
+                                th:src="@{/imgs/undraw_profile.svg}"
+                                alt="profile">
+                        </a> <!-- Dropdown - User Information -->
+                            <div
+                                class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
+                                <a class="dropdown-item"
+                                    th:href="@{/bo/j_spring_security_logout}">
+                                    <span
+                                    class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></span>
+                                    Đăng Xuất
+                                </a>
+                            </div></li>
+
+                    </ul>
+
+                </nav>
+                <!-- End of Topbar -->
+                <!-- Begin Page Content -->
+                <div>
+                    <!-- Page Heading -->
+                    <div
+                        class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">Câu Hỏi</h1>
+                    </div>
+                    <div>
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6
+                                    class="m-0 font-weight-bold text-primary text-center text-capitalize">Câu
+                                    Hỏi Chi Tiết</h6>
+                            </div>
+                            <div
+                                class="d-flex py-3 justify-content-center">
+                                <div>
+                                    <form action="#"
+                                        id="f-matching-question"
+                                        th:action="@{/bo/questions/matching}"
+                                        method="post"
+                                        th:object="${mcqDto}">
+                                        <div class="mcq">
+                                            <div class="mt-3">
+                                                <div>
+                                                    <input type="hidden"
+                                                        th:field="*{id}">
+                                                    <input type="hidden"
+                                                        th:field="*{type}">
+                                                </div>
+                                                <div>
+                                                    <label
+                                                        class="font-weight-bold">File
+                                                        đính kèm:</label>
+                                                </div>
+                                                <div class="custom-file">
+                                                    <input type="file"
+                                                        name="file"
+                                                        accept=".doc, .docx"
+                                                        id="actual-btn"
+                                                        hidden />
+                                                    <!-- our custom upload button -->
+                                                    <label
+                                                        class="actual-lbl"
+                                                        for="actual-btn">Chọn
+                                                        File</label>
+                                                    <!-- name of file chosen -->
+                                                    <span
+                                                        id="file-chosen">Chưa
+                                                        có file</span>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="extention d-flex flex-row mt-3">
+                                                <div>
+                                                    <label
+                                                        class="font-weight-bold">
+                                                        Nội dung câu hỏi
+                                                        <span
+                                                        class="text-danger">*
+                                                    
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="mcp-content">
+                                                <textarea id="content"
+                                                    class="question-content"
+                                                    th:field="*{content}"></textarea>
+                                            </div>
+                                            <div
+                                                class="extention d-flex flex-row mt-3">
+                                                <div>
+                                                    <label
+                                                        class="font-weight-bold">Hướng
+                                                        dẫn/Giải thích
+                                                        đáp án</label>
+                                                </div>
+                                            </div>
+                                            <div class="mcp-content">
+                                                <textarea id="suggest"
+                                                    class="question-suggest"
+                                                    th:field="*{answerSuggestion}"></textarea>
+                                            </div>
+                                            <div class="answer mt-2 p-2">
+                                                <div
+                                                    class="answer-content row">
+                                                    <div
+                                                        class="col-6 border-right">
+                                                        <div
+                                                            class="total-answer d-flex">
+                                                            <div
+                                                                class="text-danger p-1">Số
+                                                                mệnh đề
+                                                                trái</div>
+                                                            <div
+                                                                class="text-center p-1">
+                                                                <label
+                                                                    class="total-answer__value"
+                                                                    th:text="${#lists.size(mcqDto.leftAnswerDtos)}">4</label>
+                                                            </div>
+                                                        </div>
+                                                        <div
+                                                            class="d-flex justify-content-end mb-2">
+                                                            <button
+                                                                class="btn-add-answer"
+                                                                id="btn-add-answer"
+                                                                type="submit"
+                                                                name="add-left-answer"
+                                                                onclick="return addMoreLeftPart()">
+                                                                <i
+                                                                    class="fa fa-plus"
+                                                                    aria-hidden="true"
+                                                                    title="Thêm mệnh đề vế trái"></i>
+                                                            </button>
+                                                        </div>
+                                                        <div
+                                                            th:each="leftAnswerDto, leftAnswerDtoStat : *{leftAnswerDtos}">
+                                                            <div
+                                                                class="answer-content__item d-flex flex-row mb-2">
+                                                                <div>
+                                                                    <input
+                                                                        type="hidden"
+                                                                        th:field="*{leftAnswerDtos[__${leftAnswerDtoStat.index}__].order}">
+                                                                </div>
+                                                                <div
+                                                                    class="ml-2 d-flex align-items-center">
+                                                                    <label
+                                                                        class="answer__label"
+                                                                        th:text="*{leftAnswerDtos[__${leftAnswerDtoStat.index}__].answerLabel}">Đáp
+                                                                        án</label>
+                                                                </div>
+                                                                <div
+                                                                    class="ml-2 w-100">
+                                                                    <input
+                                                                        type="text"
+                                                                        class="answer__value left_part"
+                                                                        title="Nội dung câu trả lời"
+                                                                        th:field="*{leftAnswerDtos[__${leftAnswerDtoStat.index}__].answerContent}">
+                                                                </div>
+                                                                <div
+                                                                    class="ml-2">
+                                                                    <input
+                                                                        class="answer__score"
+                                                                        title="Điểm số cho đáp án"
+                                                                        type="number"
+                                                                        th:field="*{leftAnswerDtos[__${leftAnswerDtoStat.index}__].score}" />
+                                                                </div>
+                                                                <div
+                                                                    class="ml-2">
+                                                                    <button
+                                                                        class="btn-delete-answer"
+                                                                        type="submit"
+                                                                        name="remove-left-answer"
+                                                                        th:value="${leftAnswerDtoStat.index}"
+                                                                        onclick="return removeLeftPart()">
+                                                                        <i
+                                                                            class="fa fa-window-close"
+                                                                            aria-hidden="true"></i>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-6">
+                                                        <div
+                                                            class="total-answer d-flex">
+                                                            <div
+                                                                class="text-danger p-1">Số
+                                                                mệnh đề
+                                                                phải</div>
+                                                            <div
+                                                                class="text-center p-1">
+                                                                <label
+                                                                    class="total-answer__value"
+                                                                    th:text="${#lists.size(mcqDto.rightAnswerDtos)}">4</label>
+                                                            </div>
+                                                        </div>
+                                                        <div
+                                                            class="d-flex justify-content-end mb-2">
+                                                            <button
+                                                                class="btn-add-answer"
+                                                                id="btn-add-answer"
+                                                                type="submit"
+                                                                name="add-right-answer"
+                                                                onclick="return addRightAnswer()">
+                                                                <i
+                                                                    class="fa fa-plus"
+                                                                    aria-hidden="true"
+                                                                    title="Thêm đáp án nhiễu"></i>
+                                                            </button>
+                                                        </div>
+                                                        <div
+                                                            th:each="rightAnswerDto, rightAnswerDtoStat : *{rightAnswerDtos}">
+                                                            <div>
+                                                                <input
+                                                                    type="hidden"
+                                                                    th:field="*{rightAnswerDtos[__${rightAnswerDtoStat.index}__].order}">
+                                                            </div>
+                                                            <div
+                                                                class="answer-content__item d-flex flex-row mb-2">
+                                                                <div
+                                                                    class="ml-2 d-flex align-items-center">
+                                                                    <input
+                                                                        th:field="*{rightAnswerDtos[__${rightAnswerDtoStat.index}__].trueAnswer}"
+                                                                        type="checkbox"
+                                                                        class="checkbox-answer"
+                                                                        title="Chọn đáp án đúng">
+                                                                </div>
+                                                                <div
+                                                                    class="ml-2 d-flex align-items-center">
+                                                                    <label
+                                                                        class="answer__label"
+                                                                        th:text="*{rightAnswerDtos[__${rightAnswerDtoStat.index}__].answerLabel}">Đáp
+                                                                        án</label>
+                                                                </div>
+                                                                <div
+                                                                    class="ml-2 w-100">
+                                                                    <input
+                                                                        type="text"
+                                                                        class="answer__value right_part"
+                                                                        title="Nội dung câu trả lời"
+                                                                        th:field="*{rightAnswerDtos[__${rightAnswerDtoStat.index}__].answerContent}">
+                                                                </div>
+                                                                <div
+                                                                    class="ml-2">
+                                                                    <button
+                                                                        class="btn-swap-answer"
+                                                                        th:id=" 'btn-swap-pos-' + ${rightAnswerDtoStat.index} "
+                                                                        type="button"
+                                                                        title="Bỏ hoán vị vị trí"
+                                                                        th:onclick="|return changePermutation(${rightAnswerDtoStat.index})|">
+                                                                        <i
+                                                                            class="fa fa-exchange"
+                                                                            aria-hidden="true"></i>
+                                                                    </button>
+                                                                    <input
+                                                                        type="checkbox"
+                                                                        hidden="true"
+                                                                        th:id=" 'swap-pos-' + ${rightAnswerDtoStat.index}"
+                                                                        name="active"
+                                                                        th:field="*{rightAnswerDtos[__${rightAnswerDtoStat.index}__].randomPosition}" />
+                                                                </div>
+                                                                <div
+                                                                    class="ml-2">
+                                                                    <button
+                                                                        class="btn-delete-answer"
+                                                                        type="submit"
+                                                                        name="remove-right-answer"
+                                                                        th:value="${rightAnswerDtoStat.index}"
+                                                                        onclick="return removeRightAnswer()">
+                                                                        <i
+                                                                            class="fa fa-window-close"
+                                                                            aria-hidden="true"></i>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div
+                                                class="mt-3 d-flex justify-content-center pb-3">
+                                                <div class="mx-2">
+                                                    <input type="submit"
+                                                        class="btn btn-success"
+                                                        value="Hoàn thành">
+                                                </div>
+                                                <div class="mx-2">
+                                                    <input type="reset"
+                                                        class="btn btn-primary"
+                                                        value="Làm lại">
+                                                </div>
+                                                <div class="mx-2">
+                                                    <a type="button"
+                                                        class="btn btn-danger"
+                                                        th:href="@{'/fo/index'}">Huỷ
+                                                        bỏ</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.container-fluid -->
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- footer -->
+            <footer th:replace="fragments/bo/footer.html :: footer">
+                <p>2021 mqconline.com</p>
+            </footer>
+            <!-- end footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top"> <i
+        class="fas fa-angle-up"></i>
+    </a>
+
+</body>
+
+
+
+  <script type="text/javascript">
+        $('#content').summernote({
+            height: 200
+        });
+
+        $('#suggest').summernote({
+            height: 200
+        });
+
+        function addMoreLeftPart() {
+            let totalLeftAnswer = $(".left_part").length;
+            let totalRightAnswer = $(".right_part").length;
+            if ((totalLeftAnswer + totalRightAnswer) == 8) {
+                alert("Số câu trả lời tối đa là 8");
+                return false;
+            } else if (totalLeftAnswer == totalRightAnswer) {
+                alert("Số mệnh đề vế trái phải nhỏ hơn hoặc bằng số câu trả lời bên phải");
+                return false;
+            } else {
+                $("#f-matching-question").submit();
+            }
+        }
+
+        function removeLeftPart() {
+            let totalLeftAnswer = $(".left_part").length;
+            if (totalLeftAnswer == 1) {
+                alert("Số mệnh đề vế trái tối thiểu là 1");
+                return false;
+            } else {
+                $("#f-matching-question").submit();
+            }
+        }
+
+        function addRightAnswer() {
+            let totalAnswer = $(".answer__value").length;
+            if (totalAnswer == 8) {
+                alert("Số câu trả lời tối đa là 8");
+                return false;
+            } else {
+                $("#f-matching-question").submit();
+            }
+        }
+
+        function removeRightAnswer() {
+            let totalLeftAnswer = $(".left_part").length;
+            let totalRightAnswer = $(".right_part").length;
+            if (totalLeftAnswer == totalRightAnswer) {
+                alert("Số câu trả lời bên phải không được nhỏ hơn số mệnh đề vế trái");
+                return false;
+            } else {
+                $("#f-matching-question").submit();
+            }
+        }
+
+        function changePermutation(inputId) {
+            let inputElm = $("#swap-pos-" + inputId);
+            if (inputElm.is(':checked')) {
+                $(inputElm).prop('checked', false);
+            } else {
+                $(inputElm).prop('checked', true);
+            }
+
+            let btnSwapTitle = $("#btn-swap-pos-" + inputId).attr("title");
+            if (btnSwapTitle == "Bỏ hoán vị vị trí") {
+                $("#btn-swap-pos-" + inputId).prop('title', 'Cho phép hoán vị vị trí');
+            } else {
+                $("#btn-swap-pos-" + inputId).prop('title', 'Bỏ hoán vị vị trí');
+            }
+        }
+
+    </script>
+    
+</html>

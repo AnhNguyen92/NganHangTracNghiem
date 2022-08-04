@@ -17,11 +17,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import vn.com.multiplechoice.business.converter.QuestionConverter;
 import vn.com.multiplechoice.business.service.QuestionService;
 import vn.com.multiplechoice.dao.criteria.QuestionCriteria;
 import vn.com.multiplechoice.dao.model.Question;
+import vn.com.multiplechoice.dao.model.enums.QuestionType;
 import vn.com.multiplechoice.dao.model.paging.Paged;
 import vn.com.multiplechoice.dao.model.paging.Paging;
+import vn.com.multiplechoice.web.model.MCQDto;
 
 @Controller
 @RequestMapping("/bo/questions")
@@ -31,6 +34,9 @@ public class QuestionController {
 	@Autowired
 	private QuestionService questionService;
 
+	@Autowired
+	private QuestionConverter questionConverter;
+	
 	@GetMapping("")
 	public String list(@RequestParam(value = "pageNumber", required = false, defaultValue = "1") int pageNumber,
 			@RequestParam(value = "pageSize", required = false, defaultValue = "10") int size,
@@ -79,9 +85,10 @@ public class QuestionController {
 		if (question == null) {
 			return "bo/error/404";
 		}
-		model.addAttribute("question", question);
+		MCQDto mcqDto = questionConverter.toDto(question);
+		model.addAttribute("mcqDto", mcqDto);
 
-		return "bo/question";
+		return targetPageByType(question.getType());
 	}
 
 	public String create(Model model) {
@@ -96,4 +103,27 @@ public class QuestionController {
 
 		return "redirect:bo/questions/" + question.getId();
 	}
+	
+	private String targetPageByType(QuestionType type) {
+		switch (type) {
+		case ONE_ANSWER:
+			return "bo/one-ans-question";
+		case MULTIPLE_ANSWER:
+			return "bo/multiple-ans-question";
+		case MATCHING:
+			return "bo/matching-question";
+		case FILLING:
+			return "bo/filling-question";
+		case GROUP_FILLING:
+			return "bo/group-filling-question";
+		case UNDERLINE:
+			return "bo/underline-question";
+		case YES_NO:
+			return "bo/yes-no-question";
+		default: // TRUE_FALSE
+			return "bo/true-false-question";
+		}
+		
+	}
+	
 }
