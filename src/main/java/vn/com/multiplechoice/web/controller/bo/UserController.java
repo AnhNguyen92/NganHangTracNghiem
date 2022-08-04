@@ -1,6 +1,5 @@
 package vn.com.multiplechoice.web.controller.bo;
 
-import java.io.IOException;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -52,14 +51,14 @@ public class UserController {
             return "bo/error/404";
         }
         model.addAttribute("user", userConverter.toDto(user));
-
+        model.addAttribute("frmAction", "/update");
         return "bo/user";
     }
 
     @GetMapping("/new")
     public String addNew(Model model) {
         model.addAttribute("user", new UserDto());
-
+        model.addAttribute("frmAction", "/save");
         return "bo/user";
     }
 
@@ -68,7 +67,6 @@ public class UserController {
         log.info("Admin update user by username : {}", dto.getUsername());
         User user = userService.findByUsername(dto.getUsername());
         userConverter.updateUser(user, dto);
-
         userService.save(user);
 
         return BO_USER_LIST;
@@ -87,11 +85,7 @@ public class UserController {
     @DeleteMapping("/{id}")
     public void deleteById(@PathVariable("id") Long id) {
         log.info("Delete user by id= {}", id);
-        try {
-            userService.deleteById(id);
-        } catch (IOException e) {
-            log.error(e.getMessage());
-        }
+        userService.delete(id);
     }
 
 }

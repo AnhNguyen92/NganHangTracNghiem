@@ -15,4 +15,6 @@ public interface UserService extends IGenericService<User, Long> {
     
     public void resetNewPassword(User user, String password);
 
+	public void delete(Long id);
+
 }

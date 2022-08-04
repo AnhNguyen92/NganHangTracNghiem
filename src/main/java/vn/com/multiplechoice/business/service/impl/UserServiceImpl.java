@@ -155,4 +155,9 @@ public class UserServiceImpl extends AbstractService<User, Long> implements User
         return getPage(users, pagingRequest);
     }
 
+	@Override
+	public void delete(Long id) {
+		userRepository.delete(id);
+	}
+
 }

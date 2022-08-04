@@ -2,7 +2,8 @@ package vn.com.multiplechoice.dao.model.enums;
 
 public enum UserStatus {
     ACTIVE("Kích hoạt"), //
-    IN_ACTIVE("Chưa kích hoạt");
+    IN_ACTIVE("Chưa kích hoạt"),
+    DELETED("Đã xóa");
 
     private String value;
 
