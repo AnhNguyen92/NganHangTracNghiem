@@ -26,7 +26,7 @@ public class TestConverter {
 		exam.setTitle(test.getContent());
 		List<MCQDto> questions = new ArrayList<>();
 		for (Question question : test.getQuestions()) {
-			MCQDto mcqDto = questionConverter.toDto(question);
+			MCQDto mcqDto = questionConverter.toDtoForTest(question);
 			questions.add(mcqDto);
 		}
 		exam.setQuestions(questions);

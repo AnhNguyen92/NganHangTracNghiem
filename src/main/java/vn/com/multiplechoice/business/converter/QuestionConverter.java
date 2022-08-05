@@ -47,6 +47,25 @@ public class QuestionConverter {
 
 		return dto;
 	}
+	
+	public MCQDto toDtoForTest(Question question) {
+		MCQDto dto = new MCQDto();
+		dto.setId(question.getId());
+		dto.setUser(question.getUser());
+		dto.setAnswerSuggestion(question.getSuggest());
+		dto.setContent(question.getContent());
+		dto.setAnswerSuggestion(question.getSuggest());
+		QuestionType questionType = question.getType();
+		dto.setType(questionType);
+		if (QuestionType.MATCHING == questionType) {
+			dto.setLeftAnswerDtos(convertLeftAnswers(question));
+			dto.setRightAnswerDtos(convertRightAnswers(question));
+		} else {
+			dto.setQuestionAnswerDtos(convertQuestionAnswer(question));
+		}
+
+		return dto;
+	}
 
 	private List<QuestionAnswerDto> convertRightAnswers(Question question) {
 		List<QuestionAnswerDto> righttAnswerDtos = new ArrayList<>();

@@ -62,10 +62,12 @@ public class ExamController {
 			Question question = questions.stream().filter(q -> q.getId().equals(mcqDto.getId())).findFirst().get();
 			List<String> rightAnswerLst = getRightAnswerLst(question);
 			List<String> selectedAnswerLst = mcqDto.getSelectedAnswers();
+			List<String> selectedAnswerValues = mapLabelToAnswerValue(question, selectedAnswerLst);
+			List<String> rightAnswerValues = mapLabelToAnswerValue(question, rightAnswerLst);
 			ExamResultItemDTO examResultItemDTO = new ExamResultItemDTO();
 			examResultItemDTO.setQuestionContent(question.getContent());
-			examResultItemDTO.setRightAnswer(rightAnswerLst);
-			examResultItemDTO.setSelectAnswer(selectedAnswerLst);
+			examResultItemDTO.setRightAnswer(rightAnswerValues);
+			examResultItemDTO.setSelectAnswer(selectedAnswerValues);
 			
 			if (mcqDto.getType() != QuestionType.MATCHING) {
 			    Collections.sort(selectedAnswerLst);
@@ -99,6 +101,40 @@ public class ExamController {
 		// save to database here
 		
 		return "/fo/exam-result";
+	}
+
+	private List<String> mapLabelToAnswerValue(Question question, List<String> labels) {
+		List<String> answerValues = new ArrayList<>();
+		for (String label : labels) {
+		switch (label) {
+		case "A":
+			answerValues.add(question.getAnswerA());
+			break;
+		case "B":
+			answerValues.add(question.getAnswerB());
+			break;
+		case "C":
+			answerValues.add(question.getAnswerC());
+			break;
+		case "D":
+			answerValues.add(question.getAnswerD());
+			break;
+		case "E":
+			answerValues.add(question.getAnswerE());
+			break;
+		case "F":
+			answerValues.add(question.getAnswerF());
+			break;
+		case "G":
+			answerValues.add(question.getAnswerG());
+			break;
+		default:
+			answerValues.add(question.getAnswerH());
+			break;
+		}
+	}
+		
+		return answerValues;
 	}
 
 	private List<String> getRightAnswerLst(Question question) {
