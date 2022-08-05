@@ -2,6 +2,7 @@ package vn.com.multiplechoice.web.controller.fo;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -18,7 +19,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import vn.com.multiplechoice.business.converter.QuestionConverter;
 import vn.com.multiplechoice.business.converter.TestConverter;
+import vn.com.multiplechoice.business.service.ExamResultItemService;
+import vn.com.multiplechoice.business.service.ExamResultService;
 import vn.com.multiplechoice.business.service.TestService;
+import vn.com.multiplechoice.dao.model.ExamResult;
+import vn.com.multiplechoice.dao.model.ExamResultItem;
 import vn.com.multiplechoice.dao.model.Question;
 import vn.com.multiplechoice.dao.model.Test;
 import vn.com.multiplechoice.dao.model.enums.QuestionType;
@@ -26,6 +31,7 @@ import vn.com.multiplechoice.web.dto.ExamDto;
 import vn.com.multiplechoice.web.dto.ExamResultDTO;
 import vn.com.multiplechoice.web.dto.ExamResultItemDTO;
 import vn.com.multiplechoice.web.model.MCQDto;
+import vn.com.multiplechoice.web.utils.OnlineUserUtil;
 
 @Controller
 @RequestMapping(value = "/fo/do-exam")
@@ -40,7 +46,13 @@ public class ExamController {
 
 	@Autowired
 	private QuestionConverter questionConverter;
-
+	
+	@Autowired
+	private ExamResultService examResultService;
+	
+	@Autowired
+	OnlineUserUtil onlineUserUtil;
+	
 	@GetMapping("/{id}")
 	public String exam(Model model, @PathVariable("id") Long id) {
 		log.info("===  Start do exam with test has id = {}  ===", id);
@@ -61,8 +73,14 @@ public class ExamController {
 		Set<Question> questions = test.getQuestions();
 		double pointPerQuestion = 10.0 / questions.size();
 		ExamResultDTO examResultDTO = new ExamResultDTO();
+		ExamResult examResult = new ExamResult();
+		examResult.setExecuteTime(new Date());
+		examResult.setTest(test);
+		examResult.setUser(onlineUserUtil.getOnlineUser());
 		for (MCQDto mcqDto : examDto.getQuestions()) {
 			Question question = questions.stream().filter(q -> q.getId().equals(mcqDto.getId())).findFirst().get();
+			ExamResultItem examResultItem = new ExamResultItem();
+			examResultItem.setQuestion(question);
 			List<String> rightAnswerLst = getRightAnswerLst(question);
 			List<String> selectedAnswerLst = mcqDto.getSelectedAnswers();
 			List<String> selectedAnswerValues = mapLabelToAnswerValue(question, selectedAnswerLst);
@@ -74,12 +92,15 @@ public class ExamController {
 			examResultItemDTO.setRightAnswer(rightAnswerValues);
 			examResultItemDTO.setSelectAnswer(selectedAnswerValues);
 			examResultItemDTO.setExplain(question.getSuggest());
-
+			examResultItem.setSelectedAnswer(String.join(",", selectedAnswerLst));
 			if (type != QuestionType.MATCHING) {
 				Collections.sort(selectedAnswerLst);
 			}
 			if (rightAnswerLst.equals(selectedAnswerLst)) { // choose all right answer
 				log.info("found true question");
+				examResultItem.setCount(1);
+				examResultItem.setTotalScore(100);
+				
 				examResultItemDTO.setCount(1);
 				examResultDTO.increaseTotalTrueAnswer();
 				examResultItemDTO.setScore(100);
@@ -93,21 +114,27 @@ public class ExamController {
 				// check all score is zero first
 				if (sum == 0) { // all answer must be true to get all question score
 					examResultItemDTO.setScore(0);
+					examResultItem.setTotalScore(0);
 				} else { // each true answer has specific score
 					for (int i = 0; i < rightAnswerLst.size(); i++) {
 						if (rightAnswerLst.get(i).equals(selectedAnswerLst.get(i))) {
 							examResultItemDTO.setScore(examResultItemDTO.getScore() + Integer.parseInt(scores[i]));
 						}
 					}
+					examResultItem.setTotalScore(examResultItemDTO.getScore());
 				}
 				totalScore += pointPerQuestion * examResultItemDTO.getScore() / 100;
+				examResultItem.setTotalScore(totalScore);
+				
 			}
 			examResultDTO.getExamResultItemDTOs().add(examResultItemDTO);
+			examResult.addExamReultItems(examResultItem);
+			
 		}
 		examResultDTO.setTotalScore(totalScore);
 		model.addAttribute("examResultDTO", examResultDTO);
 		// save to database here
-		
+		examResultService.save(examResult);
 		
 		return "/fo/exam-result";
 	}

@@ -17,53 +17,75 @@ import javax.persistence.Table;
 @Table(name = "exam_result_item")
 @Entity
 public class ExamResultItem implements Serializable {
-    private static final long serialVersionUID = 1798038569940040925L;
+	private static final long serialVersionUID = 1798038569940040925L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    @Column(name = "selected_answer")
-    private String selectedAnswer;
+	@Column(name = "selected_answer")
+	private String selectedAnswer;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @MapsId
-    private Question question;
+	@Column(name = "count")
+	private int count = 0;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "exam_result_id")
-    private ExamResult examResult;
+	@Column(name = "total_score")
+	private double totalScore = 0;
 
-    public Long getId() {
-        return id;
-    }
+	@OneToOne(fetch = FetchType.LAZY)
+	@MapsId
+	private Question question;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "exam_result_id")
+	private ExamResult examResult;
 
-    public String getSelectedAnswer() {
-        return selectedAnswer;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public void setSelectedAnswer(String selectedAnswer) {
-        this.selectedAnswer = selectedAnswer;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public Question getQuestion() {
-        return question;
-    }
+	public String getSelectedAnswer() {
+		return selectedAnswer;
+	}
 
-    public void setQuestion(Question question) {
-        this.question = question;
-    }
+	public void setSelectedAnswer(String selectedAnswer) {
+		this.selectedAnswer = selectedAnswer;
+	}
 
-    public ExamResult getExamResult() {
-        return examResult;
-    }
+	public int getCount() {
+		return count;
+	}
 
-    public void setExamResult(ExamResult examResult) {
-        this.examResult = examResult;
-    }
+	public void setCount(int count) {
+		this.count = count;
+	}
+
+	public double getTotalScore() {
+		return totalScore;
+	}
+
+	public void setTotalScore(double totalScore) {
+		this.totalScore = totalScore;
+	}
+
+	public Question getQuestion() {
+		return question;
+	}
+
+	public void setQuestion(Question question) {
+		this.question = question;
+	}
+
+	public ExamResult getExamResult() {
+		return examResult;
+	}
+
+	public void setExamResult(ExamResult examResult) {
+		this.examResult = examResult;
+	}
 
 }
