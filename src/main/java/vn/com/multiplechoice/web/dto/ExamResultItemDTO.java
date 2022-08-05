@@ -3,50 +3,68 @@ package vn.com.multiplechoice.web.dto;
 import java.util.List;
 
 public class ExamResultItemDTO {
-    private String questionContent;
-    private List<String> rightAnswer;
-    private List<String> selectAnswer;
-    private int count;
-    private int score;
+	private String questionContent;
+	private String type;
+	private List<String> rightAnswer;
+	private List<String> selectAnswer;
+	private int count;
+	private int score;
+	private String explain;
 
-    public String getQuestionContent() {
-        return questionContent;
-    }
+	public String getQuestionContent() {
+		return questionContent;
+	}
 
-    public void setQuestionContent(String questionContent) {
-        this.questionContent = questionContent;
-    }
+	public void setQuestionContent(String questionContent) {
+		this.questionContent = questionContent;
+	}
 
-    public List<String> getRightAnswer() {
-        return rightAnswer;
-    }
+	public String getType() {
+		return type;
+	}
 
-    public void setRightAnswer(List<String> rightAnswer) {
-        this.rightAnswer = rightAnswer;
-    }
+	public void setType(String type) {
+		this.type = type;
+	}
 
-    public List<String> getSelectAnswer() {
-        return selectAnswer;
-    }
+	public List<String> getRightAnswer() {
+		return rightAnswer;
+	}
 
-    public void setSelectAnswer(List<String> selectAnswer) {
-        this.selectAnswer = selectAnswer;
-    }
+	public void setRightAnswer(List<String> rightAnswer) {
+		this.rightAnswer = rightAnswer;
+	}
 
-    public int getCount() {
-        return count;
-    }
+	public List<String> getSelectAnswer() {
+		return selectAnswer;
+	}
 
-    public void setCount(int count) {
-        this.count = count;
-    }
+	public void setSelectAnswer(List<String> selectAnswer) {
+		this.selectAnswer = selectAnswer;
+	}
 
-    public int getScore() {
-        return score;
-    }
+	public int getCount() {
+		return count;
+	}
 
-    public void setScore(int score) {
-        this.score = score;
-    }
+	public void setCount(int count) {
+		this.count = count;
+	}
+
+	public int getScore() {
+		return score;
+	}
+
+	public void setScore(int score) {
+		this.score = score;
+	}
+
+	public String getExplain() {
+		return explain;
+	}
+
+	public void setExplain(String explain) {
+		this.explain = explain;
+	}
 
 }

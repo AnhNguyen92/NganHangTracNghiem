@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import vn.com.multiplechoice.business.converter.QuestionConverter;
 import vn.com.multiplechoice.business.converter.TestConverter;
 import vn.com.multiplechoice.business.service.TestService;
 import vn.com.multiplechoice.dao.model.Question;
@@ -37,6 +38,9 @@ public class ExamController {
 	@Autowired
 	TestConverter testConverter;
 
+	@Autowired
+	private QuestionConverter questionConverter;
+
 	@GetMapping("/{id}")
 	public String exam(Model model, @PathVariable("id") Long id) {
 		log.info("===  Start do exam with test has id = {}  ===", id);
@@ -57,7 +61,7 @@ public class ExamController {
 		Test test = testService.findById(examDto.getId());
 		Set<Question> questions = test.getQuestions();
 		double pointPerQuestion = 10.0 / questions.size();
-		ExamResultDTO examResultDTO  = new ExamResultDTO();
+		ExamResultDTO examResultDTO = new ExamResultDTO();
 		for (MCQDto mcqDto : examDto.getQuestions()) {
 			Question question = questions.stream().filter(q -> q.getId().equals(mcqDto.getId())).findFirst().get();
 			List<String> rightAnswerLst = getRightAnswerLst(question);
@@ -65,12 +69,14 @@ public class ExamController {
 			List<String> selectedAnswerValues = mapLabelToAnswerValue(question, selectedAnswerLst);
 			List<String> rightAnswerValues = mapLabelToAnswerValue(question, rightAnswerLst);
 			ExamResultItemDTO examResultItemDTO = new ExamResultItemDTO();
+			examResultItemDTO.setType(questionConverter.vietNameseQuestionType(question.getType()));
 			examResultItemDTO.setQuestionContent(question.getContent());
 			examResultItemDTO.setRightAnswer(rightAnswerValues);
 			examResultItemDTO.setSelectAnswer(selectedAnswerValues);
-			
+			examResultItemDTO.setExplain(question.getSuggest());
+
 			if (mcqDto.getType() != QuestionType.MATCHING) {
-			    Collections.sort(selectedAnswerLst);
+				Collections.sort(selectedAnswerLst);
 			}
 			if (rightAnswerLst.equals(selectedAnswerLst)) {
 				log.info("found true question");
@@ -78,16 +84,17 @@ public class ExamController {
 				examResultDTO.increaseTotalTrueAnswer();
 				totalRightAnswer++;
 				if (question.getScore() == null) {
-				    examResultItemDTO.setScore(100);
+					examResultItemDTO.setScore(100);
 					totalScore += pointPerQuestion;
 				} else {
-				    String[] scores = question.getScore().split(",");
-				    for (int i = 0; i < rightAnswerLst.size(); i++) {
-				        if (rightAnswerLst.get(i).equals(selectedAnswerLst.get(i))) {
-				            examResultItemDTO.setScore(examResultItemDTO.getScore() + Integer.parseInt(scores[i]));
-				        }
-				    }
-				    
+					String[] scores = question.getScore().split(",");
+					// check all score is zero first
+					for (int i = 0; i < rightAnswerLst.size(); i++) {
+						if (rightAnswerLst.get(i).equals(selectedAnswerLst.get(i))) {
+							examResultItemDTO.setScore(examResultItemDTO.getScore() + Integer.parseInt(scores[i]));
+						}
+					}
+
 					rightAnswerLst.retainAll(mcqDto.getSelectedAnswers());
 					totalScore += pointPerQuestion * rightAnswerLst.size();
 				}
@@ -99,41 +106,41 @@ public class ExamController {
 		System.out.println(totalRightAnswer);
 		System.out.println(totalScore);
 		// save to database here
-		
+
 		return "/fo/exam-result";
 	}
 
 	private List<String> mapLabelToAnswerValue(Question question, List<String> labels) {
 		List<String> answerValues = new ArrayList<>();
 		for (String label : labels) {
-		switch (label) {
-		case "A":
-			answerValues.add(question.getAnswerA());
-			break;
-		case "B":
-			answerValues.add(question.getAnswerB());
-			break;
-		case "C":
-			answerValues.add(question.getAnswerC());
-			break;
-		case "D":
-			answerValues.add(question.getAnswerD());
-			break;
-		case "E":
-			answerValues.add(question.getAnswerE());
-			break;
-		case "F":
-			answerValues.add(question.getAnswerF());
-			break;
-		case "G":
-			answerValues.add(question.getAnswerG());
-			break;
-		default:
-			answerValues.add(question.getAnswerH());
-			break;
+			switch (label) {
+			case "A":
+				answerValues.add(question.getAnswerA());
+				break;
+			case "B":
+				answerValues.add(question.getAnswerB());
+				break;
+			case "C":
+				answerValues.add(question.getAnswerC());
+				break;
+			case "D":
+				answerValues.add(question.getAnswerD());
+				break;
+			case "E":
+				answerValues.add(question.getAnswerE());
+				break;
+			case "F":
+				answerValues.add(question.getAnswerF());
+				break;
+			case "G":
+				answerValues.add(question.getAnswerG());
+				break;
+			default:
+				answerValues.add(question.getAnswerH());
+				break;
+			}
 		}
-	}
-		
+
 		return answerValues;
 	}
 

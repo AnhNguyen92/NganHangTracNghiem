@@ -47,7 +47,7 @@ public class QuestionConverter {
 
 		return dto;
 	}
-	
+
 	public MCQDto toDtoForTest(Question question) {
 		MCQDto dto = new MCQDto();
 		dto.setId(question.getId());
@@ -69,88 +69,88 @@ public class QuestionConverter {
 
 	private List<QuestionAnswerDto> convertRightAnswers(Question question) {
 		List<QuestionAnswerDto> righttAnswerDtos = new ArrayList<>();
-        QuestionAnswerDto answerDto;
-        int totalLeftAnswer = question.getScore().replace(",", "").length();
-        int order = 0;
-        
-        // map answer B
-        if (question.getAnswerB() != null && totalLeftAnswer < 2) {
-            answerDto = new QuestionAnswerDto();
-            answerDto.setOrder(order);
-            answerDto.setOriginalLabel("B");
-            answerDto.setAnswerLabel(ANSWER_LABEL_LIST[order++]);
-            answerDto.setAnswerContent(question.getAnswerB());
-            answerDto.setTrueAnswer(question.getRightAnswer().contains("B"));
-            answerDto.setRandomPosition(question.getAnswerPemutation().contains("B"));
-            righttAnswerDtos.add(answerDto);
-        }
-        // map answer C
-        if (question.getAnswerC() != null && totalLeftAnswer < 3) {
-            answerDto = new QuestionAnswerDto();
-            answerDto.setOrder(order);
-            answerDto.setOriginalLabel("C");
-            answerDto.setAnswerLabel(ANSWER_LABEL_LIST[order++]);
-            answerDto.setAnswerContent(question.getAnswerC());
-            answerDto.setTrueAnswer(question.getRightAnswer().contains("C"));
-            answerDto.setRandomPosition(question.getAnswerPemutation().contains("C"));
-            righttAnswerDtos.add(answerDto);
-        }
-        // map answer D
-        if (question.getAnswerD() != null && totalLeftAnswer < 4) {
-            answerDto = new QuestionAnswerDto();
-            answerDto.setOrder(order);
-            answerDto.setOriginalLabel("D");
-            answerDto.setAnswerLabel(ANSWER_LABEL_LIST[order++]);
-            answerDto.setAnswerContent(question.getAnswerD());
-            answerDto.setTrueAnswer(question.getRightAnswer().contains("D"));
-            answerDto.setRandomPosition(question.getAnswerPemutation().contains("D"));
-            righttAnswerDtos.add(answerDto);
-        }
-        // map answer E
-        if (question.getAnswerE() != null && totalLeftAnswer < 5) {
-            answerDto = new QuestionAnswerDto();
-            answerDto.setOrder(order);
-            answerDto.setOriginalLabel("E");
-            answerDto.setAnswerLabel(ANSWER_LABEL_LIST[order++]);
-            answerDto.setAnswerContent(question.getAnswerE());
-            answerDto.setTrueAnswer(question.getRightAnswer().contains("E"));
-            answerDto.setRandomPosition(question.getAnswerPemutation().contains("E"));
-            righttAnswerDtos.add(answerDto);
-        }
-        // map answer F
-        if (question.getAnswerF() != null && totalLeftAnswer < 6) {
-            answerDto = new QuestionAnswerDto();
-            answerDto.setOrder(order);
-            answerDto.setOriginalLabel("F");
-            answerDto.setAnswerLabel(ANSWER_LABEL_LIST[order++]);
-            answerDto.setAnswerContent(question.getAnswerF());
-            answerDto.setTrueAnswer(question.getRightAnswer().contains("F"));
-            answerDto.setRandomPosition(question.getAnswerPemutation().contains("F"));
-            righttAnswerDtos.add(answerDto);
-        }
-        // map answer G
-        if (question.getAnswerG() != null) {
-            answerDto = new QuestionAnswerDto();
-            answerDto.setOrder(order);
-            answerDto.setOriginalLabel("G");
-            answerDto.setAnswerLabel(ANSWER_LABEL_LIST[order++]);
-            answerDto.setAnswerContent(question.getAnswerG());
-            answerDto.setTrueAnswer(question.getRightAnswer().contains("G"));
-            answerDto.setRandomPosition(question.getAnswerPemutation().contains("G"));
-            righttAnswerDtos.add(answerDto);
-        }
-        // map answer H
-        if (question.getAnswerH() != null) {
-            answerDto = new QuestionAnswerDto();
-            answerDto.setOrder(order);
-            answerDto.setOriginalLabel("H");
-            answerDto.setAnswerLabel(ANSWER_LABEL_LIST[order]);
-            answerDto.setAnswerContent(question.getAnswerH());
-            answerDto.setTrueAnswer(question.getRightAnswer().contains("H"));
-            answerDto.setRandomPosition(question.getAnswerPemutation().contains("H"));
-            righttAnswerDtos.add(answerDto);
-        }
-        
+		QuestionAnswerDto answerDto;
+		int totalLeftAnswer = question.getScore().replace(",", "").length();
+		int order = 0;
+
+		// map answer B
+		if (question.getAnswerB() != null && totalLeftAnswer < 2) {
+			answerDto = new QuestionAnswerDto();
+			answerDto.setOrder(order);
+			answerDto.setOriginalLabel("B");
+			answerDto.setAnswerLabel(ANSWER_LABEL_LIST[order++]);
+			answerDto.setAnswerContent(question.getAnswerB());
+			answerDto.setTrueAnswer(question.getRightAnswer().contains("B"));
+			answerDto.setRandomPosition(question.getAnswerPemutation().contains("B"));
+			righttAnswerDtos.add(answerDto);
+		}
+		// map answer C
+		if (question.getAnswerC() != null && totalLeftAnswer < 3) {
+			answerDto = new QuestionAnswerDto();
+			answerDto.setOrder(order);
+			answerDto.setOriginalLabel("C");
+			answerDto.setAnswerLabel(ANSWER_LABEL_LIST[order++]);
+			answerDto.setAnswerContent(question.getAnswerC());
+			answerDto.setTrueAnswer(question.getRightAnswer().contains("C"));
+			answerDto.setRandomPosition(question.getAnswerPemutation().contains("C"));
+			righttAnswerDtos.add(answerDto);
+		}
+		// map answer D
+		if (question.getAnswerD() != null && totalLeftAnswer < 4) {
+			answerDto = new QuestionAnswerDto();
+			answerDto.setOrder(order);
+			answerDto.setOriginalLabel("D");
+			answerDto.setAnswerLabel(ANSWER_LABEL_LIST[order++]);
+			answerDto.setAnswerContent(question.getAnswerD());
+			answerDto.setTrueAnswer(question.getRightAnswer().contains("D"));
+			answerDto.setRandomPosition(question.getAnswerPemutation().contains("D"));
+			righttAnswerDtos.add(answerDto);
+		}
+		// map answer E
+		if (question.getAnswerE() != null && totalLeftAnswer < 5) {
+			answerDto = new QuestionAnswerDto();
+			answerDto.setOrder(order);
+			answerDto.setOriginalLabel("E");
+			answerDto.setAnswerLabel(ANSWER_LABEL_LIST[order++]);
+			answerDto.setAnswerContent(question.getAnswerE());
+			answerDto.setTrueAnswer(question.getRightAnswer().contains("E"));
+			answerDto.setRandomPosition(question.getAnswerPemutation().contains("E"));
+			righttAnswerDtos.add(answerDto);
+		}
+		// map answer F
+		if (question.getAnswerF() != null && totalLeftAnswer < 6) {
+			answerDto = new QuestionAnswerDto();
+			answerDto.setOrder(order);
+			answerDto.setOriginalLabel("F");
+			answerDto.setAnswerLabel(ANSWER_LABEL_LIST[order++]);
+			answerDto.setAnswerContent(question.getAnswerF());
+			answerDto.setTrueAnswer(question.getRightAnswer().contains("F"));
+			answerDto.setRandomPosition(question.getAnswerPemutation().contains("F"));
+			righttAnswerDtos.add(answerDto);
+		}
+		// map answer G
+		if (question.getAnswerG() != null) {
+			answerDto = new QuestionAnswerDto();
+			answerDto.setOrder(order);
+			answerDto.setOriginalLabel("G");
+			answerDto.setAnswerLabel(ANSWER_LABEL_LIST[order++]);
+			answerDto.setAnswerContent(question.getAnswerG());
+			answerDto.setTrueAnswer(question.getRightAnswer().contains("G"));
+			answerDto.setRandomPosition(question.getAnswerPemutation().contains("G"));
+			righttAnswerDtos.add(answerDto);
+		}
+		// map answer H
+		if (question.getAnswerH() != null) {
+			answerDto = new QuestionAnswerDto();
+			answerDto.setOrder(order);
+			answerDto.setOriginalLabel("H");
+			answerDto.setAnswerLabel(ANSWER_LABEL_LIST[order]);
+			answerDto.setAnswerContent(question.getAnswerH());
+			answerDto.setTrueAnswer(question.getRightAnswer().contains("H"));
+			answerDto.setRandomPosition(question.getAnswerPemutation().contains("H"));
+			righttAnswerDtos.add(answerDto);
+		}
+
 		return randomAnswerPosition(righttAnswerDtos);
 	}
 
@@ -159,48 +159,48 @@ public class QuestionConverter {
 		QuestionAnswerDto answerDto;
 
 		int totalLeftAnswer = question.getScore().replace(",", "").length();
-        int order = 0;
-        // map answer A
-        if (question.getAnswerA() != null) {
-            answerDto = new QuestionAnswerDto();
-            answerDto.setOrder(order++);
-            answerDto.setAnswerLabel("" + order);
-            answerDto.setAnswerContent(question.getAnswerA());
-            answerDto.setTrueAnswer(question.getRightAnswer().contains("A"));
-            answerDto.setRandomPosition(question.getAnswerPemutation().contains("A"));
-            leftAnswerDtos.add(answerDto);
-        }
-        // map answer B
-        if (question.getAnswerB() != null && totalLeftAnswer > 1) {
-            answerDto = new QuestionAnswerDto();
-            answerDto.setOrder(order++);
-            answerDto.setAnswerLabel("" + order);
-            answerDto.setAnswerContent(question.getAnswerB());
-            answerDto.setTrueAnswer(question.getRightAnswer().contains("B"));
-            answerDto.setRandomPosition(question.getAnswerPemutation().contains("B"));
-            leftAnswerDtos.add(answerDto);
-        }
-        // map answer C
-        if (question.getAnswerC() != null && totalLeftAnswer > 2) {
-            answerDto = new QuestionAnswerDto();
-            answerDto.setOrder(order++);
-            answerDto.setAnswerLabel("" + order);
-            answerDto.setAnswerContent(question.getAnswerC());
-            answerDto.setTrueAnswer(question.getRightAnswer().contains("C"));
-            answerDto.setRandomPosition(question.getAnswerPemutation().contains("C"));
-            leftAnswerDtos.add(answerDto);
-        }
-        // map answer D
-        if (question.getAnswerD() != null && totalLeftAnswer > 3) {
-            answerDto = new QuestionAnswerDto();
-            answerDto.setOrder(order++);
-            answerDto.setAnswerLabel("" + order);
-            answerDto.setAnswerContent(question.getAnswerD());
-            answerDto.setTrueAnswer(question.getRightAnswer().contains("D"));
-            answerDto.setRandomPosition(question.getAnswerPemutation().contains("D"));
-            leftAnswerDtos.add(answerDto);
-        }
-        
+		int order = 0;
+		// map answer A
+		if (question.getAnswerA() != null) {
+			answerDto = new QuestionAnswerDto();
+			answerDto.setOrder(order++);
+			answerDto.setAnswerLabel("" + order);
+			answerDto.setAnswerContent(question.getAnswerA());
+			answerDto.setTrueAnswer(question.getRightAnswer().contains("A"));
+			answerDto.setRandomPosition(question.getAnswerPemutation().contains("A"));
+			leftAnswerDtos.add(answerDto);
+		}
+		// map answer B
+		if (question.getAnswerB() != null && totalLeftAnswer > 1) {
+			answerDto = new QuestionAnswerDto();
+			answerDto.setOrder(order++);
+			answerDto.setAnswerLabel("" + order);
+			answerDto.setAnswerContent(question.getAnswerB());
+			answerDto.setTrueAnswer(question.getRightAnswer().contains("B"));
+			answerDto.setRandomPosition(question.getAnswerPemutation().contains("B"));
+			leftAnswerDtos.add(answerDto);
+		}
+		// map answer C
+		if (question.getAnswerC() != null && totalLeftAnswer > 2) {
+			answerDto = new QuestionAnswerDto();
+			answerDto.setOrder(order++);
+			answerDto.setAnswerLabel("" + order);
+			answerDto.setAnswerContent(question.getAnswerC());
+			answerDto.setTrueAnswer(question.getRightAnswer().contains("C"));
+			answerDto.setRandomPosition(question.getAnswerPemutation().contains("C"));
+			leftAnswerDtos.add(answerDto);
+		}
+		// map answer D
+		if (question.getAnswerD() != null && totalLeftAnswer > 3) {
+			answerDto = new QuestionAnswerDto();
+			answerDto.setOrder(order++);
+			answerDto.setAnswerLabel("" + order);
+			answerDto.setAnswerContent(question.getAnswerD());
+			answerDto.setTrueAnswer(question.getRightAnswer().contains("D"));
+			answerDto.setRandomPosition(question.getAnswerPemutation().contains("D"));
+			leftAnswerDtos.add(answerDto);
+		}
+
 		return leftAnswerDtos;
 	}
 
@@ -217,7 +217,7 @@ public class QuestionConverter {
 		if (QuestionType.FILLING.equals(mcqDto.getType())) {
 			mapFillingQuestion(entity, mcqDto);
 		} else if (QuestionType.GROUP_FILLING.equals(mcqDto.getType())) {
-		    // not implement yet
+			// not implement yet
 		} else if (QuestionType.MATCHING.equals(mcqDto.getType())) {
 			mapMatchingAnswerQuestion(entity, mcqDto);
 		} else if (QuestionType.MULTIPLE_ANSWER.equals(mcqDto.getType())) {
@@ -233,6 +233,27 @@ public class QuestionConverter {
 		}
 
 		return entity;
+	}
+
+	public String vietNameseQuestionType(QuestionType type) {
+		switch (type) {
+		case ONE_ANSWER:
+			return "Một đáp án";
+		case MULTIPLE_ANSWER:
+			return "Nhiều đáp án";
+		case MATCHING:
+			return "Ghép cặp";
+		case FILLING:
+			return "Điền khuyết";
+		case GROUP_FILLING:
+			return "Điền khuyết loại 2";
+		case UNDERLINE:
+			return "Gạch chân";
+		case YES_NO:
+			return "Đúng sai";
+		default: // TRUE_FALSE
+			return "Đúng sai nhiều đáp án";
+		}
 	}
 
 	private void mapFillingQuestion(Question entity, MCQDto mcqDto) {
@@ -357,13 +378,13 @@ public class QuestionConverter {
 
 	private List<QuestionAnswerDto> convertQuestionAnswer(Question question) {
 		List<QuestionAnswerDto> questionAnswerDtos = new ArrayList<>();
-	    
+
 		QuestionAnswerDto answerDto;
 
 		int order = 0;
 		// map answer A
 		String answerPemutation = question.getAnswerPemutation();
-        if (question.getAnswerA() != null) {
+		if (question.getAnswerA() != null) {
 			answerDto = new QuestionAnswerDto();
 			answerDto.setOrder(order++);
 			answerDto.setOriginalLabel("A");
@@ -377,7 +398,7 @@ public class QuestionConverter {
 		if (question.getAnswerB() != null) {
 			answerDto = new QuestionAnswerDto();
 			answerDto.setOrder(order++);
-            answerDto.setOriginalLabel("B");
+			answerDto.setOriginalLabel("B");
 			answerDto.setAnswerContent(question.getAnswerB());
 			answerDto.setTrueAnswer(question.getRightAnswer().contains("B"));
 			answerDto.setRandomPosition(answerPemutation != null && answerPemutation.contains("B"));
@@ -387,7 +408,7 @@ public class QuestionConverter {
 		if (question.getAnswerC() != null) {
 			answerDto = new QuestionAnswerDto();
 			answerDto.setOrder(order++);
-            answerDto.setOriginalLabel("C");
+			answerDto.setOriginalLabel("C");
 			answerDto.setAnswerContent(question.getAnswerC());
 			answerDto.setTrueAnswer(question.getRightAnswer().contains("C"));
 			answerDto.setRandomPosition(answerPemutation != null && answerPemutation.contains("C"));
@@ -397,7 +418,7 @@ public class QuestionConverter {
 		if (question.getAnswerD() != null) {
 			answerDto = new QuestionAnswerDto();
 			answerDto.setOrder(order++);
-            answerDto.setOriginalLabel("D");
+			answerDto.setOriginalLabel("D");
 			answerDto.setAnswerContent(question.getAnswerD());
 			answerDto.setTrueAnswer(question.getRightAnswer().contains("D"));
 			answerDto.setRandomPosition(answerPemutation != null && answerPemutation.contains("D"));
@@ -407,7 +428,7 @@ public class QuestionConverter {
 		if (question.getAnswerE() != null) {
 			answerDto = new QuestionAnswerDto();
 			answerDto.setOrder(order++);
-            answerDto.setOriginalLabel("E");
+			answerDto.setOriginalLabel("E");
 			answerDto.setAnswerContent(question.getAnswerE());
 			answerDto.setTrueAnswer(question.getRightAnswer().contains("E"));
 			answerDto.setRandomPosition(answerPemutation != null && answerPemutation.contains("E"));
@@ -417,7 +438,7 @@ public class QuestionConverter {
 		if (question.getAnswerF() != null) {
 			answerDto = new QuestionAnswerDto();
 			answerDto.setOrder(order++);
-            answerDto.setOriginalLabel("F");
+			answerDto.setOriginalLabel("F");
 			answerDto.setAnswerContent(question.getAnswerF());
 			answerDto.setTrueAnswer(question.getRightAnswer().equals("F"));
 			answerDto.setRandomPosition(answerPemutation != null && answerPemutation.contains("F"));
@@ -427,7 +448,7 @@ public class QuestionConverter {
 		if (question.getAnswerG() != null) {
 			answerDto = new QuestionAnswerDto();
 			answerDto.setOrder(order++);
-            answerDto.setOriginalLabel("G");
+			answerDto.setOriginalLabel("G");
 			answerDto.setAnswerContent(question.getAnswerG());
 			answerDto.setTrueAnswer(question.getRightAnswer().equals("G"));
 			answerDto.setRandomPosition(answerPemutation != null && answerPemutation.contains("G"));
@@ -437,7 +458,7 @@ public class QuestionConverter {
 		if (question.getAnswerH() != null) {
 			answerDto = new QuestionAnswerDto();
 			answerDto.setOrder(order);
-            answerDto.setOriginalLabel("H");
+			answerDto.setOriginalLabel("H");
 			answerDto.setAnswerContent(question.getAnswerH());
 			answerDto.setTrueAnswer(question.getRightAnswer().equals("H"));
 			answerDto.setRandomPosition(answerPemutation != null && answerPemutation.contains("H"));
@@ -478,4 +499,5 @@ public class QuestionConverter {
 
 		return result;
 	}
+
 }
