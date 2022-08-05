@@ -107,38 +107,11 @@ public class ExamController {
 		examResultDTO.setTotalScore(totalScore);
 		model.addAttribute("examResultDTO", examResultDTO);
 		// save to database here
-
+		
+		
 		return "/fo/exam-result";
 	}
 
-	private double markQuestion(double totalScore, double pointPerQuestion, MCQDto mcqDto, Question question,
-			List<String> rightAnswerLst, List<String> selectedAnswerLst, ExamResultItemDTO examResultItemDTO) {
-		QuestionType type = question.getType();
-		if (type == QuestionType.ONE_ANSWER || type == QuestionType.YES_NO || type == QuestionType.UNDERLINE
-				|| type == QuestionType.FILLING) {
-			examResultItemDTO.setScore(100);
-			totalScore += pointPerQuestion;
-		} else {
-			String[] scores = question.getScore().split(",");
-			int sum = 0;
-			for (int i = 0; i < scores.length; i++) {
-				sum += Integer.parseInt(scores[i]);
-			}
-			// check all score is zero first
-			if (sum == 0) {
-				examResultItemDTO.setScore(100);
-			} else {
-				for (int i = 0; i < rightAnswerLst.size(); i++) {
-					if (rightAnswerLst.get(i).equals(selectedAnswerLst.get(i))) {
-						examResultItemDTO.setScore(examResultItemDTO.getScore() + Integer.parseInt(scores[i]));
-					}
-				}
-			}
-			rightAnswerLst.retainAll(mcqDto.getSelectedAnswers());
-			totalScore += pointPerQuestion * rightAnswerLst.size();
-		}
-		return totalScore;
-	}
 
 	private List<String> mapLabelToAnswerValue(Question question, List<String> labels) {
 		List<String> answerValues = new ArrayList<>();
