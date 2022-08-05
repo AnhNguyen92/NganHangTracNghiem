@@ -70,7 +70,7 @@ public class QuestionConverter {
 	private List<QuestionAnswerDto> convertRightAnswers(Question question) {
 		List<QuestionAnswerDto> righttAnswerDtos = new ArrayList<>();
 		QuestionAnswerDto answerDto;
-		int totalLeftAnswer = question.getScore().replace(",", "").length();
+		int totalLeftAnswer = question.getScore().split(",").length;
 		int order = 0;
 
 		// map answer B

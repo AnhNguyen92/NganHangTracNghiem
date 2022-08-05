@@ -57,7 +57,6 @@ public class ExamController {
 	public String doExam(Model model, @ModelAttribute ExamDto examDto) {
 		log.info("{}", examDto);
 		double totalScore = 0.0;
-		int totalRightAnswer = 0;
 		Test test = testService.findById(examDto.getId());
 		Set<Question> questions = test.getQuestions();
 		double pointPerQuestion = 10.0 / questions.size();
@@ -68,46 +67,77 @@ public class ExamController {
 			List<String> selectedAnswerLst = mcqDto.getSelectedAnswers();
 			List<String> selectedAnswerValues = mapLabelToAnswerValue(question, selectedAnswerLst);
 			List<String> rightAnswerValues = mapLabelToAnswerValue(question, rightAnswerLst);
+			QuestionType type = question.getType();
 			ExamResultItemDTO examResultItemDTO = new ExamResultItemDTO();
-			examResultItemDTO.setType(questionConverter.vietNameseQuestionType(question.getType()));
+			examResultItemDTO.setType(questionConverter.vietNameseQuestionType(type));
 			examResultItemDTO.setQuestionContent(question.getContent());
 			examResultItemDTO.setRightAnswer(rightAnswerValues);
 			examResultItemDTO.setSelectAnswer(selectedAnswerValues);
 			examResultItemDTO.setExplain(question.getSuggest());
 
-			if (mcqDto.getType() != QuestionType.MATCHING) {
+			if (type != QuestionType.MATCHING) {
 				Collections.sort(selectedAnswerLst);
 			}
-			if (rightAnswerLst.equals(selectedAnswerLst)) {
+			if (rightAnswerLst.equals(selectedAnswerLst)) { // choose all right answer
 				log.info("found true question");
 				examResultItemDTO.setCount(1);
 				examResultDTO.increaseTotalTrueAnswer();
-				totalRightAnswer++;
-				if (question.getScore() == null) {
-					examResultItemDTO.setScore(100);
-					totalScore += pointPerQuestion;
-				} else {
-					String[] scores = question.getScore().split(",");
-					// check all score is zero first
+				examResultItemDTO.setScore(100);
+				totalScore += pointPerQuestion;
+			} else { // some selected answers are true
+				int sum = 0;
+				String[] scores = question.getScore().split(",");
+				for (int i = 0; i < scores.length; i++) {
+					sum += Integer.parseInt(scores[i]);
+				}
+				// check all score is zero first
+				if (sum == 0) { // all answer must be true to get all question score
+					examResultItemDTO.setScore(0);
+				} else { // each true answer has specific score
 					for (int i = 0; i < rightAnswerLst.size(); i++) {
 						if (rightAnswerLst.get(i).equals(selectedAnswerLst.get(i))) {
 							examResultItemDTO.setScore(examResultItemDTO.getScore() + Integer.parseInt(scores[i]));
 						}
 					}
-
-					rightAnswerLst.retainAll(mcqDto.getSelectedAnswers());
-					totalScore += pointPerQuestion * rightAnswerLst.size();
 				}
-//				totalScore +=  question.getScore();
+				totalScore += pointPerQuestion * examResultItemDTO.getScore() / 100;
 			}
 			examResultDTO.getExamResultItemDTOs().add(examResultItemDTO);
 		}
+		examResultDTO.setTotalScore(totalScore);
 		model.addAttribute("examResultDTO", examResultDTO);
-		System.out.println(totalRightAnswer);
-		System.out.println(totalScore);
 		// save to database here
 
 		return "/fo/exam-result";
+	}
+
+	private double markQuestion(double totalScore, double pointPerQuestion, MCQDto mcqDto, Question question,
+			List<String> rightAnswerLst, List<String> selectedAnswerLst, ExamResultItemDTO examResultItemDTO) {
+		QuestionType type = question.getType();
+		if (type == QuestionType.ONE_ANSWER || type == QuestionType.YES_NO || type == QuestionType.UNDERLINE
+				|| type == QuestionType.FILLING) {
+			examResultItemDTO.setScore(100);
+			totalScore += pointPerQuestion;
+		} else {
+			String[] scores = question.getScore().split(",");
+			int sum = 0;
+			for (int i = 0; i < scores.length; i++) {
+				sum += Integer.parseInt(scores[i]);
+			}
+			// check all score is zero first
+			if (sum == 0) {
+				examResultItemDTO.setScore(100);
+			} else {
+				for (int i = 0; i < rightAnswerLst.size(); i++) {
+					if (rightAnswerLst.get(i).equals(selectedAnswerLst.get(i))) {
+						examResultItemDTO.setScore(examResultItemDTO.getScore() + Integer.parseInt(scores[i]));
+					}
+				}
+			}
+			rightAnswerLst.retainAll(mcqDto.getSelectedAnswers());
+			totalScore += pointPerQuestion * rightAnswerLst.size();
+		}
+		return totalScore;
 	}
 
 	private List<String> mapLabelToAnswerValue(Question question, List<String> labels) {
