@@ -19,7 +19,7 @@
     <!-- end navbar -->
 
     <div class="container">
-        <div>
+        <div class="mt-3 d-block text-center">
             <h3>Kết quả</h3>
         </div>
         <div>
@@ -49,8 +49,8 @@
         <p>Tổng số câu trả lời đúng: <span th:text="${examResultDTO.totalTrueAnswer}"></span></p>
         </div>
         </div>
-        <div>
-          <a th:href="@{/fo/index}">Trở về trang chủ</a>
+        <div class="mb-3">
+          <a class="btn btn-primary" th:href="@{/fo/index}">Trở về trang chủ</a>
         </div>
     </div>
 
