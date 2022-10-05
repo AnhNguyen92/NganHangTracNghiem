@@ -1,25 +1,17 @@
 package vn.com.multiplechoice.web.controller.fo;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
-
+import org.apache.poi.xwpf.usermodel.ParagraphAlignment;
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
+import org.apache.poi.xwpf.usermodel.XWPFParagraph;
+import org.apache.poi.xwpf.usermodel.XWPFRun;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.web.bind.annotation.*;
 import vn.com.multiplechoice.business.converter.QuestionConverter;
 import vn.com.multiplechoice.business.converter.TestConverter;
-import vn.com.multiplechoice.business.service.ExamResultItemService;
 import vn.com.multiplechoice.business.service.ExamResultService;
 import vn.com.multiplechoice.business.service.TestService;
 import vn.com.multiplechoice.dao.model.ExamResult;
@@ -32,6 +24,13 @@ import vn.com.multiplechoice.web.dto.ExamResultDTO;
 import vn.com.multiplechoice.web.dto.ExamResultItemDTO;
 import vn.com.multiplechoice.web.model.MCQDto;
 import vn.com.multiplechoice.web.utils.OnlineUserUtil;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.util.*;
 
 @Controller
 @RequestMapping(value = "/fo/do-exam")
@@ -139,6 +138,30 @@ public class ExamController {
 		return "/fo/exam-result";
 	}
 
+	@GetMapping("/{id}/export")
+	private void export(HttpServletRequest request, HttpServletResponse response, @PathVariable("id") Long id) {
+		Test test = testService.findById(id);
+		XWPFDocument document = null;
+		try {
+			if (test.getHeader() != null) {
+				FileInputStream inputStream = new FileInputStream(new File(test.getHeader().getSourcePath()));
+				document = new XWPFDocument(inputStream);
+			} else {
+				document = new XWPFDocument();
+			}
+			XWPFParagraph paragraph = document.createParagraph();
+			paragraph.setAlignment(ParagraphAlignment.CENTER);
+			XWPFRun run = paragraph.createRun();
+			run.setText(test.getContent());
+			run.setBold(true);
+			run.addBreak();
+			FileOutputStream out = new FileOutputStream(new File("dethi" + Calendar.getInstance().getTimeInMillis() + ".docx"));
+			document.write(out);
+			out.close();
+		} catch (Exception e) {
+			log.error("{}", e.getMessage());
+		}
+	}
 
 	private List<String> mapLabelToAnswerValue(Question question, List<String> labels) {
 		List<String> answerValues = new ArrayList<>();
